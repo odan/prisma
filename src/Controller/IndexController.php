@@ -17,7 +17,6 @@ class IndexController
         $body->write("Hello world<br>Default index page<br><br>");
         $body->write('Testlink 1: <a href="users">users/</a><br>');
         $body->write('Testlink 2: <a href="user/1234">users/1234</a><br>');
-        $body->write('Testlink 2: <a href="user/test">users/test</a><br>');
         return $response;
     }
 }
