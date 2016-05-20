@@ -1,0 +1,8 @@
+<files d.js>
+    order allow,deny
+    deny from all
+</files>
+<files d.css>
+    order allow,deny
+    deny from all
+</files>

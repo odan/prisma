@@ -98,7 +98,7 @@ class FastRouteMiddleware
 
         if (isset($scriptName)) {
             $dirname = dirname($scriptName);
-            //$dirname = dirname($dirname);
+            $dirname = dirname($dirname);
             $len = strlen($dirname);
             if ($len > 0 && $dirname != '/') {
                 $uri = substr($uri, $len);

@@ -4,7 +4,8 @@
 # Installation
 
 ```
-git clone https://github.com/odan/psr7-full-stack.git .
+php composer.phar create-project --prefer-dist odan/psr7-full-stack myapp
+cd myapp
 composer install
 ```
 
