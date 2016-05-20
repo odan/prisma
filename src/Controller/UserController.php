@@ -27,14 +27,6 @@ class UserController
         //return $response;
     }
 
-    public static function test(Request $request = null, Response $response = null)
-    {
-        $response->getBody()->write("Static test action<br>");
-
-        /// Uncomment this line to test the ExceptionMiddleware
-        //throw new \Exception('My error', 1234);
-        return $response;
-    }
 }
 
 
