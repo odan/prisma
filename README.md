@@ -4,7 +4,8 @@
 # Installation
 
 ```
-git clone https://github.com/odan/psr7-full-stack.git .
+git clone --depth=1 https://github.com/odan/psr7-full-stack.git .
+rm -rf .git
 composer install
 ```
 
