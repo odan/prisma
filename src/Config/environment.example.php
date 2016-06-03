@@ -18,8 +18,8 @@
  */
 $config = [];
 
-// Environment (dev, test, staging, prod)
-$config['env']['name'] = 'dev';
+// Environment (environment, testing, staging, production)
+$config['env']['name'] = 'environment';
 
 // Application token
 $config['app']['secret'] = '54530e855d68c1d021b74327d1e6bd991443698d';
