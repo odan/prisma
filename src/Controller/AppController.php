@@ -10,13 +10,6 @@ use Zend\Diactoros\ServerRequest as Request;
 class AppController
 {
 
-    protected $container = null;
-
-    public function __construct($container)
-    {
-        $this->container = $container;
-    }
-
     /**
      * Get app container
      *

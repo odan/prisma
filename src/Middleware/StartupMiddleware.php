@@ -41,11 +41,13 @@ class StartupMiddleware
      */
     public function __invoke(Request $request, Response $response, callable $next)
     {
-        // @todo
-        // - Load config and env. files
-        // - Put config and services to $request
         $container = new \App\Container\ServiceContainer();
+
+        // Load services
         $container->config = $this->options;
+        // @todo Load more services
+        // 
+        // Put service container to request object
         $request = $request->withAttribute('container', $container);
 
         return $next($request, $response);
