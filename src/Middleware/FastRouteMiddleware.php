@@ -16,7 +16,7 @@ use Zend\Diactoros\Stream;
 class FastRouteMiddleware
 {
 
-        /**
+    /**
      * Options
      *
      * @var array
@@ -184,4 +184,5 @@ class FastRouteMiddleware
         }
         return $output;
     }
+
 }
