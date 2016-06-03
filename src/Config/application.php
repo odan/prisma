@@ -1,7 +1,7 @@
 <?php
 
 //
-// The purpose of this file is to configure defaults for the whole application.
+// Configure defaults for the whole application.
 //
 // Error reporting
 error_reporting(0);
