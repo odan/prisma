@@ -3,18 +3,17 @@
 // Defaults
 $config = include __DIR__ . '/application.php';
 
-// Environment specific confifiguration
-$envFile = [
-    __DIR__ . '/../../environment.php',
-    __DIR__ . '/environment.php'
-];
-foreach ($envFile as $envFile) {
-    if (file_exists($envFile)) {
-        $config = array_merge_recursive($config, include $envFile);
-    }
+// Load environment configuration
+if (file_exists(__DIR__ . '/../../environment.php')) {
+    $envConfig = include __DIR__ . '/../../environment.php';
 }
+if (file_exists(__DIR__ . '/environment.php')) {
+    $envConfig = include __DIR__ . '/environment.php';
+}
+
 if (isset($config['env']['name'])) {
     $config = array_merge_recursive($config, include $config['env']['name'] . '.php');
 }
+$config = array_replace_recursive($config, $envConfig);
 
 return $config;
