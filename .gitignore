@@ -8,6 +8,7 @@ cache.properties
 .env
 env.php
 src/Config/env.php
+src/Config/environment.php
 
 !web/cache/
 web/cache/*
@@ -20,10 +21,6 @@ tmp/log/*
 !tmp/cache/
 tmp/cache/*
 !tmp/cache/empty
-
-!installer/
-installer/*
-!installer/setup.php
 
 vendor/
 build/
