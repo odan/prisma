@@ -1,11 +1,5 @@
 <?php
 
-/**
- * PSR-7 full stack application
- *
- * @license MIT
- * @author odan
- */
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\SapiEmitter;
 use Zend\Diactoros\ServerRequestFactory;

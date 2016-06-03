@@ -2,17 +2,15 @@
 
 namespace App\Middleware;
 
-use Exception;
 use Zend\Diactoros\ServerRequest as Request;
 use Zend\Diactoros\Response;
-use Zend\Diactoros\Stream;
 
 /**
  * Error handling middleware.
  *
  * Traps exceptions and converts them into a error page.
  */
-class AppMiddleware
+class StartupMiddleware
 {
 
     /**
@@ -46,9 +44,11 @@ class AppMiddleware
         // @todo
         // - Load config and env. files
         // - Put config and services to $request
-        $app = new \stdClass();
-        $request = $request->withAttribute('app', $app);
+        $container = new \App\Container\ServiceContainer();
+        $container->config = $this->options;
+        $request = $request->withAttribute('container', $container);
 
         return $next($request, $response);
     }
+
 }
