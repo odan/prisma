@@ -7,11 +7,11 @@ $queue = [];
 $queue[] = new \App\Middleware\ExceptionMiddleware(['verbose' => true, 'logger' => null]);
 
 // Startup
-$config = include __DIR__ . '/startup.php';
+$config = read(__DIR__ . '/config.php');
 $queue[] = new \App\Middleware\StartupMiddleware($config);
 
 // Router
-$routes = include __DIR__ . '/routes.php';
+$routes = read(__DIR__ . '/routes.php');
 $queue[] = new \App\Middleware\FastRouteMiddleware(['routes' => $routes]);
 
 return $queue;

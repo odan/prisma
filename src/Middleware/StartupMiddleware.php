@@ -44,9 +44,13 @@ class StartupMiddleware
         $container = new \App\Container\ServiceContainer();
 
         // Load services
+        // Configuration
         $container->config = $this->options;
+
+        // Database
+        $container->db = \App\Factory\DatabaseFactory::create($container);
         // @todo Load more services
-        // 
+        //
         // Put service container to request object
         $request = $request->withAttribute('container', $container);
 

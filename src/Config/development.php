@@ -13,6 +13,6 @@ $config = [];
 $config['log']['level'] = \Monolog\Logger::DEBUG;
 
 // Database
-$config['db']['database'] = 'dev_dbname';
+$config['db']['database'] = 'test';
 
 return $config;

@@ -33,7 +33,8 @@ $config['db'] = array(
     'host' => '127.0.0.1',
     'charset' => 'utf8',
     'collation' => 'utf8_unicode_ci',
-    'prefix' => ''
+    'prefix' => '',
+    'flags' => [PDO::ATTR_CASE, PDO::CASE_LOWER]
 );
 
 // SMTP
