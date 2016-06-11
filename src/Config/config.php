@@ -5,11 +5,11 @@ $default = read(__DIR__ . '/default.php');
 
 // Load environment configuration
 $environment = [];
-if (file_exists(__DIR__ . '/../../environment.php')) {
-    $environment = read(__DIR__ . '/../../environment.php');
+if (file_exists(__DIR__ . '/../../env.php')) {
+    $environment = read(__DIR__ . '/../../env.php');
 }
-if (file_exists(__DIR__ . '/environment.php')) {
-    $environment = read(__DIR__ . '/environment.php');
+if (file_exists(__DIR__ . '/env.php')) {
+    $environment = read(__DIR__ . '/env.php');
 }
 $config = [];
 if (isset($environment['env']['name'])) {
