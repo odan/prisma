@@ -4,6 +4,7 @@ namespace App\Container;
 
 use Cake\Database\Connection;
 use League\Plates\Engine;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Translation\Translator;
 
 /**
@@ -39,6 +40,36 @@ class AppContainer
      * @var Translator
      */
     public $translator = null;
+
+    /**
+     * Logger
+     *
+     * @var LoggerInterface
+     */
+    public $logger = null;
+
+    /**
+     * Session
+     *
+     * @var SessionInterface
+     */
+    public $session = null;
+
+    /**
+     * HTTP
+     *
+     * @var Http
+     */
+    public $http = null;
+
+    /**
+     * User
+     *
+     * @var UserSession
+     */
+    public $user = null;
+
+
 
     /**
      * Constructor

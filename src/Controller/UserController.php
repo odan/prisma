@@ -32,9 +32,9 @@ class UserController extends AppController
             'id' => $id,
             'env' => $env
         ];
-        
-        //$app->view->addData($data);
-        //
+
+        $app->logger->info('My log message');
+
         // Render template
         $content = $app->view->render('view::Index/html/index.html.php', $data);
 

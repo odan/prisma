@@ -14,7 +14,8 @@ $config = [];
 
 // Logger
 $config['log'] = array(
-    'level' => \Monolog\Logger::ERROR
+    'level' => \Monolog\Logger::ERROR,
+    'path' => realpath(__DIR__ . '/../../tmp/log'),
 );
 
 // View

@@ -15,7 +15,7 @@ class AppController
      * Get app container
      *
      * @param Request $request
-     * @return \App\Container\ServiceContainer
+     * @return \App\Container\AppContainer
      */
     public function container(Request $request)
     {
