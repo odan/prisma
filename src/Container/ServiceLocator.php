@@ -10,13 +10,31 @@ use Exception;
 class ServiceLocator
 {
 
+    /**
+     * Services
+     *
+     * @var array
+     */
     protected $services = [];
 
-    public function set($key, $callback)
+    /**
+     * Set service
+     *
+     * @param string $key
+     * @param mixed|callback $value
+     */
+    public function set($key, $value)
     {
-        $this->services[$key] = $callback;
+        $this->services[$key] = $value;
     }
 
+    /**
+     * Get service
+     *
+     * @param string $key
+     * @return mixed
+     * @throws Exception
+     */
     public function get($key)
     {
         if (!isset($this->services[$key])) {
@@ -34,7 +52,7 @@ class ServiceLocator
      * @param string $file Filename
      * @return mixed
      */
-    public function requireFile($file)
+    public function read($file)
     {
         return require $file;
     }
