@@ -8,7 +8,7 @@ use Zend\Diactoros\Response;
 /**
  * UserController
  */
-class UserController
+class UserController extends AppController
 {
 
     public function index(Request $request = null, Response $response = null)
@@ -20,11 +20,27 @@ class UserController
 
     public function edit(Request $request = null, Response $response = null)
     {
-        // Simple echo is also possible.
-        // The middleware will catch it and convert it to a response object.
+        // Get query parameter
         $id = $request->getAttribute('id');
-        echo "Edit user with ID: $id<br>";
-        //return $response;
+
+        // Get config value
+        $app = $this->container($request);
+        $env = $app->config['env']['name'];
+
+        // Add data to template
+        $data = [
+            'id' => $id,
+            'env' => $env
+        ];
+        
+        //$app->view->addData($data);
+        //
+        // Render template
+        $content = $app->view->render('view::Index/html/index.html.php', $data);
+
+        // Return new response
+        $response = $response->getBody()->write($content);
+        return $response;
     }
 
 }

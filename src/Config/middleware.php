@@ -6,12 +6,10 @@ $queue = [];
 // Error handler
 $queue[] = new \App\Middleware\ExceptionMiddleware(['verbose' => true, 'logger' => null]);
 
-// Startup
-$config = read(__DIR__ . '/config.php');
-$queue[] = new \App\Middleware\StartupMiddleware($config);
+// Application
+$queue[] = new \App\Middleware\AppMiddleware(read(__DIR__ . '/app.php'));
 
 // Router
-$routes = read(__DIR__ . '/routes.php');
-$queue[] = new \App\Middleware\FastRouteMiddleware(['routes' => $routes]);
+$queue[] = new \App\Middleware\FastRouteMiddleware(['routes' => read(__DIR__ . '/routes.php')]);
 
 return $queue;

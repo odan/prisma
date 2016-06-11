@@ -1,7 +1,7 @@
 <?php
 
 // Defaults
-$defaults = read(__DIR__ . '/application.php');
+$default = read(__DIR__ . '/default.php');
 
 // Load environment configuration
 $environment = [];
@@ -16,4 +16,4 @@ if (isset($environment['env']['name'])) {
     $config = read(__DIR__ . '/' . $environment['env']['name'] . '.php');
 }
 
-return array_replace_recursive($defaults, $config, $environment);
+return array_replace_recursive($default, $config, $environment);

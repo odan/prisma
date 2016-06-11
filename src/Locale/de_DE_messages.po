@@ -1,0 +1,132 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Demo\n"
+"POT-Creation-Date: 2016-06-11 22:46+0100\n"
+"PO-Revision-Date: 2016-06-11 22:46+0100\n"
+"Last-Translator: User <user@example.com>\n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-Basepath: C:\\xampp\\htdocs\\odan\\psr7-full-stack\\src\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: View/Index/html/index.html.php:4
+msgid "Hello"
+msgstr "Hallo"
+
+#: View/Index/html/index.html.php:4
+msgid "World"
+msgstr "Welt"
+
+#: View/Index/html/layout.html.php:2
+msgid "en"
+msgstr "de"
+
+#: View/Index/html/layout.html.php:11
+msgid "Demo"
+msgstr "Demo"
+
+#: View/Index/html/layout.html.php:27
+msgid "Toggle navigation"
+msgstr "Navigation umschalten"
+
+#: View/Index/html/layout.html.php:32
+msgid "Project name"
+msgstr "Projektname"
+
+#: View/Index/html/layout.html.php:36
+msgid "Home"
+msgstr "Home"
+
+#: View/Index/html/layout.html.php:37
+msgid "About"
+msgstr "Über"
+
+#: View/Index/html/layout.html.php:38
+msgid "Contact"
+msgstr "Kontakt"
+
+#: View/Index/html/layout.html.php:40
+msgid "Dropdown"
+msgstr "Dropdown"
+
+#: View/Index/html/layout.html.php:42
+msgid "Action"
+msgstr "Aktion"
+
+#: View/Index/html/layout.html.php:43
+msgid "Another action"
+msgstr "Weitere Aktion"
+
+#: View/Index/html/layout.html.php:44
+msgid "Something else here"
+msgstr "Etwas anderes"
+
+#: View/Index/html/layout.html.php:46
+msgid "Nav header"
+msgstr "Navigation Header"
+
+#: View/Index/html/layout.html.php:47
+msgid "Separated link"
+msgstr "Seperater link"
+
+#: View/Index/html/layout.html.php:48
+msgid "One more separated link"
+msgstr "Noch ein seperater Link"
+
+#: View/Index/html/layout.html.php:53
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: View/Index/html/layout.html.php:55
+msgid "Admin"
+msgstr "Admin"
+
+#: View/Index/html/layout.html.php:57
+msgid "Logout"
+msgstr "Logout"
+
+#: View/Index/html/login.html.php:10 View/Index/html/login.html.php:25
+msgid "Sign in"
+msgstr "Einloggen"
+
+#: View/Index/html/login.html.php:19
+msgid "Please sign in"
+msgstr "Bitte einloggen"
+
+#: View/Index/html/login.html.php:20
+msgid "Username"
+msgstr "Benutzername"
+
+#: View/Index/html/login.html.php:21
+msgid "Password"
+msgstr "Kennwort"
+
+#~ msgid "Yes"
+#~ msgstr "Ja"
+
+#~ msgid "Welcome"
+#~ msgstr "Willkommen"
+
+#~ msgid "Ok"
+#~ msgstr "Ok"
+
+#~ msgid "Cancel"
+#~ msgstr "Abbrechen"
+
+#~ msgid "No"
+#~ msgstr "Nein"
+
+#~ msgid "WebApp"
+#~ msgstr "WebApp"
+
+#~ msgid "DEMO"
+#~ msgstr "DEMO"
+
+#~ msgid "Demo Web-App"
+#~ msgstr "Demo Web-App"

@@ -11,8 +11,11 @@
         "relay/relay": "^1.1",
         "nikic/fast-route": "^1.0",
         "monolog/monolog": "^1.18.0",
+        "symfony/translation": "~3.0",
         "cakephp/utility": "^3.2.10",
-        "cakephp/database": "^3.2.10"
+        "cakephp/database": "^3.2.10",
+        "league/plates": "3.*",
+        "odan/plates-asset-cache": "0.1.*"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.4.0"

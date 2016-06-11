@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Middleware\AppMiddleware;
 use Zend\Diactoros\ServerRequest as Request;
 
 /**
@@ -18,7 +19,7 @@ class AppController
      */
     public function container(Request $request)
     {
-        return $request->getAttribute('container');
+        return $request->getAttribute(AppMiddleware::APP_ATTRIBUTE);
     }
 
 }

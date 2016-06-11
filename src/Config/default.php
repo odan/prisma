@@ -19,6 +19,9 @@ $config['log'] = array(
 
 // View
 $config['view'] = array(
+    'view_path' => realpath(__DIR__ . '/../View'),
+    'assets_path' => realpath(__DIR__ . '/../../web/assets'),
+    'cache_path' => realpath(__DIR__ . '/../../web/cache'),
     'minify' => 0
 );
 

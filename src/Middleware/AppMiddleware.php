@@ -6,29 +6,28 @@ use Zend\Diactoros\ServerRequest as Request;
 use Zend\Diactoros\Response;
 
 /**
- * Error handling middleware.
- *
- * Traps exceptions and converts them into a error page.
+ * Application service container middleware.
  */
-class StartupMiddleware
+class AppMiddleware
 {
+
+    const APP_ATTRIBUTE = 'app';
 
     /**
      * Options
      *
      * @var array
      */
-    protected $options = array();
+    protected $container;
 
     /**
      * Set the Middleware instance and options.
      *
-     * @param array $options
+     * @param mixed $app
      */
-    public function __construct(array $options = array())
+    public function __construct($app)
     {
-        $default = [];
-        $this->options = $options + $default;
+        $this->app = $app;
     }
 
     /**
@@ -41,18 +40,8 @@ class StartupMiddleware
      */
     public function __invoke(Request $request, Response $response, callable $next)
     {
-        $container = new \App\Container\ServiceContainer();
-
-        // Load services
-        // Configuration
-        $container->config = $this->options;
-
-        // Database
-        $container->db = \App\Factory\DatabaseFactory::create($container);
-        // @todo Load more services
-        //
         // Put service container to request object
-        $request = $request->withAttribute('container', $container);
+        $request = $request->withAttribute(static::APP_ATTRIBUTE, $this->app);
 
         return $next($request, $response);
     }
