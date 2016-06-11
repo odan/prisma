@@ -4,6 +4,7 @@ namespace App\Container;
 
 use Cake\Database\Connection;
 use League\Plates\Engine;
+use Symfony\Component\Translation\Translator;
 
 /**
  * Application service container
@@ -31,6 +32,13 @@ class AppContainer
      * @var Engine
      */
     public $view = null;
+
+    /**
+     * Translator
+     *
+     * @var Translator
+     */
+    public $translator = null;
 
     /**
      * Constructor
