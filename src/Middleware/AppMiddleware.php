@@ -11,14 +11,14 @@ use Zend\Diactoros\Response;
 class AppMiddleware
 {
 
-    const APP_ATTRIBUTE = 'app';
+    const ATTRIBUTE = 'app';
 
     /**
-     * Options
+     * Application
      *
-     * @var array
+     * @var mixed
      */
-    protected $container;
+    protected $app;
 
     /**
      * Set the Middleware instance and options.
@@ -41,7 +41,7 @@ class AppMiddleware
     public function __invoke(Request $request, Response $response, callable $next)
     {
         // Put service container to request object
-        $request = $request->withAttribute(static::APP_ATTRIBUTE, $this->app);
+        $request = $request->withAttribute(static::ATTRIBUTE, $this->app);
 
         return $next($request, $response);
     }

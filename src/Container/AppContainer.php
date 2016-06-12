@@ -6,6 +6,7 @@ use Cake\Database\Connection;
 use League\Plates\Engine;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Translation\Translator;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * Application service container
@@ -56,20 +57,20 @@ class AppContainer
     public $session = null;
 
     /**
-     * HTTP
+     * HTTP helper
      *
      * @var Http
+     * @todo
      */
     public $http = null;
 
     /**
      * User
-     *
+     * 
      * @var UserSession
+     * @todo
      */
     public $user = null;
-
-
 
     /**
      * Constructor

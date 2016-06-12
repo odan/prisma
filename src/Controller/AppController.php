@@ -17,9 +17,9 @@ class AppController
      * @param Request $request
      * @return \App\Container\AppContainer
      */
-    public function container(Request $request)
+    public function app(Request $request)
     {
-        return $request->getAttribute(AppMiddleware::APP_ATTRIBUTE);
+        return $request->getAttribute(AppMiddleware::ATTRIBUTE);
     }
 
 }

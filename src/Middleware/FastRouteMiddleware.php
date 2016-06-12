@@ -74,9 +74,7 @@ class FastRouteMiddleware
             $stream->write('Not allowed');
             return $response->withStatus(405)->withBody($stream);
         }
-        foreach ($route[2] as $name => $value) {
-            $request = $request->withAttribute($name, $value);
-        }
+        $request = $request->withAttribute('args', $route[2]);
         $response = $this->executeCallable($route[1], $request, $response);
         return $next($request, $response);
     }

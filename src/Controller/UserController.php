@@ -20,17 +20,36 @@ class UserController extends AppController
 
     public function edit(Request $request = null, Response $response = null)
     {
-        // Get query parameter
-        $id = $request->getAttribute('id');
+        // All GET parameters
+        $queryParams = $request->getQueryParams();
+
+        // All POST or PUT parameters
+        $postParams = $request->getParsedBody();
+
+        // Single GET parameter
+        //$title = $queryParams['title'];
+        //
+        // Single POST/PUT parameter
+        //$data = $postParams['data'];
+        //
+        // Get routing arguments
+        $args = $request->getAttribute('args');
+        $id = $args['id'];
 
         // Get config value
-        $app = $this->container($request);
+        $app = $this->app($request);
         $env = $app->config['env']['name'];
+
+        // Increment counter
+        $counter = $app->session->get('counter', 0);
+        $counter++;
+        $app->session->set('counter', $counter);
 
         // Add data to template
         $data = [
             'id' => $id,
-            'env' => $env
+            'env' => $env,
+            'counter' => $counter
         ];
 
         $app->logger->info('My log message');
@@ -39,7 +58,7 @@ class UserController extends AppController
         $content = $app->view->render('view::Index/html/index.html.php', $data);
 
         // Return new response
-        $response = $response->getBody()->write($content);
+        $response->getBody()->write($content);
         return $response;
     }
 
