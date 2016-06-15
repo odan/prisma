@@ -1,3 +1,3 @@
 RewriteEngine on
-RewriteRule ^$ web/ [L]
-RewriteRule (.*) web/$1 [L]
+RewriteRule ^$ public/ [L]
+RewriteRule (.*) public/$1 [L]
