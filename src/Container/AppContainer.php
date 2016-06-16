@@ -7,6 +7,7 @@ use League\Plates\Engine;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Helper\Http;
 
 /**
  * Application service container
@@ -66,7 +67,7 @@ class AppContainer
 
     /**
      * User
-     * 
+     *
      * @var UserSession
      * @todo
      */

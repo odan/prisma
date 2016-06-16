@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Container\App;
 use Zend\Diactoros\ServerRequest as Request;
 use Zend\Diactoros\Response;
 
@@ -19,7 +18,7 @@ class IndexController extends AppController
      * @param Response $response
      * @return Response
      */
-    public function index(Request $request = null, Response $response = null)
+    public function index(Request $request = null, Response $response = null, $vars = null)
     {
         $body = $response->getBody();
         $body->write("Hello world<br>Default index page<br><br>");

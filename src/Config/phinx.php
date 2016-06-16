@@ -8,7 +8,7 @@ return call_user_func(function () {
 
     return array(
         'paths' => [
-            'migrations' => $app->config['migration']['path']
+            'migrations' => $app->options['migration']['path']
         ],
         'environments' => [
             'default_migration_table' => "phinxlog",

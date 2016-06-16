@@ -18,7 +18,7 @@ class UserController extends AppController
         return $response;
     }
 
-    public function edit(Request $request = null, Response $response = null)
+    public function edit(Request $request = null, Response $response = null, $vars = null)
     {
         // All GET parameters
         $queryParams = $request->getQueryParams();
@@ -33,12 +33,14 @@ class UserController extends AppController
         //$data = $postParams['data'];
         //
         // Get routing arguments
-        $args = $request->getAttribute('args');
-        $id = $args['id'];
+        $id = $vars['id'];
 
         // Get config value
         $app = $this->app($request);
         $env = $app->config['env']['name'];
+
+        // Get GET parameter
+        $id = $app->http->get('id');
 
         // Increment counter
         $counter = $app->session->get('counter', 0);

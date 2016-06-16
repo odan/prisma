@@ -16,24 +16,20 @@ class ExceptionMiddleware
 {
 
     /**
-     * Options
+     * Settings
      *
      * @var array
      */
-    protected $options = array();
+    protected $config;
 
     /**
-     * Set the Middleware instance.
+     * Set the Middleware instance and options.
      *
-     * @param array $options
+     * @param array $config
      */
-    public function __construct(array $options = array())
+    public function __construct($config)
     {
-        $default = [
-            'verbose' => false,
-            'logger' => null,
-        ];
-        $this->options = $options + $default;
+        $this->config = $config;
     }
 
     /**
@@ -66,14 +62,15 @@ class ExceptionMiddleware
         $message = sprintf("[%s] %s\n%s", get_class($ex), $ex->getMessage(), $ex->getTraceAsString());
 
         // Must be PSR logger (Monolog)
-        if (!empty($this->options['logger'])) {
-            $this->options['logger']->error($message);
+        $logger = $request->getAttribute(\App\Middleware\LoggerMiddleware::ATTRIBUTE);
+        if (!empty($logger)) {
+            $logger->error($message);
         }
         $stream = new Stream('php://temp', 'wb+');
         $stream->write('An Internal Server Error Occurred');
 
         // Verbose error output
-        if (!empty($this->options['verbose'])) {
+        if (!empty($this->config['verbose'])) {
             $stream->write("\n<br>$message");
         }
 

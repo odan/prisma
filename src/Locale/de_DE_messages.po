@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Demo\n"
-"POT-Creation-Date: 2016-06-11 22:46+0100\n"
-"PO-Revision-Date: 2016-06-11 22:46+0100\n"
+"POT-Creation-Date: 2016-06-16 22:11+0100\n"
+"PO-Revision-Date: 2016-06-16 22:11+0100\n"
 "Last-Translator: User <user@example.com>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -15,6 +15,10 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
+#: Middleware/TranslatorMiddleware.php:68
+msgid "Yes"
+msgstr "Ja"
+
 #: View/Index/html/index.html.php:4
 msgid "Hello"
 msgstr "Hallo"
@@ -22,74 +26,6 @@ msgstr "Hallo"
 #: View/Index/html/index.html.php:4
 msgid "World"
 msgstr "Welt"
-
-#: View/Index/html/layout.html.php:2
-msgid "en"
-msgstr "de"
-
-#: View/Index/html/layout.html.php:11
-msgid "Demo"
-msgstr "Demo"
-
-#: View/Index/html/layout.html.php:27
-msgid "Toggle navigation"
-msgstr "Navigation umschalten"
-
-#: View/Index/html/layout.html.php:32
-msgid "Project name"
-msgstr "Projektname"
-
-#: View/Index/html/layout.html.php:36
-msgid "Home"
-msgstr "Home"
-
-#: View/Index/html/layout.html.php:37
-msgid "About"
-msgstr "Über"
-
-#: View/Index/html/layout.html.php:38
-msgid "Contact"
-msgstr "Kontakt"
-
-#: View/Index/html/layout.html.php:40
-msgid "Dropdown"
-msgstr "Dropdown"
-
-#: View/Index/html/layout.html.php:42
-msgid "Action"
-msgstr "Aktion"
-
-#: View/Index/html/layout.html.php:43
-msgid "Another action"
-msgstr "Weitere Aktion"
-
-#: View/Index/html/layout.html.php:44
-msgid "Something else here"
-msgstr "Etwas anderes"
-
-#: View/Index/html/layout.html.php:46
-msgid "Nav header"
-msgstr "Navigation Header"
-
-#: View/Index/html/layout.html.php:47
-msgid "Separated link"
-msgstr "Seperater link"
-
-#: View/Index/html/layout.html.php:48
-msgid "One more separated link"
-msgstr "Noch ein seperater Link"
-
-#: View/Index/html/layout.html.php:53
-msgid "Settings"
-msgstr "Einstellungen"
-
-#: View/Index/html/layout.html.php:55
-msgid "Admin"
-msgstr "Admin"
-
-#: View/Index/html/layout.html.php:57
-msgid "Logout"
-msgstr "Logout"
 
 #: View/Index/html/login.html.php:10 View/Index/html/login.html.php:25
 msgid "Sign in"
@@ -107,8 +43,73 @@ msgstr "Benutzername"
 msgid "Password"
 msgstr "Kennwort"
 
-#~ msgid "Yes"
-#~ msgstr "Ja"
+#: View/Layout/html/layout.html.php:2
+msgid "en"
+msgstr "de"
+
+#: View/Layout/html/layout.html.php:11
+msgid "Demo"
+msgstr "Demo"
+
+#: View/Layout/html/layout.html.php:27
+msgid "Toggle navigation"
+msgstr "Navigation umschalten"
+
+#: View/Layout/html/layout.html.php:32
+msgid "Project name"
+msgstr "Projektname"
+
+#: View/Layout/html/layout.html.php:36
+msgid "Home"
+msgstr "Home"
+
+#: View/Layout/html/layout.html.php:37
+msgid "About"
+msgstr "Über"
+
+#: View/Layout/html/layout.html.php:38
+msgid "Contact"
+msgstr "Kontakt"
+
+#: View/Layout/html/layout.html.php:40
+msgid "Dropdown"
+msgstr "Dropdown"
+
+#: View/Layout/html/layout.html.php:42
+msgid "Action"
+msgstr "Aktion"
+
+#: View/Layout/html/layout.html.php:43
+msgid "Another action"
+msgstr "Weitere Aktion"
+
+#: View/Layout/html/layout.html.php:44
+msgid "Something else here"
+msgstr "Etwas anderes"
+
+#: View/Layout/html/layout.html.php:46
+msgid "Nav header"
+msgstr "Navigation Header"
+
+#: View/Layout/html/layout.html.php:47
+msgid "Separated link"
+msgstr "Seperater link"
+
+#: View/Layout/html/layout.html.php:48
+msgid "One more separated link"
+msgstr "Noch ein seperater Link"
+
+#: View/Layout/html/layout.html.php:53
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: View/Layout/html/layout.html.php:55
+msgid "Admin"
+msgstr "Admin"
+
+#: View/Layout/html/layout.html.php:57
+msgid "Logout"
+msgstr "Logout"
 
 #~ msgid "Welcome"
 #~ msgstr "Willkommen"

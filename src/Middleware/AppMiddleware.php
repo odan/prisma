@@ -14,20 +14,13 @@ class AppMiddleware
     const ATTRIBUTE = 'app';
 
     /**
-     * Application
-     *
-     * @var mixed
-     */
-    protected $app;
-
-    /**
      * Set the Middleware instance and options.
      *
-     * @param mixed $app
+     * @param array $config
      */
-    public function __construct($app)
+    public function __construct($config)
     {
-        $this->app = $app;
+        $this->config = $config;
     }
 
     /**
@@ -40,8 +33,17 @@ class AppMiddleware
      */
     public function __invoke(Request $request, Response $response, callable $next)
     {
-        // Put service container to request object
-        $request = $request->withAttribute(static::ATTRIBUTE, $this->app);
+        $app = new \App\Container\AppContainer();
+        $app->config = $this->config;
+        $app->logger = $request->getAttribute(LoggerMiddleware::ATTRIBUTE);
+        $app->session = $request->getAttribute(SessionMiddleware::ATTRIBUTE);
+        $app->translator = $request->getAttribute(TranslatorMiddleware::ATTRIBUTE);
+        $app->db = $request->getAttribute(CakeDatabaseMiddleware::ATTRIBUTE);
+        $app->view = $request->getAttribute(PlatesMiddleware::ATTRIBUTE);
+        $app->http = $request->getAttribute(HttpMiddleware::ATTRIBUTE);
+        //
+        // Add service to request object
+        $request = $request->withAttribute(static::ATTRIBUTE, $app);
 
         return $next($request, $response);
     }

@@ -37,8 +37,7 @@ class FastRouteMiddleware
     {
         $default = [
             'routes' => [],
-            'dispatcher' => 'FastRoute\simpleDispatcher',
-            'arguments' => []
+            'dispatcher' => 'FastRoute\simpleDispatcher'
         ];
         $this->options = $options + $default;
 
@@ -74,8 +73,8 @@ class FastRouteMiddleware
             $stream->write('Not allowed');
             return $response->withStatus(405)->withBody($stream);
         }
-        $request = $request->withAttribute('args', $route[2]);
-        $response = $this->executeCallable($route[1], $request, $response);
+        //$request = $request->withAttribute('args', $route[2]);
+        $response = $this->executeCallable($route[1], $request, $response, $route[2]);
         return $next($request, $response);
     }
 
@@ -114,14 +113,14 @@ class FastRouteMiddleware
      *
      * @return Response
      */
-    private function executeCallable($target, Request $request, Response $response)
+    private function executeCallable($target, Request $request, Response $response, $vars = null)
     {
         ob_start();
         $level = ob_get_level();
         try {
-            $arguments = array_merge([$request, $response], $this->options['arguments']);
-            $target = $this->getCallable($target, $arguments);
-            $return = call_user_func_array($target, $arguments);
+            $arguments = [$request, $response, $vars];
+            $callback = $this->getCallable($target);
+            $return = call_user_func_array($callback, $arguments);
             if ($return instanceof Response) {
                 $response = $return;
                 $return = '';
@@ -142,13 +141,12 @@ class FastRouteMiddleware
      * Resolves the target of the route and returns a callable.
      *
      * @param mixed $target
-     * @param array $construct_args
      *
      * @throws RuntimeException If the target is not callable
      *
      * @return callable
      */
-    protected function getCallable($target, array $construct_args)
+    protected function getCallable($target)
     {
         if (empty($target)) {
             throw new RuntimeException('No callable provided');

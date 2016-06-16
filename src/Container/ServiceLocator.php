@@ -45,15 +45,4 @@ class ServiceLocator
         }
         return $this->services[$key];
     }
-
-    /**
-     * Read php file
-     *
-     * @param string $file Filename
-     * @return mixed
-     */
-    public function read($file)
-    {
-        return require $file;
-    }
 }
