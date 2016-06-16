@@ -31,7 +31,7 @@ class ExceptionMiddleware
     {
         $default = [
             'verbose' => false,
-            'logger' => 1,
+            'logger' => null,
         ];
         $this->options = $options + $default;
     }

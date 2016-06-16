@@ -52,4 +52,9 @@ $config['smtp'] = array(
     'to' => 'to@example.com',
 );
 
+// Migration
+$config['migration'] = array(
+    'path' => realpath(__DIR__ . '/../Migration')
+);
+
 return $config;

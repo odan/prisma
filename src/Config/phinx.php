@@ -1,12 +1,14 @@
 <?php
 
 return call_user_func(function () {
-    $app = App\Container\Application::getInstance();
-    $pdo = $app->db->getConnection()->getPdo();
+
+    $app = read(__DIR__ . '/app.php');
+    $app->db->driver()->connect();
+    $pdo = $app->db->driver()->connection();
 
     return array(
         'paths' => [
-            'migrations' => $app->config->get('path.migration')
+            'migrations' => $app->config['migration']['path']
         ],
         'environments' => [
             'default_migration_table' => "phinxlog",
