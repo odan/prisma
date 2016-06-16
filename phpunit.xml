@@ -7,15 +7,16 @@
         </testsuite>
     </testsuites>
     <filter>
-        <whitelist processUncoveredFilesFromWhitelist="false">
-            <directory suffix=".php">app</directory>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
             <exclude>
-                <directory>app/View</directory>
+                <directory>src/View</directory>
                 <directory>build</directory>
                 <directory>docs</directory>
                 <directory>tmp</directory>
                 <directory>vendor</directory>
                 <directory>web</directory>
+                <directory>public</directory>
             </exclude>
         </whitelist>
     </filter>
