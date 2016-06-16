@@ -45,22 +45,27 @@ class SessionMiddleware
      */
     public function __invoke(Request $request, Response $response, callable $next)
     {
-        $options = $this->config;
+        $request = $request->withAttribute(static::ATTRIBUTE, $this->create());
+        return $next($request, $response);
+    }
 
+    /**
+     * Create instance
+     *
+     * @return Session
+     */
+    public function create()
+    {
         if (php_sapi_name() === 'cli') {
             // In cli-mode
             $storage = new MockArraySessionStorage(new NullSessionHandler());
             $session = new Session($storage);
         } else {
             // Not in cli-mode
-            $storage = new NativeSessionStorage($options, new NativeFileSessionHandler());
+            $storage = new NativeSessionStorage($this->config, new NativeFileSessionHandler());
             $session = new Session($storage);
             $session->start();
         }
-
-        // Add service to request object
-        $request = $request->withAttribute(static::ATTRIBUTE, $session);
-
-        return $next($request, $response);
+        return $session;
     }
 }

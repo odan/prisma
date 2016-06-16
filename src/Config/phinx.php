@@ -1,14 +1,18 @@
 <?php
 
+use App\Middleware\CakeDatabaseMiddleware;
+
 return call_user_func(function () {
 
-    $app = read(__DIR__ . '/app.php');
-    $app->db->driver()->connect();
-    $pdo = $app->db->driver()->connection();
+    $config = read(__DIR__ . '/config.php');
+    $middleware = new CakeDatabaseMiddleware($config['db']);
+    $db = $middleware->create();
+    $db->driver()->connect();
+    $pdo = $db->driver()->connection();
 
     return array(
         'paths' => [
-            'migrations' => $app->options['migration']['path']
+            'migrations' => $config['migration']['path']
         ],
         'environments' => [
             'default_migration_table' => "phinxlog",

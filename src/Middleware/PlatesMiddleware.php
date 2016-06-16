@@ -46,7 +46,18 @@ class PlatesMiddleware
      */
     public function __invoke(Request $request, Response $response, callable $next)
     {
-        $engine = new Engine($this->options['view_path'], null);
+        $request = $request->withAttribute(static::ATTRIBUTE, $this->create($request));
+        return $next($request, $response);
+    }
+
+    /**
+     * Create instance
+     *
+     * @return Engine
+     */
+    public function create(Request $request)
+    {
+    $engine = new Engine($this->options['view_path'], null);
 
         // Add folder shortcut (assets::file.js)
         $engine->addFolder('assets', $this->options['assets_path']);
@@ -65,10 +76,6 @@ class PlatesMiddleware
             'minify' => $this->options['minify']
         );
         $engine->loadExtension(new \Odan\Plates\Extension\AssetCache($cacheOptions));
-
-        // Put service container to request object
-        $request = $request->withAttribute(static::ATTRIBUTE, $engine);
-
-        return $next($request, $response);
+        return $engine;
     }
 }

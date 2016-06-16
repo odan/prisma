@@ -2,6 +2,7 @@
 
 namespace App\Middleware;
 
+use App\Container\AppContainer;
 use Zend\Diactoros\ServerRequest as Request;
 use Zend\Diactoros\Response;
 
@@ -33,6 +34,18 @@ class AppMiddleware
      */
     public function __invoke(Request $request, Response $response, callable $next)
     {
+        // Add service to request object
+        $request = $request->withAttribute(static::ATTRIBUTE, $this->create($request));
+        return $next($request, $response);
+    }
+
+    /**
+     * Create instance
+     *
+     * @return AppContainer
+     */
+    public function create(Request $request)
+    {
         $app = new \App\Container\AppContainer();
         $app->config = $this->config;
         $app->logger = $request->getAttribute(LoggerMiddleware::ATTRIBUTE);
@@ -41,11 +54,7 @@ class AppMiddleware
         $app->db = $request->getAttribute(CakeDatabaseMiddleware::ATTRIBUTE);
         $app->view = $request->getAttribute(PlatesMiddleware::ATTRIBUTE);
         $app->http = $request->getAttribute(HttpMiddleware::ATTRIBUTE);
-        //
-        // Add service to request object
-        $request = $request->withAttribute(static::ATTRIBUTE, $app);
 
-        return $next($request, $response);
+        return $app;
     }
-
 }

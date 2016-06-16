@@ -47,11 +47,18 @@ class CakeDatabaseMiddleware
      */
     public function __invoke(Request $request, Response $response, callable $next)
     {
-        $db = new Connection(['driver' => new Mysql($this->options)]);
-
         // Add service to request object
-        $request = $request->withAttribute(static::ATTRIBUTE, $db);
-
+        $request = $request->withAttribute(static::ATTRIBUTE, $this->create());
         return $next($request, $response);
+    }
+
+    /**
+     * Create instance
+     * 
+     * @return Connection
+     */
+    public function create()
+    {
+        return new Connection(['driver' => new Mysql($this->options)]);
     }
 }

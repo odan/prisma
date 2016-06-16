@@ -48,9 +48,20 @@ class TranslatorMiddleware
      */
     public function __invoke(Request $request, Response $response, callable $next)
     {
+        $request = $request->withAttribute(static::ATTRIBUTE, $this->create());
+        return $next($request, $response);
+    }
+
+    /**
+     * Create instance
+     *
+     * @return Translator
+     */
+    public function create()
+    {
         // @todo Set language from session
-        //$locale = 'en_US';
-        $locale = 'de_DE';
+        $locale = 'en_US';
+        //$locale = 'de_DE';
         $domain = 'messages';
         $translator = new Translator($locale, new MessageSelector());
         $translator->addLoader('mo', new MoFileLoader());
@@ -66,10 +77,6 @@ class TranslatorMiddleware
         __(null, null, $translator);
 
         //$test = __('Hello');
-        //
-        // Add service to request object
-        $request = $request->withAttribute(static::ATTRIBUTE, $translator);
-
-        return $next($request, $response);
+        return $translator;
     }
 }
