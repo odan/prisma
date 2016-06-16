@@ -3,10 +3,14 @@
 use App\Middleware\CakeDatabaseMiddleware;
 
 return call_user_func(function () {
-
+    // Load config
     $config = read(__DIR__ . '/config.php');
+
+    // Create database object
     $middleware = new CakeDatabaseMiddleware($config['db']);
     $db = $middleware->create();
+
+    // Get PDO object
     $db->driver()->connect();
     $pdo = $db->driver()->connection();
 

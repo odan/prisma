@@ -48,20 +48,19 @@ class TranslatorMiddleware
      */
     public function __invoke(Request $request, Response $response, callable $next)
     {
-        $request = $request->withAttribute(static::ATTRIBUTE, $this->create());
+        $request = $request->withAttribute(static::ATTRIBUTE, $this->create($request));
         return $next($request, $response);
     }
 
     /**
      * Create instance
      *
+     * @param Request $request
      * @return Translator
      */
-    public function create()
+    public function create(Request $request)
     {
-        // @todo Set language from session
-        $locale = 'en_US';
-        //$locale = 'de_DE';
+        $locale = $this->getLocale($request);
         $domain = 'messages';
         $translator = new Translator($locale, new MessageSelector());
         $translator->addLoader('mo', new MoFileLoader());
@@ -79,4 +78,27 @@ class TranslatorMiddleware
         //$test = __('Hello');
         return $translator;
     }
+
+    /**
+     * Get locale
+     *
+     * @param Request $request
+     */
+    public function getLocale(Request $request)
+    {
+        // Default
+        $locale = 'en_US';
+
+        // Get language from  session
+        $session = $request->getAttribute(SessionMiddleware::ATTRIBUTE);
+        if (empty($session)) {
+            return $locale;
+        }
+        $sessionLocale = $session->get('locale');
+        if (!empty($sessionLocale)) {
+            $locale = $sessionLocale;
+        }
+        return $locale;
+    }
+
 }
