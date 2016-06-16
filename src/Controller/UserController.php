@@ -45,6 +45,10 @@ class UserController extends AppController
         $counter++;
         $app->session->set('counter', $counter);
 
+        //$user = new \App\Model\User($app);
+        //$userRows = $user->getAll();
+        //$userRow = $user->getById($id);
+        //
         // Add data to template
         $data = [
             'id' => $id,
