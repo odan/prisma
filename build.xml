@@ -74,7 +74,7 @@
         <chmod file="${basedir}/tmp/log" perm="775"/>
         
         <delete includeemptydirs="true">
-            <fileset dir="${basedir}/web/cache">
+            <fileset dir="${basedir}/public/cache">
                 <include name="**/*"/>
                 <exclude name=".htaccess"/>
             </fileset>
