@@ -1,7 +1,5 @@
 <?php
 
-//$app = read(__DIR__ . '/app.php');
-
 $config = read(__DIR__ . '/config.php');
 
 // Create a queue array of middleware callables
