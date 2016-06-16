@@ -25,35 +25,6 @@ __(null, null, $translator);
 
 //$test = __('Yes');
 
-/**
- * Text translation (I18n)
- *
- * @param string $message
- * @param array $context
- * @param Translator $translator Translator
- * @return string
- *
- * <code>
- * echo __('Hello');
- * echo __('There are %s persons logged', [7]);
- * </code>
- */
-function __($message, $context = array(), Translator $translator = null)
-{
-    /* @var $tr Translator */
-    static $tr = null;
-
-    // Dependency injection for this function
-    if ($translator !== null) {
-        $tr = $translator;
-        return null;
-    }
-    $message = $tr->trans($message);
-    if (!empty($context)) {
-        $message = vsprintf($message, $context);
-    }
-    return $message;
-}
 return $translator;
 
 

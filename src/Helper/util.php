@@ -129,7 +129,6 @@ function uuid()
             mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
     );
 }
-
 if (!function_exists('random_bytes')) {
 
     /**
@@ -189,4 +188,34 @@ function trim_array($array)
 function read($file)
 {
     return require $file;
+}
+
+/**
+ * Text translation (I18n)
+ *
+ * @param string $message
+ * @param array $context
+ * @param Translator $translator Translator
+ * @return string
+ *
+ * <code>
+ * echo __('Hello');
+ * echo __('There are %s persons logged', [7]);
+ * </code>
+ */
+function __($message, $context = array(), \Symfony\Component\Translation\Translator $translator = null)
+{
+    /* @var $tr Translator */
+    static $tr = null;
+
+    // Dependency injection for this function
+    if ($translator !== null) {
+        $tr = $translator;
+        return null;
+    }
+    $message = $tr->trans($message);
+    if (!empty($context)) {
+        $message = vsprintf($message, $context);
+    }
+    return $message;
 }
