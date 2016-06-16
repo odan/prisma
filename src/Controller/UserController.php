@@ -56,22 +56,29 @@ class UserController extends AppController
         //$userRow = $user->getById($id);
         //
         // Add data to template
+        $assets = $this->getAssets();
+        $jsText = $this->getJsText($this->getTextAssets());
+
         $data = [
             'id' => $id,
             'env' => $env,
-            'counter' => $counter
+            'counter' => $counter,
+            'baseurl' => $request->getAttribute('base_url'),
+            'assets' => $assets,
+            'jstext' => $jsText,
+            'content' => 'view::Index/html/index.html.php'
         ];
 
         $app->logger->info('My log message');
 
         // Render template
-        $content = $app->view->render('view::Index/html/index.html.php', $data);
+        // Render and output layout template
+        $content = $app->view->render('view::Layout/html/layout.html.php', $data);
 
         // Return new response
         $response->getBody()->write($content);
         return $response;
     }
-
 }
 
 

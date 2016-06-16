@@ -51,15 +51,12 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#settings"><?php wh(__('Settings')); ?></a></li>
-                        <?php if ($app->user->is('ROLE_ADMIN')) : ?>
-                            <li><a href="#admin"><?php wh(__('Admin')); ?></a></li>
-                        <?php endif ?>
                         <li><a href="login"><?php wh(__('Logout')); ?></a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
-        <?= $this->fetch($content) ?>
+        <?= $this->fetch($content, $this->data) ?>
         <!-- JavaScript -->
         <script type="text/javascript" src="assets/js/jquery.min.js"></script>
         <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>

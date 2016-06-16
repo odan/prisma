@@ -64,14 +64,16 @@ class PlatesMiddleware
         $engine->addFolder('view', $this->options['view_path']);
 
         $session = $request->getAttribute(SessionMiddleware::ATTRIBUTE);
+        $baseUrl = $request->getAttribute('base_url');
+
         // Register Asset extension
         $cacheOptions = array(
             // View base path
-            'cachepath' => $this->options['view_path'],
+            'cachepath' => $this->options['cache_path'],
             // Create different hash for each language
-            'cachekey' => '', $session->get('locale'),
+            'cachekey' => $session->get('locale'),
             // Base Url for public cache directory
-            'baseurl' => '', // $this->http->getBaseUrl('/'),
+            'baseurl' => $baseUrl,
             // JavaScript and CSS compression
             'minify' => $this->options['minify']
         );

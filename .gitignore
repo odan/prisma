@@ -10,9 +10,9 @@ env.php
 src/Config/env.php
 src/Config/environment.php
 
-!web/cache/
-web/cache/*
-!web/cache/.htaccess
+!public/cache/
+public/cache/*
+!public/cache/.htaccess
 
 !tmp/log/
 tmp/log/*

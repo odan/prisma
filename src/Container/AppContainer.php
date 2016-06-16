@@ -61,17 +61,8 @@ class AppContainer
      * HTTP helper
      *
      * @var Http
-     * @todo
      */
     public $http = null;
-
-    /**
-     * User
-     *
-     * @var UserSession
-     * @todo
-     */
-    public $user = null;
 
     /**
      * Constructor
