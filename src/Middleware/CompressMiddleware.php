@@ -49,13 +49,13 @@ class CompressMiddleware
      */
     public function compress(Request $request, Response $response)
     {
-        $acceptEncoding = implode(',', $request->getHeader('accept-encoding'));
-        $encodings = trim_array(explode(',', $acceptEncoding));
+        $acceptEncoding = $request->getHeaderLine('accept-encoding');
+        $encodings = array_flip(trim_array(explode(',', $acceptEncoding)));
 
-        if (in_array('gzip', $encodings)) {
+        if (isset($encodings['gzip'])) {
             return $this->compressBody($response, 'gzip', 'gzcompress');
         }
-        if (in_array('deflate', $encodings)) {
+        if (isset($encodings['deflate'])) {
             return $this->compressBody($response, 'deflate', 'gzdeflate');
         }
         return $response;
