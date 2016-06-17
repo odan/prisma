@@ -42,7 +42,7 @@ app.index.Index = function Index(options) {
             // load table rows
             if (res.result.status === 1) {
                 $d.notify({
-                    msg: "<b>Ok</b> Loaded successfully!",
+                    msg: "<b>Ok</b> " + __('Loaded successfully!'),
                     type: "success",
                     position: "center"
                 });

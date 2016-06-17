@@ -54,7 +54,8 @@ class AppMiddleware
         $app->db = $request->getAttribute(CakeDatabaseMiddleware::ATTRIBUTE);
         $app->view = $request->getAttribute(PlatesMiddleware::ATTRIBUTE);
         $app->http = $request->getAttribute(HttpMiddleware::ATTRIBUTE);
-
+        $app->user = new \App\Model\UserSession($app);
+        $app->user->setLocale($app->user->getLocale());
         return $app;
     }
 }

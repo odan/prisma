@@ -71,7 +71,7 @@ class PlatesMiddleware
             // View base path
             'cachepath' => $this->options['cache_path'],
             // Create different hash for each language
-            'cachekey' => $session->get('locale'),
+            'cachekey' => $session->get('user.locale'),
             // Base Url for public cache directory
             'baseurl' => $baseUrl,
             // JavaScript and CSS compression

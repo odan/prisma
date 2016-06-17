@@ -5,6 +5,7 @@ namespace App\Controller;
 use Zend\Diactoros\ServerRequest as Request;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\JsonResponse;
+use Zend\Diactoros\Response\RedirectResponse;
 
 /**
  * IndexController
@@ -27,7 +28,9 @@ class IndexController extends AppController
         $assets = $this->getAssets();
         $assets[] = 'view::Index/js/index.js';
 
-        $jsText = $this->getJsText($this->getTextAssets());
+        $text = $this->getTextAssets();
+        $text['Loaded successfully!'] = __('Loaded successfully!');
+        $jsText = $this->getJsText($text);
 
         // Increment counter
         $counter = $app->session->get('counter', 0);
@@ -47,6 +50,21 @@ class IndexController extends AppController
 
         // Return new response
         $response->getBody()->write($content);
+        return $response;
+    }
+
+    /**
+     * Index action
+     *
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     */
+    public function login(Request $request = null, Response $response = null, $params = null)
+    {
+        $app = $this->app($request);
+        $uri = $app->http->getBaseUrl('/');
+        $response = new RedirectResponse($uri);
         return $response;
     }
 

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Demo\n"
-"POT-Creation-Date: 2016-06-16 22:11+0100\n"
-"PO-Revision-Date: 2016-06-16 22:11+0100\n"
+"POT-Creation-Date: 2016-06-17 19:57+0100\n"
+"PO-Revision-Date: 2016-06-17 19:58+0100\n"
 "Last-Translator: User <user@example.com>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -15,9 +15,25 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: Middleware/TranslatorMiddleware.php:68
+#: Controller/AppController.php:54
+msgid "Ok"
+msgstr "Ok"
+
+#: Controller/AppController.php:55
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: Controller/AppController.php:56
 msgid "Yes"
 msgstr "Ja"
+
+#: Controller/AppController.php:57
+msgid "No"
+msgstr "Nein"
+
+#: Controller/IndexController.php:32
+msgid "Loaded successfully!"
+msgstr "Erfolgreich gestartet!"
 
 #: View/Index/html/index.html.php:4
 msgid "Hello"
@@ -103,25 +119,15 @@ msgstr "Noch ein seperater Link"
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: View/Layout/html/layout.html.php:55
-msgid "Admin"
-msgstr "Admin"
-
-#: View/Layout/html/layout.html.php:57
+#: View/Layout/html/layout.html.php:54
 msgid "Logout"
 msgstr "Logout"
 
+#~ msgid "Admin"
+#~ msgstr "Admin"
+
 #~ msgid "Welcome"
 #~ msgstr "Willkommen"
-
-#~ msgid "Ok"
-#~ msgstr "Ok"
-
-#~ msgid "Cancel"
-#~ msgstr "Abbrechen"
-
-#~ msgid "No"
-#~ msgstr "Nein"
 
 #~ msgid "WebApp"
 #~ msgstr "WebApp"

@@ -60,45 +60,17 @@ class TranslatorMiddleware
      */
     public function create(Request $request)
     {
-        $locale = $this->getLocale($request);
-        $domain = 'messages';
+        $locale = 'en_US';
+        //$domain = 'messages';
+
         $translator = new Translator($locale, new MessageSelector());
         $translator->addLoader('mo', new MoFileLoader());
 
-        // Set locale
-        $moFile = sprintf('%s/../Locale/%s_%s.mo', __DIR__, $locale, $domain);
-        if (file_exists($moFile)) {
-            $translator->addResource('mo', $moFile, $locale, $domain);
-            $translator->setLocale($locale);
-        }
-
-        // Inject translator into function
+          // Inject translator into function
         __(null, null, $translator);
 
         //$test = __('Hello');
         return $translator;
-    }
-
-    /**
-     * Get locale
-     *
-     * @param Request $request
-     */
-    public function getLocale(Request $request)
-    {
-        // Default
-        $locale = 'en_US';
-
-        // Get language from  session
-        $session = $request->getAttribute(SessionMiddleware::ATTRIBUTE);
-        if (empty($session)) {
-            return $locale;
-        }
-        $sessionLocale = $session->get('locale');
-        if (!empty($sessionLocale)) {
-            $locale = $sessionLocale;
-        }
-        return $locale;
     }
 
 }

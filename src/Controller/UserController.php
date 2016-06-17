@@ -48,7 +48,7 @@ class UserController extends AppController
         $app->session->set('counter', $counter);
 
         // Set locale
-        //$app->session->set('locale', 'de_DE');
+        //$app->session->set('user.locale', 'de_DE');
         //
         //Model example
         //$user = new \App\Model\User($app);

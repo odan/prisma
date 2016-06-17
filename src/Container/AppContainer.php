@@ -2,12 +2,13 @@
 
 namespace App\Container;
 
+use App\Helper\Http;
+use App\Helper\UserSession;
 use Cake\Database\Connection;
 use League\Plates\Engine;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use App\Helper\Http;
 
 /**
  * Application service container
@@ -58,11 +59,18 @@ class AppContainer
     public $session = null;
 
     /**
-     * HTTP helper
+     * HTTP service
      *
      * @var Http
      */
     public $http = null;
+
+    /**
+     * User service
+     *
+     * @var UserSession
+     */
+    public $user = null;
 
     /**
      * Constructor
