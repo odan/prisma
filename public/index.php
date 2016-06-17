@@ -8,7 +8,7 @@ use Zend\Diactoros\ServerRequestFactory;
 
 call_user_func(function () {
     // Invoke the relay queue with a request and response.
-    $runner = new Relay\Runner(read(__DIR__ . '/../src/Config/middleware.php'));
+    $runner = new Relay\Runner(read(__DIR__ . '/../app/Config/middleware.php'));
     $response = $runner(ServerRequestFactory::fromGlobals(), new Response());
 
     // Output response
