@@ -209,11 +209,8 @@ $d.map = function(obj, f) {
  * @returns {object}
  */
 $d.rpc = function(method, params, fncDone, settings) {
-    var parts = method.split('.');
-    var strBaseUrl = $('head base').attr('href');
-    var strUrl = strBaseUrl + parts[0] + '/rpc';
+    var url = $('head base').attr('href') + 'rpc';
     var id = 'a' + Math.floor(Math.random() * 9999999) + 1;
-    var method = parts[1];
 
     var request = {
         jsonrpc: '2.0',
@@ -228,7 +225,7 @@ $d.rpc = function(method, params, fncDone, settings) {
 
     settings = $.extend({
         type: 'POST',
-        url: strUrl,
+        url: url,
         data: data,
         processData: false,
         dataType: 'json',

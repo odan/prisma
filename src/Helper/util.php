@@ -198,7 +198,7 @@ function read($file)
  * @param mixed $default
  * @return mixed
  */
-function gv($arr, $key, $default = null)
+function value($arr, $key, $default = null)
 {
     return isset($arr[$key]) ? $arr[$key] : $default;
 }

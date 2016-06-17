@@ -60,19 +60,16 @@ class UserController extends AppController
         $jsText = $this->getJsText($this->getTextAssets());
 
         $data = [
-            'id' => $id,
-            'env' => $env,
-            'counter' => $counter,
             'baseurl' => $request->getAttribute('base_url'),
             'assets' => $assets,
             'jstext' => $jsText,
-            'content' => 'view::Index/html/index.html.php'
+            'content' => 'view::User/html/edit.html.php',
+            'id' => $id,
         ];
 
         $app->logger->info('My log message');
 
         // Render template
-        // Render and output layout template
         $content = $app->view->render('view::Layout/html/layout.html.php', $data);
 
         // Return new response

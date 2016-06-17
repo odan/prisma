@@ -34,7 +34,7 @@ app.index.Index = function Index(options) {
      */
     this.load = function() {
         $d.showLoad();
-        $d.rpc('index.load', null, function(res) {
+        $d.rpc('Index.load', null, function(res) {
             if (!$d.handleResponse(res)) {
                 return;
             }
