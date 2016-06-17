@@ -2,8 +2,7 @@
 
 namespace App\Controller;
 
-use App\Container\AppContainer;
-use App\Model\UserSession;
+use App\Service\User\UserSession;
 use Zend\Diactoros\ServerRequest as Request;
 use Zend\Diactoros\Response;
 

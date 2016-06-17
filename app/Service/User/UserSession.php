@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Model;
+namespace App\Service\User;
 
 use App\Container\AppContainer;
+use App\Service\Base\BaseService;
 
 /**
  * User Session Handler
  */
-class UserSession extends BaseModel
+class UserSession extends BaseService
 {
 
     /**
