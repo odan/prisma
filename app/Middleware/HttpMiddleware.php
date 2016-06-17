@@ -2,7 +2,7 @@
 
 namespace App\Middleware;
 
-use App\Helper\Http;
+use App\Util\Http;
 use Zend\Diactoros\ServerRequest as Request;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;

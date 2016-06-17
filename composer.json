@@ -28,7 +28,7 @@
             "App\\Test\\": "tests"
         },
         "files": [
-            "app/Helper/Util.php"
+            "app/Util/Util.php"
         ]
     }
 }
