@@ -191,6 +191,95 @@ function read($file)
 }
 
 /**
+ * Return Array element value (get value)
+ *
+ * @param array $arr
+ * @param string $key
+ * @param mixed $default
+ * @return mixed
+ */
+function gv($arr, $key, $default = null)
+{
+    return isset($arr[$key]) ? $arr[$key] : $default;
+}
+
+/**
+ * Encode an array to JSON
+ *
+ * Also makes sure the data is encoded in UTF-8.
+ *
+ * @param array $data The array to encode in JSON.
+ * @param int $options The encoding options.
+ * @return string The JSON encoded string.
+ */
+function encode_json($data, $options = 0)
+{
+    return json_encode(encode_utf8($data), $options);
+}
+
+/**
+ * Json decoder
+ *
+ * @param string $json Json string
+ * @return mixed
+ */
+function decode_json($json)
+{
+    return json_decode($json, true);
+}
+
+/**
+ * Encodes an ISO-8859-1 string or array to UTF-8.
+ *
+ * @param mixed $data String or array to convert.
+ * @return mixed Encoded data.
+ */
+function encode_utf8($data)
+{
+    if ($data === null || $data === '') {
+        return $data;
+    }
+
+    if (is_array($data)) {
+        foreach ($data as $strKey => $mixVal) {
+            $data[$strKey] = encode_utf8($mixVal);
+        }
+        return $data;
+    } else {
+        if (!mb_check_encoding($data, 'UTF-8')) {
+            return mb_convert_encoding($data, 'UTF-8');
+        } else {
+            return $data;
+        }
+    }
+}
+
+/**
+ * Returns a ISO-8859-1 encoded string or array.
+ *
+ * @param mixed $mix
+ * @return mixed
+ */
+function encode_iso($mix)
+{
+    if ($mix === null || $mix === '') {
+        return $mix;
+    }
+    if (is_array($mix)) {
+        foreach ($mix as $str_key => $str_val) {
+            $mix[$str_key] = encode_iso($str_val);
+        }
+        return $mix;
+    } else {
+        if (mb_check_encoding($mix, 'UTF-8')) {
+            return mb_convert_encoding($mix, 'ISO-8859-1', 'auto');
+        } else {
+            return $mix;
+        }
+    }
+}
+
+/**
  * Text translation (I18n)
  *
  * @param string $message

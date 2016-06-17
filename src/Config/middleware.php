@@ -32,4 +32,7 @@ $queue[] = new \App\Middleware\AppMiddleware($config);
 // Router
 $queue[] = new \App\Middleware\FastRouteMiddleware(['routes' => read(__DIR__ . '/routes.php')]);
 
+// Compression
+$queue[] = new \App\Middleware\CompressMiddleware();
+
 return $queue;
