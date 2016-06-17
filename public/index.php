@@ -1,7 +1,6 @@
 <?php
 
 require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../src/Helper/util.php';
 
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\SapiEmitter;

@@ -3,7 +3,7 @@
 namespace App\Container;
 
 use App\Helper\Http;
-use App\Helper\UserSession;
+use App\Model\UserSession;
 use Cake\Database\Connection;
 use League\Plates\Engine;
 use Psr\Log\LoggerInterface;

@@ -26,6 +26,9 @@
         "psr-4": {
             "App\\": "src",
             "App\\Test\\": "tests"
-        }
+        },
+        "files": [
+            "src/Helper/Util.php"
+        ]
     }
 }

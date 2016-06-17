@@ -5,7 +5,6 @@ namespace App\Controller;
 use Zend\Diactoros\ServerRequest as Request;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\JsonResponse;
-use Zend\Diactoros\Response\RedirectResponse;
 
 /**
  * IndexController
@@ -47,24 +46,8 @@ class IndexController extends AppController
 
         // Render template
         $content = $app->view->render('view::Layout/html/layout.html.php', $data);
-
-        // Return new response
         $response->getBody()->write($content);
-        return $response;
-    }
 
-    /**
-     * Index action
-     *
-     * @param Request $request
-     * @param Response $response
-     * @return Response
-     */
-    public function login(Request $request = null, Response $response = null, $params = null)
-    {
-        $app = $this->app($request);
-        $uri = $app->http->getBaseUrl('/');
-        $response = new RedirectResponse($uri);
         return $response;
     }
 
