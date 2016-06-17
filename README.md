@@ -5,6 +5,9 @@
 ```
 composer create-project odan/psr7-full-stack.git .
 composer install
+
+cd bin
+php migration.php migrate
 ```
 
 # License
