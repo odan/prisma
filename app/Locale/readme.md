@@ -1,6 +1,6 @@
 #### Translations
 
-PoEdit is the recommended PO-file editor developers. 
+PoEdit is the recommended PO-file editor. 
 It is able to analyze source code by looking for all occurrences from a given set of localization functions.
 The string argument to these functions are the words and sentences which should be localized into other languages.
 The editor is able to analyze these and present a list of unique words and sentences, which make maintenance easier. 
