@@ -37,6 +37,7 @@ class FastRouteMiddleware
     {
         $default = [
             'routes' => [],
+            'events' => [],
             'dispatcher' => 'FastRoute\simpleDispatcher'
         ];
         $this->options = $options + $default;
@@ -118,9 +119,16 @@ class FastRouteMiddleware
         ob_start();
         $level = ob_get_level();
         try {
-            $arguments = [$request, $response, $vars];
             $callback = $this->getCallable($target);
-            $return = call_user_func_array($callback, $arguments);
+
+            // Event handler
+            $eventParams = [$request,$response,$vars,$target, $callback];
+            $eventResult = $this->triggerBeforeAction($eventParams);
+            if ($eventResult instanceof Response) {
+                return $eventResult;
+            }
+
+            $return = call_user_func_array($callback, [$request, $response, $vars]);
             if ($return instanceof Response) {
                 $response = $return;
                 $return = '';
@@ -135,6 +143,22 @@ class FastRouteMiddleware
             $this->getOutput($level);
             throw $exception;
         }
+    }
+
+    /**
+     * Trigger event
+     *
+     * @param array $params
+     * @return mixed
+     */
+    protected function triggerBeforeAction($params)
+    {
+        $name = 'before.action';
+        if (!isset($this->options['events'][$name])) {
+            return true;
+        }
+        $eventCallback = $this->getCallable($this->options['events'][$name]);
+        return call_user_func_array($eventCallback, $params);
     }
 
     /**

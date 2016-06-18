@@ -179,14 +179,10 @@ class Http
      */
     public function isJsonRpc()
     {
-        // https://github.com/oscarotero/psr7-middlewares/blob/c16c64fe5ddbfa2a62fb1169847a526c0e7a5401/src/Utils/Helpers.php
-
         $method = $this->request->getMethod();
         $type = $this->request->getHeader('content-type');
-        //$type = strtolower($request->getHeaderLine('X-Requested-With')) === 'xmlhttprequest';
-        $result = $method == 'POST' && !empty($type[0]) &&
+        return $method === 'POST' && !empty($type[0]) &&
                 (strpos($type[0], 'application/json') !== false);
-        return $result;
     }
 
     /**

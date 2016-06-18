@@ -2,7 +2,7 @@
 
 namespace App\Container;
 
-use App\Helper\Http;
+use App\Util\Http;
 use App\Model\UserSession;
 use Cake\Database\Connection;
 use League\Plates\Engine;

@@ -30,7 +30,7 @@ $queue[] = new \App\Middleware\CakeDatabaseMiddleware($config['db']);
 $queue[] = new \App\Middleware\AppMiddleware($config);
 
 // Router
-$queue[] = new \App\Middleware\FastRouteMiddleware(['routes' => read(__DIR__ . '/routes.php')]);
+$queue[] = new \App\Middleware\FastRouteMiddleware($config['router']);
 
 // Compression
 $queue[] = new \App\Middleware\CompressMiddleware();

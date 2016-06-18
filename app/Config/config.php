@@ -3,6 +3,9 @@
 // Defaults
 $default = read(__DIR__ . '/default.php');
 
+// Router
+$router = read(__DIR__ . '/router.php');
+
 // Load environment configuration
 $environment = [];
 if (file_exists(__DIR__ . '/../../env.php')) {
@@ -16,4 +19,4 @@ if (isset($environment['env']['name'])) {
     $config = read(__DIR__ . '/' . $environment['env']['name'] . '.php');
 }
 
-return array_replace_recursive($default, $config, $environment);
+return array_replace_recursive($default, $router, $config, $environment);

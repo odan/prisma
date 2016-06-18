@@ -1,5 +1,7 @@
 <?php
 
+$config = [];
+
 // Add routes: httpMethod, route, handler
 $routes = [];
 
@@ -7,7 +9,7 @@ $routes = [];
 $routes[] = ['GET', '/', 'App\Controller\IndexController->index'];
 
 // JSON-RPC 2.0 handler
-$routes[] = ['POST', '/rpc', 'App\Controller\RpcController->index'];
+$routes[] = ['POST', '/rpc', 'App\Controller\JsonController->index'];
 
 // Login
 $routes[] = ['GET', '/login', 'App\Controller\LoginController->login'];
@@ -21,4 +23,26 @@ $routes[] = ['GET', '/users', 'App\Controller\UserController->index'];
 // {id} must be a number (\d+)
 $routes[] = ['GET', '/user/{id:\d+}', 'App\Controller\UserController->edit'];
 
-return $routes;
+//
+// Whitelist with actions that require no authentication and authorization
+//
+$noAuth = [
+    'App\Controller\LoginController->login',
+    'App\Controller\LoginController->loginSubmit',
+    'App\Controller\LoginController->logout',
+];
+
+//
+// Event listener for checking authorization
+//
+$events = [
+    'before.action' => '\App\Service\User\Authentication::check'
+];
+
+$config['router'] = array(
+    'routes' => $routes,
+    'noauth' => $noAuth,
+    'events' => $events
+);
+
+return $config;

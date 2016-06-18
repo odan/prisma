@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Util;
 
 use Exception;
 use ReflectionClass;
@@ -10,24 +10,52 @@ use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\JsonResponse;
 
 /**
- * RpcController
+ * PSR-7 JsonRpcServer
  */
-class RpcController extends AppController
+class JsonServer
 {
 
     /**
-     * Action
+     * Request
+     *
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * Response
+     *
+     * @var Request
+     */
+    protected $response;
+
+    /**
+     * Constructor
+     *
+     * @param Request $request
+     * @param Response $response
+     */
+    public function __construct(Request $request = null, Response $response = null)
+    {
+        $this->request = $request;
+        $this->response = $response;
+    }
+
+    /**
+     * Run handler
      *
      * @param Request $request
      * @param Response $response
      * @return Response
      */
-    public function index(Request $request = null, Response $response = null)
+    public function run()
     {
         $jsonRequest = array();
+        $request = $this->request;
+        $response = $this->response;
 
         try {
-            $jsonRequest = $this->getJsonRequest($request);
+            $jsonRequest = $this->getJsonRequest();
 
             // Get controller object
             list($className, $methodName) = explode('.', $jsonRequest['method']);
@@ -41,17 +69,13 @@ class RpcController extends AppController
                 'result' => null
             );
 
-            $request = $request->withAttribute('jsonrpc', $data);
-
             // Send json rpc response
             $response = $this->getJsonResponse($data);
 
             // Call controller action
             $response = $this->callFunction($object, $methodName, $request, $response, $jsonRequest);
-
-            // $request = $request->withAttribute('json', $data);
         } catch (Exception $ex) {
-            $response = $this->getJsonErrorResponse($ex, $jsonRequest, $request, $response);
+            $response = $this->getResponseByException($ex, $jsonRequest, $request, $response);
         }
         return $response;
     }
@@ -62,9 +86,9 @@ class RpcController extends AppController
      * @param array $data
      * @return $response
      */
-    protected function getJsonResponse($data)
+    public function getJsonResponse($data, $status = 200)
     {
-        $response = new JsonResponse($data);
+        $response = new JsonResponse($data, $status);
         $response = $response->withHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
         $response = $response->withHeader('Pragma', 'no-cache');
         $response = $response->withHeader('Expires', '0');
@@ -95,12 +119,12 @@ class RpcController extends AppController
      * @return array
      * @throws Exception
      */
-    protected function getJsonRequest(Request $request)
+    protected function getJsonRequest()
     {
-        if (!$this->isJsonRpc($request)) {
+        if (!$this->isJsonRpc($this->request)) {
             throw new Exception('Invalid Json-RPC request');
         }
-        $requestContent = $request->getBody()->__toString();
+        $requestContent = $this->request->getBody()->__toString();
         $result = json_decode($requestContent, true);
 
         if (empty($result) || !is_array($result)) {
@@ -110,16 +134,16 @@ class RpcController extends AppController
     }
 
     /**
-     * Returns true if a JSON-RCP request has been received
+     * Returns true if a JSON-RCP request has been received.
+     *
      * @return boolean
      */
-    protected function isJsonRpc(Request $request)
+    public function isJsonRpc()
     {
-        $method = $request->getMethod();
-        $contentType = $request->getHeaderLine('content-type');
-
-        return $method === 'POST' && !empty($contentType) &&
-                (strpos($contentType, 'application/json') !== false);
+       $method = $this->request->getMethod();
+        $type = $this->request->getHeader('content-type');
+        return $method === 'POST' && !empty($type[0]) &&
+                (strpos($type[0], 'application/json') !== false);
     }
 
     /**
@@ -156,7 +180,7 @@ class RpcController extends AppController
      * @param array $jsonRequest
      * @return Response Response
      */
-    protected function getJsonErrorResponse(Exception $ex, $jsonRequest)
+    protected function getResponseByException(Exception $ex, $jsonRequest)
     {
         $data = array(
             'jsonrpc' => '2.0',
@@ -167,5 +191,25 @@ class RpcController extends AppController
             )
         );
         return $this->getJsonResponse($data);
+    }
+
+    /**
+     * Create json-rpc error response
+     *
+     * @param Exception $ex
+     * @param array $jsonRequest
+     * @return Response Response
+     */
+    public function getResponseByError($message, $code = 0, $id = 0, $httpCode = 200)
+    {
+        $data = array(
+            'jsonrpc' => '2.0',
+            'id' => $id,
+            'error' => array(
+                'code' => $code,
+                'message' => $message
+            )
+        );
+        return $this->getJsonResponse($data, $httpCode);
     }
 }
