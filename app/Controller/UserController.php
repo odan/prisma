@@ -11,6 +11,13 @@ use Zend\Diactoros\Response;
 class UserController extends AppController
 {
 
+    /**
+     * Index
+     *
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     */
     public function index(Request $request = null, Response $response = null)
     {
         // Append content to response
@@ -18,6 +25,13 @@ class UserController extends AppController
         return $response;
     }
 
+    /**
+     * Edit
+     *
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     */
     public function edit(Request $request = null, Response $response = null)
     {
         // All GET parameters
@@ -48,6 +62,8 @@ class UserController extends AppController
         $counter++;
         $app->session->set('counter', $counter);
 
+        $app->logger->info('My log message');
+
         // Set locale
         //$app->session->set('user.locale', 'de_DE');
         //
@@ -57,15 +73,11 @@ class UserController extends AppController
         //$userRow = $user->getById($id);
         //
         // Add data to template
-        $data = [
-            'baseurl' => $request->getAttribute('base_url'),
-            'assets' => $this->getAssets(),
-            'text' => $this->getText(),
-            'content' => 'view::User/html/edit.html.php',
+        $data = $this->getData($request, [
             'id' => $id,
-        ];
-
-        $app->logger->info('My log message');
+            'assets' => $this->getAssets(),
+            'content' => 'view::User/html/edit.html.php'
+        ]);
 
         // Render template
         $content = $app->view->render('view::Layout/html/layout.html.php', $data);
