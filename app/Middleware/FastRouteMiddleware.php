@@ -75,7 +75,7 @@ class FastRouteMiddleware
             return $response->withStatus(405)->withBody($stream);
         }
         $request = $request->withAttribute('vars', $route[2]);
-        $response = $this->executeCallable($route[1], $request, $response);
+        $response = $this->executeCallable($route[1], $request, $response, $next);
         return $next($request, $response);
     }
 
@@ -114,7 +114,7 @@ class FastRouteMiddleware
      *
      * @return Response
      */
-    private function executeCallable($target, Request $request, Response $response)
+    private function executeCallable($target, Request $request, Response $response, callable $next)
     {
         ob_start();
         $level = ob_get_level();
@@ -130,7 +130,12 @@ class FastRouteMiddleware
             if (is_array($callback)) {
                 list($class, $method) = $callback;
                 $callback = new $class();
-                $return = $callback->{$method}($request, $response);
+                if ($method === '__invoke') {
+                    // Call middleware
+                    $return = $callback->{$method}($request, $response, $next);
+                } else {
+                    $return = $callback->{$method}($request, $response);
+                }
             } else {
                 $return = call_user_func_array($callback, [$request, $response]);
             }

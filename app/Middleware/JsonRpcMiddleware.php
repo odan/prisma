@@ -24,7 +24,7 @@ class JsonRpcMiddleware
      *
      * @var string Attribute
      */
-    const ATTRIBUTE = 'jsonrpc';
+    const ATTRIBUTE = 'json';
 
     /**
      * Options
@@ -34,13 +34,30 @@ class JsonRpcMiddleware
     protected $options;
 
     /**
+     * Request
+     *
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * Response
+     *
+     * @var Request
+     */
+    protected $response;
+
+    /**
      * Set the Middleware instance and options.
      *
      * @param array $options
+     * - class Classname to invoke
      */
-    public function __construct($options)
+    public function __construct($options = array())
     {
-        $this->options = $options;
+        $this->options = array_replace_recursive([
+            'class' => '\App\Controller\%sController'
+        ], $options);
     }
 
     /**
@@ -53,21 +70,37 @@ class JsonRpcMiddleware
      */
     public function __invoke(Request $request, Response $response, callable $next)
     {
-        $request = $request->withAttribute(static::ATTRIBUTE, $this->create($request));
+        if (!$this->isJsonRpc($request)) {
+            return $next($request, $response);
+        }
+        $this->request = $request;
+        $this->response = $response;
+        $response = $this->run();
         return $next($request, $response);
     }
 
-
-    public function create($request)
+     /**
+     * Run handler
+     *
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     */
+    public function run()
     {
         $jsonRequest = array();
+        $request = $this->request;
+        $response = $this->response;
 
         try {
-            $jsonRequest = $this->getJsonRequest($request);
+            $jsonRequest = $this->getJsonRequest();
+
+            // Add json request
+            $request = $request->withAttribute(static::ATTRIBUTE, $jsonRequest);
 
             // Get controller object
             list($className, $methodName) = explode('.', $jsonRequest['method']);
-            $controllerName = sprintf('\App\Controller\%sController', $className);
+            $controllerName = sprintf($this->options['class'], $className);
             $object = $this->getObject($controllerName, $methodName);
 
             // Create response with result
@@ -77,33 +110,14 @@ class JsonRpcMiddleware
                 'result' => null
             );
 
-            $request = $request->withAttribute('jsonrpc', $data);
-
             // Send json rpc response
             $response = $this->getJsonResponse($data);
 
             // Call controller action
             $response = $this->callFunction($object, $methodName, $request, $response, $jsonRequest);
-
-            // $request = $request->withAttribute('json', $data);
         } catch (Exception $ex) {
-            $response = $this->getJsonErrorResponse($ex, $jsonRequest, $request, $response);
+            $response = $this->getResponseByException($ex, $jsonRequest, $request, $response);
         }
-        return $response;
-    }
-
-    /**
-     * Send value as json string
-     *
-     * @param array $data
-     * @return $response
-     */
-    protected function getJsonResponse($data)
-    {
-        $response = new JsonResponse($data);
-        $response = $response->withHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-        $response = $response->withHeader('Pragma', 'no-cache');
-        $response = $response->withHeader('Expires', '0');
         return $response;
     }
 
@@ -113,16 +127,30 @@ class JsonRpcMiddleware
      * @param mixed $object
      * @param string $methodName
      * @param array $jsonRequest
-     * @return mixed
+     * @return Response
      */
     protected function callFunction($object, $methodName, $request, $response, $jsonRequest)
     {
         if (isset($jsonRequest['params'])) {
-            $result = $object->{$methodName}($request, $response, $jsonRequest['params']);
+            return $object->{$methodName}($request, $response, $jsonRequest['params']);
         } else {
-            $result = $object->{$methodName}($request, $response);
+            return $object->{$methodName}($request, $response);
         }
-        return $result;
+    }
+
+    /**
+     * Send value as json string
+     *
+     * @param array $data
+     * @return $response
+     */
+    public function getJsonResponse($data, $status = 200)
+    {
+        $response = new JsonResponse($data, $status);
+        $response = $response->withHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+        $response = $response->withHeader('Pragma', 'no-cache');
+        $response = $response->withHeader('Expires', '0');
+        return $response;
     }
 
     /**
@@ -131,12 +159,12 @@ class JsonRpcMiddleware
      * @return array
      * @throws Exception
      */
-    protected function getJsonRequest(Request $request)
+    protected function getJsonRequest()
     {
-        if (!$this->isJsonRpc($request)) {
+        if (!$this->isJsonRpc($this->request)) {
             throw new Exception('Invalid Json-RPC request');
         }
-        $requestContent = $request->getBody()->__toString();
+        $requestContent = $this->request->getBody()->__toString();
         $result = json_decode($requestContent, true);
 
         if (empty($result) || !is_array($result)) {
@@ -146,16 +174,16 @@ class JsonRpcMiddleware
     }
 
     /**
-     * Returns true if a JSON-RCP request has been received
+     * Returns true if a JSON-RCP request has been received.
+     *
      * @return boolean
      */
-    protected function isJsonRpc(Request $request)
+    public function isJsonRpc(Request $request)
     {
         $method = $request->getMethod();
-        $contentType = $request->getHeaderLine('content-type');
-
-        return $method === 'POST' && !empty($contentType) &&
-                (strpos($contentType, 'application/json') !== false);
+        $type = $request->getHeader('content-type');
+        return $method === 'POST' && !empty($type[0]) &&
+                (strpos($type[0], 'application/json') !== false);
     }
 
     /**
@@ -171,7 +199,7 @@ class JsonRpcMiddleware
         if (!class_exists($className)) {
             throw new Exception("Class '$methodName' not found");
         }
-        $object = new $className();
+        $object = new $className($this->request, $this->response);
         $class = new ReflectionClass($object);
         if (!$class->hasMethod($methodName)) {
             throw new Exception("Method '$methodName' not found");
@@ -192,7 +220,7 @@ class JsonRpcMiddleware
      * @param array $jsonRequest
      * @return Response Response
      */
-    protected function getJsonErrorResponse(Exception $ex, $jsonRequest)
+    protected function getResponseByException(Exception $ex, $jsonRequest)
     {
         $data = array(
             'jsonrpc' => '2.0',
@@ -203,5 +231,25 @@ class JsonRpcMiddleware
             )
         );
         return $this->getJsonResponse($data);
+    }
+
+    /**
+     * Create json-rpc error response
+     *
+     * @param Exception $ex
+     * @param array $jsonRequest
+     * @return Response Response
+     */
+    public function getResponseByError($message, $code = 0, $id = 0, $httpCode = 200)
+    {
+        $data = array(
+            'jsonrpc' => '2.0',
+            'id' => $id,
+            'error' => array(
+                'code' => $code,
+                'message' => $message
+            )
+        );
+        return $this->getJsonResponse($data, $httpCode);
     }
 }

@@ -60,11 +60,12 @@ class IndexController extends AppController
      */
     public function load(Request $request = null, Response $response = null)
     {
-        $json = $request->getAttribute('jsonrpc');
+        $json = $request->getAttribute('json');
         $params = value($json, 'params');
-        $json['result'] = [
-            'status' => 1
+        $result = [
+            'status' => 1,
+            'pingpong' => $params
         ];
-        return new JsonResponse($json);
+        return new JsonResponse($result);
     }
 }

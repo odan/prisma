@@ -8,8 +8,8 @@ $routes = [];
 // Default page
 $routes[] = ['GET', '/', 'App\Controller\IndexController->index'];
 
-// JSON-RPC 2.0 handler
-$routes[] = ['POST', '/rpc', 'App\Controller\JsonController->index'];
+// JSON-RPC 2.0 middleware for all Json requests
+$routes[] = ['POST', '/rpc', 'App\Middleware\JsonRpcMiddleware->__invoke'];
 
 // Login
 $routes[] = ['GET', '/login', 'App\Controller\LoginController->login'];
