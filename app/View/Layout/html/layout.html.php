@@ -62,6 +62,10 @@
         <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="assets/js/ie10-viewport-bug-workaround.js"></script>
         <?= $this->assetJs($assets, ['inline' => false]); ?>
-        <?= $jstext ?>
+        <?php
+        if (!empty($text)) :
+            echo sprintf("<script>\$d.addText(%s);</script>", json_encode($text));
+        endif;
+        ?>
     </body>
 </html>

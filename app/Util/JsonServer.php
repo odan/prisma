@@ -159,7 +159,7 @@ class JsonServer
         if (!class_exists($className)) {
             throw new Exception("Class '$methodName' not found");
         }
-        $object = new $className();
+        $object = new $className($this->request, $this->response);
         $class = new ReflectionClass($object);
         if (!$class->hasMethod($methodName)) {
             throw new Exception("Method '$methodName' not found");

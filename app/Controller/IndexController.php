@@ -19,35 +19,34 @@ class IndexController extends AppController
      * @param Response $response
      * @return Response
      */
-    public function index(Request $request = null, Response $response = null, $params = null)
+    public function index(Request $request = null, Response $response = null)
     {
         $app = $this->app($request);
-
-        // Add data to template
-        $assets = $this->getAssets();
-        $assets[] = 'view::Index/js/index.js';
-
-        $text = $this->getTextAssets();
-        $text['Loaded successfully!'] = __('Loaded successfully!');
-        $jsText = $this->getJsText($text);
 
         // Increment counter
         $counter = $app->session->get('counter', 0);
         $counter++;
         $app->session->set('counter', $counter);
 
-        $data = [
-            'baseurl' => $request->getAttribute('base_url'),
+        // Add data to template
+        $assets = $this->getAssets([
+            'view::Index/js/index.js',
+        ]);
+
+        $text = $this->getText([
+            'Loaded successfully!' => __('Loaded successfully!')
+        ]);
+
+        $data = $this->getData($request, [
             'assets' => $assets,
-            'jstext' => $jsText,
+            'text' => $text,
             'content' => 'view::Index/html/index.html.php',
             'counter' => $counter,
-        ];
+        ]);
 
         // Render template
         $content = $app->view->render('view::Layout/html/layout.html.php', $data);
         $response->getBody()->write($content);
-
         return $response;
     }
 
@@ -59,7 +58,7 @@ class IndexController extends AppController
      * @param mixed $params
      * @return mixed
      */
-    public function load(Request $request = null, Response $response = null, $params = null)
+    public function load(Request $request = null, Response $response = null)
     {
         $json = $request->getAttribute('jsonrpc');
         $params = value($json, 'params');

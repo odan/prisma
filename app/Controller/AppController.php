@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Container\AppContainer;
 use App\Middleware\AppMiddleware;
 use Zend\Diactoros\ServerRequest as Request;
 
@@ -11,11 +12,11 @@ use Zend\Diactoros\ServerRequest as Request;
 class AppController
 {
 
-    /**
+     /**
      * Get app container
      *
      * @param Request $request
-     * @return \App\Container\AppContainer
+     * @return AppContainer
      */
     public function app(Request $request)
     {
@@ -25,51 +26,57 @@ class AppController
     /**
      * Returns global assets (js, css).
      *
-     * @return string
+     * @param array $assets Assets
+     * @return array
      */
-    protected function getAssets()
+    protected function getAssets(array $assets = array())
     {
         // Global assets
-        $assets = [];
-        $assets[] = 'assets::css/d.css';
+        $result = [];
+        $result[] = 'assets::css/d.css';
         // Customized notifIt with bootstrap colors
-        $assets[] = 'assets::css/notifIt-app.css';
-        $assets[] = 'view::Index/css/layout.css';
+        $result[] = 'assets::css/notifIt-app.css';
+        $result[] = 'view::Index/css/layout.css';
         //$files[] = 'Index/css/print.css';
-        $assets[] = 'assets::js/d.js';
-        $assets[] = 'assets::js/notifIt.js';
-        $assets[] = 'view::Index/js/app.js';
+        $result[] = 'assets::js/d.js';
+        $result[] = 'assets::js/notifIt.js';
+        $result[] = 'view::Index/js/app.js';
 
-        return $assets;
+        if (!empty($assets)) {
+           $result = array_merge($result, $assets);
+        }
+        return $result;
     }
 
     /**
      * Returns translated text.
      *
+     * @param array $text Text
      * @return array
      */
-    protected function getTextAssets()
+    protected function getText(array $text = array())
     {
+        // Default text
         $result = [];
         $result['Ok'] = __('Ok');
         $result['Cancel'] = __('Cancel');
         $result['Yes'] = __('Yes');
         $result['No'] = __('No');
+
+        if (!empty($text)) {
+            $result = array_replace_recursive($result, $text);
+        }
         return $result;
     }
 
-    /**
-     * Set text to global layout
-     *
-     * @return string
-     */
-    protected function getJsText($text)
+    public function getData(Request $request, array $data = null)
     {
-        if (!empty($text)) {
-            $js = json_encode($text);
-            $js = sprintf("<script>\$d.addText(%s);</script>", $js);
-            return $js;
+        $result = [
+            'baseurl' => $request->getAttribute('base_url'),
+        ];
+        if (!empty($data)) {
+            $result = array_replace_recursive($result, $data);
         }
-        return '';
+        return $result;
     }
 }

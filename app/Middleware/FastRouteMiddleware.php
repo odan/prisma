@@ -74,8 +74,8 @@ class FastRouteMiddleware
             $stream->write('Not allowed');
             return $response->withStatus(405)->withBody($stream);
         }
-        //$request = $request->withAttribute('args', $route[2]);
-        $response = $this->executeCallable($route[1], $request, $response, $route[2]);
+        $request = $request->withAttribute('vars', $route[2]);
+        $response = $this->executeCallable($route[1], $request, $response);
         return $next($request, $response);
     }
 
@@ -114,7 +114,7 @@ class FastRouteMiddleware
      *
      * @return Response
      */
-    private function executeCallable($target, Request $request, Response $response, $vars = null)
+    private function executeCallable($target, Request $request, Response $response)
     {
         ob_start();
         $level = ob_get_level();
@@ -122,13 +122,19 @@ class FastRouteMiddleware
             $callback = $this->getCallable($target);
 
             // Event handler
-            $eventParams = [$request,$response,$vars,$target, $callback];
+            $eventParams = [$request, $response, $target, $callback];
             $eventResult = $this->triggerBeforeAction($eventParams);
             if ($eventResult instanceof Response) {
                 return $eventResult;
             }
+            if (is_array($callback)) {
+                list($class, $method) = $callback;
+                $callback = new $class();
+                $return = $callback->{$method}($request, $response);
+            } else {
+                $return = call_user_func_array($callback, [$request, $response]);
+            }
 
-            $return = call_user_func_array($callback, [$request, $response, $vars]);
             if ($return instanceof Response) {
                 $response = $return;
                 $return = '';
@@ -177,9 +183,7 @@ class FastRouteMiddleware
         }
         if (is_string($target)) {
             if (strpos($target, '->') !== false) {
-                // Object method call
-                list($class, $method) = explode('->', $target, 2);
-                $target = array(new $class, $method);
+                return explode('->', $target, 2);
             }
         }
         // If it's callable as is

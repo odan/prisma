@@ -20,7 +20,7 @@ class Authentication extends BaseService
      * @param Response $response
      * @return bool|Response
      */
-    public static function check(Request $request, Response $response, $vars, $action, $callback)
+    public static function check(Request $request, Response $response, $action, $callback)
     {
         /* @var $app AppContainer */
         $app = $request->getAttribute(\App\Middleware\AppMiddleware::ATTRIBUTE);

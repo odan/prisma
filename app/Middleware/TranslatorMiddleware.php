@@ -69,7 +69,7 @@ class TranslatorMiddleware
           // Inject translator into function
         __(null, null, $translator);
 
-        //$test = __('Hello');
+        $test = __('Hello');
         return $translator;
     }
 

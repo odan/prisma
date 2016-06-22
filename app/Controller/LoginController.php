@@ -27,12 +27,12 @@ class LoginController extends AppController
         $app = $this->app($request);
 
         $user = new UserSession($app);
-        $user->logout($app);
+        $user->logout();
 
         $assets = $this->getAssets();
         $assets[] = 'view::Index/css/login.css';
         $app->view->addData(['assets' => $assets]);
-        $app->view->addData(['baseurl' => $request->getAttribute('base_url')]);
+        $app->view->addData($this->getData($request));
         $content = $app->view->render('view::Index/html/login.html.php');
         $response->getBody()->write($content);
         return $response;

@@ -18,7 +18,7 @@ class UserController extends AppController
         return $response;
     }
 
-    public function edit(Request $request = null, Response $response = null, $vars = null)
+    public function edit(Request $request = null, Response $response = null)
     {
         // All GET parameters
         $queryParams = $request->getQueryParams();
@@ -33,6 +33,7 @@ class UserController extends AppController
         //$data = $postParams['data'];
         //
         // Get routing arguments
+        $vars = $request->getAttribute('vars');
         $id = $vars['id'];
 
         // Get config value
@@ -56,13 +57,10 @@ class UserController extends AppController
         //$userRow = $user->getById($id);
         //
         // Add data to template
-        $assets = $this->getAssets();
-        $jsText = $this->getJsText($this->getTextAssets());
-
         $data = [
             'baseurl' => $request->getAttribute('base_url'),
-            'assets' => $assets,
-            'jstext' => $jsText,
+            'assets' => $this->getAssets(),
+            'text' => $this->getText(),
             'content' => 'view::User/html/edit.html.php',
             'id' => $id,
         ];

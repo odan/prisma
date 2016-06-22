@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Demo\n"
-"POT-Creation-Date: 2016-06-17 22:22+0100\n"
-"PO-Revision-Date: 2016-06-17 22:22+0100\n"
+"POT-Creation-Date: 2016-06-21 19:34+0100\n"
+"PO-Revision-Date: 2016-06-21 19:34+0100\n"
 "Last-Translator: User <user@example.com>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -15,19 +15,19 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: Controller/AppController.php:54
+#: Controller/AppController.php:55
 msgid "Ok"
 msgstr "Ok"
 
-#: Controller/AppController.php:55
+#: Controller/AppController.php:56
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: Controller/AppController.php:56
+#: Controller/AppController.php:57
 msgid "Yes"
 msgstr "Ja"
 
-#: Controller/AppController.php:57
+#: Controller/AppController.php:58
 msgid "No"
 msgstr "Nein"
 
