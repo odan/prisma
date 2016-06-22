@@ -43,11 +43,9 @@ class UserSession extends BaseService
         $this->set('user.domain', $domain);
 
         $translator = $this->app->translator;
-        $moFile = sprintf('%s/../Locale/%s_%s.mo', __DIR__, $locale, $domain);
+        $moFile = sprintf('%s/../../Locale/%s_%s.mo', __DIR__, $locale, $domain);
         if (file_exists($moFile)) {
             $translator->addResource('mo', $moFile, $locale, $domain);
-        } else {
-            $this->app->logger->warning(sprintf('File not found: %s', $moFile));
         }
         $translator->setLocale($locale);
 
