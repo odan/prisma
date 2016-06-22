@@ -103,18 +103,17 @@ class JsonRpcMiddleware
             $controllerName = sprintf($this->options['class'], $className);
             $object = $this->getObject($controllerName, $methodName);
 
-            // Create response with result
-            $data = array(
-                'jsonrpc' => '2.0',
-                'id' => value($jsonRequest, 'id', null),
-                'result' => null
-            );
-
-            // Send json rpc response
-            $response = $this->getJsonResponse($data);
-
             // Call controller action
-            $response = $this->callFunction($object, $methodName, $request, $response, $jsonRequest);
+            $result = $this->callFunction($object, $methodName, $request, $response, $jsonRequest);
+
+            // Create response with result
+            if (!($result instanceof Response)) {
+                $response = $this->getJsonResponse(array(
+                    'jsonrpc' => '2.0',
+                    'id' => value($jsonRequest, 'id', null),
+                    'result' => $result
+                ));
+            }
         } catch (Exception $ex) {
             $response = $this->getResponseByException($ex, $jsonRequest, $request, $response);
         }

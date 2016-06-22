@@ -55,7 +55,6 @@ class IndexController extends AppController
      *
      * @param Request $request
      * @param Response $response
-     * @param mixed $params
      * @return mixed
      */
     public function load(Request $request = null, Response $response = null)
@@ -63,9 +62,8 @@ class IndexController extends AppController
         $json = $request->getAttribute('json');
         $params = value($json, 'params');
         $result = [
-            'status' => 1,
-            'pingpong' => $params
+            'status' => 1
         ];
-        return new JsonResponse($result);
+        return $result;
     }
 }
