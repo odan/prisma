@@ -15,7 +15,7 @@
         "symfony/translation": "~3.0",
         "cakephp/utility": "^3.2.10",
         "cakephp/database": "^3.2.10",
-        "robmorgan/phinx": "0.5.*",
+        "robmorgan/phinx": "0.6.*",
         "league/plates": "3.*",
         "odan/plates-asset-cache": "0.1.*"
     },
