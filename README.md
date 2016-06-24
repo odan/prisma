@@ -1,5 +1,12 @@
 # PSR-7 Full Stack Framework
 
+Strictly PSR-7 oriented php framework.
+
+[![Latest Version](https://img.shields.io/github/release/odan/psr7-full-stack.svg?style=flat-square)](https://github.com/loadsys/odan/molengo/releases)
+[![Total Downloads](https://img.shields.io/packagist/dt/odan/psr7-full-stack.svg?style=flat-square)](https://packagist.org/packages/odan/molengo)
+[![Repo Size](https://reposs.herokuapp.com/?path=odan/molengo&style=flat)](https://reposs.herokuapp.com/?path=odan/molengo)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+
 ## Requirements
 
 * PHP 5.6 or 7.0+
