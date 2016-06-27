@@ -1524,6 +1524,107 @@ $d.alert = function(config, callback) {
 };
 
 /**
+ * Show promt
+ *
+ * @param {Object} config
+ * @param {function} callback
+ * @returns {Object} window
+ *
+ * @example
+ *
+ * $d.promt({
+ *      text: 'Test Message',
+ *      defaultText: '',
+ *      title: __('Title'),
+ *      validate: function(value) {
+ *          if (!value) {
+ *              return __('required');
+ *          }
+ *          return true;
+ *      }
+ * }, function(value) {
+ *      alert(value);
+ * });
+ * 
+ */
+$d.prompt = function(config, callback) {
+    var text = '';
+    if (typeof config === 'string') {
+        text = config;
+        config = {};
+    }
+
+    var callbackFlag = false;
+
+    config = $.extend({
+        title: false,
+        text: text,
+        defaultText: '',
+        validate: function(value) {
+            return true;
+        },
+        buttons: [{
+                text: __('OK'),
+                'class': 'btn btn-primary',
+                dismiss: 'modal',
+                callback: function(e) {
+                    callbackFlag = true;
+                }
+            }, {
+                text: __('Cancel'),
+                'class': 'btn',
+                dismiss: 'modal',
+                callback: function(e) {
+                    callbackFlag = false;
+                }
+            }],
+        primary: 'ok',
+        modal: {
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        }
+    },
+    config);
+
+    var html = '<div class="row"><div class="col-sm-12">';
+    html += '<form role="form" onsubmit="return false">';
+    html += '<div class="form-group">';
+    html += '<label class="col-md-12 control-label">' + gh(config.text) + '</label>';
+    html += '<div class="col-md-12">';
+    html += '<input type="text" class="form-control" maxlength="255" name="data[text]" value="' + gh(config.defaultText) + '">';
+    html += '<p class="help-block"></p>';
+    html += '</div>';
+    html += '</div>';
+    html += '</form>';
+    html += '</div></div>';
+    config.html = html;
+
+    var wnd = $d.window({
+        title: config.title,
+        body: config.html || gh(config.text),
+        buttons: config.buttons
+    });
+
+    $(wnd).on('hide.bs.modal', function(e) {
+        if (callbackFlag === true && typeof callback === 'function') {
+            var val = $(wnd).find('input[name=data\\[text\\]]').val();
+            var validation = config.validate(val);
+            if (validation == true) {
+                callback(val, wnd);
+            } else {
+                e.preventDefault();
+                $d.showValidation($(wnd).find('form'), {
+                    'text': validation
+                });
+            }
+        }
+    });
+
+    return $(wnd).modal(config.modal);
+};
+
+/**
  * Confirm
  *
  * @param {Object} config
