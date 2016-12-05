@@ -1,4 +1,6 @@
 web/* linguist-vendored
+webroot/* linguist-vendored
+public/* linguist-vendored
 docs/* linguist-documentation
 
 # Set the default behavior, in case people don't have core.autocrlf set.
