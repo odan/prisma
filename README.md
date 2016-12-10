@@ -26,7 +26,7 @@ Strictly PSR-7 oriented php component framework.
 * [Phinx](https://github.com/robmorgan/phinx) - Database migrations.
 * [Monolog](https://github.com/Seldaek/monolog) - Logging.
 * [PHPMailer ](https://github.com/PHPMailer/PHPMailer) - The classic email sending library.
-* [PHPUnit ](https://github.com/sebastianbergmann/phpunit) - Unit tests.
+* [PHPUnit](https://github.com/sebastianbergmann/phpunit) - Unit tests.
 
 ## Installation
 
