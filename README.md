@@ -1,6 +1,6 @@
 # PSR-7 Full Stack Framework
 
-Strictly PSR-7 oriented php framework.
+Strictly PSR-7 oriented php component framework.
 
 [![Latest Version](https://img.shields.io/github/release/odan/psr7-full-stack.svg?style=flat-square)](https://github.com/loadsys/odan/molengo/releases)
 [![Total Downloads](https://img.shields.io/packagist/dt/odan/psr7-full-stack.svg?style=flat-square)](https://packagist.org/packages/odan/molengo)
@@ -25,8 +25,7 @@ Strictly PSR-7 oriented php framework.
 * [JSON-RPC 2.0](http://www.jsonrpc.org/specification) middleware.
 * [Phinx](https://github.com/robmorgan/phinx) - Database migrations.
 * [Monolog](https://github.com/Seldaek/monolog) - Logging.
-* [PHPMailer ](https://github.com/PHPMailer/PHPMailer) - The classic email sending library.
-* [PHPUnit ](https://github.com/sebastianbergmann/phpunit) - Unit tests.
+* [PHPUnit](https://github.com/sebastianbergmann/phpunit) - Unit tests.
 
 ## Installation
 
