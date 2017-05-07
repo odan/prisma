@@ -8,26 +8,7 @@
  */
 function gh($text)
 {
-    // Skip empty strings
-    if ($text === null || $text === '') {
-        return '';
-    }
-
-    // Convert to utf-8
-    if (!mb_check_encoding($text, 'UTF-8')) {
-        $text = mb_convert_encoding($text, 'UTF-8');
-    }
-
-    $text = htmlentities($text, ENT_QUOTES, "UTF-8");
-
-    // Convert non printable and non ascii chars to numeric entity
-    // This will match a single non-ASCII character
-    // This is a valid PCRE (Perl-Compatible Regular Expression).
-    $text = preg_replace_callback('/[^\x20-\x7E]/u', function ($match) {
-        return mb_encode_numericentity($match[0], array(0x0, 0xffff, 0, 0xffff), 'UTF-8');
-    }, $text);
-
-    return $text;
+    return htmlentities($text, ENT_QUOTES | ENT_SUBSTITUTE, "UTF-8");
 }
 
 /**
@@ -113,20 +94,24 @@ function now()
  */
 function uuid()
 {
-    return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-            // 32 bits for time low
-            mt_rand(0, 0xffff), mt_rand(0, 0xffff),
-            // 16 bits for time mid
+    return sprintf(
+        '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+        // 32 bits for time low
             mt_rand(0, 0xffff),
-            // 16 bits for time hi and version,
+        mt_rand(0, 0xffff),
+        // 16 bits for time mid
+            mt_rand(0, 0xffff),
+        // 16 bits for time hi and version,
             // four most significant bits holds version number 4
             mt_rand(0, 0x0fff) | 0x4000,
-            // 16 bits, 8 bits for clk seq hi res,
+        // 16 bits, 8 bits for clk seq hi res,
             // 8 bits for clk_seq_low,
             // two most significant bits holds zero and one for variant DCE1.1
             mt_rand(0, 0x3fff) | 0x8000,
-            // 48 bits for node
-            mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+        // 48 bits for node
+            mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff)
     );
 }
 if (!function_exists('random_bytes')) {

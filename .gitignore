@@ -7,8 +7,8 @@ cache.properties
 
 .env
 env.php
-app/Config/env.php
-app/Config/environment.php
+config/env.php
+config/environment.php
 
 !public/cache/
 public/cache/*

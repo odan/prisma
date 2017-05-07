@@ -2,10 +2,12 @@
 
 namespace App\Test;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * ExampleTest
  */
-class ExampleTest extends \PHPUnit_Framework_TestCase
+class ExampleTest extends TestCase
 {
     /**
      * Test create object.

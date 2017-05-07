@@ -7,7 +7,8 @@ if (!app.index) {
  *
  * @param {Object} options
  */
-app.index.Index = function Index(options) {
+app.index.Index = function Index(options)
+{
 
     // This object
     var $this = this;
@@ -23,7 +24,7 @@ app.index.Index = function Index(options) {
      *
      * @returns {boolean}
      */
-    this.init = function() {
+    this.init = function () {
         return true;
     };
 
@@ -32,9 +33,9 @@ app.index.Index = function Index(options) {
      *
      * @returns {undefined}
      */
-    this.load = function() {
+    this.load = function () {
         $d.showLoad();
-        $d.rpc('Index.load', null, function(res) {
+        $d.rpc('Index.load', null, function (res) {
             if (!$d.handleResponse(res)) {
                 return;
             }
@@ -55,7 +56,7 @@ app.index.Index = function Index(options) {
     this.init();
 };
 
-$(function(params) {
+$(function (params) {
     var obj = new app.index.Index();
     obj.load();
 });

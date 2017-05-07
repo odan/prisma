@@ -74,7 +74,4 @@ class LoginController extends AppController
 
         return $app->http->redirectBase('/login');
     }
-
-
-
 }

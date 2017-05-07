@@ -6,7 +6,7 @@ app = {};
  * @param {object} config
  * @returns {undefined}
  */
-app.Page = function(options) {
+app.Page = function (options) {
 
     // This object
     var $this = this;
@@ -25,7 +25,7 @@ app.Page = function(options) {
      *
      * @returns {undefined}
      */
-    this.init = function() {
+    this.init = function () {
     };
 
     /**
@@ -33,7 +33,7 @@ app.Page = function(options) {
      *
      * @returns {undefined}
      */
-    this.load = function() {
+    this.load = function () {
     };
 
     /**
@@ -43,7 +43,7 @@ app.Page = function(options) {
      * @param {string} strName
      * @returns {undefined}
      */
-    this.setTemplate = function(selector, strName) {
+    this.setTemplate = function (selector, strName) {
         var el = $(selector);
         if (el.length) {
             $this.tpl[strName] = el.html();
@@ -57,7 +57,7 @@ app.Page = function(options) {
      * @param {string} strName
      * @returns {string}
      */
-    this.getTemplate = function(strName) {
+    this.getTemplate = function (strName) {
         return $this.tpl[strName];
     };
 
@@ -68,6 +68,6 @@ app.Page = function(options) {
  * Fix for open modal is shifting body content to the left #9855
  */
 if ($.fn.modal) {
-    $.fn.modal.Constructor.prototype.setScrollbar = function() {
+    $.fn.modal.Constructor.prototype.setScrollbar = function () {
     };
 }

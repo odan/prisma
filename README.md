@@ -38,6 +38,6 @@ cd bin
 php migration.php migrate
 ```
 
-##License
+## License
 
 MIT

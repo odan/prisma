@@ -3,6 +3,6 @@ return array(
     'name' => 'Doctrine Migrations',
     'migrations_namespace' => 'DoctrineMigrations',
     'table_name' => 'doctrine_migrations',
-    'migrations_directory' => realpath(__DIR__ . '/../app/Migration'),
+    'migrations_directory' => realpath(__DIR__ . '/../src/Migration'),
     'migrations' => array()
 );

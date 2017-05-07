@@ -15,14 +15,14 @@ $config = [];
 // Logger
 $config['log'] = array(
     'level' => \Monolog\Logger::ERROR,
-    'path' => realpath(__DIR__ . '/../../tmp/log'),
+    'path' => realpath(__DIR__ . '/../tmp/log'),
 );
 
 // View
 $config['view'] = array(
-    'view_path' => realpath(__DIR__ . '/../View'),
-    'assets_path' => realpath(__DIR__ . '/../../public/assets'),
-    'cache_path' => realpath(__DIR__ . '/../../public/cache'),
+    'view_path' => realpath(__DIR__ . '/../src/View'),
+    'assets_path' => realpath(__DIR__ . '/../public/assets'),
+    'cache_path' => realpath(__DIR__ . '/../public/cache'),
     'minify' => 0
 );
 
@@ -54,7 +54,7 @@ $config['smtp'] = array(
 
 // Migration
 $config['migration'] = array(
-    'path' => realpath(__DIR__ . '/../Migration')
+    'path' => realpath(__DIR__ . '/../resources/migrations')
 );
 
 return $config;

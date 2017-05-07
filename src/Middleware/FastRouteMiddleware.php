@@ -44,7 +44,7 @@ class FastRouteMiddleware
 
         $dispatcher = $this->options['dispatcher'];
         $routes = $this->options['routes'];
-        $this->router = $dispatcher(function(RouteCollector $r) use($routes) {
+        $this->router = $dispatcher(function (RouteCollector $r) use ($routes) {
             foreach ($routes as $route) {
                 // $httpMethod, $route, $handler
                 $r->addRoute($route[0], $route[1], $route[2]);
@@ -213,5 +213,4 @@ class FastRouteMiddleware
         }
         return $output;
     }
-
 }

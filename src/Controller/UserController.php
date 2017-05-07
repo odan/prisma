@@ -87,5 +87,3 @@ class UserController extends AppController
         return $response;
     }
 }
-
-

@@ -57,7 +57,7 @@ class PlatesMiddleware
      */
     public function create(Request $request)
     {
-    $engine = new Engine($this->options['view_path'], null);
+        $engine = new Engine($this->options['view_path'], null);
 
         // Add folder shortcut (assets::file.js)
         $engine->addFolder('assets', $this->options['assets_path']);

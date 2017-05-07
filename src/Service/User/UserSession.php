@@ -43,7 +43,7 @@ class UserSession extends BaseService
         $this->set('user.domain', $domain);
 
         $translator = $this->app->translator;
-        $moFile = sprintf('%s/../../Locale/%s_%s.mo', __DIR__, $locale, $domain);
+        $moFile = sprintf('%s/../../../resources/locale/%s_%s.mo', __DIR__, $locale, $domain);
         if (file_exists($moFile)) {
             $translator->addResource('mo', $moFile, $locale, $domain);
         }
@@ -128,15 +128,7 @@ class UserSession extends BaseService
      */
     public function createHash($password, $algo = 1, $options = array())
     {
-        if (function_exists('password_hash')) {
-            // php >= 5.5
-            $hash = password_hash($password, $algo, $options);
-        } else {
-            $salt = mcrypt_create_iv(22, MCRYPT_DEV_URANDOM);
-            $salt = base64_encode($salt);
-            $salt = str_replace('+', '.', $salt);
-            $hash = crypt($password, '$2y$10$' . $salt . '$');
-        }
+        $hash = password_hash($password, $algo, $options);
         return $hash;
     }
 
@@ -262,7 +254,7 @@ class UserSession extends BaseService
     {
         $query = $this->app->db->newQuery()
                 ->select(['*'])
-                ->from('user')
+                ->from('users')
                 ->where(['username' => $username])
                 ->where(['disabled' => 0]);
 

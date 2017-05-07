@@ -72,5 +72,4 @@ class TranslatorMiddleware
         $test = __('Hello');
         return $translator;
     }
-
 }

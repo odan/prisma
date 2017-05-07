@@ -14,7 +14,7 @@ class Init extends AbstractMigration
     {
         // http://docs.phinx.org/en/latest/migrations.html#creating-a-table
 
-        $table = $this->table('user', [
+        $table = $this->table('users', [
             'engine' => 'InnoDB',
             'collation' => 'utf8_unicode_ci',
             'comment' => '',
@@ -55,10 +55,10 @@ class Init extends AbstractMigration
                 ->save();
 
         // Insert records
-        $this->execute("insert into `user` (`id`, `username`, `password`, `disabled`, `role`, `locale`)
+        $this->execute("insert into `users` (`id`, `username`, `password`, `disabled`, `role`, `locale`)
             values('1','admin','$2y$10$8SCHkI4JUKJ2NA353BTHW.Kgi33HI.2C35xd/j5YUzBx05F1O4lJO','0','ROLE_ADMIN','en_US');");
 
-        $this->execute("insert into `user` (`id`, `username`, `password`, `disabled`, `role`, `locale`)
+        $this->execute("insert into `users` (`id`, `username`, `password`, `disabled`, `role`, `locale`)
         values('2', 'user', '$1\$X64.UA0.\$kCSxRsj3GKk7Bwy3P6xn1.', '0', 'ROLE_USER', 'de_DE');");
     }
 

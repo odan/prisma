@@ -43,7 +43,7 @@ class AppController
         $result[] = 'view::Index/js/app.js';
 
         if (!empty($assets)) {
-           $result = array_merge($result, $assets);
+            $result = array_merge($result, $assets);
         }
         return $result;
     }

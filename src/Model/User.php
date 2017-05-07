@@ -28,7 +28,6 @@ class User extends BaseModel
     /**
      * Get user by id
      *
-     * @param int $id User id
      * @return array Rows
      */
     public function getAll()

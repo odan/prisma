@@ -54,7 +54,7 @@ class CakeDatabaseMiddleware
 
     /**
      * Create instance
-     * 
+     *
      * @return Connection
      */
     public function create()
