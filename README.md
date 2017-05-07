@@ -9,9 +9,9 @@ Strictly PSR-7 oriented php component framework.
 
 ## Requirements
 
-* PHP 5.6 or 7.0+
+* PHP 7.0+
 * MySQL
-* Apache with mod_rewrite
+* Apache
 
 ## Middlware and packages
 
@@ -22,7 +22,6 @@ Strictly PSR-7 oriented php component framework.
 * [Plates Assets Cache Extension](https://github.com/odan/plates-asset-cache) - Caching and compression of assets (JavaScript and CSS).
 * [CakePHP Database](https://github.com/cakephp/database) - Flexible Query builder  with a familiar PDO-like API.
 * [Symfony Translation](https://github.com/symfony/Translation) - Localization and translation component.
-* [JSON-RPC 2.0](http://www.jsonrpc.org/specification) middleware.
 * [Phinx](https://github.com/robmorgan/phinx) - Database migrations.
 * [Monolog](https://github.com/Seldaek/monolog) - Logging.
 * [PHPUnit](https://github.com/sebastianbergmann/phpunit) - Unit tests.
