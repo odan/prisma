@@ -39,7 +39,7 @@ you notice compliance oversights, please send a patch via pull request.
 **Step 1:** Create a new project:
 
 ```shell
-composer create-project --prefer-dist odan/psr7-full-stack astro
+composer create-project --prefer-dist odan/psr7-full-stack demo
 ```
 
 **Step 2:** Setup
