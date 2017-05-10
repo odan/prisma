@@ -31,15 +31,22 @@
     "test": "phpunit",
     "test-coverage": "phpunit --coverage-clover build/logs/clover.xml --coverage-html build/coverage",
     "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
-    "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit -n --no-patch 1 src tests"
+    "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit -n --no-patch 1 src tests",
+    "update-assets": "php config/composer.php update-assets",
+    "post-update-cmd": "php config/composer.php post-update-cmd",
+    "post-install-cmd": "php config/composer.php post-install-cmd"
   },
   "autoload": {
     "psr-4": {
-      "App\\": "src",
-      "App\\Test\\": "tests"
+      "App\\": "src"
     },
     "files": [
       "config/services.php"
     ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "App\\Test\\": "tests"
+    }
   }
 }

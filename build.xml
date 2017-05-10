@@ -1,257 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="webapp" default="noop">
-    
+
     <target name="noop"/>
     <property environment="env"/>
-    
-    <condition property="is_windows">
-        <os family="windows"/>
-    </condition>
-    
+
     <tstamp>
         <format property="now" pattern="yyyy-MM-dd HH:mm:ss" locale="en,UK"/>
         <format property="now_num" pattern="yyyyMMddHHmmss" locale="en,UK"/>
         <format property="now_file" pattern="yyyy-MM-dd_HHmmss" locale="en,UK"/>
     </tstamp>
-    
+
     <!-- By default, we assume all tools to be on the $PATH -->
     <condition property="ext" value=".bat">
         <os family="windows"/>
     </condition>
 
-    <!-- DISPLAYS WINDOWS OS -->
-    <target name="display_windows" if="is_windows" >
-        <echo message="OS Family is: Windows" />
-    </target>
-    
-    <target name="build" depends="build-prepare,lint,phpunit,build-zip"/>
-    <target name="build-full" depends="build-prepare,lint,phpmd-ci,phpcpd-ci,phpunit-coverage,apigen,build-zip"/>
-
-    <target name="build-zip" description="Build artifact">
-        <exec executable="git" failonerror="true">
-            <arg line="archive --format zip --output ${basedir}/build/master.zip master" />
-        </exec>
-        <unzip src="${basedir}/build/master.zip" dest="${basedir}/build/master/"/>
-
-        <antcall target="build-composer"></antcall>
-        
-        <exec executable="php" dir="${basedir}/build/master" searchpath="true" resolveexecutable="true">
-            <arg line="${basedir}/build/master/composer.phar install --no-dev --optimize-autoloader"/>
-        </exec>
-        
-        <antcall target="build-clean"></antcall>
-        
-        <zip 
-            destfile="${basedir}/build/${now_file}_dist.zip" 
-            basedir="${basedir}/build/master/"
-            excludes=".git/**, .gitignore/**, **/*.ipr, **/*.iws, **/*.iml"
-        />
-        <!-- cleanup -->
-        <!-- <delete dir="${basedir}/build/master"/> -->
-    </target>
-    
-    <target name="build-delete" description="Cleanup build artifacts">
-        <!-- <delete dir="${basedir}/vendor"/>
-        <delete file="${basedir}/composer.lock"/> -->
-        <delete dir="${basedir}/build"/>
-    </target>
- 
-    <target name="build-prepare" description="Prepare for build">
-        <delete dir="${basedir}/build/logs"/>
-        <delete dir="${basedir}/build/master"/>
-        <mkdir dir="${basedir}/build"/>
-        <mkdir dir="${basedir}/build/logs"/>
-        <mkdir dir="${basedir}/build/master"/>
-    </target>
-    
     <target name="cc" description="Clear application cache">
         <echo>Clear cache</echo>
-        <delete dir="${basedir}/tmp/cache/"/> 
+        <delete dir="${basedir}/tmp/cache/"/>
         <mkdir dir="${basedir}/tmp/cache"/>
         <chmod file="${basedir}/tmp/cache" perm="775"/>
-        <delete dir="${basedir}/tmp/log/"/> 
+        <delete dir="${basedir}/tmp/log/"/>
         <mkdir dir="${basedir}/tmp/log"/>
         <chmod file="${basedir}/tmp/log" perm="775"/>
-        
+
         <delete includeemptydirs="true">
-            <fileset dir="${basedir}/public/cache">
+            <fileset dir="${basedir}/web/cache">
                 <include name="**/*"/>
                 <exclude name=".htaccess"/>
             </fileset>
         </delete>
     </target>
-    
-    <condition property="is_windows">
-        <os family="windows"/>
-    </condition>
-    <condition property="is_linux">
-        <os family="unix" />
-    </condition>
-     
-    <target name="build-composer" description="Install dependencies with Composer">
-        <tstamp>
-            <format property="thirty.days.ago" pattern="MM/dd/yyyy hh:mm aa" offset="-30" unit="day"/>
-        </tstamp>
-        <delete>
-            <fileset dir="${basedir}/build/master">
-                <include name="composer.phar" />
-                <date datetime="${thirty.days.ago}" when="before"/>
-            </fileset>
-        </delete>
 
-        <get src="https://getcomposer.org/composer.phar" dest="${basedir}/build/master/composer.phar" skipexisting="true"/>
-
-        <exec executable="php" searchpath="true" resolveexecutable="true">
-            <arg value="${basedir}/build/master/composer.phar"/>
-            <arg value="selfupdate"/>
-        </exec>
-    </target>
-    
-    <target name="build-clean" description="Cleanup comoser from build">
-        <delete file="${basedir}/build/master.zip"/>
-        <delete file="${basedir}/build/master/composer.phar"/>
-        <delete file="${basedir}/build/master/.editorconfig"/>
-        <delete file="${basedir}/build/master/.gitattributes"/>
-        <delete file="${basedir}/build/master/.gitignore"/>
-        <delete file="${basedir}/build/master/composer.json"/>
-        <delete file="${basedir}/build/master/composer.lock"/>
-        <delete file="${basedir}/build/master/LICENSE.md"/>
-        <delete file="${basedir}/build/master/README.md"/>
-        <delete file="${basedir}/build/master/build.xml"/>
-        <delete file="${basedir}/build/master/phpunit.xml"/>
-        <delete file="${basedir}/build/master/.coveralls.yml"/>
-        <delete file="${basedir}/build/master/.scrutinizer.yml"/>
-        <delete file="${basedir}/build/master/.travis.yml"/>
-        <delete file="${basedir}/build/master/src/Config/env.php"/>
-        <delete file="${basedir}/build/master/src/Config/env.example.php"/>
-        <delete dir="${basedir}/build/master/tests"/>
-        <delete dir="${basedir}/build/master/_doc"/>
-        <!-- clean vendor -->
-        <delete dir="${basedir}/build/master/vendor/doctrine/inflector/tests"/>
-        <delete dir="${basedir}/build/master/vendor/monolog/monolog/doc"/>
-        <delete dir="${basedir}/build/master/vendor/monolog/monolog/tests"/>
-        <delete dir="${basedir}/build/master/vendor/nikic/fast-route/test"/>
-        <delete dir="${basedir}/build/master/vendor/odan/molengo/tests"/>
-        <delete dir="${basedir}/build/master/vendor/odan/molengo/.git" failonerror="false"/> 
-        <delete dir="${basedir}/build/master/vendor/phpmailer/phpmailer/docs"/>
-        <delete dir="${basedir}/build/master/vendor/phpmailer/phpmailer/examples"/>
-        <delete dir="${basedir}/build/master/vendor/phpmailer/phpmailer/test"/>
-        <delete dir="${basedir}/build/master/vendor/psr/log/Psr/Log/Test"/>
-        <delete dir="${basedir}/build/master/vendor/robmorgan/phinx/docs"/>
-        <delete dir="${basedir}/build/master/vendor/robmorgan/phinx/tests"/>
-        <delete dir="${basedir}/build/master/vendor/symfony/config/Tests"/>
-        <delete dir="${basedir}/build/master/vendor/symfony/console/Tests"/>
-        <delete dir="${basedir}/build/master/vendor/symfony/event-dispatcher/Tests"/>
-        <delete dir="${basedir}/build/master/vendor/symfony/filesystem/Tests"/>
-        <delete dir="${basedir}/build/master/vendor/symfony/http-foundation/Tests"/>
-        <delete dir="${basedir}/build/master/vendor/symfony/translation/Tests"/>
-        <delete dir="${basedir}/build/master/vendor/symfony/yaml/Tests"/>
-        <delete dir="${basedir}/build/master/vendor/tubalmartin/cssmin/tests"/>
-    </target>
-    
     <target name="lint" description="Perform syntax check of sourcecode files">
         <apply executable="php" failonerror="true">
-            <arg value="-l" />
- 
-            <fileset dir="${basedir}">
-                <include name="**/*.php" />
+            <arg value="-l"/>
+
+            <fileset dir="${basedir}/src">
+                <include name="**/*.php"/>
                 <!-- exclude the tests directory, repeat line below to exclude more -->
-                <exclude name="tests/**" /> 
-                <exclude name="vendor/**" /> 
-                <modified />
+                <exclude name="tests/**"/>
+                <exclude name="vendor/**"/>
+                <modified/>
             </fileset>
- 
+
             <fileset dir="${basedir}/tests">
-                <include name="**/*.php" />
-                <modified />
+                <include name="**/*.php"/>
+                <modified/>
             </fileset>
         </apply>
     </target>
-    
-    <target name="phploc-ci" description="Measure project size using PHPLOC">
-        <!-- <exec executable="phploc"> -->
-        <exec executable="phploc${ext}" searchpath="true" resolveexecutable="true">
-            <!-- exclude tests directory -->
-            <arg value="--count-tests" />
-            <arg value="--exclude" />
-            <arg path="${basedir}/tests" />
-            <arg value="--log-csv" />
-            <arg value="${basedir}/build/logs/phploc.csv" />
-            <arg value="--log-xml"/>
-            <arg path="${basedir}/build/logs/phploc.xml"/>
-            <arg path="${basedir}/src" />
-        </exec>
-    </target>
 
-    <target name="pdepend" description="Calculate software metrics using PHP_Depend">
-        <delete dir="${basedir}/build/pdepend"/>
-        <mkdir dir="${basedir}/build/pdepend"/>
-        <!-- <exec executable="pdepend"> -->
-        <exec executable="pdepend${ext}" searchpath="true" resolveexecutable="true">
-            <arg value="--ignore=${basedir}/tests/,${basedir}/docs/,${basedir}/vendor/" />
-            <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
-            <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
-            <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
-            <arg value="${basedir}" />
-        </exec>
-    </target>
-    
-    <target name="phpmd-ci" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
-        <!-- <exec executable="phpmd"> -->
-        <exec executable="phpmd${ext}" searchpath="true" resolveexecutable="true">
-            <arg path="${basedir}" />
-            <arg value="xml" />
-            <arg value="codesize" />
-            <arg value="--reportfile" />
-            <arg value="${basedir}/build/logs/pmd.xml" />
-            <arg value="--exclude" />
-            <arg value="${basedir}\tests,${basedir}\vendor" />
-        </exec>
-    </target>
-
-    <target name="phpcs-ci"
-            description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">
-        <!-- <exec executable="phpcs" output="/dev/null"> -->
-        <exec executable="phpcs${ext}" searchpath="true" resolveexecutable="true" taskname="phpcs">
-            <arg value="--report=checkstyle" />
-            <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
-            <arg value="--standard=PSR2" />
-            <arg value="--ignore=${basedir}/tests" />
-            <arg value="--extensions=php" />
-            <arg path="${basedir}" />
-        </exec>
-    </target>
-    
-    <target name="phpcpd-ci" description="Find duplicate code using PHPCPD">
-        <!-- <exec executable="phpcpd"> -->
-        <exec executable="phpcpd${ext}" searchpath="true" resolveexecutable="true">
-            <arg value="--log-pmd" />
-            <arg value="${basedir}/build/logs/pmd-cpd.xml" />
-            <arg value="--exclude" />
-            <arg path="${basedir}/tests" />
-            <arg path="${basedir}/src" />
-        </exec>
-    </target>
-    
     <target name="apigen" description="Generate API documentation using ApiGen">
         <delete dir="${basedir}/build/api"/>
         <mkdir dir="${basedir}/build/api"/>
-        <exec executable="apigen${ext}" searchpath="true" resolveexecutable="true" failonerror="true">
-            <arg line="generate -s ${basedir}/src -d ${basedir}/build/api --skip-doc-path *.html.php,Local.Example.phps,Local.php" />
+        <exec executable="${basedir}/vendor/bin/apigen${ext}" searchpath="true" resolveexecutable="true"
+              failonerror="true">
+            <arg line="generate -s ${basedir}/src -d ${basedir}/build/api --exclude *.html.php,env.example.phps,env.php"/>
         </exec>
     </target>
-       
-    <target name="phpunit" depends="build-prepare" description="Run unit tests with PHPUnit">
-        <exec executable="${basedir}/vendor/bin/phpunit${ext}" searchpath="true" resolveexecutable="true" failonerror="true" taskname="phpunit">
+
+    <target name="phpunit" description="Run unit tests with PHPUnit">
+        <exec executable="${basedir}/vendor/bin/phpunit${ext}" searchpath="true" resolveexecutable="true"
+              failonerror="true" taskname="phpunit">
             <arg value="--configuration"/>
             <arg path="${basedir}/phpunit.xml"/>
         </exec>
     </target>
-    
-    <target name="phpunit-coverage" depends="build-prepare" description="Run unit tests with PHPUnit with coverage">
+
+    <target name="phpunit-coverage" description="Run unit tests with PHPUnit with coverage">
         <delete dir="${basedir}/build/coverage"/>
         <mkdir dir="${basedir}/build/coverage"/>
-        <exec executable="${basedir}/vendor/bin/phpunit${ext}" searchpath="true" resolveexecutable="true" failonerror="true" taskname="phpunit-coverage">
+        <exec executable="${basedir}/vendor/bin/phpunit${ext}" searchpath="true" resolveexecutable="true"
+              failonerror="true" taskname="phpunit-coverage">
             <arg value="--configuration"/>
             <arg path="${basedir}/phpunit.xml"/>
             <arg value="--coverage-clover"/>
@@ -260,39 +81,150 @@
             <arg path="${basedir}/build/coverage"/>
         </exec>
     </target>
-    
-    <target name="phpcb" depends="build-prepare" description="Aggregate tool output with PHP_CodeBrowser">
-        <delete dir="${basedir}/build/code-browser"/>
-        <mkdir dir="${basedir}/build/code-browser"/>
-        <exec executable="phpcb${ext}">
-            <arg value="--log" />
-            <arg path="${basedir}/build/logs" />
-            <arg value="--ignore" />
-            <arg path="${basedir}/tests" />
-            <arg value="--source" />
-            <arg path="${basedir}/src" />
-            <arg value="--output" />
-            <arg path="${basedir}/build/code-browser" />
+
+    <target name="phstan" description="PHP Static Analysis Tool - discover bugs in your code without running it">
+        <exec executable="${basedir}/vendor/bin/phpstan${ext}" searchpath="true" resolveexecutable="true"
+              failonerror="true" taskname="phpunit-coverage">
+            <arg value="analyse"/>
+            <arg value="-l"/>
+            <arg value="5"/>
+            <arg value="-c"/>
+            <arg path="${basedir}/phpstan.neon"/>
+            <arg value="src"/>
+            <arg value="tests"/>
+            <arg value="--no-interaction"/>
+            <arg value="--no-progress"/>
         </exec>
     </target>
-    
-    <target name="migration-status" description="Get migration status">
-        <exec executable="php" dir="${basedir}/bin" failonerror="true">
-            <arg value="${basedir}/bin/migration.php" />
-            <arg value="status" />
+
+    <target name="php-cs-fixer" description="Code style fixer">
+        <mkdir dir="${basedir}/build"/>
+        <get src="https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v2.0.0/php-cs-fixer.phar"
+             dest="${basedir}/build/php-cs-fixer.phar" skipexisting="true"/>
+        <exec executable="php" searchpath="true" resolveexecutable="true">
+            <arg value="${basedir}/build/php-cs-fixer.phar"/>
+            <arg value="fix"/>
+            <arg value="${basedir}/src/"/>
+            <arg value="--rules=@PSR2"/>
+            <arg value="--using-cache=no"/>
+        </exec>
+        <exec executable="php" searchpath="true" resolveexecutable="true">
+            <arg value="${basedir}/build/php-cs-fixer.phar"/>
+            <arg value="fix"/>
+            <arg value="${basedir}/tests/"/>
+            <arg value="--rules=@PSR2"/>
+            <arg value="--using-cache=no"/>
         </exec>
     </target>
-    <target name="migration-migrate" description="Run database migrations">
-        <exec executable="php" dir="${basedir}/bin" failonerror="true">
-            <arg value="${basedir}/bin/migration.php" />
-            <arg value="migrate" />
+
+    <target name="build" depends="lint,phpunit">
+        <!-- Load properties -->
+        <property file="${basedir}/config/ant.properties"/>
+
+        <!-- Get composer.phar if not existing -->
+        <get src="https://getcomposer.org/composer.phar" dest="${basedir}/build/composer.phar" skipexisting="true"/>
+
+        <!-- Delete build/master -->
+        <delete dir="${basedir}/build/master"/>
+
+        <!-- Get master branch from GitHub -->
+        <exec executable="git" failonerror="true">
+            <arg line="archive --format zip --output ${basedir}/build/master.zip master"/>
         </exec>
-    </target>
-    <target name="migration-rollback" description="Rollback to the previous migration">
-        <exec executable="php" dir="${basedir}/bin" failonerror="true">
-            <arg value="${basedir}/bin/migration.php" />
-            <arg value="rollback" />
+
+        <!-- Unzip master branch -->
+        <unzip src="${basedir}/build/master.zip" dest="${basedir}/build/master/"/>
+
+        <!-- Delete zipped master branch -->
+        <delete file="${basedir}/build/master.zip"/>
+
+        <!-- Install composer packages -->
+        <exec executable="php" failonerror="true">
+            <arg line="${basedir}/build/composer.phar install --no-dev --optimize-autoloader -d ${basedir}/build/master"/>
         </exec>
+
+        <!-- Remove files which aren't needed on the server -->
+        <delete file="${basedir}/build/master/.codeclimate.yml"/>
+        <delete file="${basedir}/build/master/.editorconfig"/>
+        <delete file="${basedir}/build/master/.editorconfig.dist"/>
+        <delete file="${basedir}/build/master/.gitignore"/>
+        <delete file="${basedir}/build/master/.gitignore.dist"/>
+        <delete file="${basedir}/build/master/.styleci.yml"/>
+        <delete file="${basedir}/build/master/LICENSE"/>
+        <delete file="${basedir}/build/master/build.xml"/>
+        <delete file="${basedir}/build/master/phpstan.neon"/>
+        <delete file="${basedir}/build/master/README.md"/>
+        <delete file="${basedir}/build/master/composer.json"/>
+        <delete file="${basedir}/build/master/composer.lock"/>
+        <delete file="${basedir}/build/master/phpunit.xml"/>
+        <delete file="${basedir}/build/master/config/env.php"/>
+        <delete file="${basedir}/build/master/config/ant.prod.properties"/>
+        <delete file="${basedir}/build/master/config/ant.test.properties"/>
+        <delete file="${basedir}/build/master/config/ant.staging.properties"/>
+        <delete file="${basedir}/build/master/config/example.ant.properties"/>
+
+        <!-- Remove folders which aren't needed on the server -->
+        <delete dir="${basedir}/build/master/tests"/>
+        <delete dir="${basedir}/build/master/docs"/>
+        <delete dir="${basedir}/build/master/vendor/monolog/monolog/doc"/>
+        <delete dir="${basedir}/build/master/vendor/monolog/monolog/tests"/>
+        <delete dir="${basedir}/build/master/vendor/dflydev/dot-access-data/tests"/>
+        <delete dir="${basedir}/build/master/vendor/league/plates/docs"/>
+        <delete dir="${basedir}/build/master/vendor/league/plates/example"/>
+        <delete dir="${basedir}/build/master/vendor/phpmailer/phpmailer/examples"/>
+        <delete dir="${basedir}/build/master/vendor/symfony/cache/Tests"/>
+        <delete dir="${basedir}/build/master/vendor/symfony/config/Tests"/>
+        <delete dir="${basedir}/build/master/vendor/symfony/http-foundation/Tests"/>
+        <delete dir="${basedir}/build/master/vendor/symfony/routing/Tests"/>
+        <delete dir="${basedir}/build/master/vendor/symfony/translation/Tests"/>
+
+        <!-- Zip master brunch -->
+        <zip destfile="${basedir}/build/${build.filename}">
+            <zipfileset dir="${basedir}/build/master"/>
+        </zip>
     </target>
-          
+
+    <target name="deploy" depends="build" description="Build and deploy project">
+
+        <!-- Chose between test, staging and prod environment -->
+        <input message="Which config should be used?" validArgs="test, staging, prod" addproperty="config"/>
+
+        <!-- Load properties -->
+        <property file="${basedir}/config/ant.${config}.properties"/>
+
+        <!-- Upload zip file-->
+        <echo message="Uploading ${build.filename}"/>
+        <scp file="${basedir}/build/${build.filename}"
+             todir="${build.ftp.username}:${build.ftp.password}@${build.ftp.host}:${build.ftp.path}"
+             trust="true"/>
+
+        <!-- Upload deploy.php -->
+        <echo message="Uploading deploy.php"/>
+        <scp file="${basedir}/build/master/config/deploy.php"
+             todir="${build.ftp.username}:${build.ftp.password}@${build.ftp.host}:${build.ftp.path}"
+             trust="true"/>
+
+        <!-- Execute deploy.php on the server -->
+        <!-- sshexec requires JSch
+          Download: https://netcologne.dl.sourceforge.net/project/jsch/jsch.jar/0.1.54/jsch-0.1.54.jar
+          Copy jsch-0.1.54.jar to c:\xampp\ant\lib
+
+          Run: sudo visudo
+          Add this line at the end (change “username” to your username):
+          username ALL=(ALL) NOPASSWD: ALL
+        -->
+        <sshexec host="${build.ftp.host}"
+                 username="${build.ftp.username}"
+                 password="${build.ftp.password}"
+                 command="cd ${build.ftp.path};php deploy.php ${build.filename}"
+                 trust="true"
+        />
+
+        <!-- Delete build/master -->
+        <!--<delete dir="${basedir}/build/master"/>-->
+
+        <!-- Delete zip file -->
+        <!-- <delete file="${basedir}/build/${build.filename}"/> -->
+    </target>
+
 </project>

@@ -4,20 +4,15 @@ composer.phar
 composer.lock
 .DS_STORE
 cache.properties
-.php_cs.cache
-.vscode
 
 .env
 env.php
 config/env.php
+config/environment.php
 
 !public/cache/
 public/cache/*
 !public/cache/.htaccess
-
-!tmp/
-tmp/*
-!tmp/.htaccess
 
 !tmp/log/
 tmp/log/*

@@ -1,31 +1,35 @@
+filter:
+    excluded_paths:
+        - "tests/"
+        - "resources/"
+        - "vendor/"
+
 checks:
     php:
-        code_rating: true
-        duplication: true
-tools:
-    php_cs_fixer:
-        enabled: true
-        extensions:
-            - php
-        config: { level: psr2 }
-        filter:
-            paths:
-                - app/
-    php_sim:
-        enabled: true
-        min_mass: 30             # Defaults to 16
-    php_code_sniffer:
-        enabled: true
-        config:
-            standard: PSR2
-        filter:
-            paths:
-                - app/
-                - web/
+        remove_extra_empty_lines: true
+        remove_php_closing_tag: true
+        remove_trailing_whitespace: true
+        fix_use_statements:
+            remove_unused: true
+            preserve_multiple: false
+            preserve_blanklines: true
+            order_alphabetically: true
+        fix_php_opening_tag: true
+        fix_linefeed: true
+        fix_line_ending: true
+        fix_identation_4spaces: true
+        fix_doc_comments: true
 
-filter:
-    paths:
-        - app/*
-        - web/*
-    excluded_paths:
-        - tests/
+tools:
+    external_code_coverage:
+        timeout: 600
+        runs: 1
+
+build:
+    tests:
+        override:
+            -
+                command: 'vendor/bin/phpunit --coverage-clover build/logs/clover.xml'
+                coverage:
+                    file: 'build/logs/clover.xml'
+                    format: 'clover'
