@@ -82,8 +82,6 @@ class JsonRpcMiddleware
      /**
      * Run handler
      *
-     * @param Request $request
-     * @param Response $response
      * @return Response
      */
     public function run()

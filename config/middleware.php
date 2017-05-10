@@ -1,12 +1,12 @@
 <?php
 
-$config = read(__DIR__ . '/config.php');
+$config = config();
 
 // Create a queue array of middleware callables
 $queue = [];
 
 // Logger
-$queue[] = new \App\Middleware\LoggerMiddleware($config['log']);
+//$queue[] = new \App\Middleware\LoggerMiddleware($config->get('log'));
 
 // Error handler
 $queue[] = new \App\Middleware\ExceptionMiddleware(['verbose' => true]);
@@ -15,22 +15,13 @@ $queue[] = new \App\Middleware\ExceptionMiddleware(['verbose' => true]);
 $queue[] = new \App\Middleware\HttpMiddleware();
 
 // Session
-$queue[] = new \App\Middleware\SessionMiddleware($config['session']);
+$queue[] = new \App\Middleware\SessionMiddleware($config->get('session'));
 
 // Translator
-$queue[] = new \App\Middleware\TranslatorMiddleware($config);
-
-// View
-$queue[] = new \App\Middleware\PlatesMiddleware($config['view']);
-
-// Database
-$queue[] = new \App\Middleware\CakeDatabaseMiddleware($config['db']);
-
-// Application
-$queue[] = new \App\Middleware\AppMiddleware($config);
+$queue[] = new \App\Middleware\TranslatorMiddleware($config->export());
 
 // Router
-$queue[] = new \App\Middleware\FastRouteMiddleware($config['router']);
+$queue[] = new \App\Middleware\FastRouteMiddleware(['routes' => $config->get('routes')]);
 
 // Compression
 $queue[] = new \App\Middleware\CompressMiddleware();

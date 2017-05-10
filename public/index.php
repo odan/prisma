@@ -1,17 +1,13 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Response\SapiEmitter;
-use Zend\Diactoros\ServerRequestFactory;
+require_once __DIR__ . '/../config/bootstrap.php';
 
 call_user_func(function () {
     // Invoke the relay queue with a request and response.
-    $runner = new Relay\Runner(read(__DIR__ . '/../config/middleware.php'));
-    $response = $runner(ServerRequestFactory::fromGlobals(), new Response());
+    $runner = new Relay\Runner(config()->get('middleware'));
+    $response = $runner(request(), response());
 
     // Output response
-    $emitter = new SapiEmitter();
+    $emitter = new \Zend\Diactoros\Response\SapiEmitter();
     return $emitter->emit($response);
 });

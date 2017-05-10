@@ -16,7 +16,8 @@ class User extends BaseModel
      */
     public function getById($id)
     {
-        $query = $this->app->db->newQuery()
+        $db = $this->getDb();
+        $query = $db->newQuery()
                 ->select(['id', 'firstname', 'lastname', 'deleted', 'updated_at'])
                 ->from('test')
                 ->where(['id' => $id]);
@@ -32,7 +33,7 @@ class User extends BaseModel
      */
     public function getAll()
     {
-        $query = $this->app->db->newQuery()
+        $query = $this->getDb()->newQuery()
                 ->select(['*'])
                 ->from('test');
         $rows = $query->execute()->fetchAll('assoc');

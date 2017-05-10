@@ -14,11 +14,6 @@ class HttpMiddleware
 {
 
     /**
-     * Attribute
-     */
-    const ATTRIBUTE = 'http';
-
-    /**
      * Invoke middleware.
      *
      * @param Request $request The request.
@@ -39,9 +34,6 @@ class HttpMiddleware
         $request = $request->withAttribute('base_uri', $baseUri);
         $request = $request->withAttribute('host_url', $hostUrl);
         $request = $request->withAttribute('base_url', $baseUrl);
-
-        // Put service container to request object
-        $request = $request->withAttribute(static::ATTRIBUTE, $http);
 
         return $next($request, $response);
     }

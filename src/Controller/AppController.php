@@ -2,25 +2,38 @@
 
 namespace App\Controller;
 
-use App\Container\AppContainer;
-use App\Middleware\AppMiddleware;
 use Zend\Diactoros\ServerRequest as Request;
+use Zend\Diactoros\Response;
 
 /**
  * AppController
  */
 class AppController
 {
-
-     /**
-     * Get app container
-     *
-     * @param Request $request
-     * @return AppContainer
+    /**
+     * @var Request
      */
-    public function app(Request $request)
+    protected $request;
+
+    /**
+     * @var Response
+     */
+    protected $response;
+
+    public function __construct(Request $request = null, Response $response = null)
     {
-        return $request->getAttribute(AppMiddleware::ATTRIBUTE);
+        $this->request = $request;
+        $this->response = $response;
+    }
+
+    protected function getRequest()
+    {
+        return $this->request;
+    }
+
+    protected function getResponse()
+    {
+        return $this->response;
     }
 
     /**
@@ -80,3 +93,4 @@ class AppController
         return $result;
     }
 }
+

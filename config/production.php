@@ -10,6 +10,6 @@ $config = [];
 $config['db']['database'] = 'prod_dbname';
 
 // View
-$config['view']['minify'] = 1;
+$config['assets_minify'] = 1;
 
 return $config;

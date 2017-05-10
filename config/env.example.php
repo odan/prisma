@@ -16,17 +16,18 @@
  * a security breach, and production values will never have to be
  * shared with all project collaborators.
  */
+// Error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 $config = [];
 
 // Environment (development, testing, staging, production)
-$config['env']['name'] = 'development';
-
-// Application token
-$config['app']['secret'] = '54530e855d68c1d021b74327d1e6bd991443698d';
+$config['env'] = 'development';
 
 // Database
-$config['db']['username'] = 'root';
-$config['db']['password'] = '';
+$config['db']['username'] = '{{db_username}}';
+$config['db']['password'] = '{{db_password}}';
 
 // SMTP
 $config['smtp']['username'] = 'user@example.com';

@@ -14,26 +14,30 @@ class UserController extends AppController
     /**
      * Index
      *
-     * @param Request $request
-     * @param Response $response
      * @return Response
      */
-    public function index(Request $request = null, Response $response = null)
+    public function indexPage()
     {
-        // Append content to response
-        $response->getBody()->write("User index action<br>");
+        // Render template
+        $request = $this->getRequest();
+        $viewData = $this->getData($request);
+        $content = view()->render('view::Index/index-index.html.php', $viewData);
+
+        $response = $this->getResponse();
+        $response->getBody()->write($content);
         return $response;
     }
 
     /**
      * Edit
      *
-     * @param Request $request
-     * @param Response $response
      * @return Response
      */
-    public function edit(Request $request = null, Response $response = null)
+    public function editPage()
     {
+        $request = $this->getRequest();
+        $response = $this->getResponse();
+
         // All GET parameters
         $queryParams = $request->getQueryParams();
 
@@ -51,18 +55,18 @@ class UserController extends AppController
         $id = $vars['id'];
 
         // Get config value
-        $app = $this->app($request);
-        $env = $app->config['env']['name'];
+        $env = config()->get('env');
 
         // Get GET parameter
-        $id = $app->http->get('id');
+        //$id = $queryParams['id'];
 
         // Increment counter
-        $counter = $app->session->get('counter', 0);
+        $session = session();
+        $counter = $session->get('counter', 0);
         $counter++;
-        $app->session->set('counter', $counter);
+        $session->set('counter', $counter);
 
-        $app->logger->info('My log message');
+        logger()->info('My log message');
 
         // Set locale
         //$app->session->set('user.locale', 'de_DE');
@@ -73,17 +77,35 @@ class UserController extends AppController
         //$userRow = $user->getById($id);
         //
         // Add data to template
-        $data = $this->getData($request, [
+        $viewData = $this->getData($request, [
             'id' => $id,
             'assets' => $this->getAssets(),
-            'content' => 'view::User/html/edit.html.php'
         ]);
 
         // Render template
-        $content = $app->view->render('view::Layout/html/layout.html.php', $data);
+        $content = view()->render('view::User/user-edit.html.php', $viewData);
 
         // Return new response
         $response->getBody()->write($content);
+        return $response;
+    }
+
+    /**
+     * Test page.
+     *
+     * @return Response
+     */
+    public function reviewPage()
+    {
+        $request = $this->getRequest();
+        $id = $request->getAttribute('id');
+
+        $response = $this->getResponse();
+        $response->getBody()->write("Action: Show all reviews of User: $id<br>");
+
+        /// Uncomment this line to test the ExceptionMiddleware
+        //throw new \Exception('My error', 1234);
+
         return $response;
     }
 }

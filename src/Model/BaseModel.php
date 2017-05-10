@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-use App\Container\AppContainer;
+use Cake\Database\Connection;
 
 /**
  * Model: Data Access layer
@@ -16,19 +16,23 @@ class BaseModel
 {
 
     /**
-     * App Service Container
+     * Connection
      *
-     * @var AppContainer
+     * @var Connection
      */
-    protected $app;
+    protected $db;
 
     /**
      * Constructor
      *
-     * @param AppContainer $app
+     * @param Connection $db
      */
-    public function __construct(AppContainer $app)
+    public function __construct($db = null)
     {
-        $this->app = $app;
+        $this->db = $db ?: db();
+    }
+
+    protected function getDb() {
+        return $this->db;
     }
 }

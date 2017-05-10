@@ -22,7 +22,7 @@ class LoginController extends AppController
      * @param Response $response
      * @return Response
      */
-    public function login(Request $request = null, Response $response = null)
+    public function loginPage(Request $request = null, Response $response = null)
     {
         $app = $this->app($request);
 

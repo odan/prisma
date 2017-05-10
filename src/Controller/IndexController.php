@@ -15,37 +15,29 @@ class IndexController extends AppController
     /**
      * Index action
      *
-     * @param Request $request
-     * @param Response $response
      * @return Response
      */
-    public function index(Request $request = null, Response $response = null)
+    public function indexPage()
     {
-        $app = $this->app($request);
-
         // Increment counter
-        $counter = $app->session->get('counter', 0);
+        $session = session();
+        $counter = $session->get('counter', 0);
         $counter++;
-        $app->session->set('counter', $counter);
-
-        // Add data to template
-        $assets = $this->getAssets([
-            'view::Index/js/index.js',
-        ]);
+        $session->set('counter', $counter);
 
         $text = $this->getText([
             'Loaded successfully!' => __('Loaded successfully!')
         ]);
 
-        $data = $this->getData($request, [
-            'assets' => $assets,
+        $viewData = $this->getData($this->getRequest(), [
             'text' => $text,
-            'content' => 'view::Index/html/index.html.php',
             'counter' => $counter,
         ]);
 
         // Render template
-        $content = $app->view->render('view::Layout/html/layout.html.php', $data);
+        $content = view()->render('view::Index/html/index.html.php', $viewData);
+
+        $response = $this->getResponse();
         $response->getBody()->write($content);
         return $response;
     }
@@ -53,13 +45,11 @@ class IndexController extends AppController
     /**
      * Action (JsonRpc)
      *
-     * @param Request $request
-     * @param Response $response
      * @return mixed
      */
-    public function load(Request $request = null, Response $response = null)
+    public function load()
     {
-        $json = $request->getAttribute('json');
+        $json = $this->getRequest()->getAttribute('json');
         $params = value($json, 'params');
         $result = [
             'status' => 1

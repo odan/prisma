@@ -11,6 +11,6 @@ $config = [];
 $config['db']['database'] = 'staging_dbname';
 
 // View
-$config['view']['minify'] = 1;
+$config['view_minify'] = 1;
 
 return $config;

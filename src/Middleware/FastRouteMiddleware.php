@@ -134,10 +134,10 @@ class FastRouteMiddleware
                     // Call middleware
                     $return = $callback->{$method}($request, $response, $next);
                 } else {
-                    $return = $callback->{$method}($request, $response);
+                    $return = $callback->{$method}($request, $response, $next);
                 }
             } else {
-                $return = call_user_func_array($callback, [$request, $response]);
+                $return = call_user_func_array($callback, [$request, $response, $next]);
             }
 
             if ($return instanceof Response) {

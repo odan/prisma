@@ -62,7 +62,7 @@ class ExceptionMiddleware
         $message = sprintf("[%s] %s\n%s", get_class($ex), $ex->getMessage(), $ex->getTraceAsString());
 
         // Must be PSR logger (Monolog)
-        $logger = $request->getAttribute(\App\Middleware\LoggerMiddleware::ATTRIBUTE);
+        $logger = logger();
         if (!empty($logger)) {
             $logger->error($message);
         }

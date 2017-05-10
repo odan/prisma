@@ -1,22 +1,28 @@
 <?php
 
-// Defaults
-$default = read(__DIR__ . '/default.php');
+$config = config();
 
-// Router
-$router = read(__DIR__ . '/router.php');
+// Defaults
+$config->load(__DIR__ . '/default.php');
 
 // Load environment configuration
 $environment = [];
 if (file_exists(__DIR__ . '/../../env.php')) {
-    $environment = read(__DIR__ . '/../../env.php');
+    $environment = $config->read(__DIR__ . '/../../env.php');
 }
 if (file_exists(__DIR__ . '/env.php')) {
-    $environment = read(__DIR__ . '/env.php');
-}
-$config = [];
-if (isset($environment['env']['name'])) {
-    $config = read(__DIR__ . '/' . $environment['env']['name'] . '.php');
+    $environment = $config->read(__DIR__ . '/env.php');
 }
 
-return array_replace_recursive($default, $router, $config, $environment);
+if (isset($environment['env'])) {
+    $config->load(__DIR__ . '/' . $environment['env'] . '.php');
+}
+
+$config->set('routes', $config->read(__DIR__ . '/routes.php'));
+$config->set('middleware', $config->read(__DIR__ . '/middleware.php'));
+
+if ($environment) {
+    $config->import($environment);
+}
+
+return $config;

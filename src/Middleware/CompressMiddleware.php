@@ -43,14 +43,14 @@ class CompressMiddleware
     }
 
     /**
-     * Compress content
+     * Compress content.
      *
      * @return Response
      */
     public function compress(Request $request, Response $response)
     {
         $acceptEncoding = $request->getHeaderLine('accept-encoding');
-        $encodings = array_flip(trim_array(explode(',', $acceptEncoding)));
+        $encodings = array_flip($this->trimArray(explode(',', $acceptEncoding)));
 
         if (isset($encodings['gzip'])) {
             return $this->compressBody($response, 'gzip', 'gzcompress');
@@ -64,10 +64,10 @@ class CompressMiddleware
     /**
      * Compress body content
      *
-     * @param Response $response
-     * @param type $encoding
-     * @param type $method
-     * @return type
+     * @param Response $response Response
+     * @param string $encoding Encoding
+     * @param string $method Method
+     * @return Response Response
      */
     public function compressBody(Response $response, $encoding, $method)
     {
@@ -81,5 +81,26 @@ class CompressMiddleware
         $body = new \Zend\Diactoros\Stream('php://temp', 'rw+');
         $body->write($string);
         return $response->withBody($body);
+    }
+
+    /**
+     * Returns a trimmed array.
+     *
+     * @param array $array Array
+     * @return array Array
+     */
+    protected function trimArray($array)
+    {
+        if (is_array($array)) {
+            foreach ($array as $key => $val) {
+                $array[$key] = $this->trimArray($val);
+            }
+            return $array;
+        } else {
+            if (is_string($array)) {
+                $array = trim($array);
+            }
+            return $array;
+        }
     }
 }
