@@ -24,5 +24,4 @@ class TranslatorMiddleware
         set_locale('en_US', 'messages');
         return $next($request, $response);
     }
-
 }

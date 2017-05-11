@@ -24,5 +24,4 @@ class SessionMiddleware
         session();
         return $next($request, $response);
     }
-
 }

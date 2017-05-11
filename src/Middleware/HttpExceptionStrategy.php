@@ -89,7 +89,7 @@ class HttpExceptionStrategy implements StrategyInterface
         }
         $fullMessage = sprintf('Error %s: %s', $status, $message);
 
-        if($this->logger) {
+        if ($this->logger) {
             $this->logger->error($fullMessage, [$request->getMethod(), $request->getUri()]);
         }
 

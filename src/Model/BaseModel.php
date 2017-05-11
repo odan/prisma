@@ -32,7 +32,8 @@ class BaseModel
         $this->db = $db ?: db();
     }
 
-    protected function getDb() {
+    protected function getDb()
+    {
         return $this->db;
     }
 }
