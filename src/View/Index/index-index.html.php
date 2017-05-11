@@ -10,7 +10,7 @@ $this->end();
     <div class="row">
         <div class="col-md-12">
             <h1><?= $this->e(__('Hello')); ?> <?= $this->e(__('World')); ?></h1>
-            Users: <a href="users/">users/</a><br>
+            Users: <a href="users">users</a><br>
         </div>
     </div>
 </div>

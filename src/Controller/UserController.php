@@ -21,7 +21,7 @@ class UserController extends AppController
         // Render template
         $request = $this->getRequest();
         $viewData = $this->getData($request);
-        $content = view()->render('view::Index/index-index.html.php', $viewData);
+        $content = view()->render('view::User/user-index.html.php', $viewData);
 
         $response = $this->getResponse();
         $response->getBody()->write($content);
@@ -31,9 +31,10 @@ class UserController extends AppController
     /**
      * Edit
      *
-     * @return Response
+     * @param array $args Arguments
+     * @return Response Response
      */
-    public function editPage()
+    public function editPage(array $args)
     {
         $request = $this->getRequest();
         $response = $this->getResponse();
@@ -51,8 +52,9 @@ class UserController extends AppController
         //$data = $postParams['data'];
         //
         // Get routing arguments
-        $vars = $request->getAttribute('vars');
-        $id = $vars['id'];
+        //$attributes = $request->getAttributes();
+        //$vars = $request->getAttribute('vars');
+        $id = $args['id'];
 
         // Get config value
         $env = config()->get('env');
@@ -93,15 +95,15 @@ class UserController extends AppController
     /**
      * Test page.
      *
-     * @return Response
+     * @param array $args Arguments
+     * @return Response Response
      */
-    public function reviewPage()
+    public function reviewPage(array $args)
     {
-        $request = $this->getRequest();
-        $id = $request->getAttribute('id');
+        $id = $args['id'];
 
         $response = $this->getResponse();
-        $response->getBody()->write("Action: Show all reviews of User: $id<br>");
+        $response->getBody()->write("Action: Show all reviews of user: $id<br>");
 
         /// Uncomment this line to test the ExceptionMiddleware
         //throw new \Exception('My error', 1234);

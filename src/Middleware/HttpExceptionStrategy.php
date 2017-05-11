@@ -1,0 +1,140 @@
+<?php
+
+namespace App\Middleware;
+
+use Exception;
+use League\Route\Http\Exception\MethodNotAllowedException;
+use League\Route\Http\Exception\NotFoundException;
+use League\Route\Http\Exception as HttpException;
+use League\Route\Route;
+use Psr\Log\LoggerInterface;
+use RuntimeException;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use League\Route\Strategy\StrategyInterface;
+use Zend\Diactoros\ServerRequest as Request;
+
+class HttpExceptionStrategy implements StrategyInterface
+{
+
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger = null;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCallable(Route $route, array $vars)
+    {
+        return function (ServerRequestInterface $request, ResponseInterface $response, callable $next) use ($route, $vars) {
+            $return = call_user_func_array($route->getCallable(), [$request, $response, $vars]);
+
+            if (!$return instanceof ResponseInterface) {
+                throw new RuntimeException(
+                    'Route callables must return an instance of (Psr\Http\Message\ResponseInterface)'
+                );
+            }
+
+            $response = $return;
+            $response = $next($request, $response);
+
+            return $response;
+        };
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNotFoundDecorator(NotFoundException $exception)
+    {
+        // 404	Not Found
+        return function (ServerRequestInterface $request, ResponseInterface $response) use ($exception) {
+            return $this->buildHttpResponse($request, $response, $exception);
+        };
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMethodNotAllowedDecorator(MethodNotAllowedException $exception)
+    {
+        // 405	Method Not Allowed
+        return function (ServerRequestInterface $request, ResponseInterface $response) use ($exception) {
+            return $this->buildHttpResponse($request, $response, $exception);
+        };
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getExceptionDecorator(Exception $exception)
+    {
+        return function (ServerRequestInterface $request, ResponseInterface $response) use ($exception) {
+            return $this->buildHttpResponse($request, $response, $exception);
+        };
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function buildHttpResponse(ServerRequestInterface $request, ResponseInterface $response, Exception $exception)
+    {
+        if ($exception instanceof HttpException) {
+            $message = $exception->getMessage();
+            $status = $exception->getStatusCode();
+        } else {
+            $message = trim("Internal Server Error. " . $exception->getMessage());
+            $status = 500;
+        }
+        $fullMessage = sprintf('Error %s: %s', $status, $message);
+
+        if($this->logger) {
+            $this->logger->error($fullMessage, [$request->getMethod(), $request->getUri()]);
+        }
+
+        if ($this->isJson($request)) {
+            return $this->buildJsonResponse($response, $status, $message);
+        } else {
+            if ($response->getBody()->isWritable()) {
+                $response->getBody()->write($fullMessage);
+            }
+            return $response->withStatus($status, $message);
+        }
+    }
+
+    /**
+     * Returns true if a JSON-RCP request has been received.
+     *
+     * @return boolean
+     */
+    protected function isJson(Request $request)
+    {
+        $type = $request->getHeader('content-type');
+        return !empty($type[0]) && (strpos($type[0], 'application/json') !== false);
+    }
+
+    /**
+     * Build json response.
+     *
+     * @param ResponseInterface $response
+     * @param int $code
+     * @param string $message
+     * @return ResponseInterface
+     */
+    protected function buildJsonResponse(ResponseInterface $response, $code, $message)
+    {
+        $response->getBody()->write(json_encode([
+            'code' => $code,
+            'message' => $message
+        ]));
+
+        $response = $response->withAddedHeader('content-type', 'application/json');
+        return $response;
+    }
+
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+}

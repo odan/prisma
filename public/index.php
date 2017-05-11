@@ -3,11 +3,14 @@
 require_once __DIR__ . '/../config/bootstrap.php';
 
 call_user_func(function () {
-    // Invoke the relay queue with a request and response.
-    $runner = new Relay\Runner(config()->get('middleware'));
-    $response = $runner(request(), response());
+    $request = request();
+    $response = response();
 
-    // Output response
-    $emitter = new \Zend\Diactoros\Response\SapiEmitter();
-    return $emitter->emit($response);
+    // Set the real base path
+    $http = new \App\Util\Http($request, $response);
+    $request = $http->withBasePath();
+    container()->share('request', $request);
+
+    $response = router()->dispatch($request, $response);
+    emitter()->emit($response);
 });

@@ -6,10 +6,12 @@
 use Monolog\Logger;
 use Monolog\Handler\RotatingFileHandler;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Zend\Diactoros\ServerRequest as Request;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\Response;
+use Zend\Diactoros\Response\SapiEmitter;
+use League\Container\Container;
+use League\Route\RouteCollection;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
@@ -19,15 +21,15 @@ use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator;
 
 /**
- * A simple PHP Dependency Injection Container.
+ * Dependency Injection Container.
  *
- * @return ParameterBag
+ * @return Container
  */
 function container()
 {
     static $container = null;
     if ($container === null) {
-        $container = new ParameterBag();
+        $container = new Container();
     }
     return $container;
 }
@@ -53,10 +55,11 @@ function config()
  */
 function request()
 {
-    $request = container()->get(Request::class);
+    $container = container();
+    $request = $container->has('request') ?  $container->get('request'): null;
     if (!$request) {
         $request = ServerRequestFactory::fromGlobals();
-        container()->set(Request::class, $request);
+        $container->share('request', $request);
     }
     return $request;
 }
@@ -68,12 +71,45 @@ function request()
  */
 function response()
 {
-    $response = container()->get(Response::class);
+    $container = container();
+    $response = $container->has('response') ?  $container->get('response'): null;
     if (!$response) {
         $response = new Response();
-        container()->set(Response::class, $response);
+        $container->share('response', $response);
     }
     return $response;
+}
+
+/**
+ * The emitter.
+ *
+ * @return SapiEmitter
+ */
+function emitter()
+{
+    $container = container();
+    $emitter = $container->has('emitter') ?  $container->get('emitter'): null;
+    if (!$emitter) {
+        $emitter = new SapiEmitter();
+        $container->share('emitter', $emitter);
+    }
+    return $emitter;
+}
+
+/**
+ * Route collection.
+ *
+ * @return RouteCollection
+ */
+function router()
+{
+    $container = container();
+    $route = $container->has('router') ?  $container->get('router'): null;
+    if (!$route) {
+        $route = new RouteCollection($container);
+        $container->share('router', $route);
+    }
+    return $route;
 }
 
 /**
@@ -126,7 +162,7 @@ function set_locale($locale = 'en_US', $domain = 'messages')
     $translator->setLocale($locale);
 
     // Inject translator into function
-    container()->set(Translator::class, $translator);
+    container()->share(Translator::class, $translator);
 }
 
 /**
@@ -136,7 +172,8 @@ function set_locale($locale = 'en_US', $domain = 'messages')
  */
 function session()
 {
-    $session = container()->get(Session::class);
+    $container = container();
+    $session = $container->has('session') ?  $container->get('session'): null;
     if (!$session) {
         if (php_sapi_name() === 'cli') {
             // In cli-mode
@@ -144,12 +181,12 @@ function session()
             $session = new Session($storage);
         } else {
             // Not in cli-mode
-            $config = (array) config()->get('session');
+            $config = (array)config()->get('session');
             $storage = new NativeSessionStorage($config, new NativeFileSessionHandler());
             $session = new Session($storage);
             $session->start();
         }
-        container()->set(Session::class, $session);
+        $container->share('session', $session);
     }
     return $session;
 }
@@ -161,11 +198,12 @@ function session()
  */
 function db()
 {
-    $db = container()->get(Cake\Database\Connection::class);
+    $container = container();
+    $db = $container->has('db') ?  $container->get('db'): null;
     if (!$db) {
         $driver = new Cake\Database\Driver\Mysql(config()->get('db'));
         $db = new Cake\Database\Connection(['driver' => $driver]);
-        container()->set(Cake\Database\Connection::class, $db);
+        $container->share('db', $db);
     }
     return $db;
 }
@@ -177,7 +215,8 @@ function db()
  */
 function logger()
 {
-    $logger = container()->get(Logger::class);
+    $container = container();
+    $logger = $container->has('logger') ?  $container->get('logger'): null;
     if (!$logger) {
         $config = config();
         $logger = new Logger('app');
@@ -189,7 +228,7 @@ function logger()
         $logFile = $config->get('log_path') . '/log.txt';
         $handler = new RotatingFileHandler($logFile, 0, $level, true, 0775);
         $logger->pushHandler($handler);
-        container()->set(Logger::class, $logger);
+        $container->share(Logger::class, $logger);
     }
     return $logger;
 }
@@ -201,7 +240,8 @@ function logger()
  */
 function view()
 {
-    $engine = container()->get(League\Plates\Engine::class);
+    $container = container();
+    $engine = $container->has('view') ?  $container->get('view'): null;
     if (!$engine) {
         $config = config();
         $engine = new League\Plates\Engine($config->get('view_path'), null);
@@ -220,7 +260,7 @@ function view()
             'cache' => new FilesystemAdapter('assets-cache', 0, $config->get('assset_cache_path')),
         );
         $engine->loadExtension(new \Odan\Asset\PlatesAssetExtension($cacheOptions));
-        container()->set(League\Plates\Engine::class, $engine);
+        $container->share('view', $engine);
     }
     return $engine;
 }
@@ -232,11 +272,12 @@ function view()
  */
 function user()
 {
-    $user = container()->get(App\Service\User\UserSession::class);
+    $container = container();
+    $user = $container->has('user') ?  $container->get('user'): null;
     if (!$user) {
         $user = new App\Service\User\UserSession(session());
         $user->setSecret(config()->get('app_secret'));
-        container()->set(App\Service\User\UserSession::class, $user);
+        $container->share('user', $user);
     }
     return $user;
 }
@@ -250,7 +291,8 @@ function user()
  */
 function baseurl($path = '', $full = false)
 {
-    return Odan\Middleware\Util\Http::baseurl(request(), $path, $full);
+    $http = new \App\Util\Http(request(), response());
+    return $http->getBaseUrl($path, $full);
 }
 
 /**
@@ -260,5 +302,6 @@ function baseurl($path = '', $full = false)
  */
 function hosturl()
 {
-    return Odan\Middleware\Util\Http::hosturl(request());
+    $http = new \App\Util\Http(request(), response());
+    return $http->getHostUrl();
 }

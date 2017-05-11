@@ -103,6 +103,18 @@ class Http
     }
 
     /**
+     * @return ServerRequestInterface
+     */
+    public function withBasePath()
+    {
+        $basePath = $this->getBasePath();
+        $uri = $this->request->getUri();
+        $uri = $uri->withPath($basePath);
+        $request = $this->request->withUri($uri);
+        return $request;
+    }
+
+    /**
      * Returns a URL rooted at the base url for all relative URLs in a document
      *
      * @param string $internalUri the route

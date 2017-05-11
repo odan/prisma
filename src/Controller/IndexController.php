@@ -20,10 +20,11 @@ class IndexController extends AppController
     public function indexPage()
     {
         // Increment counter
-        $session = session();
-        $counter = $session->get('counter', 0);
-        $counter++;
-        $session->set('counter', $counter);
+        #$session = session();
+        #$counter = $session->get('counter', 0);
+        #$counter++;
+        $counter = 0;
+        #$session->set('counter', $counter);
 
         $text = $this->getText([
             'Loaded successfully!' => __('Loaded successfully!')
@@ -35,7 +36,7 @@ class IndexController extends AppController
         ]);
 
         // Render template
-        $content = view()->render('view::Index/html/index.html.php', $viewData);
+        $content = view()->render('view::Index/index-index.html.php', $viewData);
 
         $response = $this->getResponse();
         $response->getBody()->write($content);

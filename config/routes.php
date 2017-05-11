@@ -1,53 +1,62 @@
 <?php
 
-// Add routes: httpMethod, route, handler
-$routes = [];
+use Zend\Diactoros\ServerRequest as Request;
+use Zend\Diactoros\Response;
+
+$router = router();
+
+// Global strategy to be used by all routes.
+$errorHandler = new \App\Middleware\HttpExceptionStrategy();
+$errorHandler->setLogger(logger());
+$router->setStrategy($errorHandler);
 
 // Default page
-$routes[] = ['GET', '/', function($request, $response) {
-    $ctrl = new App\Controller\UserController($request, $response);
+$router->map('GET', '/', function (Request $request, Response $response) {
+    $ctrl = new App\Controller\IndexController($request, $response);
     return $ctrl->indexPage();
-}];
+});
 
-// JSON middleware for all Json requests
-$routes[] = ['POST', '/json', function($request, $response, $next) {
-    $middleware = new App\Middleware\JsonRpcMiddleware();
-    return $middleware->__invoke($request, $response, $next);
-}];
+// JSON middleware for all Json requests (Route specific middleware)
+$router->map('POST', '/json', function (Request $request, Response $response) {
+    //throw new \League\Route\Http\Exception\ForbiddenException();
+    return $response;
+})->middleware(new App\Middleware\JsonRpcMiddleware());
 
 // Login
-$routes[] = ['GET', '/login', function($request, $response) {
+$router->map('GET', '/login', function (Request $request, Response $response) {
     $ctrl = new App\Controller\LoginController($request, $response);
     return $ctrl->loginPage();
-}];
+});
 
-$routes[] = ['POST', '/login', function($request, $response) {
+$router->map('POST', '/login', function (Request $request, Response $response) {
     $ctrl = new App\Controller\LoginController($request, $response);
     return $ctrl->loginSubmit();
-}];
+});
 
-$routes[] = ['GET', '/logout', function($request, $response) {
+$router->map('GET', '/logout', function (Request $request, Response $response) {
     $ctrl = new App\Controller\LoginController($request, $response);
     return $ctrl->logout();
-}];
+});
 
-// Controller action
-$routes[] = ['GET', '/users', function($request, $response) {
+// Users
+$router->map('GET', '/users', function (Request $request, Response $response) {
     $ctrl = new App\Controller\UserController($request, $response);
     return $ctrl->indexPage();
-}];
+});
 
-// {id} must be a number (\d+)
-$routes[] = ['GET', '/users/{id:\d+}', function($request, $response) {
+// this route will only match if {id} is numeric
+$router->map('GET', '/users/{id:number}', function (Request $request, Response $response, array $args) {
     $ctrl = new App\Controller\UserController($request, $response);
-    return $ctrl->editPage();
-}];
+    return $ctrl->editPage($args);
+});
 
 // Sub-Resource
-$routes[] = ['GET', '/users/{id:\d+}/reviews', function ($request, $response) {
+$router->map('GET', '/users/{id:number}/reviews', function (Request $request, Response $response, array $args) {
     $ctrl = new App\Controller\UserController($request, $response);
-    return $ctrl->reviewPage();
-}];
+    return $ctrl->reviewPage($args);
+});
+
+return $router;
 
 //
 // Whitelist with actions that require no authentication and authorization
@@ -65,4 +74,3 @@ $routes[] = ['GET', '/users/{id:\d+}/reviews', function ($request, $response) {
     'before.action' => '\App\Service\User\Authentication::check'
 ];*/
 
-return $routes;
