@@ -4,6 +4,7 @@ namespace App\Middleware;
 
 use Zend\Diactoros\ServerRequest as Request;
 use Zend\Diactoros\Response;
+use Zend\Diactoros\Stream;
 
 /**
  * Body content compression (Gzip/deflate)
@@ -79,7 +80,7 @@ class CompressMiddleware
         $string = $method($content);
 
         // Replace the whole content
-        $body = new \Zend\Diactoros\Stream('php://temp', 'rw+');
+        $body = new Stream('php://temp', 'rw+');
         $body->write($string);
         return $response->withBody($body);
     }

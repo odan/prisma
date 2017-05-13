@@ -18,14 +18,8 @@ class UserController extends AppController
      */
     public function indexPage()
     {
-        // Render template
-        $request = $this->getRequest();
-        $viewData = $this->getViewData($this->getRequest());
-        $content = view()->render('view::User/user-index.html.php', $viewData);
-
-        $response = $this->getResponse();
-        $response->getBody()->write($content);
-        return $response;
+        $viewData = $this->getViewData();
+        return $this->render('view::User/user-index.html.php', $viewData);
     }
 
     /**
@@ -79,18 +73,14 @@ class UserController extends AppController
         //$userRow = $user->getById($id);
         //
         // Add data to template
-        $viewData = $this->getViewData($request, [
+        $viewData = $this->getViewData([
             'id' => $id,
             'counter' => $counter,
             'assets' => $this->getAssets(),
         ]);
 
         // Render template
-        $content = view()->render('view::User/user-edit.html.php', $viewData);
-
-        // Return new response
-        $response->getBody()->write($content);
-        return $response;
+        return $this->render('view::User/user-edit.html.php', $viewData);
     }
 
     /**

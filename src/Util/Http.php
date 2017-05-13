@@ -231,19 +231,4 @@ class Http
         $url = $this->getBaseUrl($internalUri);
         return new RedirectResponse($url);
     }
-
-    /**
-     * Emits a response for a PHP SAPI environment.
-     *
-     * Emits the status line and headers via the header() function, and the
-     * body content via the output buffer.
-     *
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param null|int $maxBufferLevel Maximum output buffering level to unwrap.
-     */
-    public function send(ResponseInterface $response, $maxBufferLevel = null)
-    {
-        $emitter = new \Zend\Diactoros\Response\SapiEmitter();
-        $emitter->emit($response, $maxBufferLevel);
-    }
 }

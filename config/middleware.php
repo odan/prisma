@@ -3,9 +3,6 @@
 $router = router();
 $config = config();
 
-// HTTP
-$router->middleware(new \App\Middleware\HttpMiddleware());
-
 // Session
 $router->middleware(new \App\Middleware\SessionMiddleware($config->get('session')));
 

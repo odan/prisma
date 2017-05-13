@@ -29,17 +29,13 @@ class IndexController extends AppController
             'Loaded successfully!' => __('Loaded successfully!')
         ]);
 
-        $viewData = $this->getViewData($this->getRequest(), [
+        $viewData = $this->getViewData([
             'text' => $text,
             'counter' => $counter,
         ]);
 
         // Render template
-        $content = view()->render('view::Index/index-index.html.php', $viewData);
-
-        $response = $this->getResponse();
-        $response->getBody()->write($content);
-        return $response;
+        return $this->render('view::Index/index-index.html.php', $viewData);
     }
 
     /**

@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Service\User\UserSession;
 use Zend\Diactoros\ServerRequest as Request;
 use Zend\Diactoros\Response;
+use Zend\Diactoros\Response\JsonResponse;
 use League\Route\Http\Exception\UnauthorizedException;
 
 /**
@@ -26,12 +26,11 @@ class AppController
     {
         $this->request = $request;
         $this->response = $response;
-        $user = $this->getUserSession();
 
         // Authentication check
         $attributes = $request->getAttributes();
         $auth = isset($attributes['_auth']) ? $attributes['_auth'] : true;
-        if ($auth && !$user->isValid()) {
+        if ($auth && !user()->isValid()) {
             throw new UnauthorizedException();
         }
     }
@@ -44,16 +43,6 @@ class AppController
     protected function getResponse()
     {
         return $this->response;
-    }
-
-    /**
-     * Get user session
-     *
-     * @return UserSession
-     */
-    protected function getUserSession()
-    {
-        return new UserSession(session(), db(), config()->get('app.secret'));
     }
 
     /**
@@ -102,14 +91,45 @@ class AppController
         return $result;
     }
 
-    public function getViewData(Request $request, array $data = null)
+    /**
+     * Get view data.
+     *
+     * @param array $viewData
+     * @return array
+     */
+    public function getViewData(array $viewData = [])
     {
         $result = [
-            'baseurl' => $request->getAttribute('base_url'),
+            'baseurl' => baseurl('/'),
         ];
-        if (!empty($data)) {
-            $result = array_replace_recursive($result, $data);
+        if (!empty($viewData)) {
+            $result = array_replace_recursive($result, $viewData);
         }
         return $result;
+    }
+
+    /**
+     * Render template.
+     *
+     * @param string $name
+     * @param array $viewData
+     * @return Response
+     */
+    protected function render($name, array $viewData = array())
+    {
+        $content = view()->render($name, $viewData);
+        $this->response->getBody()->write($content);
+        return $this->response;
+    }
+
+    /**
+     * Helper to return JSON from a controller.
+     *
+     * @param mixed $result
+     * @return JsonResponse
+     */
+    protected function json($result, $status = 200, $headers = [])
+    {
+        return new JsonResponse($result, $status, $headers);
     }
 }

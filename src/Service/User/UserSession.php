@@ -2,14 +2,29 @@
 
 namespace App\Service\User;
 
-use App\Container\AppContainer;
 use App\Service\Base\BaseService;
+use Cake\Database\Connection;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * User Session Handler
  */
 class UserSession extends BaseService
 {
+
+    /**
+     * Secret session key
+     *
+     * @var Session
+     */
+    protected $session;
+
+    /**
+     * Database
+     *
+     * @var Connection
+     */
+    protected $db;
 
     /**
      * Secret session key
@@ -22,12 +37,13 @@ class UserSession extends BaseService
      * UserSession constructor.
      * @param $session
      * @param $db
-     * @param $secret
      */
-    public function __construct($session, $db, $secret)
+    public function __construct(Session $session, Connection $db)
     {
         parent::__construct();
-        $this->setSecret($secret);
+
+        $this->session = $session;
+        $this->db = $db;
     }
 
     /**
@@ -74,8 +90,9 @@ class UserSession extends BaseService
     /**
      * Login user with username and password
      *
-     * @param array $params
-     * @return bool
+     * @param string $username Username
+     * @param string $password Password
+     * @return bool Status
      */
     public function login($username, $password)
     {
@@ -88,7 +105,7 @@ class UserSession extends BaseService
 
         // Login ok
         // Create new session id
-        session()->invalidate();
+        $this->session->invalidate();
 
         // Store user settings in session
         $this->set('user.id', $user['id']);
@@ -109,7 +126,7 @@ class UserSession extends BaseService
         $this->setLocale();
 
         // Clears all session data and regenerates session ID
-        session()->invalidate();
+        $this->session->invalidate();
     }
 
     /**
@@ -122,8 +139,7 @@ class UserSession extends BaseService
      */
     public function createHash($password, $algo = 1, $options = array())
     {
-        $hash = password_hash($password, $algo, $options);
-        return $hash;
+        return password_hash($password, $algo, $options);
     }
 
     /**
@@ -165,7 +181,7 @@ class UserSession extends BaseService
             $secret = $this->secret;
         }
         // Create real key for value
-        $sessionId = session()->getId();
+        $sessionId = $this->session->getId();
         $realHash = sha1($value . $sessionId . $secret);
         return $realHash;
     }
@@ -179,27 +195,27 @@ class UserSession extends BaseService
      */
     public function set($key, $value)
     {
-        session()->set($key, $value);
+        $this->session->set($key, $value);
     }
 
     /**
      * Get current user information
      *
      * @param string $key
+     * @param mixed $default
      * @return mixed
      */
-    public function get($key, $default = '')
+    public function get($key, $default = null)
     {
-        $mixReturn = session()->get($key, $default);
-        return $mixReturn;
+        return $this->session->get($key, $default);
     }
 
     /**
-     * Check user permission
+     * Check user permission.
      *
      * @param string|array $role (e.g. 'ROLE_ADMIN' or 'ROLE_USER')
      * or array('ROLE_ADMIN', 'ROLE_USER')
-     * @return boolean
+     * @return bool Status
      */
     public function is($role)
     {
@@ -222,7 +238,7 @@ class UserSession extends BaseService
     /**
      * Check if user is authenticated (logged in)
      *
-     * @return boolean
+     * @return bool Status
      */
     public function isValid()
     {
@@ -239,7 +255,7 @@ class UserSession extends BaseService
      */
     protected function getUserByLogin($username, $password)
     {
-        $query = db()->newQuery()
+        $query = $this->db->newQuery()
                 ->select(['*'])
                 ->from('users')
                 ->where(['username' => $username])

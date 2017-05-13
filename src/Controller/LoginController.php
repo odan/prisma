@@ -18,14 +18,14 @@ class LoginController extends AppController
      */
     public function loginPage()
     {
-        $user = $this->getUserSession();
-        $user->logout();
+        ;
+        user()->logout();
 
         $assets = $this->getAssets();
         $assets[] = 'view::Login/login.css';
 
         $view = view();
-        $viewData = $this->getViewData($this->getRequest());
+        $viewData = $this->getViewData();
         $content = $view->render('view::Login/login.html.php', $viewData);
 
         $response = $this->getResponse();
@@ -46,8 +46,7 @@ class LoginController extends AppController
         $username = $data['username'];
         $password = $data['password'];
 
-        $user = $this->getUserSession();
-        $result = $user->login($username, $password);
+        $result = user()->login($username, $password);
         $url = ($result) ? baseurl('/') : baseurl('/login');
 
         return new RedirectResponse($url);
@@ -60,9 +59,7 @@ class LoginController extends AppController
      */
     public function logout()
     {
-        $user = $this->getUserSession();
-        $user->logout();
-
-        return RedirectResponse(baseurl('login'));
+        user()->logout();
+        return new RedirectResponse(baseurl('login'));
     }
 }
