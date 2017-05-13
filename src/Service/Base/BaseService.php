@@ -14,12 +14,5 @@ namespace App\Service\Base;
  */
 class BaseService
 {
-    /**
-     * Constructor
-     *
-     * @param AppContainer $app
-     */
-    public function __construct()
-    {
-    }
+
 }

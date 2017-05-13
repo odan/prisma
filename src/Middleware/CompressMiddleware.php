@@ -73,7 +73,6 @@ class CompressMiddleware
     public function compressBody(Response $response, $encoding, $method)
     {
         $response = $response->withHeader('content-encoding', $encoding);
-        $response = $response->withHeader('x-content-encoding', $encoding);
 
         // Thanks to Logan Bailey
         $content = $response->getBody()->__toString();

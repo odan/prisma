@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Zend\Diactoros\ServerRequest as Request;
 use Zend\Diactoros\Response;
 
 /**
@@ -30,14 +29,14 @@ class UserController extends AppController
      */
     public function editPage(array $args)
     {
-        $request = $this->getRequest();
-        $response = $this->getResponse();
+        //$request = $this->getRequest();
+        //$response = $this->getResponse();
 
         // All GET parameters
-        $queryParams = $request->getQueryParams();
+        //$queryParams = $request->getQueryParams();
 
         // All POST or PUT parameters
-        $postParams = $request->getParsedBody();
+        //$postParams = $request->getParsedBody();
 
         // Single GET parameter
         //$title = $queryParams['title'];
@@ -51,7 +50,7 @@ class UserController extends AppController
         $id = $args['id'];
 
         // Get config value
-        $env = config()->get('env');
+        //$env = config()->get('env');
 
         // Get GET parameter
         //$id = $queryParams['id'];

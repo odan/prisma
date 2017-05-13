@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Service\User\UserSession;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\RedirectResponse;
 

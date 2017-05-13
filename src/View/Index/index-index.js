@@ -7,11 +7,7 @@ if (!app.index) {
  *
  * @param {Object} options
  */
-app.index.Index = function Index(options)
-{
-
-    // This object
-    var $this = this;
+app.index.Index = function Index(options) {
 
     /** @returns {app.index.Index} */
     var $this = $.extend(this, new app.Page());

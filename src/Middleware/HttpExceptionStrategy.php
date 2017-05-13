@@ -13,7 +13,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use League\Route\Strategy\StrategyInterface;
 use Zend\Diactoros\Response;
-use Zend\Diactoros\ServerRequest as Request;
 
 class HttpExceptionStrategy implements StrategyInterface
 {
@@ -140,9 +139,10 @@ class HttpExceptionStrategy implements StrategyInterface
     /**
      * Returns true if a JSON-RCP request has been received.
      *
-     * @return boolean
+     * @param ServerRequestInterface $request Request
+     * @return bool Status
      */
-    protected function isJson(Request $request)
+    protected function isJson(ServerRequestInterface $request)
     {
         $type = $request->getHeader('content-type');
         return !empty($type[0]) && (strpos($type[0], 'application/json') !== false);

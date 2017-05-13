@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use Zend\Diactoros\ServerRequest as Request;
 use Zend\Diactoros\Response;
-use Zend\Diactoros\Response\JsonResponse;
 
 /**
  * IndexController
@@ -46,7 +44,7 @@ class IndexController extends AppController
     public function load()
     {
         $json = $this->getRequest()->getAttribute('json');
-        $params = value($json, 'params');
+        //$params = value($json, 'params');
         $result = [
             'status' => 1
         ];

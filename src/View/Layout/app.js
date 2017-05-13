@@ -3,8 +3,8 @@ app = {};
 /**
  * Base class for all pages
  *
- * @param {object} config
- * @returns {undefined}
+ * @param {Object} options
+ * @returns {Object}
  */
 app.Page = function (options) {
 

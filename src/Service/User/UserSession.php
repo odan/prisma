@@ -35,13 +35,11 @@ class UserSession extends BaseService
 
     /**
      * UserSession constructor.
-     * @param $session
-     * @param $db
+     * @param Session $session
+     * @param Connection $db
      */
     public function __construct(Session $session, Connection $db)
     {
-        parent::__construct();
-
         $this->session = $session;
         $this->db = $db;
     }
@@ -51,7 +49,7 @@ class UserSession extends BaseService
      *
      * @param string $locale
      * @param string $domain
-     * @return bool
+     * @return bool Status
      */
     public function setLocale($locale = 'en_US', $domain = 'messages')
     {

@@ -88,14 +88,14 @@ class Http
         // Get URI from URL
         $uri = $this->request->getUri()->getPath();
 
-        // Detect and remove subfolder from URI
+        // Detect and remove sub-folder from URI
         $scriptName = $this->server['SCRIPT_NAME'];
 
         if (isset($scriptName)) {
-            $dirname = dirname($scriptName);
-            $dirname = dirname($dirname);
-            $len = strlen($dirname);
-            if ($len > 0 && $dirname != '/') {
+            $dirName = dirname($scriptName);
+            $dirName = dirname($dirName);
+            $len = strlen($dirName);
+            if ($len > 0 && $dirName != '/') {
                 $uri = substr($uri, $len);
             }
         }
