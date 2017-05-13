@@ -22,20 +22,45 @@ class HttpExceptionStrategy implements StrategyInterface
      */
     protected $logger = null;
 
+    /**
+     * @var Route
+     */
     protected $route = null;
 
+    /**
+     * @var array
+     */
     protected $events = array();
 
+    /**
+     * Set logger.
+     *
+     * @param LoggerInterface $logger
+     */
     public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
     }
 
+    /**
+     * Register event.
+     *
+     * @param string $event
+     * @param callable $callback
+     * @return void
+     */
     public function on($event, callable $callback)
     {
         $this->events[$event] = $callback;
     }
 
+    /**
+     * Raise event.
+     *
+     * @param string $event
+     * @param array $args
+     * @return mixed|null
+     */
     protected function event($event, $args = [])
     {
         if (isset($this->events[$event])) {
@@ -137,7 +162,7 @@ class HttpExceptionStrategy implements StrategyInterface
     }
 
     /**
-     * Returns true if a JSON-RCP request has been received.
+     * Returns true if a JSON request has been received.
      *
      * @param ServerRequestInterface $request Request
      * @return bool Status
@@ -151,10 +176,10 @@ class HttpExceptionStrategy implements StrategyInterface
     /**
      * Build json response.
      *
-     * @param ResponseInterface $response
-     * @param int $code
-     * @param string $message
-     * @return ResponseInterface
+     * @param ResponseInterface $response Response
+     * @param int $code HTTP status code
+     * @param string $message Message
+     * @return ResponseInterface Response
      */
     protected function buildJsonResponse(ResponseInterface $response, $code, $message)
     {
