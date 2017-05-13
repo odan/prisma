@@ -15,7 +15,7 @@ class JsonMiddleware
      *
      * @var string Attribute
      */
-    const ATTRIBUTE = 'json';
+    const ATTRIBUTE = 'data';
 
     /**
      * Invoke middleware.

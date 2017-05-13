@@ -44,10 +44,10 @@ class IndexController extends AppController
      */
     public function load()
     {
-        $json = $this->getRequest()->getAttribute('json');
+        $data = $this->getRequest()->getAttribute('data');
         $result = [
             'message' => __('Loaded successfully!'),
-            'test' => $json
+            'data' => $data
         ];
         return $this->json($result);
     }
