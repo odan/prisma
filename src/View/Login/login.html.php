@@ -15,7 +15,7 @@
         <?php echo $this->assets(['view::Login/login.css'], ['inline' => false, 'public' => true]); ?>
         <?php
         if (!empty($text)) :
-            echo sprintf("<script>\$d.addText(%s);</script>", json_encode($text));
+            echo sprintf('<script>$d.addText(%s)</script>', json_encode($text));
         endif;
         ?>
     </head>

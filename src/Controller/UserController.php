@@ -20,7 +20,7 @@ class UserController extends AppController
     {
         // Render template
         $request = $this->getRequest();
-        $viewData = $this->getData($request);
+        $viewData = $this->getViewData($this->getRequest());
         $content = view()->render('view::User/user-index.html.php', $viewData);
 
         $response = $this->getResponse();
@@ -79,8 +79,9 @@ class UserController extends AppController
         //$userRow = $user->getById($id);
         //
         // Add data to template
-        $viewData = $this->getData($request, [
+        $viewData = $this->getViewData($request, [
             'id' => $id,
+            'counter' => $counter,
             'assets' => $this->getAssets(),
         ]);
 

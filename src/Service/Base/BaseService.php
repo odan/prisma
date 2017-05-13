@@ -2,8 +2,6 @@
 
 namespace App\Service\Base;
 
-use App\Container\AppContainer;
-
 /**
  * Model: Service layer
  *
@@ -16,21 +14,12 @@ use App\Container\AppContainer;
  */
 class BaseService
 {
-
-    /**
-     * App Service Container
-     *
-     * @var AppContainer
-     */
-    protected $app;
-
     /**
      * Constructor
      *
      * @param AppContainer $app
      */
-    public function __construct(AppContainer $app)
+    public function __construct()
     {
-        $this->app = $app;
     }
 }

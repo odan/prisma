@@ -29,7 +29,7 @@ class IndexController extends AppController
             'Loaded successfully!' => __('Loaded successfully!')
         ]);
 
-        $viewData = $this->getData($this->getRequest(), [
+        $viewData = $this->getViewData($this->getRequest(), [
             'text' => $text,
             'counter' => $counter,
         ]);

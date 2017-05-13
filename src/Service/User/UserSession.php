@@ -19,15 +19,15 @@ class UserSession extends BaseService
     protected $secret = '';
 
     /**
-     * Constructor
-     *
-     * @param AppContainer $app
-     * @return void
+     * UserSession constructor.
+     * @param $session
+     * @param $db
+     * @param $secret
      */
-    public function __construct(AppContainer $app)
+    public function __construct($session, $db, $secret)
     {
-        parent::__construct($app);
-        $this->setSecret($app->config['app']['secret']);
+        parent::__construct();
+        $this->setSecret($secret);
     }
 
     /**
@@ -42,14 +42,7 @@ class UserSession extends BaseService
         $this->set('user.locale', $locale);
         $this->set('user.domain', $domain);
 
-        $translator = $this->app->translator;
-        $moFile = sprintf('%s/../../../resources/locale/%s_%s.mo', __DIR__, $locale, $domain);
-        if (file_exists($moFile)) {
-            $translator->addResource('mo', $moFile, $locale, $domain);
-        }
-        $translator->setLocale($locale);
-
-        //$test = __('Hello');
+        set_locale($locale, $domain);
         return true;
     }
 
@@ -57,6 +50,7 @@ class UserSession extends BaseService
      * Get locale
      *
      * @param string $default
+     * @return  string Locale
      */
     public function getLocale($default = 'en_US')
     {
@@ -94,7 +88,7 @@ class UserSession extends BaseService
 
         // Login ok
         // Create new session id
-        $this->app->session->invalidate();
+        session()->invalidate();
 
         // Store user settings in session
         $this->set('user.id', $user['id']);
@@ -115,7 +109,7 @@ class UserSession extends BaseService
         $this->setLocale();
 
         // Clears all session data and regenerates session ID
-        $this->app->session->invalidate();
+        session()->invalidate();
     }
 
     /**
@@ -141,14 +135,7 @@ class UserSession extends BaseService
      */
     public function verifyHash($password, $hash)
     {
-        if (function_exists('password_verify')) {
-            // php >= 5.5
-            $result = password_verify($password, $hash);
-        } else {
-            $hash2 = crypt($password, $hash);
-            $result = $hash == $hash2;
-        }
-        return $result;
+        return password_verify($password, $hash);
     }
 
     /**
@@ -178,7 +165,7 @@ class UserSession extends BaseService
             $secret = $this->secret;
         }
         // Create real key for value
-        $sessionId = $this->app->session->getId();
+        $sessionId = session()->getId();
         $realHash = sha1($value . $sessionId . $secret);
         return $realHash;
     }
@@ -192,7 +179,7 @@ class UserSession extends BaseService
      */
     public function set($key, $value)
     {
-        $this->app->session->set($key, $value);
+        session()->set($key, $value);
     }
 
     /**
@@ -203,7 +190,7 @@ class UserSession extends BaseService
      */
     public function get($key, $default = '')
     {
-        $mixReturn = $this->app->session->get($key, $default);
+        $mixReturn = session()->get($key, $default);
         return $mixReturn;
     }
 
@@ -252,7 +239,7 @@ class UserSession extends BaseService
      */
     protected function getUserByLogin($username, $password)
     {
-        $query = $this->app->db->newQuery()
+        $query = db()->newQuery()
                 ->select(['*'])
                 ->from('users')
                 ->where(['username' => $username])

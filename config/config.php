@@ -18,8 +18,8 @@ if (isset($environment['env'])) {
     $config->load(__DIR__ . '/' . $environment['env'] . '.php');
 }
 
-$config->read(__DIR__ . '/middleware.php');
 $config->read(__DIR__ . '/routes.php');
+$config->read(__DIR__ . '/middleware.php');
 
 if ($environment) {
     $config->import($environment);

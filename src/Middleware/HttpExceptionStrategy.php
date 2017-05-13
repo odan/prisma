@@ -12,6 +12,7 @@ use RuntimeException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use League\Route\Strategy\StrategyInterface;
+use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest as Request;
 
 class HttpExceptionStrategy implements StrategyInterface
@@ -22,12 +23,38 @@ class HttpExceptionStrategy implements StrategyInterface
      */
     protected $logger = null;
 
+    protected $route = null;
+
+    protected $events = array();
+
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    public function on($event, callable $callback)
+    {
+        $this->events[$event] = $callback;
+    }
+
+    protected function event($event, $args = [])
+    {
+        if (isset($this->events[$event])) {
+            return call_user_func_array($this->events[$event], $args);
+        }
+        return null;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function getCallable(Route $route, array $vars)
     {
+        $this->route = $route;
+
         return function (ServerRequestInterface $request, ResponseInterface $response, callable $next) use ($route, $vars) {
+            $request = $request->withAttribute('route', $route);
+
             $return = call_user_func_array($route->getCallable(), [$request, $response, $vars]);
 
             if (!$return instanceof ResponseInterface) {
@@ -80,6 +107,8 @@ class HttpExceptionStrategy implements StrategyInterface
      */
     protected function buildHttpResponse(ServerRequestInterface $request, ResponseInterface $response, Exception $exception)
     {
+        $request = $request->withAttribute('route', $this->route);
+
         if ($exception instanceof HttpException) {
             $message = $exception->getMessage();
             $status = $exception->getStatusCode();
@@ -91,6 +120,11 @@ class HttpExceptionStrategy implements StrategyInterface
 
         if ($this->logger) {
             $this->logger->error($fullMessage, [$request->getMethod(), $request->getUri()]);
+        }
+
+        $eventResult = $this->event(get_class($exception), [$request, $response, $this->route]);
+        if ($eventResult instanceof Response) {
+            return $eventResult;
         }
 
         if ($this->isJson($request)) {
@@ -131,10 +165,5 @@ class HttpExceptionStrategy implements StrategyInterface
 
         $response = $response->withAddedHeader('content-type', 'application/json');
         return $response;
-    }
-
-    public function setLogger(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
     }
 }

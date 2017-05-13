@@ -3,37 +3,32 @@
 namespace App\Controller;
 
 use App\Service\User\UserSession;
-use Zend\Diactoros\ServerRequest as Request;
 use Zend\Diactoros\Response;
+use Zend\Diactoros\Response\RedirectResponse;
 
 /**
  * LoginController.
  */
 class LoginController extends AppController
 {
-
-    // No auth check for login controller
-    protected $authEnabled = false;
-
     /**
      * User login
      *
-     * @param Request $request
-     * @param Response $response
      * @return Response
      */
-    public function loginPage(Request $request = null, Response $response = null)
+    public function loginPage()
     {
-        $app = $this->app($request);
-
-        $user = new UserSession($app);
+        $user = $this->getUserSession();
         $user->logout();
 
         $assets = $this->getAssets();
-        $assets[] = 'view::Index/css/login.css';
-        $app->view->addData(['assets' => $assets]);
-        $app->view->addData($this->getData($request));
-        $content = $app->view->render('view::Index/html/login.html.php');
+        $assets[] = 'view::Login/login.css';
+
+        $view = view();
+        $viewData = $this->getViewData($this->getRequest());
+        $content = $view->render('view::Login/login.html.php', $viewData);
+
+        $response = $this->getResponse();
         $response->getBody()->write($content);
         return $response;
     }
@@ -41,37 +36,33 @@ class LoginController extends AppController
     /**
      * User login submit
      *
-     * @param Request $request
-     * @param Response $response
      * @return Response
      */
-    public function loginSubmit(Request $request = null, Response $response = null)
+    public function loginSubmit()
     {
-        $app = $this->app($request);
+        $request = $this->getRequest();
 
-        $user = new UserSession($app);
-        $username = $app->http->post('username');
-        $password = $app->http->post('password');
+        $data = $request->getParsedBody();
+        $username = $data['username'];
+        $password = $data['password'];
+
+        $user = $this->getUserSession();
         $result = $user->login($username, $password);
-        $url = ($result) ? '/' : 'login';
+        $url = ($result) ? baseurl('/') : baseurl('/login');
 
-        return $app->http->redirectBase($url);
+        return new RedirectResponse($url);
     }
 
     /**
      * User logout
      *
-     * @param Request $request
-     * @param Response $response
      * @return Response
      */
-    public function logout(Request $request = null, Response $response = null)
+    public function logout()
     {
-        $app = $this->app($request);
+        $user = $this->getUserSession();
+        $user->logout();
 
-        $user = new UserSession($app);
-        $user->logout($app);
-
-        return $app->http->redirectBase('/login');
+        return RedirectResponse(baseurl('login'));
     }
 }

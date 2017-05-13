@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Service\User\UserSession;
 use Zend\Diactoros\ServerRequest as Request;
 use Zend\Diactoros\Response;
+use League\Route\Http\Exception\UnauthorizedException;
 
 /**
  * AppController
@@ -24,6 +26,14 @@ class AppController
     {
         $this->request = $request;
         $this->response = $response;
+        $user = $this->getUserSession();
+
+        // Authentication check
+        $attributes = $request->getAttributes();
+        $auth = isset($attributes['_auth']) ? $attributes['_auth'] : true;
+        if ($auth && !$user->isValid()) {
+            throw new UnauthorizedException();
+        }
     }
 
     protected function getRequest()
@@ -34,6 +44,16 @@ class AppController
     protected function getResponse()
     {
         return $this->response;
+    }
+
+    /**
+     * Get user session
+     *
+     * @return UserSession
+     */
+    protected function getUserSession()
+    {
+        return new UserSession(session(), db(), config()->get('app.secret'));
     }
 
     /**
@@ -82,7 +102,7 @@ class AppController
         return $result;
     }
 
-    public function getData(Request $request, array $data = null)
+    public function getViewData(Request $request, array $data = null)
     {
         $result = [
             'baseurl' => $request->getAttribute('base_url'),
