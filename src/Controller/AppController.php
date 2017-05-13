@@ -22,6 +22,13 @@ class AppController
      */
     protected $response;
 
+    /**
+     * Constructor.
+     *
+     * @param Request|null $request
+     * @param Response|null $response
+     * @throws UnauthorizedException
+     */
     public function __construct(Request $request = null, Response $response = null)
     {
         $this->request = $request;
@@ -30,16 +37,30 @@ class AppController
         // Authentication check
         $attributes = $request->getAttributes();
         $auth = isset($attributes['_auth']) ? $attributes['_auth'] : true;
-        if ($auth && !user()->isValid()) {
+
+        $user = user();
+        $isValid = $user->isValid();
+
+        if ($auth === true && !$isValid) {
             throw new UnauthorizedException();
         }
     }
 
+    /**
+     * Request.
+     *
+     * @return null|Request
+     */
     protected function getRequest()
     {
         return $this->request;
     }
 
+    /**
+     * Response.
+     *
+     * @return null|Response
+     */
     protected function getResponse()
     {
         return $this->response;

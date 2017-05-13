@@ -56,10 +56,10 @@ class UserController extends AppController
         //$id = $queryParams['id'];
 
         // Increment counter
-        $session = session();
-        $counter = $session->get('counter', 0);
+        $user = user();
+        $counter = $user->get('counter', 0);
         $counter++;
-        $session->set('counter', $counter);
+        $user->set('counter', $counter);
 
         logger()->info('My log message');
 

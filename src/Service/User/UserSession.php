@@ -2,9 +2,12 @@
 
 namespace App\Service\User;
 
+use Aura\Session\Session;
 use App\Service\Base\BaseService;
 use Cake\Database\Connection;
-use Symfony\Component\HttpFoundation\Session\Session;
+
+#use Symfony\Component\HttpFoundation\Session\Session;
+
 
 /**
  * User Session Handler
@@ -103,7 +106,7 @@ class UserSession extends BaseService
 
         // Login ok
         // Create new session id
-        $this->session->invalidate();
+        $this->session->clear();
 
         // Store user settings in session
         $this->set('user.id', $user['id']);
@@ -124,7 +127,7 @@ class UserSession extends BaseService
         $this->setLocale();
 
         // Clears all session data and regenerates session ID
-        $this->session->invalidate();
+        $this->session->destroy();
     }
 
     /**
@@ -193,7 +196,7 @@ class UserSession extends BaseService
      */
     public function set($key, $value)
     {
-        $this->session->set($key, $value);
+        $this->session->getSegment('app')->set($key, $value);
     }
 
     /**
@@ -205,7 +208,7 @@ class UserSession extends BaseService
      */
     public function get($key, $default = null)
     {
-        return $this->session->get($key, $default);
+        return $this->session->getSegment('app')->get($key, $default);
     }
 
     /**

@@ -4,7 +4,6 @@ use Zend\Diactoros\ServerRequest as Request;
 use Zend\Diactoros\Response;
 use League\Route\Http\Exception\UnauthorizedException;
 use Zend\Diactoros\Response\RedirectResponse;
-use League\Route\Route;
 
 $router = router();
 

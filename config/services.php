@@ -3,6 +3,9 @@
 /**
  * Services and helper functions
  */
+
+use Aura\Session\Session;
+use Aura\Session\SessionFactory;
 use Monolog\Logger;
 use Monolog\Handler\RotatingFileHandler;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
@@ -12,10 +15,11 @@ use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\SapiEmitter;
 use League\Container\Container;
 use League\Route\RouteCollection;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
-use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
-use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
+
+//use Symfony\Component\HttpFoundation\Session\Session;
+//use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
+//use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
+//use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\Translation\Loader\MoFileLoader;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator;
@@ -56,7 +60,7 @@ function config()
 function request()
 {
     $container = container();
-    $request = $container->has('request') ?  $container->get('request'): null;
+    $request = $container->has('request') ? $container->get('request') : null;
     if (!$request) {
         $request = ServerRequestFactory::fromGlobals();
         $container->share('request', $request);
@@ -72,7 +76,7 @@ function request()
 function response()
 {
     $container = container();
-    $response = $container->has('response') ?  $container->get('response'): null;
+    $response = $container->has('response') ? $container->get('response') : null;
     if (!$response) {
         $response = new Response();
         $container->share('response', $response);
@@ -88,7 +92,7 @@ function response()
 function emitter()
 {
     $container = container();
-    $emitter = $container->has('emitter') ?  $container->get('emitter'): null;
+    $emitter = $container->has('emitter') ? $container->get('emitter') : null;
     if (!$emitter) {
         $emitter = new SapiEmitter();
         $container->share('emitter', $emitter);
@@ -104,7 +108,7 @@ function emitter()
 function router()
 {
     $container = container();
-    $route = $container->has('router') ?  $container->get('router'): null;
+    $route = $container->has('router') ? $container->get('router') : null;
     if (!$route) {
         $route = new RouteCollection($container);
         $container->share('router', $route);
@@ -168,24 +172,19 @@ function set_locale($locale = 'en_US', $domain = 'messages')
 /**
  * Get the session object.
  *
- * @return Symfony\Component\HttpFoundation\Session\Session
+ * @return Session
  */
 function session()
 {
     $container = container();
-    $session = $container->has('session') ?  $container->get('session'): null;
+    $session = $container->has('session') ? $container->get('session') : null;
     if (!$session) {
-        if (php_sapi_name() === 'cli') {
-            // In cli-mode
-            $storage = new MockArraySessionStorage();
-            $session = new Session($storage);
-        } else {
-            // Not in cli-mode
-            $config = (array)config()->get('session');
-            $storage = new NativeSessionStorage($config, new NativeFileSessionHandler());
-            $session = new Session($storage);
-            $session->start();
-        }
+        $config = config();
+        $sessionFactory = new SessionFactory();
+        $cookieParams = request()->getCookieParams();
+        $session = $sessionFactory->newInstance($cookieParams);
+        $session->setName($config->get('session.name'));
+        $session->setCacheExpire($config->get('session.cache_expire', 0));
         $container->share('session', $session);
     }
     return $session;
@@ -199,7 +198,7 @@ function session()
 function db()
 {
     $container = container();
-    $db = $container->has('db') ?  $container->get('db'): null;
+    $db = $container->has('db') ? $container->get('db') : null;
     if (!$db) {
         $driver = new Cake\Database\Driver\Mysql(config()->get('db'));
         $db = new Cake\Database\Connection(['driver' => $driver]);
@@ -216,7 +215,7 @@ function db()
 function logger()
 {
     $container = container();
-    $logger = $container->has('logger') ?  $container->get('logger'): null;
+    $logger = $container->has('logger') ? $container->get('logger') : null;
     if (!$logger) {
         $config = config();
         $logger = new Logger('app');
@@ -241,7 +240,7 @@ function logger()
 function view()
 {
     $container = container();
-    $engine = $container->has('view') ?  $container->get('view'): null;
+    $engine = $container->has('view') ? $container->get('view') : null;
     if (!$engine) {
         $config = config();
         $engine = new League\Plates\Engine($config->get('view_path'), null);
@@ -273,7 +272,7 @@ function view()
 function user()
 {
     $container = container();
-    $user = $container->has('user') ?  $container->get('user'): null;
+    $user = $container->has('user') ? $container->get('user') : null;
     if (!$user) {
         $user = new \App\Service\User\UserSession(session(), db());
         $user->setSecret(config()->get('app_secret'));

@@ -36,7 +36,10 @@ $config['log_level'] = \Monolog\Logger::ERROR;
 $config['assets_minify'] = 1;
 
 // Session
-$config['session_name'] = 'webapp';
+$config['session'] = [
+    'name' => 'webapp',
+    'cache_expire' => 0
+];
 
 // Database
 $config['db'] = array(

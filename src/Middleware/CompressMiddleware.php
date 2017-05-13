@@ -13,23 +13,6 @@ class CompressMiddleware
 {
 
     /**
-     * Settings
-     *
-     * @var array
-     */
-    protected $settings;
-
-    /**
-     * Set the Middleware instance and options.
-     *
-     * @param array $settings
-     */
-    public function __construct($settings = array())
-    {
-        $this->settings = $settings;
-    }
-
-    /**
      * Invoke middleware.
      *
      * @param Request $request The request.

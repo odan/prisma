@@ -62,7 +62,7 @@ class JsonMiddleware
      * @param Request $request Request
      * @return bool Status
      */
-    public function isJson(Request $request)
+    protected function isJson(Request $request)
     {
         $type = $request->getHeader('content-type');
         return !empty($type[0]) && (strpos($type[0], 'application/json') !== false);
@@ -74,7 +74,7 @@ class JsonMiddleware
      * @param Response $response
      * @return Response
      */
-    public function getResponseWithHeader(Response $response)
+    protected function getResponseWithHeader(Response $response)
     {
         $response = $response->withHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
         $response = $response->withHeader('Pragma', 'no-cache');
