@@ -13,7 +13,7 @@ $errorHandler = new \App\Middleware\HttpExceptionStrategy();
 $errorHandler->setLogger(logger());
 
 // Handle http errors
-$errorHandler->on(UnauthorizedException::class, function(Request $request, Response $response, Route $route) {
+$errorHandler->on(UnauthorizedException::class, function() {
     // Redirect to login page
     return new RedirectResponse(baseurl('/login'));
 });

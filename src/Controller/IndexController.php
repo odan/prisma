@@ -46,7 +46,8 @@ class IndexController extends AppController
         $json = $this->getRequest()->getAttribute('json');
         //$params = value($json, 'params');
         $result = [
-            'status' => 1
+            'status' => 1,
+            'test' => $json
         ];
         return $result;
     }

@@ -40,7 +40,6 @@ class Http
      *
      * @param Request $request
      * @param Response $response
-     * @return void
      */
     public function __construct(Request $request, Response $response)
     {
