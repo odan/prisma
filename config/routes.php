@@ -26,11 +26,10 @@ $router->map('GET', '/', function (Request $request, Response $response) {
     return $ctrl->indexPage();
 });
 
-// JSON middleware for all Json requests (Route specific middleware)
-$router->map('POST', '/json', function (Request $request, Response $response) {
-    //throw new \League\Route\Http\Exception\ForbiddenException();
-    return $response;
-})->middleware(new App\Middleware\JsonRpcMiddleware());
+$router->map('GET', '/index/load', function (Request $request, Response $response) {
+    $ctrl = new App\Controller\IndexController($request, $response);
+    return $ctrl->load();
+});
 
 // Login
 $router->map('GET', '/login', function (Request $request, Response $response) {

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Zend\Diactoros\Response;
+use Zend\Diactoros\Response\JsonResponse;
 
 /**
  * IndexController
@@ -37,18 +38,17 @@ class IndexController extends AppController
     }
 
     /**
-     * Action (JsonRpc)
+     * Action (Json)
      *
-     * @return mixed
+     * @return JsonResponse
      */
     public function load()
     {
         $json = $this->getRequest()->getAttribute('json');
-        //$params = value($json, 'params');
         $result = [
-            'status' => 1,
+            'message' => __('Loaded successfully!'),
             'test' => $json
         ];
-        return $result;
+        return $this->json($result);
     }
 }

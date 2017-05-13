@@ -7,7 +7,8 @@ if (!app.index) {
  *
  * @param {Object} options
  */
-app.index.Index = function Index(options) {
+app.index.Index = function Index(options)
+{
 
     /** @returns {app.index.Index} */
     var $this = $.extend(this, new app.Page());
@@ -31,24 +32,23 @@ app.index.Index = function Index(options) {
      */
     this.load = function () {
         $d.showLoad();
-        var params = {
-            'hello': 'world'
-        };
-        $d.call('Index.load', params, function (res) {
-            if (!$d.handleResponse(res)) {
-                return;
-            }
 
-            // load table rows
-            if (res.result.status === 1) {
-                $d.notify({
-                    msg: "<b>Ok</b> " + __('Loaded successfully!'),
-                    type: "success",
-                    position: "center"
-                });
-            } else {
-                $d.alert('Server error');
-            }
+        $.ajax({
+            url: $d.getBaseUrl("index/load"),
+            type: "GET",
+            cache: false,
+            contentType: 'application/json'
+        }).done(function (data) {
+            $d.hideLoad();
+            $d.log(data);
+            $d.notify({
+                msg: "<b>Ok</b> " + data.message,
+                type: "success",
+                position: "center"
+            });
+        }).fail(function (xhr) {
+            $d.hideLoad();
+            $d.alert("Server error");
         });
     };
 
