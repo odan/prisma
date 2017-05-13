@@ -31,28 +31,16 @@ class JsonMiddleware
             return $next($request, $response);
         }
 
-        // Disable browser cache
-        $response = $this->getResponseWithHeader($response);
-
         $jsonRequest = $this->getJsonData($request);
 
         // Add json request
         $request = $request->withAttribute(static::ATTRIBUTE, $jsonRequest);
 
-        return $next($request, $response);
-    }
+        $response = $next($request, $response);
 
-    /**
-     * Update response header.
-     *
-     * @param Response $response
-     * @return Response
-     */
-    public function getResponseWithHeader(Response $response)
-    {
-        $response = $response->withHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-        $response = $response->withHeader('Pragma', 'no-cache');
-        $response = $response->withHeader('Expires', '0');
+        // Disable browser cache
+        $response = $this->getResponseWithHeader($response);
+
         return $response;
     }
 
@@ -78,5 +66,19 @@ class JsonMiddleware
     {
         $type = $request->getHeader('content-type');
         return !empty($type[0]) && (strpos($type[0], 'application/json') !== false);
+    }
+
+    /**
+     * Update response header.
+     *
+     * @param Response $response
+     * @return Response
+     */
+    public function getResponseWithHeader(Response $response)
+    {
+        $response = $response->withHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+        $response = $response->withHeader('Pragma', 'no-cache');
+        $response = $response->withHeader('Expires', '0');
+        return $response;
     }
 }
