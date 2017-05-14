@@ -12,7 +12,3 @@ $router->middleware(new \App\Middleware\TranslatorMiddleware($config->export()))
 // Json
 $router->middleware(new \App\Middleware\JsonMiddleware());
 
-// Compression
-$router->middleware(new \App\Middleware\CompressMiddleware());
-
-return $router;
