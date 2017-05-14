@@ -55,7 +55,7 @@ function config()
 function request()
 {
     $container = container();
-    $request = $container->has('request') ? $container->get('request') : null;
+    $request = $container->hasShared('request') ? $container->get('request') : null;
     if (!$request) {
         $request = ServerRequestFactory::fromGlobals();
         $container->share('request', $request);
@@ -71,7 +71,7 @@ function request()
 function response()
 {
     $container = container();
-    $response = $container->has('response') ? $container->get('response') : null;
+    $response = $container->hasShared('response') ? $container->get('response') : null;
     if (!$response) {
         $response = new Response();
         $container->share('response', $response);
@@ -87,7 +87,7 @@ function response()
 function emitter()
 {
     $container = container();
-    $emitter = $container->has('emitter') ? $container->get('emitter') : null;
+    $emitter = $container->hasShared('emitter') ? $container->get('emitter') : null;
     if (!$emitter) {
         $emitter = new SapiEmitter();
         $container->share('emitter', $emitter);
@@ -103,7 +103,7 @@ function emitter()
 function router()
 {
     $container = container();
-    $route = $container->has('router') ? $container->get('router') : null;
+    $route = $container->hasShared('router') ? $container->get('router') : null;
     if (!$route) {
         $route = new RouteCollection($container);
         $container->share('router', $route);
@@ -172,7 +172,7 @@ function set_locale($locale = 'en_US', $domain = 'messages')
 function session()
 {
     $container = container();
-    $session = $container->has('session') ? $container->get('session') : null;
+    $session = $container->hasShared('session') ? $container->get('session') : null;
     if (!$session) {
         $config = config();
         $sessionFactory = new SessionFactory();
@@ -193,7 +193,7 @@ function session()
 function db()
 {
     $container = container();
-    $db = $container->has('db') ? $container->get('db') : null;
+    $db = $container->hasShared('db') ? $container->get('db') : null;
     if (!$db) {
         $driver = new Cake\Database\Driver\Mysql(config()->get('db'));
         $db = new Cake\Database\Connection(['driver' => $driver]);
@@ -210,7 +210,7 @@ function db()
 function logger()
 {
     $container = container();
-    $logger = $container->has('logger') ? $container->get('logger') : null;
+    $logger = $container->hasShared('logger') ? $container->get('logger') : null;
     if (!$logger) {
         $config = config();
         $logger = new Logger('app');
@@ -235,7 +235,7 @@ function logger()
 function view()
 {
     $container = container();
-    $engine = $container->has('view') ? $container->get('view') : null;
+    $engine = $container->hasShared('view') ? $container->get('view') : null;
     if (!$engine) {
         $config = config();
         $engine = new League\Plates\Engine($config->get('view_path'), null);
@@ -267,7 +267,7 @@ function view()
 function user()
 {
     $container = container();
-    $user = $container->has('user') ? $container->get('user') : null;
+    $user = $container->hasShared('user') ? $container->get('user') : null;
     if (!$user) {
         $secret = config()->get('app.secret');
         $user = new \App\Service\User\UserSession(session(), db(), $secret);
@@ -283,7 +283,7 @@ function user()
  */
 function http() {
     $container = container();
-    $http = $container->has('http') ? $container->get('http') : null;
+    $http = $container->hasShared('http') ? $container->get('http') : null;
     if(!$http) {
         $http = new \App\Util\Http(request(), response());
         $container->share('http', $http);
