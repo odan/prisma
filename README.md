@@ -1,6 +1,6 @@
-# PSR-7 Full Stack Framework
+# Prisma
 
-Strictly PSR-7 oriented php component framework.
+A lightweight PHP framework.
 
 [![Latest Version on Packagist](https://img.shields.io/github/release/odan/psr7-full-stack.svg)](https://github.com/odan/psr7-full-stack/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
@@ -12,7 +12,7 @@ Strictly PSR-7 oriented php component framework.
 
 ## Main packages
 
-* **Middleware:** [zendframework/zend-diactoros](https://github.com/zendframework/zend-diactorose)
+* **Middleware (PSR-7):** [zendframework/zend-diactoros](https://github.com/zendframework/zend-diactorose)
 * **Router:** [league/route](https://packagist.org/packages/league/route)
 * **Templates:** [league/plates](https://github.com/thephpleague/plates)
 * **Assets Cache (Javascript, CSS):** [odan/plates-asset-cache](https://github.com/odan/plates-asset-cache)
@@ -20,7 +20,7 @@ Strictly PSR-7 oriented php component framework.
 * **Database migrations:** [robmorgan/phinx](https://github.com/robmorgan/phinx) + [odan/phinx-migrations-generator](https://github.com/odan/phinx-migrations-generator)
 * **Text translations:** [symfony/translation](https://github.com/symfony/Translation) + [Poedit](https://poedit.net/)
 * **Sessions:** [aura/session](https://github.com/aura/session)
-* **Logging:** [monolog/monolog](https://github.com/Seldaek/monolog) 
+* **Logging (PSR-3):** [monolog/monolog](https://github.com/Seldaek/monolog) 
 * **Console:** [symfony/console](https://github.com/symfony/console)
 * **Unit tests:** [phpunit/phpunit](https://github.com/sebastianbergmann/phpunit)
 * **Directory structure:** [php-pds/skeleton](https://github.com/php-pds/skeleton)
