@@ -2,14 +2,12 @@
 
 namespace App\Util;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Zend\Diactoros\ServerRequest as Request;
-use Zend\Diactoros\Response;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Zend\Diactoros\Response\RedirectResponse;
 
 /**
- * Http
+ * Http utils
  */
 class Http
 {
@@ -17,14 +15,14 @@ class Http
     /**
      * Request
      *
-     * @var ServerRequestInterface
+     * @var Request
      */
     public $request;
 
     /**
      * Response
      *
-     * @var ResponseInterface
+     * @var Response
      */
     public $response;
 
@@ -102,7 +100,9 @@ class Http
     }
 
     /**
-     * @return ServerRequestInterface
+     * Set base path.
+     *
+     * @return Request
      */
     public function withBasePath()
     {
@@ -150,15 +150,16 @@ class Http
      *
      * @return string
      */
-    public function getHostUrl()
+    public function getUrl()
     {
-        $host = $this->request->getUri()->getHost();
-        $port = $this->request->getUri()->getPort();
-        //$host = $this->server['HTTP_HOST'];
-        //$port = $this->server['SERVER_PORT'];
+        $uri = $this->request->getUri();
+        $host = $uri->getHost();
+        $port = $uri->getPort();
+        $path = $uri->getPath();
+        $query = $uri->getQuery();
         $result = $this->isSecure() ? 'https://' : 'http://';
-        $result .= (empty($port)) ? $host : $host . ":" . $port;
-        //$result .= ($port == '80') ? $host : $host . ":" . $port;
+        $result .= (empty($port)) ? $host .$path : $host . ":" . $port . $path;
+        $result .= strlen($query) ? '?' . $query : '';
         return $result;
     }
 
@@ -185,15 +186,15 @@ class Http
     }
 
     /**
-     * Returns true if a JSON-RCP request has been received
-     * @return boolean
+     * Returns true if a JSON request has been received.
+     *
+     * @param Request $request Request
+     * @return bool Status
      */
-    public function isJsonRpc()
+    public function isJson(Request $request)
     {
-        $method = $this->request->getMethod();
-        $type = $this->request->getHeader('content-type');
-        return $method === 'POST' && !empty($type[0]) &&
-                (strpos($type[0], 'application/json') !== false);
+        $type = $request->getHeader('content-type');
+        return !empty($type[0]) && (strpos($type[0], 'application/json') !== false);
     }
 
     /**
@@ -203,9 +204,23 @@ class Http
      */
     public function isLocalhost()
     {
-        $addr = $this->request->getClientIp(); // @todo
-        $result = isset($addr) && ($addr === '127.0.0.1' || $addr === '::1');
-        return $result;
+        $ipAddress = $this->getIp();
+        return isset($ipAddress) && ($ipAddress === '127.0.0.1' || $ipAddress === '::1');
+    }
+
+    /**
+     * Find out the client's IP address from the headers available to us.
+     * Inspired by akrabat/rka-ip-address-middleware.
+     *
+     * @return string
+     */
+    public function getIp()
+    {
+        $ipAddress = null;
+        if (isset($this->server['REMOTE_ADDR'])) {
+            $ipAddress = $this->server['REMOTE_ADDR'];
+        }
+        return $ipAddress;
     }
 
     /**
@@ -216,18 +231,6 @@ class Http
      */
     public function redirect($url)
     {
-        return new RedirectResponse($url);
-    }
-
-    /**
-     * Redirect to base url
-     *
-     * @param string $internalUri
-     * @return RedirectResponse
-     */
-    public function redirectBase($internalUri)
-    {
-        $url = $this->getBaseUrl($internalUri);
         return new RedirectResponse($url);
     }
 }

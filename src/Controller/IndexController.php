@@ -31,6 +31,8 @@ class IndexController extends AppController
         $viewData = $this->getViewData([
             'text' => $text,
             'counter' => $counter,
+            'ip' => http()->getIp(),
+            'url' => http()->getUrl()
         ]);
 
         // Render template

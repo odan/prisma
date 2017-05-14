@@ -15,11 +15,6 @@ use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\SapiEmitter;
 use League\Container\Container;
 use League\Route\RouteCollection;
-
-//use Symfony\Component\HttpFoundation\Session\Session;
-//use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
-//use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
-//use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\Translation\Loader\MoFileLoader;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator;
@@ -282,6 +277,19 @@ function user()
 }
 
 /**
+ * Http helper
+ *
+ * @return \App\Util\Http
+ */
+function http() {
+    static $http = null;
+    if(!$http) {
+        $http = new \App\Util\Http(request(), response());
+    }
+    return $http;
+}
+
+/**
  * Generates a normalized URI for the given path.
  *
  * @param string $path A path to use instead of the current one
@@ -290,17 +298,5 @@ function user()
  */
 function baseurl($path = '', $full = false)
 {
-    $http = new \App\Util\Http(request(), response());
-    return $http->getBaseUrl($path, $full);
-}
-
-/**
- * Returns current url.
- *
- * @return string URL
- */
-function hosturl()
-{
-    $http = new \App\Util\Http(request(), response());
-    return $http->getHostUrl();
+    return http()->getBaseUrl($path, $full);
 }

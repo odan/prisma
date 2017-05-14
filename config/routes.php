@@ -1,9 +1,9 @@
 <?php
 
-use Zend\Diactoros\ServerRequest as Request;
-use Zend\Diactoros\Response;
 use League\Route\Http\Exception\UnauthorizedException;
+use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\RedirectResponse;
+use Zend\Diactoros\ServerRequest as Request;
 
 $router = router();
 
@@ -12,7 +12,7 @@ $errorHandler = new \App\Middleware\HttpExceptionStrategy();
 $errorHandler->setLogger(logger());
 
 // Handle http errors
-$errorHandler->on(UnauthorizedException::class, function() {
+$errorHandler->on(UnauthorizedException::class, function () {
     // Redirect to login page
     return new RedirectResponse(baseurl('/login'));
 });
@@ -67,7 +67,3 @@ $router->map('GET', '/users/{id:number}/reviews', function (Request $request, Re
     $ctrl = new App\Controller\UserController($request, $response);
     return $ctrl->reviewPage($args);
 });
-
-return $router;
-
-
