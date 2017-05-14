@@ -37,11 +37,8 @@ class AppController
         // Authentication check
         $attributes = $request->getAttributes();
         $auth = isset($attributes['_auth']) ? $attributes['_auth'] : true;
-
-        $user = user();
-        $isValid = $user->isValid();
-
-        if ($auth === true && !$isValid) {
+        
+        if ($auth === true && !user()->isValid()) {
             throw new UnauthorizedException();
         }
     }

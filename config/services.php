@@ -274,8 +274,8 @@ function user()
     $container = container();
     $user = $container->has('user') ? $container->get('user') : null;
     if (!$user) {
-        $user = new \App\Service\User\UserSession(session(), db());
-        $user->setSecret(config()->get('app_secret'));
+        $secret = config()->get('app.secret');
+        $user = new \App\Service\User\UserSession(session(), db(), $secret);
         $container->share('user', $user);
     }
     return $user;

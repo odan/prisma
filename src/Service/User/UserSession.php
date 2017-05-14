@@ -2,12 +2,10 @@
 
 namespace App\Service\User;
 
+use Aura\Session\Segment;
 use Aura\Session\Session;
 use App\Service\Base\BaseService;
 use Cake\Database\Connection;
-
-#use Symfony\Component\HttpFoundation\Session\Session;
-
 
 /**
  * User Session Handler
@@ -16,11 +14,20 @@ class UserSession extends BaseService
 {
 
     /**
-     * Secret session key
+     * Session
      *
      * @var Session
      */
     protected $session;
+
+    /**
+     * Session segment
+     *
+     * @var Segment
+     */
+    protected $segment;
+
+    protected $auth;
 
     /**
      * Database
@@ -29,22 +36,31 @@ class UserSession extends BaseService
      */
     protected $db;
 
-    /**
-     * Secret session key
-     *
-     * @var string
-     */
-    protected $secret = '';
+    protected $token;
 
     /**
      * UserSession constructor.
-     * @param Session $session
-     * @param Connection $db
+     *
+     * @param Session $session Storage
+     * @param Connection $db Database
+     * @param string $secret Secret session key
      */
-    public function __construct(Session $session, Connection $db)
+    public function __construct(Session $session, Connection $db, $secret = '')
     {
         $this->session = $session;
+        $this->segment = $this->session->getSegment('app');
         $this->db = $db;
+        $this->token = new Token($secret);
+    }
+
+    /**
+     * Return token object.
+     *
+     * @return Token
+     */
+    public function getToken()
+    {
+        return $this->token;
     }
 
     /**
@@ -79,16 +95,6 @@ class UserSession extends BaseService
     }
 
     /**
-     * Set secret session key
-     *
-     * @param string $secret secret session key
-     */
-    public function setSecret($secret)
-    {
-        $this->secret = $secret;
-    }
-
-    /**
      * Login user with username and password
      *
      * @param string $username Username
@@ -98,11 +104,14 @@ class UserSession extends BaseService
     public function login($username, $password)
     {
         // Check username and password
-        $user = $this->getUserByLogin($username, $password);
+        $auth = new UserAuthentication($this->db, $this->token, $username, $password);
+        $authResult = $auth->authenticate();
 
-        if (empty($user)) {
+        if (!$authResult->isValid()) {
             return false;
         }
+
+        $user = $authResult->getIdentity();
 
         // Login ok
         // Create new session id
@@ -131,63 +140,6 @@ class UserSession extends BaseService
     }
 
     /**
-     * Returns secure password hash
-     *
-     * @param string $password
-     * @param int $algo
-     * @param array $options
-     * @return string
-     */
-    public function createHash($password, $algo = 1, $options = array())
-    {
-        return password_hash($password, $algo, $options);
-    }
-
-    /**
-     * Returns true if password and hash is valid
-     *
-     * @param string $password
-     * @param string $hash
-     * @return bool
-     */
-    public function verifyHash($password, $hash)
-    {
-        return password_verify($password, $hash);
-    }
-
-    /**
-     * Check if token is correct for this string
-     *
-     * @param string $value
-     * @param string $token
-     * @return boolean
-     */
-    public function checkToken($value, $token)
-    {
-        $realHash = $this->getToken($value);
-        $result = ($token === $realHash);
-        return $result;
-    }
-
-    /**
-     * Generate Hash-Token from string
-     *
-     * @param string $value
-     * @param string $secret
-     * @return string
-     */
-    public function getToken($value, $secret = null)
-    {
-        if ($secret === null) {
-            $secret = $this->secret;
-        }
-        // Create real key for value
-        $sessionId = $this->session->getId();
-        $realHash = sha1($value . $sessionId . $secret);
-        return $realHash;
-    }
-
-    /**
      * Set user info
      *
      * @param string $key
@@ -196,7 +148,7 @@ class UserSession extends BaseService
      */
     public function set($key, $value)
     {
-        $this->session->getSegment('app')->set($key, $value);
+        $this->segment->set($key, $value);
     }
 
     /**
@@ -208,7 +160,7 @@ class UserSession extends BaseService
      */
     public function get($key, $default = null)
     {
-        return $this->session->getSegment('app')->get($key, $default);
+        return $this->segment->get($key, $default);
     }
 
     /**
@@ -224,7 +176,7 @@ class UserSession extends BaseService
         $userRole = $this->get('user.role');
 
         // Full access for admin
-        if ($userRole === 'ROLE_ADMIN') {
+        if ($userRole === UserRole::ROLE_ADMIN) {
             return true;
         }
         if ($role === $userRole) {
@@ -245,28 +197,5 @@ class UserSession extends BaseService
     {
         $id = $this->get('user.id');
         return !empty($id);
-    }
-
-    /**
-     * Returns user by username and password
-     *
-     * @param string $username
-     * @param string $password
-     * @return array|null
-     */
-    protected function getUserByLogin($username, $password)
-    {
-        $query = $this->db->newQuery()
-                ->select(['*'])
-                ->from('users')
-                ->where(['username' => $username])
-                ->where(['disabled' => 0]);
-
-        $row = $query->execute()->fetch('assoc');
-
-        if (empty($row) || !$this->verifyHash($password, $row['password'])) {
-            $row = null;
-        }
-        return $row;
     }
 }
