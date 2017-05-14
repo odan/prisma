@@ -282,9 +282,11 @@ function user()
  * @return \App\Util\Http
  */
 function http() {
-    static $http = null;
+    $container = container();
+    $http = $container->has('http') ? $container->get('http') : null;
     if(!$http) {
         $http = new \App\Util\Http(request(), response());
+        $container->share('http', $http);
     }
     return $http;
 }
