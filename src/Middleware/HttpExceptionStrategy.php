@@ -160,7 +160,8 @@ class HttpExceptionStrategy implements StrategyInterface
      * @param Exception $exception
      * @return array
      */
-    protected function getStatusAndMessage(Exception $exception) {
+    protected function getStatusAndMessage(Exception $exception)
+    {
         if ($exception instanceof HttpException) {
             $message = $exception->getMessage();
             $status = $exception->getStatusCode();
