@@ -22,7 +22,7 @@ $config['locale_path'] = $root . '/resources/locale';
 $config['migration_path'] = $root . '/resources/migrations';
 
 // Application token
-$config['app_secret'] = '{{app_secret}}';
+$config['app_secret'] = '6c6bee844f2420ede093af25b58bb8ba8b7dc04d';
 
 // Logger
 $config['log_level'] = \Monolog\Logger::ERROR;

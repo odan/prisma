@@ -13,10 +13,9 @@ $config = [];
 $config['log_level'] = \Monolog\Logger::DEBUG;
 
 // View
-$config['assets_minify'] = 0;
+$config['assets']['minify'] = 0;
 
 // Database
-//$config['db']['database'] = 'test';
-$config['db']['database'] = 'astro_php';
+$config['db']['database'] = 'prisma';
 
 return $config;

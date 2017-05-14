@@ -18,8 +18,8 @@ if($env == 'travis') {
     $mySqlHost = readline("Enter MySQL host [Default: 127.0.0.1]: ");
     $mySqlHost = empty($mySqlHost) ? '127.0.0.1' : $mySqlHost;
 
-    $mySqlDatabase = readline("Enter MySQL database name [Default: astro_php]: ");
-    $mySqlDatabase = empty($mySqlDatabase) ? 'astro_php' : $mySqlDatabase;
+    $mySqlDatabase = readline("Enter MySQL database name [Default: prisma]: ");
+    $mySqlDatabase = empty($mySqlDatabase) ? 'prisma' : $mySqlDatabase;
 
     $mySqlUsername = readline("Enter MySQL username [Default: root]: ");
     $mySqlUsername = empty($mySqlUsername) ? 'root' : $mySqlUsername;
