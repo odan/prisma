@@ -139,7 +139,7 @@ class HttpExceptionStrategy implements StrategyInterface
         }
 
         $eventResult = $this->event(get_class($exception), [$request, $response, $this->route]);
-        if ($eventResult instanceof Response) {
+        if ($eventResult instanceof ResponseInterface) {
             return $eventResult;
         }
 
