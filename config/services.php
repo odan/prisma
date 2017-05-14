@@ -238,22 +238,14 @@ function view()
     $engine = $container->hasShared('view') ? $container->get('view') : null;
     if (!$engine) {
         $config = config();
-        $engine = new League\Plates\Engine($config->get('view_path'), null);
+        $engine = new League\Plates\Engine($config->get('view.path'), null);
 
         // Add folder shortcut (assets::file.js)
-        $engine->addFolder('assets', $config->get('assets_path'));
-        $engine->addFolder('view', $config->get('view_path'));
+        $engine->addFolder('assets', $config->get('assets.path'));
+        $engine->addFolder('view', $config->get('view.path'));
 
         // Register Asset extension
-        $cacheOptions = array(
-            // Enable JavaScript and CSS compression
-            'minify' => $config->get('assets_minify'),
-            // Public assets cache directory
-            'public_dir' => $config->get('public_cache_path'),
-            // Internal cache adapter
-            'cache' => new FilesystemAdapter('assets-cache', 0, $config->get('assset_cache_path')),
-        );
-        $engine->loadExtension(new \Odan\Asset\PlatesAssetExtension($cacheOptions));
+        $engine->loadExtension(new \Odan\Asset\PlatesAssetExtension($config->get('assets')));
         $container->share('view', $engine);
     }
     return $engine;

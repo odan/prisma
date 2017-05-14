@@ -18,11 +18,6 @@ $config['tmp_path'] = $root . '/tmp';
 $config['log_path'] = $root . '/tmp/log';
 $config['cache_path'] = $root . '/tmp/cache';
 $config['public_path'] = $root . '/public';
-$config['public_cache_path'] = $root . '/public/cache';
-$config['assset_cache_path'] = $root . '/tmp/cache';
-$config['assset_cache_ttl'] = 0;
-$config['assets_path'] = $root . '/public';
-$config['view_path'] = $root . '/src/View';
 $config['locale_path'] = $root . '/resources/locale';
 $config['migration_path'] = $root . '/resources/migrations';
 
@@ -33,7 +28,21 @@ $config['app_secret'] = '{{app_secret}}';
 $config['log_level'] = \Monolog\Logger::ERROR;
 
 // View
-$config['assets_minify'] = 1;
+$config['view'] = [
+    'path' => $root . '/src/View'
+];
+
+// Assets
+$config['assets'] = [
+    'path' => $root . '/public',
+    // Internal cache adapter
+    'cache' => new \Symfony\Component\Cache\Adapter\FilesystemAdapter('assets-cache', 0, $root . '/tmp/cache'),
+    // Public assets cache directory
+    'public_dir' => $root . '/public/cache',
+    // Enable JavaScript and CSS compression
+    'minify' => 1
+];
+
 
 // Session
 $config['session'] = [
