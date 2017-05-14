@@ -7,12 +7,11 @@ use League\Route\Http\Exception\MethodNotAllowedException;
 use League\Route\Http\Exception\NotFoundException;
 use League\Route\Http\Exception as HttpException;
 use League\Route\Route;
+use League\Route\Strategy\StrategyInterface;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use League\Route\Strategy\StrategyInterface;
-use Zend\Diactoros\Response;
 
 class HttpExceptionStrategy implements StrategyInterface
 {
@@ -21,11 +20,6 @@ class HttpExceptionStrategy implements StrategyInterface
      * @var LoggerInterface
      */
     protected $logger = null;
-
-    /**
-     * @var Route
-     */
-    protected $route = null;
 
     /**
      * @var array
@@ -74,11 +68,7 @@ class HttpExceptionStrategy implements StrategyInterface
      */
     public function getCallable(Route $route, array $vars)
     {
-        $this->route = $route;
-
         return function (ServerRequestInterface $request, ResponseInterface $response, callable $next) use ($route, $vars) {
-            $request = $request->withAttribute('route', $route);
-
             $return = call_user_func_array($route->getCallable(), [$request, $response, $vars]);
 
             if (!$return instanceof ResponseInterface) {
@@ -131,16 +121,7 @@ class HttpExceptionStrategy implements StrategyInterface
      */
     protected function buildHttpResponse(ServerRequestInterface $request, ResponseInterface $response, Exception $exception)
     {
-        $request = $request->withAttribute('route', $this->route);
-
-        if ($exception instanceof HttpException) {
-            $message = $exception->getMessage();
-            $status = $exception->getStatusCode();
-        } else {
-            $message = trim("Internal Server Error. " . $exception->getMessage());
-            $status = 500;
-        }
-        $fullMessage = sprintf('Error %s: %s', $status, $message);
+        list($status, $message, $fullMessage) = $this->getStatusAndMessage($exception);
 
         if ($this->logger) {
             $this->logger->error($fullMessage, [$request->getMethod(), $request->getUri()]);
@@ -151,6 +132,7 @@ class HttpExceptionStrategy implements StrategyInterface
             return $eventResult;
         }
 
+        // Build response
         if ($this->isJson($request)) {
             return $this->buildJsonResponse($response, $status, $message);
         } else {
@@ -159,6 +141,26 @@ class HttpExceptionStrategy implements StrategyInterface
             }
             return $response->withStatus($status, $message);
         }
+    }
+
+    /**
+     * Get status code and message.
+     *
+     * @param Exception $exception
+     * @return array
+     */
+    protected function getStatusAndMessage(Exception $exception)
+    {
+        if ($exception instanceof HttpException) {
+            $message = $exception->getMessage();
+            $status = $exception->getStatusCode();
+        } else {
+            $message = trim("Internal Server Error. " . $exception->getMessage());
+            $status = 500;
+        }
+        $fullMessage = sprintf('Error %s: %s', $status, $message);
+
+        return [$status, $message, $fullMessage];
     }
 
     /**
