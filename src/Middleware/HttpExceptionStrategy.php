@@ -22,6 +22,11 @@ class HttpExceptionStrategy implements StrategyInterface
     protected $logger = null;
 
     /**
+     * @var Route
+     */
+    protected $route = null;
+
+    /**
      * @var array
      */
     protected $events = array();
@@ -68,7 +73,11 @@ class HttpExceptionStrategy implements StrategyInterface
      */
     public function getCallable(Route $route, array $vars)
     {
+        $this->route = $route;
+
         return function (ServerRequestInterface $request, ResponseInterface $response, callable $next) use ($route, $vars) {
+            $request = $request->withAttribute('route', $route);
+
             $return = call_user_func_array($route->getCallable(), [$request, $response, $vars]);
 
             if (!$return instanceof ResponseInterface) {
@@ -121,6 +130,8 @@ class HttpExceptionStrategy implements StrategyInterface
      */
     protected function buildHttpResponse(ServerRequestInterface $request, ResponseInterface $response, Exception $exception)
     {
+        $request = $request->withAttribute('route', $this->route);
+
         list($status, $message, $fullMessage) = $this->getStatusAndMessage($exception);
 
         if ($this->logger) {
@@ -149,8 +160,7 @@ class HttpExceptionStrategy implements StrategyInterface
      * @param Exception $exception
      * @return array
      */
-    protected function getStatusAndMessage(Exception $exception)
-    {
+    protected function getStatusAndMessage(Exception $exception) {
         if ($exception instanceof HttpException) {
             $message = $exception->getMessage();
             $status = $exception->getStatusCode();
