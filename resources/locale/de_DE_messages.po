@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.7\n"
 "X-Poedit-KeywordsList: __\n"
-"X-Poedit-Basepath: C:\\xampp\\htdocs\\odan\\psr7-full-stack\\app\n"
+"X-Poedit-Basepath: C:\\xampp\\htdocs\\prisma\\src\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 

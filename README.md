@@ -2,28 +2,27 @@
 
 A lightweight PHP framework.
 
-[![Latest Version on Packagist](https://img.shields.io/github/release/odan/psr7-full-stack.svg)](https://github.com/odan/psr7-full-stack/releases)
+[![Latest Version on Packagist](https://img.shields.io/github/release/odan/prisma.svg)](https://github.com/odan/prisma/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
-[![Build Status](https://travis-ci.org/odan/psr7-full-stack.svg?branch=master)](https://travis-ci.org/odan/psr7-full-stack)
-[![Coverage Status](https://scrutinizer-ci.com/g/odan/psr7-full-stack/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/odan/psr7-full-stack/code-structure)
-[![Quality Score](https://scrutinizer-ci.com/g/odan/psr7-full-stack/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/odan/psr7-full-stack/?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/odan/psr7-full-stack.svg)](https://packagist.org/packages/odan/psr7-full-stack)
+[![Build Status](https://travis-ci.org/odan/prisma.svg?branch=master)](https://travis-ci.org/odan/prisma)
+[![Coverage Status](https://scrutinizer-ci.com/g/odan/prisma/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/odan/prisma/code-structure)
+[![Quality Score](https://scrutinizer-ci.com/g/odan/prisma/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/odan/prisma/?branch=master)
+[![Total Downloads](https://img.shields.io/packagist/dt/odan/prisma.svg)](https://packagist.org/packages/odan/prisma)
 
 
 ## Main packages
 
-* **Middleware (PSR-7):** [zendframework/zend-diactoros](https://github.com/zendframework/zend-diactorose)
-* **Router:** [league/route](https://packagist.org/packages/league/route)
-* **Templates:** [league/plates](https://github.com/thephpleague/plates)
-* **Assets Cache (Javascript, CSS):** [odan/plates-asset-cache](https://github.com/odan/plates-asset-cache)
-* **Database:** [cakephp/database](https://github.com/cakephp/database)
-* **Database migrations:** [robmorgan/phinx](https://github.com/robmorgan/phinx) + [odan/phinx-migrations-generator](https://github.com/odan/phinx-migrations-generator)
-* **Text translations:** [symfony/translation](https://github.com/symfony/Translation) + [Poedit](https://poedit.net/)
-* **Sessions:** [aura/session](https://github.com/aura/session)
-* **Logging (PSR-3):** [monolog/monolog](https://github.com/Seldaek/monolog) 
-* **Console:** [symfony/console](https://github.com/symfony/console)
-* **Unit tests:** [phpunit/phpunit](https://github.com/sebastianbergmann/phpunit)
-* **Directory structure:** [php-pds/skeleton](https://github.com/php-pds/skeleton)
+* Router - [league/route](https://packagist.org/packages/league/route)
+* Middleware (PSR-7) - [zendframework/zend-diactoros](https://github.com/zendframework/zend-diactorose)
+* Sessions - [aura/session](https://github.com/aura/session)
+* Database - [cakephp/database](https://github.com/cakephp/database)
+* Database Migrations - [robmorgan/phinx](https://github.com/robmorgan/phinx)
+* Template Engine - [league/plates](https://github.com/thephpleague/plates)
+* Assets Cache - [odan/plates-asset-cache](https://github.com/odan/plates-asset-cache)
+* Translations - [symfony/translation](https://github.com/symfony/Translation)
+* Logging (PSR-3) - [monolog/monolog](https://github.com/Seldaek/monolog) 
+* Unit tests - [phpunit/phpunit](https://github.com/sebastianbergmann/phpunit)
+* Directory structure - [php-pds/skeleton](https://github.com/php-pds/skeleton)
 
 ## Quality
 
@@ -41,7 +40,7 @@ you notice compliance oversights, please send a patch via pull request.
 **Step 1:** Create a new project:
 
 ```shell
-composer create-project --prefer-dist odan/psr7-full-stack demo
+composer create-project --prefer-dist odan/prisma demo
 ```
 
 **Step 2:** Setup

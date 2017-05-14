@@ -1,12 +1,13 @@
 {
-  "name": "odan/psr7-full-stack",
+  "name": "odan/prisma",
   "type": "project",
-  "description": "PSR-7 framework",
+  "description": "A lightweight PHP framework",
   "keywords": [
     "framework",
-    "psr-7"
+    "psr-7",
+    "middleware"
   ],
-  "homepage": "http://github.com/odan/psr7-full-stack",
+  "homepage": "http://github.com/odan/prisma",
   "license": "MIT",
   "require": {
     "php": "^7.0",
