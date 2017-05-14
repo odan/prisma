@@ -57,7 +57,6 @@ class UserAuthentication extends BaseService
      * Performs an authentication attempt.
      *
      * @return AuthenticationResult
-     * @throws AuthenticationException If authentication cannot be performed
      */
     public function authenticate()
     {

@@ -27,8 +27,6 @@ class UserSession extends BaseService
      */
     protected $segment;
 
-    protected $auth;
-
     /**
      * Database
      *
@@ -36,7 +34,15 @@ class UserSession extends BaseService
      */
     protected $db;
 
+    /**
+     * @var Token
+     */
     protected $token;
+
+    /**
+     * @var string
+     */
+    protected $secret = '';
 
     /**
      * UserSession constructor.
@@ -50,7 +56,8 @@ class UserSession extends BaseService
         $this->session = $session;
         $this->segment = $this->session->getSegment('app');
         $this->db = $db;
-        $this->token = new Token($secret);
+        $this->secret = $secret;
+        $this->token = $this->createToken($secret);
     }
 
     /**
@@ -61,6 +68,17 @@ class UserSession extends BaseService
     public function getToken()
     {
         return $this->token;
+    }
+
+    /**
+     * Create token object.
+     *
+     * @param $secret
+     * @return Token
+     */
+    protected function createToken($secret)
+    {
+        return new Token($this->session->getId() . $secret);
     }
 
     /**
@@ -116,6 +134,10 @@ class UserSession extends BaseService
         // Login ok
         // Create new session id
         $this->session->clear();
+        $this->session->start();
+
+        // Create new token
+        $this->token = $this->createToken($this->secret);
 
         // Store user settings in session
         $this->set('user.id', $user['id']);

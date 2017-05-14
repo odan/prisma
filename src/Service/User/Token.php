@@ -51,8 +51,7 @@ class Token
     public function checkToken($value, $token)
     {
         $realHash = $this->getToken($value);
-        $result = ($token === $realHash);
-        return $result;
+        return ($token === $realHash);
     }
 
     /**
@@ -63,9 +62,6 @@ class Token
      */
     public function getToken($value)
     {
-        // Create real key for value
-        $sessionId = $this->session->getId();
-        $realHash = sha1($value . $sessionId . $this->secret);
-        return $realHash;
+        return sha1($value . $this->secret);
     }
 }
