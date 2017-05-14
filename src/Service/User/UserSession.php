@@ -61,6 +61,16 @@ class UserSession extends BaseService
     }
 
     /**
+     * Get user Id.
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return (int)$this->get('user.id');
+    }
+
+    /**
      * Return token object.
      *
      * @return Token

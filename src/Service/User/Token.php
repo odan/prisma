@@ -24,7 +24,7 @@ class Token
      * @param array $options
      * @return string
      */
-    public function createHash($password, $algo = 1, $options = array())
+    public function hash($password, $algo = 1, $options = array())
     {
         return password_hash($password, $algo, $options);
     }
@@ -48,7 +48,7 @@ class Token
      * @param string $token
      * @return boolean
      */
-    public function checkToken($value, $token)
+    public function check($value, $token)
     {
         $realHash = $this->getToken($value);
         return ($token === $realHash);
@@ -60,7 +60,7 @@ class Token
      * @param string $value
      * @return string
      */
-    public function getToken($value)
+    public function create($value)
     {
         return sha1($value . $this->secret);
     }
