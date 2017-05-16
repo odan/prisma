@@ -127,7 +127,7 @@ class Http
         $result = str_replace('//', '/', $result);
 
         if ($asAbsoluteUrl === true) {
-            $result = $this->getHostUrl() . $result;
+            $result = $this->getUrl() . $result;
         }
         return $result;
     }

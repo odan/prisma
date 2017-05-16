@@ -50,7 +50,7 @@ class Token
      */
     public function check($value, $token)
     {
-        $realHash = $this->getToken($value);
+        $realHash = $this->create($value);
         return ($token === $realHash);
     }
 
