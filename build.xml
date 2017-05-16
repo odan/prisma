@@ -48,6 +48,11 @@
                 <include name="**/*.php"/>
                 <modified/>
             </fileset>
+
+            <fileset dir="${basedir}/config">
+                <include name="**/*.php"/>
+                <modified/>
+            </fileset>
         </apply>
     </target>
 
