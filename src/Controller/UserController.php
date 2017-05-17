@@ -15,9 +15,50 @@ use Zend\Diactoros\ServerRequest as Request;
 class UserController extends AppController
 {
 
-    public function __construct(Request $request, Response $response, ConnectionInterface $db, Engine $view, UserSession $user, LoggerInterface $logger)
+    /**
+     * @var ConnectionInterface
+     */
+    protected $db;
+
+    /**
+     * @var Engine
+     */
+    protected $view;
+
+    /**
+     * @var UserSession
+     */
+    protected $user;
+
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+
+    /**
+     * UserController constructor.
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param ConnectionInterface $db
+     * @param Engine $view
+     * @param UserSession $user
+     * @param LoggerInterface $logger
+     */
+    public function __construct(Request $request,
+                                Response $response,
+                                ConnectionInterface $db,
+                                Engine $view,
+                                UserSession $user,
+                                LoggerInterface $logger)
     {
         parent::__construct($request, $response);
+
+        $this->db = $db;
+        $this->view = $view;
+        $this->user = $user;
+        $this->logger = $logger;
     }
 
     /**
