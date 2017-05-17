@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Service\User\UserSession;
+use Cake\Datasource\ConnectionInterface;
+use League\Plates\Engine;
+use Psr\Log\LoggerInterface;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest as Request;
 
@@ -11,7 +15,7 @@ use Zend\Diactoros\ServerRequest as Request;
 class UserController extends AppController
 {
 
-    public function __construct($request, $response, $db, $view, $user, $logger)
+    public function __construct(Request $request, Response $response, ConnectionInterface $db, Engine $view, UserSession $user, LoggerInterface $logger)
     {
         parent::__construct($request, $response);
     }
