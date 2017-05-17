@@ -3,12 +3,18 @@
 namespace App\Controller;
 
 use Zend\Diactoros\Response;
+use Zend\Diactoros\ServerRequest as Request;
 
 /**
  * UserController
  */
 class UserController extends AppController
 {
+
+    public function __construct($request, $response, $db, $view, $user, $logger)
+    {
+        parent::__construct($request, $response);
+    }
 
     /**
      * Index

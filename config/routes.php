@@ -52,18 +52,18 @@ $router->map('GET', '/logout', function (Request $request, Response $response) {
 
 // Users
 $router->map('GET', '/users', function (Request $request, Response $response) {
-    $ctrl = new App\Controller\UserController($request, $response);
+    $ctrl = new App\Controller\UserController($request, $response, db(), view(), user(), logger());
     return $ctrl->indexPage();
 });
 
 // this route will only match if {id} is numeric
 $router->map('GET', '/users/{id:number}', function (Request $request, Response $response, array $args) {
-    $ctrl = new App\Controller\UserController($request, $response);
+    $ctrl = new App\Controller\UserController($request, $response, db(), view(), user(), logger());
     return $ctrl->editPage($args);
 });
 
 // Sub-Resource
 $router->map('GET', '/users/{id:number}/reviews', function (Request $request, Response $response, array $args) {
-    $ctrl = new App\Controller\UserController($request, $response);
+    $ctrl = new App\Controller\UserController($request, $response, db(), view(), user(), logger());
     return $ctrl->reviewPage($args);
 });
