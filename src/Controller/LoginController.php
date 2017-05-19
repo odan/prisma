@@ -17,7 +17,6 @@ class LoginController extends AppController
      */
     public function loginPage()
     {
-        ;
         user()->logout();
 
         $assets = $this->getAssets();
@@ -27,7 +26,7 @@ class LoginController extends AppController
         $viewData = $this->getViewData();
         $content = $view->render('view::Login/login.html.php', $viewData);
 
-        $response = $this->getResponse();
+        $response = response();
         $response->getBody()->write($content);
         return $response;
     }
@@ -39,7 +38,7 @@ class LoginController extends AppController
      */
     public function loginSubmit()
     {
-        $request = $this->getRequest();
+        $request = request();
 
         $data = $request->getParsedBody();
         $username = $data['username'];

@@ -46,7 +46,7 @@ class IndexController extends AppController
      */
     public function load()
     {
-        $data = $this->getRequest()->getAttribute('data');
+        $data = request()->getAttribute('data');
         $result = [
             'message' => __('Loaded successfully!'),
             'data' => $data

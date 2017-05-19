@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Zend\Diactoros\ServerRequest as Request;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\JsonResponse;
 use League\Route\Http\Exception\UnauthorizedException;
@@ -13,54 +12,20 @@ use League\Route\Http\Exception\UnauthorizedException;
 class AppController
 {
     /**
-     * @var Request
-     */
-    protected $request;
-
-    /**
-     * @var Response
-     */
-    protected $response;
-
-    /**
      * Constructor.
      *
-     * @param Request|null $request
-     * @param Response|null $response
      * @throws UnauthorizedException
      */
-    public function __construct(Request $request = null, Response $response = null)
+    public function __construct()
     {
-        $this->request = $request;
-        $this->response = $response;
-
         // Authentication check
+        $request = request();
         $attributes = $request->getAttributes();
         $auth = isset($attributes['_auth']) ? $attributes['_auth'] : true;
         
         if ($auth === true && !user()->isValid()) {
             throw new UnauthorizedException();
         }
-    }
-
-    /**
-     * Request.
-     *
-     * @return null|Request
-     */
-    protected function getRequest()
-    {
-        return $this->request;
-    }
-
-    /**
-     * Response.
-     *
-     * @return null|Response
-     */
-    protected function getResponse()
-    {
-        return $this->response;
     }
 
     /**
@@ -136,8 +101,9 @@ class AppController
     protected function render($name, array $viewData = array())
     {
         $content = view()->render($name, $viewData);
-        $this->response->getBody()->write($content);
-        return $this->response;
+        $response = response();
+        $response->getBody()->write($content);
+        return $response;
     }
 
     /**

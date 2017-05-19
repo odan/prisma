@@ -2,64 +2,13 @@
 
 namespace App\Controller;
 
-use App\Service\User\UserSession;
-use Cake\Datasource\ConnectionInterface;
-use League\Plates\Engine;
-use Psr\Log\LoggerInterface;
 use Zend\Diactoros\Response;
-use Zend\Diactoros\ServerRequest as Request;
 
 /**
  * UserController
  */
 class UserController extends AppController
 {
-
-    /**
-     * @var ConnectionInterface
-     */
-    protected $db;
-
-    /**
-     * @var Engine
-     */
-    protected $view;
-
-    /**
-     * @var UserSession
-     */
-    protected $user;
-
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
-
-
-    /**
-     * UserController constructor.
-     *
-     * @param Request $request
-     * @param Response $response
-     * @param ConnectionInterface $db
-     * @param Engine $view
-     * @param UserSession $user
-     * @param LoggerInterface $logger
-     */
-    public function __construct(Request $request,
-                                Response $response,
-                                ConnectionInterface $db,
-                                Engine $view,
-                                UserSession $user,
-                                LoggerInterface $logger)
-    {
-        parent::__construct($request, $response);
-
-        $this->db = $db;
-        $this->view = $view;
-        $this->user = $user;
-        $this->logger = $logger;
-    }
 
     /**
      * Index
@@ -80,8 +29,8 @@ class UserController extends AppController
      */
     public function editPage(array $args)
     {
-        //$request = $this->getRequest();
-        //$response = $this->getResponse();
+        //$request = request();
+        //$response = response();
 
         // All GET parameters
         //$queryParams = $request->getQueryParams();
@@ -143,7 +92,7 @@ class UserController extends AppController
     {
         $id = $args['id'];
 
-        $response = $this->getResponse();
+        $response = response();
         $response->getBody()->write("Action: Show all reviews of user: $id<br>");
 
         /// Uncomment this line to test the ExceptionMiddleware

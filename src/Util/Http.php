@@ -205,7 +205,7 @@ class Http
     public function isLocalhost()
     {
         $ipAddress = $this->getIp();
-        return isset($ipAddress) && ($ipAddress === '127.0.0.1' || $ipAddress === '::1');
+        return $ipAddress === '127.0.0.1' || $ipAddress === '::1';
     }
 
     /**
