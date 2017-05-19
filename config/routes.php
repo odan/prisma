@@ -20,50 +20,50 @@ $errorHandler->on(UnauthorizedException::class, function () {
 $router->setStrategy($errorHandler);
 
 // Default page
-$router->map('GET', '/', function (Request $request, Response $response) {
-    $ctrl = new App\Controller\IndexController($request, $response);
+$router->map('GET', '/', function () {
+    $ctrl = new App\Controller\IndexController();
     return $ctrl->indexPage();
 });
 
-$router->map('GET', '/index/load', function (Request $request, Response $response) {
-    $ctrl = new App\Controller\IndexController($request, $response);
+$router->map('GET', '/index/load', function () {
+    $ctrl = new App\Controller\IndexController();
     return $ctrl->load();
 });
 
 // Login
-$router->map('GET', '/login', function (Request $request, Response $response) {
+$router->map('GET', '/login', function () {
     // No auth check for this action
-    $request = $request->withAttribute('_auth', false);
-    $ctrl = new App\Controller\LoginController($request, $response);
+    container()->share('request', request()->withAttribute('_auth', false));
+    $ctrl = new App\Controller\LoginController();
     return $ctrl->loginPage();
 });
 
-$router->map('POST', '/login', function (Request $request, Response $response) {
-    $request = $request->withAttribute('_auth', false);
-    $ctrl = new App\Controller\LoginController($request, $response);
+$router->map('POST', '/login', function () {
+    container()->share('request', request()->withAttribute('_auth', false));
+    $ctrl = new App\Controller\LoginController();
     return $ctrl->loginSubmit();
 });
 
-$router->map('GET', '/logout', function (Request $request, Response $response) {
-    $request = $request->withAttribute('_auth', false);
-    $ctrl = new App\Controller\LoginController($request, $response);
+$router->map('GET', '/logout', function () {
+    container()->share('request', request()->withAttribute('_auth', false));
+    $ctrl = new App\Controller\LoginController();
     return $ctrl->logout();
 });
 
 // Users
-$router->map('GET', '/users', function (Request $request, Response $response) {
-    $ctrl = new App\Controller\UserController($request, $response, db(), view(), user(), logger());
+$router->map('GET', '/users', function () {
+    $ctrl = new App\Controller\UserController();
     return $ctrl->indexPage();
 });
 
 // this route will only match if {id} is numeric
 $router->map('GET', '/users/{id:number}', function (Request $request, Response $response, array $args) {
-    $ctrl = new App\Controller\UserController($request, $response, db(), view(), user(), logger());
+    $ctrl = new App\Controller\UserController();
     return $ctrl->editPage($args);
 });
 
 // Sub-Resource
 $router->map('GET', '/users/{id:number}/reviews', function (Request $request, Response $response, array $args) {
-    $ctrl = new App\Controller\UserController($request, $response, db(), view(), user(), logger());
+    $ctrl = new App\Controller\UserController();
     return $ctrl->reviewPage($args);
 });
