@@ -152,39 +152,52 @@
         </exec>
 
         <!-- Remove files which aren't needed on the server -->
-        <delete file="${basedir}/build/master/.codeclimate.yml"/>
-        <delete file="${basedir}/build/master/.editorconfig"/>
-        <delete file="${basedir}/build/master/.editorconfig.dist"/>
-        <delete file="${basedir}/build/master/.gitignore"/>
-        <delete file="${basedir}/build/master/.gitignore.dist"/>
-        <delete file="${basedir}/build/master/.styleci.yml"/>
-        <delete file="${basedir}/build/master/LICENSE"/>
-        <delete file="${basedir}/build/master/build.xml"/>
-        <delete file="${basedir}/build/master/phpstan.neon"/>
-        <delete file="${basedir}/build/master/README.md"/>
-        <delete file="${basedir}/build/master/composer.json"/>
-        <delete file="${basedir}/build/master/composer.lock"/>
-        <delete file="${basedir}/build/master/phpunit.xml"/>
-        <delete file="${basedir}/build/master/config/env.php"/>
-        <delete file="${basedir}/build/master/config/ant.prod.properties"/>
-        <delete file="${basedir}/build/master/config/ant.test.properties"/>
-        <delete file="${basedir}/build/master/config/ant.staging.properties"/>
-        <delete file="${basedir}/build/master/config/example.ant.properties"/>
+        <delete>
+            <fileset dir="${basedir}/build/master/config/" casesensitive="no">
+                <include name="env.php"/>
+                <include name="*.properties"/>
+            </fileset>
+        </delete>
+
+        <delete>
+            <fileset dir="${basedir}/build/master/" casesensitive="no">
+                <include name="**/composer.json"/>
+                <include name="**/composer.lock"/>
+                <include name="**/phpunit.xml*"/>
+                <include name="**/*.gitignore"/>
+                <include name="**/*.codeclimate.yml"/>
+                <include name="**/*.editorconfig*"/>
+                <include name="**/*.styleci.yml"/>
+                <include name="**/*.scrutinizer.yml"/>
+                <include name="**/*.travis.yml"/>
+                <include name="**/*.appveyor.yml"/>
+                <include name="**/*.coveralls.yml"/>
+                <include name="**/mkdocs.yml"/>
+                <include name="**/phpstan.neon"/>
+                <include name="**/appveyor.yml"/>
+                <include name="**/build.xml"/>
+                <include name="**/CHANGELOG.md"/>
+                <include name="**/CONDUCT.md"/>
+                <include name="**/LICENSE*"/>
+                <include name="**/README*"/>
+                <include name="**/CHANGES*"/>
+                <include name="**/CONTRIBUTING*"/>
+                <include name="**/UPGRADE*.md"/>
+            </fileset>
+        </delete>
 
         <!-- Remove folders which aren't needed on the server -->
-        <delete dir="${basedir}/build/master/tests"/>
-        <delete dir="${basedir}/build/master/docs"/>
-        <delete dir="${basedir}/build/master/vendor/monolog/monolog/doc"/>
-        <delete dir="${basedir}/build/master/vendor/monolog/monolog/tests"/>
-        <delete dir="${basedir}/build/master/vendor/dflydev/dot-access-data/tests"/>
-        <delete dir="${basedir}/build/master/vendor/league/plates/docs"/>
-        <delete dir="${basedir}/build/master/vendor/league/plates/example"/>
-        <delete dir="${basedir}/build/master/vendor/phpmailer/phpmailer/examples"/>
-        <delete dir="${basedir}/build/master/vendor/symfony/cache/Tests"/>
-        <delete dir="${basedir}/build/master/vendor/symfony/config/Tests"/>
-        <delete dir="${basedir}/build/master/vendor/symfony/http-foundation/Tests"/>
-        <delete dir="${basedir}/build/master/vendor/symfony/routing/Tests"/>
-        <delete dir="${basedir}/build/master/vendor/symfony/translation/Tests"/>
+        <delete includeemptydirs="true">
+            <fileset dir="${basedir}/build/master/" casesensitive="no">
+                <include name="**/tests/"/>
+                <include name="**/test/"/>
+                <include name="**/tester/"/>
+                <include name="**/docs/"/>
+                <include name="**/doc/"/>
+                <include name="**/examples/"/>
+                <include name="**/example/"/>
+            </fileset>
+        </delete>
 
         <!-- Zip master brunch -->
         <zip destfile="${basedir}/build/${build.filename}">
