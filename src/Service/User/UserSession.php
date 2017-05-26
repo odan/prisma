@@ -141,7 +141,11 @@ class UserSession extends BaseService
 
         $user = $authResult->getIdentity();
 
-        // Login ok
+        // Clear session data
+        $this->segment->clear();
+        $this->segment->clearFlash();
+        $this->segment->clearFlashNow();
+
         // Create new session id
         $this->session->clear();
         $this->session->start();
