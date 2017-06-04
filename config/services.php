@@ -4,111 +4,55 @@
  * Services and helper functions
  */
 
-use Aura\Session\Session;
-use Aura\Session\SessionFactory;
-use Monolog\Logger;
-use Monolog\Handler\RotatingFileHandler;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Zend\Diactoros\ServerRequest as Request;
-use Zend\Diactoros\ServerRequestFactory;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Response\SapiEmitter;
-use League\Container\Container;
-use League\Route\RouteCollection;
+use Psr\Container\ContainerInterface;
+use Slim\Http\Request;
 use Symfony\Component\Translation\Loader\MoFileLoader;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator;
 
 /**
- * Dependency Injection Container.
+ * App instance.
  *
- * @return Container
+ * @param ContainerInterface|array $container Either a ContainerInterface or an associative array of app settings
+ * @return \Slim\App
+ */
+function app($container = [])
+{
+    static $slim = null;
+    if ($slim === null) {
+        $slim = new \Slim\App($container);
+    }
+    return $slim;
+}
+
+/**
+ * A simple PHP Dependency Injection Container.
+ *
+ * @return \Slim\Container|ContainerInterface
  */
 function container()
 {
-    static $container = null;
-    if ($container === null) {
-        $container = new Container();
-    }
-    return $container;
+    return app()->getContainer();
 }
 
 /**
- * Get or set config options
+ * Get application settings.
  *
- * @return \Odan\Config\ConfigBag
+ * @return \Slim\Collection
  */
-function config()
+function settings()
 {
-    static $config = null;
-    if ($config === null) {
-        $config = new \Odan\Config\ConfigBag();
-    }
-    return $config;
+    return container()->get('settings');
 }
 
 /**
- * The request function returns the current request instance.
+ * Translator
  *
- * @return Request
+ * @return Translator
  */
-function request()
+function translator()
 {
-    $container = container();
-    $request = $container->hasShared('request') ? $container->get('request') : null;
-    if (!$request) {
-        $request = ServerRequestFactory::fromGlobals();
-        $container->share('request', $request);
-    }
-    return $request;
-}
-
-/**
- * The request function returns the current response instance.
- *
- * @return Response
- */
-function response()
-{
-    $container = container();
-    $response = $container->hasShared('response') ? $container->get('response') : null;
-    if (!$response) {
-        $response = new Response();
-        $container->share('response', $response);
-    }
-    return $response;
-}
-
-/**
- * The emitter.
- *
- * @return SapiEmitter
- */
-function emitter()
-{
-    $container = container();
-    $emitter = $container->hasShared('emitter') ? $container->get('emitter') : null;
-    if (!$emitter) {
-        $emitter = new SapiEmitter();
-        $container->share('emitter', $emitter);
-    }
-    return $emitter;
-}
-
-/**
- * Route collection.
- *
- * @return RouteCollection
- */
-function router()
-{
-    $container = container();
-    $route = $container->hasShared('router') ? $container->get('router') : null;
-    if (!$route) {
-        $route = new RouteCollection($container);
-        $container->share('router', $route);
-    }
-    return $route;
+    return container()->get('translator');
 }
 
 /**
@@ -134,16 +78,6 @@ function __($message)
 }
 
 /**
- * Translator
- *
- * @return Translator
- */
-function translator()
-{
-    return container()->get(Translator::class);
-}
-
-/**
  * Set locale
  *
  * @param string $locale
@@ -152,7 +86,8 @@ function translator()
  */
 function set_locale($locale = 'en_US', $domain = 'messages')
 {
-    $moFile = sprintf('%s/%s_%s.mo', config()->get('locale_path'), $locale, $domain);
+    $settings = container()->get('settings');
+    $moFile = sprintf('%s/%s_%s.mo', $settings['locale_path'], $locale, $domain);
 
     $translator = new Translator($locale, new MessageSelector());
     $translator->addLoader('mo', new MoFileLoader());
@@ -161,136 +96,19 @@ function set_locale($locale = 'en_US', $domain = 'messages')
     $translator->setLocale($locale);
 
     // Inject translator into function
-    container()->share(Translator::class, $translator);
-}
-
-/**
- * Get the session object.
- *
- * @return Session
- */
-function session()
-{
-    $container = container();
-    $session = $container->hasShared('session') ? $container->get('session') : null;
-    if (!$session) {
-        $config = config();
-        $sessionFactory = new SessionFactory();
-        $cookieParams = request()->getCookieParams();
-        $session = $sessionFactory->newInstance($cookieParams);
-        $session->setName($config->get('session.name'));
-        $session->setCacheExpire($config->get('session.cache_expire', 0));
-        $container->share('session', $session);
-    }
-    return $session;
-}
-
-/**
- * Database
- *
- * @return Cake\Database\Connection
- */
-function db()
-{
-    $container = container();
-    $db = $container->hasShared('db') ? $container->get('db') : null;
-    if (!$db) {
-        $driver = new Cake\Database\Driver\Mysql(config()->get('db'));
-        $db = new Cake\Database\Connection(['driver' => $driver]);
-        $container->share('db', $db);
-    }
-    return $db;
-}
-
-/**
- * Logger
- *
- * @return Logger
- */
-function logger()
-{
-    $container = container();
-    $logger = $container->hasShared('logger') ? $container->get('logger') : null;
-    if (!$logger) {
-        $config = config();
-        $logger = new Logger('app');
-
-        $level = $config->get('log_level');
-        if (!isset($level)) {
-            $level = Logger::ERROR;
-        }
-        $logFile = $config->get('log_path') . '/log.txt';
-        $handler = new RotatingFileHandler($logFile, 0, $level, true, 0775);
-        $logger->pushHandler($handler);
-        $container->share(Logger::class, $logger);
-    }
-    return $logger;
-}
-
-/**
- * Plates template engine.
- *
- * @return League\Plates\Engine
- */
-function view()
-{
-    $container = container();
-    $engine = $container->hasShared('view') ? $container->get('view') : null;
-    if (!$engine) {
-        $config = config();
-        $engine = new League\Plates\Engine($config->get('view.path'), null);
-
-        // Add folder shortcut (assets::file.js)
-        $engine->addFolder('assets', $config->get('assets.path'));
-        $engine->addFolder('view', $config->get('view.path'));
-
-        // Register Asset extension
-        $engine->loadExtension(new \Odan\Asset\PlatesAssetExtension($config->get('assets')));
-        $container->share('view', $engine);
-    }
-    return $engine;
-}
-
-/**
- * User session.
- *
- * @return App\Service\User\UserSession
- */
-function user()
-{
-    $container = container();
-    $user = $container->hasShared('user') ? $container->get('user') : null;
-    if (!$user) {
-        $secret = config()->get('app.secret');
-        $user = new \App\Service\User\UserSession(session(), db(), $secret);
-        $container->share('user', $user);
-    }
-    return $user;
-}
-
-/**
- * Http helper
- *
- * @return \App\Util\Http
- */
-function http() {
-    $container = container();
-    $http = $container->hasShared('http') ? $container->get('http') : null;
-    if(!$http) {
-        $http = new \App\Util\Http(request(), response());
-        $container->share('http', $http);
-    }
-    return $http;
+    container()->offsetSet('translator', $translator);
 }
 
 /**
  * Generates a normalized URI for the given path.
  *
+ * @param Request $request
  * @param string $path A path to use instead of the current one
- * @param boolean $full return absolute or relative url
+ * @param bool $full return absolute or relative url
  * @return string The normalized URI for the path
  */
-function baseurl($path = '', $full = false)
+function baseurl(Request $request, $path = '', $full = false)
 {
-    return http()->getBaseUrl($path, $full);
+    $http = new \App\Util\Http($request);
+    return $http->getBaseUrl($path, $full);
 }

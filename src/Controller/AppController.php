@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Response\JsonResponse;
-use League\Route\Http\Exception\UnauthorizedException;
+use App\Service\User\UserSession;
+use Cake\Database\Connection;
+use League\Plates\Engine;
+use Psr\Container\ContainerInterface;
+use Psr\Log\LoggerInterface;
+use Slim\Exception\SlimException;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * AppController
@@ -12,20 +17,62 @@ use League\Route\Http\Exception\UnauthorizedException;
 class AppController
 {
     /**
+     * @var Engine
+     */
+    protected $view;
+
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
+     * @var UserSession
+     */
+    protected $user;
+
+    /**
+     * @var Connection
+     */
+    protected $db;
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->view = $container->get('view');
+        $this->logger = $container->get('logger');
+        $this->user = $container->get('user');
+        $this->db = $container->get('db');
+    }
+
+    /**
      * Constructor.
      *
-     * @throws UnauthorizedException
+     * @param Request $request
+     * @throws SlimException
      */
-    public function __construct()
+    protected function initAction(Request $request)
     {
         // Authentication check
-        $request = request();
         $attributes = $request->getAttributes();
         $auth = isset($attributes['_auth']) ? $attributes['_auth'] : true;
-        
-        if ($auth === true && !user()->isValid()) {
-            throw new UnauthorizedException();
+
+        if ($auth === true && !$this->user->isValid()) {
+            // Redirect to login page
+            $response = $this->redirect(baseurl($request, '/login'));
+            //$response = (new Response(401))->write('Unauthorized');
+            throw new SlimException($request, $response);
         }
+    }
+
+    /**
+     * Redirect to url
+     *
+     * @param string $url
+     * @return Response Redirect response
+     */
+    protected function redirect($url, $status = null)
+    {
+        return (new Response())->withRedirect($url, $status);
     }
 
     /**
@@ -80,10 +127,10 @@ class AppController
      * @param array $viewData
      * @return array
      */
-    public function getViewData(array $viewData = [])
+    protected function getViewData(Request $request, array $viewData = [])
     {
         $result = [
-            'baseurl' => baseurl('/'),
+            'baseurl' => baseurl($request, '/'),
         ];
         if (!empty($viewData)) {
             $result = array_replace_recursive($result, $viewData);
@@ -100,8 +147,8 @@ class AppController
      */
     protected function render($name, array $viewData = array())
     {
-        $content = view()->render($name, $viewData);
-        $response = response();
+        $content = $this->view->render($name, $viewData);
+        $response = new Response();
         $response->getBody()->write($content);
         return $response;
     }
@@ -109,11 +156,11 @@ class AppController
     /**
      * Helper to return JSON from a controller.
      *
-     * @param mixed $result
-     * @return JsonResponse
+     * @param mixed $data
+     * @return Response
      */
-    protected function json($result, $status = 200, $headers = [])
+    protected function json($data, $status = null)
     {
-        return new JsonResponse($result, $status, $headers);
+        return (new Response())->withJson($data, $status);
     }
 }

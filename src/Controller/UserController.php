@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use Zend\Diactoros\Response;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * UserController
@@ -15,20 +16,25 @@ class UserController extends AppController
      *
      * @return Response
      */
-    public function indexPage()
+    public function indexPage(Request $request)
     {
-        $viewData = $this->getViewData();
+        $this->initAction($request);
+        $viewData = $this->getViewData($request);
         return $this->render('view::User/user-index.html.php', $viewData);
     }
 
     /**
      * Edit
      *
-     * @param array $args Arguments
-     * @return Response Response
+     * @param Request $request
+     * @param Response $response
+     * @param array|null $args
+     * @return Response
      */
-    public function editPage(array $args)
+    public function editPage(Request $request, Response $response, array $args = null)
     {
+        $this->initAction($request);
+
         //$request = request();
         //$response = response();
 
@@ -56,12 +62,11 @@ class UserController extends AppController
         //$id = $queryParams['id'];
 
         // Increment counter
-        $user = user();
-        $counter = $user->get('counter', 0);
+        $counter = $this->user->get('counter', 0);
         $counter++;
-        $user->set('counter', $counter);
+        $this->user->set('counter', $counter);
 
-        logger()->info('My log message');
+        $this->logger->info('My log message');
 
         // Set locale
         //$app->session->set('user.locale', 'de_DE');
@@ -72,7 +77,7 @@ class UserController extends AppController
         //$userRow = $user->getById($id);
         //
         // Add data to template
-        $viewData = $this->getViewData([
+        $viewData = $this->getViewData($request, [
             'id' => $id,
             'counter' => $counter,
             'assets' => $this->getAssets(),
@@ -88,16 +93,11 @@ class UserController extends AppController
      * @param array $args Arguments
      * @return Response Response
      */
-    public function reviewPage(array $args)
+    public function reviewPage(Request $request, Response $response, array $args = null)
     {
+        $this->initAction($request);
         $id = $args['id'];
-
-        $response = response();
         $response->getBody()->write("Action: Show all reviews of user: $id<br>");
-
-        /// Uncomment this line to test the ExceptionMiddleware
-        //throw new \Exception('My error', 1234);
-
         return $response;
     }
 }

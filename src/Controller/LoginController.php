@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Response\RedirectResponse;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * LoginController.
@@ -13,51 +13,50 @@ class LoginController extends AppController
     /**
      * User login
      *
+     * @param Request $request
      * @return Response
      */
-    public function loginPage()
+    public function loginPage(Request $request)
     {
-        user()->logout();
+        $this->initAction($request);
+        $this->user->logout();
 
         $assets = $this->getAssets();
         $assets[] = 'view::Login/login.css';
 
-        $view = view();
-        $viewData = $this->getViewData();
-        $content = $view->render('view::Login/login.html.php', $viewData);
-
-        $response = response();
-        $response->getBody()->write($content);
-        return $response;
+        $viewData = $this->getViewData($request);
+        return $this->render('view::Login/login.html.php', $viewData);
     }
 
     /**
      * User login submit
      *
+     * @param Request $request
      * @return Response
      */
-    public function loginSubmit()
+    public function loginSubmit(Request $request)
     {
-        $request = request();
-
+        $this->initAction($request);
         $data = $request->getParsedBody();
         $username = $data['username'];
         $password = $data['password'];
 
-        $result = user()->login($username, $password);
-        $url = ($result) ? baseurl('/') : baseurl('/login');
+        $result = $this->user->login($username, $password);
+        $url = ($result) ? baseurl($request, '/') : baseurl($request, '/login');
 
-        return new RedirectResponse($url);
+        return $this->redirect($url);
     }
 
     /**
      * User logout
      *
+     * @param Request $request
      * @return Response
      */
-    public function logout()
+    public function logout(Request $request)
     {
-        user()->logout();
-        return new RedirectResponse(baseurl('login'));
+        $this->initAction($request);
+        $this->user->logout();
+        return $this->redirect(baseurl($request, 'login'));
     }
 }

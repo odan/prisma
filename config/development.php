@@ -9,8 +9,10 @@ ini_set('display_errors', '1');
 
 $config = [];
 
+$config['displayErrorDetails'] = true;
+
 // Logger
-$config['log_level'] = \Monolog\Logger::DEBUG;
+$config['logger']['level'] = \Monolog\Logger::DEBUG;
 
 // View
 $config['assets']['minify'] = 0;

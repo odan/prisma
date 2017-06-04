@@ -1,14 +1,17 @@
 <?php
 
-$router = router();
-$config = config();
+use Slim\Http\Request;
+use Slim\Http\Response;
 
-// Session
-$router->middleware(new \App\Middleware\SessionMiddleware($config->get('session')));
+$app = app();
+$container = $app->getContainer();
 
-// Translator
-$router->middleware(new \App\Middleware\TranslatorMiddleware($config->export()));
-
-// Json
-$router->middleware(new \App\Middleware\JsonMiddleware());
+// Session middleware
+$app->add(function (Request $request, Response $response, $next) use ($container) {
+    /* @var $session \Aura\Session\Session */
+    $session = $container->get('session');
+    $response = $next($request, $response);
+    $session->commit();
+    return $response;
+});
 

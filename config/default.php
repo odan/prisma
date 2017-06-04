@@ -11,6 +11,10 @@ date_default_timezone_set('Europe/Berlin');
 
 $config = [];
 
+// Slim Settings
+$config['displayErrorDetails'] = false;
+$config['determineRouteBeforeAppMiddleware'] = true;
+
 // Path
 $root = dirname(__DIR__);
 $config['root_path'] = $root;
@@ -24,10 +28,14 @@ $config['migration_path'] = $root . '/resources/migrations';
 // Application token
 $config['app_secret'] = '6c6bee844f2420ede093af25b58bb8ba8b7dc04d';
 
-// Logger
-$config['log_level'] = \Monolog\Logger::ERROR;
+// Monolog settings
+$config['logger'] = [
+    'name' => 'app',
+    'path' => __DIR__ . '/../log/app.log',
+    'level' => \Monolog\Logger::ERROR
+];
 
-// View
+// View settings
 $config['view'] = [
     'path' => $root . '/src/View'
 ];

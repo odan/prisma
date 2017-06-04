@@ -2,14 +2,14 @@
 
 require_once __DIR__ . '/bootstrap.php';
 
-// Get PDO object
-$db = db();
+/* @var $db \Cake\Database\Connection */
+$db = container()->get('db');
 $db->getDriver()->connect();
 $pdo = $db->getDriver()->connection();
 
 return array(
     'paths' => [
-        'migrations' => config()->get('migration_path')
+        'migrations' => settings()->get('migration_path')
     ],
     'environments' => [
         'default_migration_table' => "phinxlog",

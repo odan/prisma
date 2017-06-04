@@ -1,6 +1,6 @@
 # Prisma
 
-A lightweight PHP framework.
+This is a simple skeleton project for Slim 3 that includes Plates, Database, Sessions and Monolog.
 
 [![Latest Version on Packagist](https://img.shields.io/github/release/odan/prisma.svg)](https://github.com/odan/prisma/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
@@ -12,8 +12,6 @@ A lightweight PHP framework.
 
 ## Main packages
 
-* Router - [league/route](https://packagist.org/packages/league/route)
-* Middleware (PSR-7) - [zendframework/zend-diactoros](https://github.com/zendframework/zend-diactorose)
 * Sessions - [aura/session](https://github.com/aura/session)
 * Database - [cakephp/database](https://github.com/cakephp/database)
 * Database Migrations - [robmorgan/phinx](https://github.com/robmorgan/phinx)
@@ -40,7 +38,7 @@ you notice compliance oversights, please send a patch via pull request.
 **Step 1:** Create a new project:
 
 ```shell
-composer create-project --prefer-dist odan/prisma demo
+composer create-project --prefer-dist odan/prisma my-app
 ```
 
 **Step 2:** Setup
@@ -52,10 +50,12 @@ cd config
 php install.php
 ```
 
-**Step 3:** Login<br>
+**Step 3:** Run it<br>
 
-Open the URL in your browser: http://localhost/<br>
-Login with username / password: `admin / admin` or `user / user`.
+1. `$ cd my-app/public`
+2. `$ php -S 0.0.0.0:8080`
+3. Browse to http://localhost:8080
+4. Login with username / password: `admin / admin` or `user / user`
 
 ## Requirements
 

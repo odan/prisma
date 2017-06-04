@@ -1,69 +1,36 @@
 <?php
 
-use League\Route\Http\Exception\UnauthorizedException;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Response\RedirectResponse;
-use Zend\Diactoros\ServerRequest as Request;
-
-$router = router();
-
-// Global strategy to be used by all routes.
-$errorHandler = new \App\Middleware\HttpExceptionStrategy();
-$errorHandler->setLogger(logger());
-
-// Handle http errors
-$errorHandler->on(UnauthorizedException::class, function () {
-    // Redirect to login page
-    return new RedirectResponse(baseurl('/login'));
-});
-
-$router->setStrategy($errorHandler);
+/**
+ * Define the Slim application routes
+ *
+ * Here we define several Slim application routes that respond
+ * to appropriate HTTP request methods. In this example, the second
+ * argument for `Slim::get`, `Slim::post`, `Slim::put`, `Slim::patch`, and `Slim::delete`
+ * is an anonymous function.
+ */
+$app = app();
 
 // Default page
-$router->map('GET', '/', function () {
-    $ctrl = new App\Controller\IndexController();
-    return $ctrl->indexPage();
-});
+$app->get('/', 'App\Controller\IndexController:indexPage');
 
-$router->map('GET', '/index/load', function () {
-    $ctrl = new App\Controller\IndexController();
-    return $ctrl->load();
-});
+// Json request
+$app->get('/index/load', 'App\Controller\IndexController:load');
 
 // Login
-$router->map('GET', '/login', function () {
-    // No auth check for this action
-    container()->share('request', request()->withAttribute('_auth', false));
-    $ctrl = new App\Controller\LoginController();
-    return $ctrl->loginPage();
-});
-
-$router->map('POST', '/login', function () {
-    container()->share('request', request()->withAttribute('_auth', false));
-    $ctrl = new App\Controller\LoginController();
-    return $ctrl->loginSubmit();
-});
-
-$router->map('GET', '/logout', function () {
-    container()->share('request', request()->withAttribute('_auth', false));
-    $ctrl = new App\Controller\LoginController();
-    return $ctrl->logout();
-});
+// No auth check for this actions
+// Option: _auth = false (no authentication and authorization)
+$app->post('/login', '\App\Controller\LoginController:loginSubmit')->setArgument('_auth', false);
+$app->get('/login', '\App\Controller\LoginController:loginPage')->setArgument('_auth', false);
+$app->get('/logout', '\App\Controller\LoginController:logout')->setArgument('_auth', false);
 
 // Users
-$router->map('GET', '/users', function () {
-    $ctrl = new App\Controller\UserController();
-    return $ctrl->indexPage();
-});
+$app->get('/users', '\App\Controller\UserController:indexPage');
 
 // this route will only match if {id} is numeric
-$router->map('GET', '/users/{id:number}', function (Request $request, Response $response, array $args) {
-    $ctrl = new App\Controller\UserController();
-    return $ctrl->editPage($args);
-});
+$app->get('/users/{id:[0-9]+}', '\App\Controller\UserController:editPage');
 
 // Sub-Resource
-$router->map('GET', '/users/{id:number}/reviews', function (Request $request, Response $response, array $args) {
-    $ctrl = new App\Controller\UserController();
-    return $ctrl->reviewPage($args);
-});
+$app->get('/users/{id:[0-9]+}/reviews', '\App\Controller\UserController:reviewPage');
+
+$app->get('/foo', '\App\Controller\FooController:foo');
+$app->get('/archive/{month:[0-9]+}', '\App\Controller\FooController:showArchive');

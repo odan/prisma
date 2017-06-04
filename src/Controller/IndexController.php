@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Response\JsonResponse;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * IndexController
@@ -16,23 +16,25 @@ class IndexController extends AppController
      *
      * @return Response
      */
-    public function indexPage()
+    public function indexPage(Request $request)
     {
+        $this->initAction($request);
+
         // Increment counter
-        $user = user();
-        $counter = $user->get('counter', 0);
+        $counter = $this->user->get('counter', 0);
         $counter++;
-        $user->set('counter', $counter);
+        $this->user->set('counter', $counter);
 
         $text = $this->getText([
             'Loaded successfully!' => __('Loaded successfully!')
         ]);
 
-        $viewData = $this->getViewData([
+        $http = new \App\Util\Http($request);
+        $viewData = $this->getViewData($request, [
             'text' => $text,
             'counter' => $counter,
-            'ip' => http()->getIp(),
-            'url' => http()->getUrl()
+            'ip' => $http->getIp(),
+            'url' => $http->getUrl()
         ]);
 
         // Render template
@@ -42,11 +44,12 @@ class IndexController extends AppController
     /**
      * Action (Json)
      *
-     * @return JsonResponse
+     * @return Response
      */
-    public function load()
+    public function load(Request $request)
     {
-        $data = request()->getAttribute('data');
+        $this->initAction($request);
+        $data = $request->getParsedBody();
         $result = [
             'message' => __('Loaded successfully!'),
             'data' => $data

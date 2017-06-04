@@ -2,9 +2,7 @@
 
 namespace App\Util;
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Zend\Diactoros\Response\RedirectResponse;
+use Slim\Http\Request;
 
 /**
  * Http utils
@@ -20,13 +18,6 @@ class Http
     public $request;
 
     /**
-     * Response
-     *
-     * @var Response
-     */
-    public $response;
-
-    /**
      * Server
      *
      * @var array
@@ -37,12 +28,10 @@ class Http
      * Constructor
      *
      * @param Request $request
-     * @param Response $response
      */
-    public function __construct(Request $request, Response $response)
+    public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->response = $response;
         $this->server = $this->request->getServerParams();
     }
 
@@ -75,6 +64,20 @@ class Http
     }
 
     /**
+     * Set base path.
+     *
+     * @return Request
+     */
+    public function withBasePath()
+    {
+        $basePath = $this->getBasePath();
+        $uri = $this->request->getUri();
+        $uri = $uri->withPath($basePath);
+        $request = $this->request->withUri($uri);
+        return $request;
+    }
+
+    /**
      * Returns the url path leading up to the current script.
      * Used to make the webapp portable to other locations.
      *
@@ -100,24 +103,10 @@ class Http
     }
 
     /**
-     * Set base path.
-     *
-     * @return Request
-     */
-    public function withBasePath()
-    {
-        $basePath = $this->getBasePath();
-        $uri = $this->request->getUri();
-        $uri = $uri->withPath($basePath);
-        $request = $this->request->withUri($uri);
-        return $request;
-    }
-
-    /**
      * Returns a URL rooted at the base url for all relative URLs in a document
      *
      * @param string $internalUri the route
-     * @param boolean $asAbsoluteUrl return absolute or relative url
+     * @param bool $asAbsoluteUrl return absolute or relative url
      * @return string base url for $internalUri
      */
     public function getBaseUrl($internalUri, $asAbsoluteUrl = true)
@@ -193,7 +182,7 @@ class Http
      */
     public function isJson(Request $request)
     {
-        $type = $request->getHeader('content-type');
+        $type = $request->getHeader('Content-Type');
         return !empty($type[0]) && (strpos($type[0], 'application/json') !== false);
     }
 
@@ -221,16 +210,5 @@ class Http
             $ipAddress = $this->server['REMOTE_ADDR'];
         }
         return $ipAddress;
-    }
-
-    /**
-     * Redirect to url
-     *
-     * @param string $url
-     * @return RedirectResponse
-     */
-    public function redirect($url)
-    {
-        return new RedirectResponse($url);
     }
 }

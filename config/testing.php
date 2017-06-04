@@ -12,7 +12,4 @@ $config = [];
 // Database
 $config['db']['database'] = 'test_dbname';
 
-// View
-$config['view_minify'] = 1;
-
 return $config;
