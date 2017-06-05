@@ -45,16 +45,6 @@ function settings()
 }
 
 /**
- * Translator
- *
- * @return Translator
- */
-function translator()
-{
-    return container()->get('translator');
-}
-
-/**
  * Text translation (I18n)
  *
  * @param string $message
@@ -68,7 +58,9 @@ function translator()
  */
 function __($message)
 {
-    $translated = translator()->trans($message);
+    /* @var $translator Translator */
+    $translator = container()->get('translator');
+    $translated = $translator->trans($message);
     $context = array_slice(func_get_args(), 1);
     if (!empty($context)) {
         $translated = vsprintf($translated, $context);

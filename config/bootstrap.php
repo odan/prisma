@@ -2,9 +2,10 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-// Instantiate a Slim application with container
+// Instantiate a slim application with container
 app();
 
+// Load settings
 settings()->replace(read(__DIR__ . '/config.php'));
 
 // Set up dependencies
