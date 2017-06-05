@@ -22,17 +22,6 @@ This is a simple skeleton project for Slim 3 that includes Plates, Database, Ses
 * Unit tests - [phpunit/phpunit](https://github.com/sebastianbergmann/phpunit)
 * Directory structure - [php-pds/skeleton](https://github.com/php-pds/skeleton)
 
-## Quality
-
-This project adheres to [Semantic Versioning](http://semver.org/).
-
-To run the unit tests at the command line, issue `composer install` and then
-`phpunit` at the package root. This requires [Composer][] to be available as
-`composer`, and [PHPUnit][] to be available as `phpunit`.
-
-This package attempts to comply with [PSR-1][], [PSR-2][], and [PSR-4][]. If
-you notice compliance oversights, please send a patch via pull request.
-
 ## Installation
 
 **Step 1:** Create a new project:
@@ -61,7 +50,7 @@ php install.php
 
 * PHP 7.0+
 * MySQL
-* Apache
+* Composer
 
 ## Directory structure
 
@@ -163,6 +152,12 @@ $ ant build
 
 ``` bash
 $ ant deploy
+```
+
+## Testing
+
+``` bash
+$ composer test
 ```
 
 ## Security
