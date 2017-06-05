@@ -54,21 +54,21 @@ php install.php
 
 ## Directory structure
 
-```
-build/                   # artifact files
-bin/                     # command-line executables
-config/                  # configuration files
-docs/                    # documentation and examples
-public/                  # web server files
-resources/               # other resource files
-src/                     # PHP source code
-src/Controller/          # controller classes
-src/Service/             # service layer, domain models, business and use case logic 
-src/View/                # templates
-tmp/                     # temp, cache and logfiles
-tests/                   # test code
-vendor/                  # reserved for package managers
-```
+| Directory  | Content |
+|----------|-------------|
+| build/ | Artifact files |
+| bin/ | Command-line executables |
+| config/ | Configuration files |
+| docs/ | Documentation and examples |
+| public/ | Web server files |
+| resources/ | Other resource files |
+| src/ | PHP source code |
+| src/Controller/ | Controllers and actions |
+| src/Service/ | Service layer, domain models, business and use case logic  |
+| src/View/ | Templates |
+| tmp/ | Temp, cache and logfiles |
+| tests/ | Test code |
+| vendor/ | Reserved for package managers |
 
 ## Routing
 
