@@ -12,13 +12,13 @@ This is a simple skeleton project for Slim 3 that includes Plates, Database, Ses
 
 ## Main packages
 
+* Template Engine - [league/plates](https://github.com/thephpleague/plates)
+* Logging - [monolog/monolog](https://github.com/Seldaek/monolog) 
 * Sessions - [aura/session](https://github.com/aura/session)
+* Translations - [symfony/translation](https://github.com/symfony/Translation)
 * Database - [cakephp/database](https://github.com/cakephp/database)
 * Database Migrations - [robmorgan/phinx](https://github.com/robmorgan/phinx)
-* Template Engine - [league/plates](https://github.com/thephpleague/plates)
 * Assets Cache - [odan/plates-asset-cache](https://github.com/odan/plates-asset-cache)
-* Translations - [symfony/translation](https://github.com/symfony/Translation)
-* Logging (PSR-3) - [monolog/monolog](https://github.com/Seldaek/monolog) 
 * Unit tests - [phpunit/phpunit](https://github.com/sebastianbergmann/phpunit)
 * Directory structure - [php-pds/skeleton](https://github.com/php-pds/skeleton)
 
@@ -54,7 +54,7 @@ php install.php
 
 ## Directory structure
 
-**[Standard PHP package skeleton](https://github.com/php-pds/skeleton)**
+### Standard PHP package skeleton
 
 ```
 bin/                     # command-line executables
@@ -67,29 +67,14 @@ tests/                   # test code
 vendor/                  # reserved for package managers
 ```
 
-**Other Directories**
+### Other Directories
 
 ```
-build/                   # build and artifact files
-resources/locale/        # Translations, poedit files
-resources/migrations/    # database migration files
-resources/fonts/         # tcpdf fonts
-resources/images/        # internal image files
-tmp/                     # local temp files
-tmp/cache/               # local cache files
-tmp/log/                 # local log files
- 
-public/images/           # image files
-public/js/               # java-script files
-public/css/              # css files
-public/icons/            # ico file
-public/fonts/            # web fonts
-
 src/Controller/          # controller classes
 src/View/                # html template files
 src/Service/             # domain models, service layer
-src/Type                 # types
-src/Util/                # helper classes and functions
+build/                   # build and artifact files
+tmp/                     # local temp files
 ```
 
 ## Routing
