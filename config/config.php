@@ -13,11 +13,11 @@ if (file_exists(__DIR__ . '/env.php')) {
 }
 
 if (isset($environment['env'])) {
-    $config = array_merge_recursive($config, read(__DIR__ . '/' . $environment['env'] . '.php'));
+    $config = array_replace_recursive($config, read(__DIR__ . '/' . $environment['env'] . '.php'));
 }
 
 if ($environment) {
-    $config = array_merge_recursive($config, $environment);
+    $config = array_replace_recursive($config, $environment);
 }
 
 return $config;

@@ -13,40 +13,42 @@ $config = [];
 
 // Slim Settings
 $config['displayErrorDetails'] = false;
-$config['determineRouteBeforeAppMiddleware'] = true;
+$config['determineRouteBeforeAppMiddleware'] = false;
 
 // Path
-$root = dirname(__DIR__);
-$config['root_path'] = $root;
-$config['tmp_path'] = $root . '/tmp';
-$config['log_path'] = $root . '/tmp/log';
-$config['cache_path'] = $root . '/tmp/cache';
-$config['public_path'] = $root . '/public';
-$config['locale_path'] = $root . '/resources/locale';
-$config['migration_path'] = $root . '/resources/migrations';
+$config['root'] = dirname(__DIR__);
+$config['temp'] = $config['root'] . '/tmp';
+$config['public'] = $config['root'] . '/public';
 
 // Application token
-$config['app_secret'] = '6c6bee844f2420ede093af25b58bb8ba8b7dc04d';
+$config['app'] = [
+    'secret' => $config['root'] . '{{app_secret}}'
+];
 
-// Monolog settings
+// Logger settings
 $config['logger'] = [
     'name' => 'app',
-    'path' => __DIR__ . '/../log/app.log',
+    'path' => $config['temp'] . '/log/app.log',
     'level' => \Monolog\Logger::ERROR
+];
+
+// Cache settings
+$config['cache'] = [
+    'path' => $config['root'] . '/tmp/cache'
 ];
 
 // View settings
 $config['view'] = [
-    'path' => $root . '/src/View'
+    'path' => $config['root'] . '/src/View'
 ];
 
 // Assets
 $config['assets'] = [
-    'path' => $root . '/public',
+    'path' => $config['public'],
     // Internal cache adapter
-    'cache' => new \Symfony\Component\Cache\Adapter\FilesystemAdapter('assets-cache', 0, $root . '/tmp/cache'),
+    'cache' => new \Symfony\Component\Cache\Adapter\FilesystemAdapter('assets-cache', 0, $config['temp']),
     // Public assets cache directory
-    'public_dir' => $root . '/public/cache',
+    'public_dir' => $config['public'] . '/cache',
     // Enable JavaScript and CSS compression
     'minify' => 1
 ];
@@ -56,6 +58,16 @@ $config['assets'] = [
 $config['session'] = [
     'name' => 'webapp',
     'cache_expire' => 0
+];
+
+// Locale settings
+$config['locale'] = [
+    'path' => $config['root'] . '/resources/locale'
+];
+
+// Database migration settings
+$config['migration'] = [
+    'path' => $config['root'] . '/resources/migrations'
 ];
 
 // Database

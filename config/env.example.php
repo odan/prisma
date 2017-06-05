@@ -16,6 +16,7 @@
  * a security breach, and production values will never have to be
  * shared with all project collaborators.
  */
+
 // Error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', '1');

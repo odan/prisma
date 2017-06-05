@@ -18,6 +18,6 @@ $config['logger']['level'] = \Monolog\Logger::DEBUG;
 $config['assets']['minify'] = 0;
 
 // Database
-$config['db']['database'] = 'prisma';
+$config['db']['database'] = '{{db_database}}';
 
 return $config;

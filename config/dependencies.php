@@ -7,9 +7,8 @@ use Slim\Container;
 $container = app()->getContainer();
 
 // -----------------------------------------------------------------------------
-// Service providers
+// Service factories
 // -----------------------------------------------------------------------------
-// Twig
 $container['view'] = function (Container $container) {
     $settings = $container->get('settings');
     $engine = new League\Plates\Engine($settings['view']['path'], null);
@@ -23,9 +22,6 @@ $container['view'] = function (Container $container) {
     return $engine;
 };
 
-// -----------------------------------------------------------------------------
-// Service factories
-// -----------------------------------------------------------------------------
 $container['logger'] = function (Container $container) {
     $settings = $container->get('settings');
     $logger = new Monolog\Logger($settings['logger']['name']);
@@ -66,3 +62,7 @@ $container['user'] = function (Container $container) {
     $user = new \App\Service\User\UserSession($session, $db, $secret);
     return $user;
 };
+
+// -----------------------------------------------------------------------------
+// Action factories
+// -----------------------------------------------------------------------------

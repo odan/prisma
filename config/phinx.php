@@ -9,7 +9,7 @@ $pdo = $db->getDriver()->connection();
 
 return array(
     'paths' => [
-        'migrations' => settings()->get('migration_path')
+        'migrations' => settings()->get('migration')['path']
     ],
     'environments' => [
         'default_migration_table' => "phinxlog",

@@ -78,7 +78,7 @@ function __($message)
 function set_locale($locale = 'en_US', $domain = 'messages')
 {
     $settings = container()->get('settings');
-    $moFile = sprintf('%s/%s_%s.mo', $settings['locale_path'], $locale, $domain);
+    $moFile = sprintf('%s/%s_%s.mo', $settings['locale']['path'], $locale, $domain);
 
     $translator = new Translator($locale, new MessageSelector());
     $translator->addLoader('mo', new MoFileLoader());
