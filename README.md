@@ -50,7 +50,6 @@ php install.php
 
 * PHP 7.0+
 * MySQL
-* Composer
 
 ## Directory structure
 
