@@ -20,21 +20,21 @@ $config['root'] = dirname(__DIR__);
 $config['temp'] = $config['root'] . '/tmp';
 $config['public'] = $config['root'] . '/public';
 
-// Application token
+// Application settings
 $config['app'] = [
-    'secret' => $config['root'] . '{{app_secret}}'
+    'secret' => '{{app_secret}}'
 ];
 
 // Logger settings
 $config['logger'] = [
     'name' => 'app',
-    'path' => $config['temp'] . '/log/app.log',
+    'file' => $config['temp'] . '/log/app.log',
     'level' => \Monolog\Logger::ERROR
 ];
 
 // Cache settings
 $config['cache'] = [
-    'path' => $config['root'] . '/tmp/cache'
+    'path' => $config['temp'] . '/cache'
 ];
 
 // View settings
@@ -53,7 +53,6 @@ $config['assets'] = [
     'minify' => 1
 ];
 
-
 // Session
 $config['session'] = [
     'name' => 'webapp',
@@ -70,7 +69,7 @@ $config['migration'] = [
     'path' => $config['root'] . '/resources/migrations'
 ];
 
-// Database
+// Database settings
 $config['db'] = array(
     'driver' => 'mysql',
     'host' => '127.0.0.1',
@@ -85,7 +84,7 @@ $config['db'] = array(
     ]
 );
 
-// SMTP
+// E-Mail settings
 $config['smtp'] = array(
     'type' => 'smtp',
     'host' => '127.0.0.1',

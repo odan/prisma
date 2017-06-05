@@ -30,7 +30,7 @@ $container['logger'] = function (Container $container) {
     if (!isset($level)) {
         $level = Logger::ERROR;
     }
-    $logFile = $settings['logger']['path'] . '/log.txt';
+    $logFile = $settings['logger']['file'];
     $handler = new Monolog\Handler\RotatingFileHandler($logFile, 0, $level, true, 0775);
     $logger->pushHandler($handler);
 
