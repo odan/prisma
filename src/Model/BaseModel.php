@@ -27,11 +27,16 @@ class BaseModel
      *
      * @param Connection $db
      */
-    public function __construct($db = null)
+    public function __construct(Connection $db)
     {
-        $this->db = $db ?: db();
+        $this->db = $db;
     }
 
+    /**
+     * Get database connection
+     *
+     * @return Connection
+     */
     protected function getDb()
     {
         return $this->db;

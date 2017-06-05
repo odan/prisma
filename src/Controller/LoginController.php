@@ -13,7 +13,7 @@ class LoginController extends AppController
     /**
      * User login
      *
-     * @param Request $request
+     * @param Request $request The request
      * @return Response
      */
     public function loginPage(Request $request)
@@ -31,7 +31,7 @@ class LoginController extends AppController
     /**
      * User login submit
      *
-     * @param Request $request
+     * @param Request $request The request
      * @return Response
      */
     public function loginSubmit(Request $request)
@@ -50,8 +50,8 @@ class LoginController extends AppController
     /**
      * User logout
      *
-     * @param Request $request
-     * @return Response
+     * @param Request $request The request
+     * @return Response Redirect response
      */
     public function logout(Request $request)
     {

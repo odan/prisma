@@ -2,9 +2,9 @@
 
 namespace App\Service\User;
 
+use App\Service\Base\BaseService;
 use Aura\Session\Segment;
 use Aura\Session\Session;
-use App\Service\Base\BaseService;
 use Cake\Database\Connection;
 
 /**
@@ -61,26 +61,6 @@ class UserSession extends BaseService
     }
 
     /**
-     * Get user Id.
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return (int)$this->get('user.id');
-    }
-
-    /**
-     * Return token object.
-     *
-     * @return Token
-     */
-    public function getToken()
-    {
-        return $this->token;
-    }
-
-    /**
      * Create token object.
      *
      * @param $secret
@@ -92,19 +72,35 @@ class UserSession extends BaseService
     }
 
     /**
-     * Change user session locale
+     * Get user Id.
      *
-     * @param string $locale
-     * @param string $domain
-     * @return bool Status
+     * @return int User Id
      */
-    public function setLocale($locale = 'en_US', $domain = 'messages')
+    public function getId()
     {
-        $this->set('user.locale', $locale);
-        $this->set('user.domain', $domain);
+        return (int)$this->get('user.id');
+    }
 
-        set_locale($locale, $domain);
-        return true;
+    /**
+     * Get current user information
+     *
+     * @param string $key Key
+     * @param mixed $default Default value
+     * @return mixed Value
+     */
+    public function get($key, $default = null)
+    {
+        return $this->segment->get($key, $default);
+    }
+
+    /**
+     * Return token object.
+     *
+     * @return Token
+     */
+    public function getToken()
+    {
+        return $this->token;
     }
 
     /**
@@ -161,9 +157,37 @@ class UserSession extends BaseService
     }
 
     /**
+     * Set user info
+     *
+     * @param string $key Key
+     * @param mixed $default Default value
+     * @return void
+     */
+    public function set($key, $value)
+    {
+        $this->segment->set($key, $value);
+    }
+
+    /**
+     * Change user session locale
+     *
+     * @param string $locale
+     * @param string $domain
+     * @return bool Status
+     */
+    public function setLocale($locale = 'en_US', $domain = 'messages')
+    {
+        $this->set('user.locale', $locale);
+        $this->set('user.domain', $domain);
+
+        set_locale($locale, $domain);
+        return true;
+    }
+
+    /**
      * Logout user session
      *
-     * @return void
+     * @return bool Status
      */
     public function logout()
     {
@@ -173,30 +197,8 @@ class UserSession extends BaseService
 
         // Clears all session data and regenerates session ID
         $this->session->destroy();
-    }
 
-    /**
-     * Set user info
-     *
-     * @param string $key
-     * @param mixed $value
-     * @return void
-     */
-    public function set($key, $value)
-    {
-        $this->segment->set($key, $value);
-    }
-
-    /**
-     * Get current user information
-     *
-     * @param string $key
-     * @param mixed $default
-     * @return mixed
-     */
-    public function get($key, $default = null)
-    {
-        return $this->segment->get($key, $default);
+        return true;
     }
 
     /**

@@ -77,7 +77,6 @@ class AppController
         if ($auth === true && !$this->user->isValid()) {
             // Redirect to login page
             $response = $this->redirect('/login');
-            //$response = (new Response(401))->write('Unauthorized');
             throw new SlimException($request, $response);
         }
     }
@@ -85,7 +84,8 @@ class AppController
     /**
      * Redirect to url
      *
-     * @param string $url
+     * @param string $url The URL
+     * @param int $status HTTP status code
      * @return Response Redirect response
      */
     protected function redirect($url, $status = null)
@@ -99,8 +99,8 @@ class AppController
     /**
      * Returns global assets (js, css).
      *
-     * @param array $assets Assets
-     * @return array
+     * @param array $assets Assets to append
+     * @return array Array of assets
      */
     protected function getAssets(array $assets = array())
     {
@@ -125,7 +125,7 @@ class AppController
      * Returns translated text.
      *
      * @param array $text Text
-     * @return array
+     * @return array Array with translated text
      */
     protected function getText(array $text = array())
     {
@@ -146,12 +146,12 @@ class AppController
      * Get view data.
      *
      * @param array $viewData
-     * @return array
+     * @return array View data
      */
     protected function getViewData(array $viewData = [])
     {
         $result = [
-            'baseurl' => $this->http->getBaseUrl('/'),
+            'baseUrl' => $this->http->getBaseUrl('/'),
         ];
         if (!empty($viewData)) {
             $result = array_replace_recursive($result, $viewData);
@@ -162,8 +162,8 @@ class AppController
     /**
      * Render template.
      *
-     * @param string $name
-     * @param array $viewData
+     * @param string $name Template file
+     * @param array $viewData View data
      * @return Response
      */
     protected function render($name, array $viewData = array())
@@ -177,7 +177,8 @@ class AppController
     /**
      * Helper to return JSON from a controller.
      *
-     * @param mixed $data
+     * @param mixed $data Data
+     * @param int $status HTTP status code
      * @return Response
      */
     protected function json($data, $status = null)

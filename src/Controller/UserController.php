@@ -14,6 +14,7 @@ class UserController extends AppController
     /**
      * Index
      *
+     * @param Request $request The request
      * @return Response
      */
     public function indexPage(Request $request)
@@ -24,11 +25,11 @@ class UserController extends AppController
     }
 
     /**
-     * Edit
+     * Edit page
      *
-     * @param Request $request
-     * @param Response $response
-     * @param array|null $args
+     * @param Request $request The request
+     * @param Response $response The response
+     * @param array|null $args Arguments
      * @return Response
      */
     public function editPage(Request $request, Response $response, array $args = null)
@@ -90,7 +91,9 @@ class UserController extends AppController
     /**
      * Test page.
      *
-     * @param array $args Arguments
+     * @param Request $request The request
+     * @param Response $response The response
+     * @param array|null $args Arguments
      * @return Response Response
      */
     public function reviewPage(Request $request, Response $response, array $args = null)

@@ -14,6 +14,7 @@ class IndexController extends AppController
     /**
      * Index action
      *
+     * @param Request $request The request
      * @return Response
      */
     public function indexPage(Request $request)
@@ -43,7 +44,8 @@ class IndexController extends AppController
     /**
      * Action (Json)
      *
-     * @return Response
+     * @param Request $request The request
+     * @return Response Json response
      */
     public function load(Request $request)
     {

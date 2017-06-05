@@ -27,7 +27,7 @@ class Http
     /**
      * Constructor
      *
-     * @param Request $request
+     * @param Request $request The request
      */
     public function __construct(Request $request)
     {
@@ -38,9 +38,9 @@ class Http
     /**
      * Get GET parameter.
      *
-     * @param string $key
-     * @param mixed $default
-     * @return mixed
+     * @param string $key Key
+     * @param mixed $default Default value
+     * @return mixed Value
      */
     public function get($key, $default = null)
     {
@@ -52,54 +52,15 @@ class Http
     /**
      * Get POST parameter
      *
-     * @param string $key
-     * @param mixed $default
-     * @return mixed
+     * @param string $key Key
+     * @param mixed $default Default value
+     * @return mixed Value
      */
     public function post($key, $default = null)
     {
         $post = $this->request->getParsedBody();
         $result = isset($post[$key]) ? $post[$key] : $default;
         return $result;
-    }
-
-    /**
-     * Set base path.
-     *
-     * @return Request
-     */
-    public function withBasePath()
-    {
-        $basePath = $this->getBasePath();
-        $uri = $this->request->getUri();
-        $uri = $uri->withPath($basePath);
-        $request = $this->request->withUri($uri);
-        return $request;
-    }
-
-    /**
-     * Returns the url path leading up to the current script.
-     * Used to make the webapp portable to other locations.
-     *
-     * @return string uri
-     */
-    public function getBasePath()
-    {
-        // Get URI from URL
-        $uri = $this->request->getUri()->getPath();
-
-        // Detect and remove sub-folder from URI
-        $scriptName = $this->server['SCRIPT_NAME'];
-
-        if (isset($scriptName)) {
-            $dirName = dirname($scriptName);
-            $dirName = dirname($dirName);
-            $len = strlen($dirName);
-            if ($len > 0 && $dirName != '/') {
-                $uri = substr($uri, $len);
-            }
-        }
-        return $uri;
     }
 
     /**
@@ -198,9 +159,8 @@ class Http
 
     /**
      * Find out the client's IP address from the headers available to us.
-     * Inspired by akrabat/rka-ip-address-middleware.
      *
-     * @return string
+     * @return string IP address
      */
     public function getIp()
     {
