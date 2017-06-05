@@ -18,7 +18,7 @@ class IndexController extends AppController
      */
     public function indexPage(Request $request)
     {
-        $this->initAction($request);
+        $this->setRequest($request);
 
         // Increment counter
         $counter = $this->user->get('counter', 0);
@@ -29,12 +29,11 @@ class IndexController extends AppController
             'Loaded successfully!' => __('Loaded successfully!')
         ]);
 
-        $http = new \App\Util\Http($request);
-        $viewData = $this->getViewData($request, [
+        $viewData = $this->getViewData([
             'text' => $text,
             'counter' => $counter,
-            'ip' => $http->getIp(),
-            'url' => $http->getUrl()
+            'ip' => $this->http->getIp(),
+            'url' => $this->http->getUrl()
         ]);
 
         // Render template
@@ -48,7 +47,7 @@ class IndexController extends AppController
      */
     public function load(Request $request)
     {
-        $this->initAction($request);
+        $this->setRequest($request);
         $data = $request->getParsedBody();
         $result = [
             'message' => __('Loaded successfully!'),

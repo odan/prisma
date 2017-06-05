@@ -111,44 +111,25 @@ class Http
      */
     public function getBaseUrl($internalUri, $asAbsoluteUrl = true)
     {
-        $dirName = $this->getBaseUri();
-        $result = $dirName . '/' . ltrim($internalUri, '/');
-        $result = str_replace('//', '/', $result);
-
+        $result = $internalUri;
         if ($asAbsoluteUrl === true) {
-            $result = $this->getUrl() . $result;
+            $result = $this->getHostUrl() . $result;
         }
         return $result;
     }
 
     /**
-     * Get base url
+     * Returns current host url (without path and query)
      *
      * @return string
      */
-    public function getBaseUri()
-    {
-        $scriptName = $this->server['SCRIPT_NAME'];
-        $dirName = str_replace('\\', '', dirname($scriptName));
-        $dirName = dirname($dirName);
-        return $dirName;
-    }
-
-    /**
-     * Returns current url
-     *
-     * @return string
-     */
-    public function getUrl()
+    public function getHostUrl()
     {
         $uri = $this->request->getUri();
         $host = $uri->getHost();
         $port = $uri->getPort();
-        $path = $uri->getPath();
-        $query = $uri->getQuery();
         $result = $this->isSecure() ? 'https://' : 'http://';
-        $result .= (empty($port)) ? $host .$path : $host . ":" . $port . $path;
-        $result .= strlen($query) ? '?' . $query : '';
+        $result .= (empty($port)) ? $host : $host . ":" . $port;
         return $result;
     }
 
@@ -172,6 +153,24 @@ class Http
             return strtolower($this->server['HTTPS']) !== 'off';
         }
         return false;
+    }
+
+    /**
+     * Returns current url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        $uri = $this->request->getUri();
+        $host = $uri->getHost();
+        $port = $uri->getPort();
+        $path = $uri->getPath();
+        $query = $uri->getQuery();
+        $result = $this->isSecure() ? 'https://' : 'http://';
+        $result .= (empty($port)) ? $host . $path : $host . ":" . $port . $path;
+        $result .= strlen($query) ? '?' . $query : '';
+        return $result;
     }
 
     /**

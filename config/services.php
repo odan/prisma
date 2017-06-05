@@ -5,7 +5,6 @@
  */
 
 use Psr\Container\ContainerInterface;
-use Slim\Http\Request;
 use Symfony\Component\Translation\Loader\MoFileLoader;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator;
@@ -97,18 +96,4 @@ function set_locale($locale = 'en_US', $domain = 'messages')
 
     // Inject translator into function
     container()->offsetSet('translator', $translator);
-}
-
-/**
- * Generates a normalized URI for the given path.
- *
- * @param Request $request
- * @param string $path A path to use instead of the current one
- * @param bool $full return absolute or relative url
- * @return string The normalized URI for the path
- */
-function baseurl(Request $request, $path = '', $full = false)
-{
-    $http = new \App\Util\Http($request);
-    return $http->getBaseUrl($path, $full);
 }

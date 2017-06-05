@@ -18,8 +18,8 @@ class UserController extends AppController
      */
     public function indexPage(Request $request)
     {
-        $this->initAction($request);
-        $viewData = $this->getViewData($request);
+        $this->setRequest($request);
+        $viewData = $this->getViewData();
         return $this->render('view::User/user-index.html.php', $viewData);
     }
 
@@ -33,7 +33,7 @@ class UserController extends AppController
      */
     public function editPage(Request $request, Response $response, array $args = null)
     {
-        $this->initAction($request);
+        $this->setRequest($request);
 
         //$request = request();
         //$response = response();
@@ -77,7 +77,7 @@ class UserController extends AppController
         //$userRow = $user->getById($id);
         //
         // Add data to template
-        $viewData = $this->getViewData($request, [
+        $viewData = $this->getViewData([
             'id' => $id,
             'counter' => $counter,
             'assets' => $this->getAssets(),
@@ -95,7 +95,7 @@ class UserController extends AppController
      */
     public function reviewPage(Request $request, Response $response, array $args = null)
     {
-        $this->initAction($request);
+        $this->setRequest($request);
         $id = $args['id'];
         $response->getBody()->write("Action: Show all reviews of user: $id<br>");
         return $response;

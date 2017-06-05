@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\User\UserSession;
+use App\Util\Http;
 use Cake\Database\Connection;
 use League\Plates\Engine;
 use Psr\Container\ContainerInterface;
@@ -16,6 +17,16 @@ use Slim\Http\Response;
  */
 class AppController
 {
+    /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * @var Http
+     */
+    protected $http;
+
     /**
      * @var Engine
      */
@@ -36,6 +47,10 @@ class AppController
      */
     protected $db;
 
+    /**
+     * AppController constructor.
+     * @param ContainerInterface $container
+     */
     public function __construct(ContainerInterface $container)
     {
         $this->view = $container->get('view');
@@ -45,20 +60,23 @@ class AppController
     }
 
     /**
-     * Constructor.
+     * Set request.
      *
      * @param Request $request
      * @throws SlimException
      */
-    protected function initAction(Request $request)
+    protected function setRequest(Request $request)
     {
+        $this->request = $request;
+        $this->http = new Http($request);
+
         // Authentication check
         $attributes = $request->getAttributes();
         $auth = isset($attributes['_auth']) ? $attributes['_auth'] : true;
 
         if ($auth === true && !$this->user->isValid()) {
             // Redirect to login page
-            $response = $this->redirect(baseurl($request, '/login'));
+            $response = $this->redirect('/login');
             //$response = (new Response(401))->write('Unauthorized');
             throw new SlimException($request, $response);
         }
@@ -72,6 +90,9 @@ class AppController
      */
     protected function redirect($url, $status = null)
     {
+        if (strpos($url, '/') === 0) {
+            $url = $this->http->getBaseUrl($url);
+        }
         return (new Response())->withRedirect($url, $status);
     }
 
@@ -127,10 +148,10 @@ class AppController
      * @param array $viewData
      * @return array
      */
-    protected function getViewData(Request $request, array $viewData = [])
+    protected function getViewData(array $viewData = [])
     {
         $result = [
-            'baseurl' => baseurl($request, '/'),
+            'baseurl' => $this->http->getBaseUrl('/'),
         ];
         if (!empty($viewData)) {
             $result = array_replace_recursive($result, $viewData);
