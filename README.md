@@ -54,27 +54,20 @@ php install.php
 
 ## Directory structure
 
-### Standard PHP package skeleton
-
 ```
+build/                   # artifact files
 bin/                     # command-line executables
 config/                  # configuration files
 docs/                    # documentation and examples
 public/                  # web server files
 resources/               # other resource files
 src/                     # PHP source code
+src/Controller/          # controller classes
+src/Service/             # service layer, domain models, business and use case logic 
+src/View/                # templates
+tmp/                     # temp, cache and logfiles
 tests/                   # test code
 vendor/                  # reserved for package managers
-```
-
-### Other Directories
-
-```
-src/Controller/          # controller classes
-src/View/                # html template files
-src/Service/             # domain models, service layer
-build/                   # build and artifact files
-tmp/                     # local temp files
 ```
 
 ## Routing
