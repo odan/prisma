@@ -1,6 +1,6 @@
 # Prisma
 
-This is a simple skeleton project for Slim 3 that includes Plates, Database, Sessions and Monolog.
+This is a simple skeleton project for Slim 3 that includes Plates, Sessions and Monolog.
 
 [![Latest Version on Packagist](https://img.shields.io/github/release/odan/prisma.svg)](https://github.com/odan/prisma/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
