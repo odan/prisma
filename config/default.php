@@ -11,14 +11,14 @@ date_default_timezone_set('Europe/Berlin');
 
 $config = [];
 
-// Slim Settings
-$config['displayErrorDetails'] = false;
-$config['determineRouteBeforeAppMiddleware'] = false;
-
-// Path
+// Path settings
 $config['root'] = dirname(__DIR__);
 $config['temp'] = $config['root'] . '/tmp';
 $config['public'] = $config['root'] . '/public';
+
+// Slim Settings
+$config['displayErrorDetails'] = false;
+$config['determineRouteBeforeAppMiddleware'] = false;
 
 // Application settings
 $config['app'] = [
