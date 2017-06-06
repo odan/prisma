@@ -9,7 +9,7 @@ app();
 settings()->replace(read(__DIR__ . '/config.php'));
 
 // Set up dependencies
-read(__DIR__ . '/dependencies.php');
+read(__DIR__ . '/factory.php');
 
 // Register middleware
 read(__DIR__ . '/middleware.php');
