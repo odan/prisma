@@ -14,7 +14,6 @@ use Cake\Database\Connection;
  */
 class BaseTable
 {
-
     /**
      * Connection
      *
@@ -32,13 +31,4 @@ class BaseTable
         $this->db = $db;
     }
 
-    /**
-     * Get database connection
-     *
-     * @return Connection
-     */
-    protected function getDb()
-    {
-        return $this->db;
-    }
 }
