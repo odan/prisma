@@ -181,7 +181,7 @@ class AppController
      * Helper to return JSON from a controller.
      *
      * @param mixed $data Data
-     * @param int $status HTTP status code
+     * @param int $status HTTP status code (200 = OK, 422 Unprocessable entity / validation failed)
      * @return Response
      */
     protected function json($data, $status = null)
