@@ -38,50 +38,28 @@ class UserController extends AppController
     {
         $this->setRequest($request);
 
-        //$request = request();
-        //$response = response();
+        // Get all GET parameters
+        //$query = $request->getQueryParams();
 
-        // All GET parameters
-        //$queryParams = $request->getQueryParams();
+        // Get all POST/JSON parameters
+        //$post = $request->getParsedBody();
 
-        // All POST or PUT parameters
-        //$postParams = $request->getParsedBody();
-
-        // Single GET parameter
-        //$title = $queryParams['title'];
-        //
-        // Single POST/PUT parameter
-        //$data = $postParams['data'];
-        //
         // Get routing arguments
-        //$attributes = $request->getAttributes();
-        //$vars = $request->getAttribute('vars');
         $userId = $request->getAttribute('id');
 
+        // Repository example
         $userTable = new UserTable($this->db);
         $user = $userTable->findById($userId);
 
-        // Get config value
-        //$env = config()->get('env');
-
-        // Get GET parameter
-        //$id = $queryParams['id'];
-
+        // Session example
         // Increment counter
         $counter = $this->user->get('counter', 0);
         $counter++;
         $this->user->set('counter', $counter);
 
+        // Logger example
         $this->logger->info('My log message');
 
-        // Set locale
-        //$app->session->set('user.locale', 'de_DE');
-        //
-        //Model example
-        //$user = new \App\Model\User($app);
-        //$userRows = $user->getAll();
-        //$userRow = $user->getById($id);
-        //
         // Add data to template
         $viewData = $this->getViewData([
             'id' => $user->getId(),
@@ -95,7 +73,7 @@ class UserController extends AppController
     }
 
     /**
-     * Test page.
+     * User review page.
      *
      * @param Request $request The request
      * @param Response $response The response
