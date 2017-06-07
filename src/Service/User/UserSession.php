@@ -160,7 +160,7 @@ class UserSession extends BaseService
      * Set user info
      *
      * @param string $key Key
-     * @param mixed $default Default value
+     * @param mixed $value Value
      * @return void
      */
     public function set($key, $value)

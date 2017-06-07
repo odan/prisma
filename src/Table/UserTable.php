@@ -3,7 +3,7 @@
 namespace App\Table;
 
 use App\Entity\UserEntity;
-use App\Util\Hydrator;
+use Zend\Hydrator\ClassMethods as Hydrator;
 
 /**
  * User
@@ -25,8 +25,9 @@ class UserTable extends BaseTable
             ->where(['id' => $id]);
 
         $row = $query->execute()->fetch('assoc');
+
         $hydrator = new Hydrator();
-        return $hydrator->toObject($row, UserEntity::class);
+        return $hydrator->hydrate($row, new UserEntity());
     }
 
     /**
@@ -42,6 +43,10 @@ class UserTable extends BaseTable
         $rows = $query->execute()->fetchAll('assoc');
 
         $hydrator = new Hydrator();
-        return $hydrator->toCollection($rows, UserEntity::class);
+        $result = [];
+        foreach ($rows as $row) {
+            $result[] = $hydrator->hydrate($row, new UserEntity());
+        }
+        return $result;
     }
 }
