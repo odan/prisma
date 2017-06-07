@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\User\UserSession;
+use App\Table\UserTable;
 use Cake\Database\Connection;
 use League\Plates\Engine;
 use Psr\Log\LoggerInterface;
@@ -41,6 +42,10 @@ class UserController extends AppController
     {
         $this->setRequest($request);
         $viewData = $this->getViewData();
+
+        $userTable = new UserTable($this->db);
+        $users = $userTable->getAll();
+
         return $this->render('view::User/user-index.html.php', $viewData);
     }
 
@@ -72,7 +77,10 @@ class UserController extends AppController
         // Get routing arguments
         //$attributes = $request->getAttributes();
         //$vars = $request->getAttribute('vars');
-        $id = $request->getAttribute('id');
+        $userId = $request->getAttribute('id');
+
+        $userTable = new UserTable($this->db);
+        $user = $userTable->findById($userId);
 
         // Get config value
         //$env = config()->get('env');
@@ -97,7 +105,8 @@ class UserController extends AppController
         //
         // Add data to template
         $viewData = $this->getViewData([
-            'id' => $id,
+            'id' => $user->getId(),
+            'username' => $user->getUsername(),
             'counter' => $counter,
             'assets' => $this->getAssets(),
         ]);

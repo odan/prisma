@@ -10,6 +10,7 @@ $this->end();
     <div class="row">
         <div class="col-md-12">
             <h1><?= $this->e(__('Edit user: %s', $id)); ?></h1>
+            Username: <?= $this->e($username); ?><br>
             Counter: <?= $this->e($counter); ?>
         </div>
     </div>

@@ -11,8 +11,8 @@ $this->end();
         <div class="col-md-12">
             <h1><?= $this->e(__('Users index')); ?></h1>
 
-            User 1234: <a href="users/1234">users/1234</a><br>
-            User 1234 reviews: <a href="users/1234/reviews">users/1234/reviews</a><br>
+            User 1: <a href="users/1">users/1</a><br>
+            User 1 reviews: <a href="users/1/reviews">users/1234/reviews</a><br>
         </div>
     </div>
 </div>

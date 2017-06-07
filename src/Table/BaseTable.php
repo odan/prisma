@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model;
+namespace App\Table;
 
 use Cake\Database\Connection;
 
@@ -12,7 +12,7 @@ use Cake\Database\Connection;
  * Objects in the data access layer do not know about each other.
  *
  */
-class BaseModel
+class BaseTable
 {
 
     /**
