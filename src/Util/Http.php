@@ -9,7 +9,6 @@ use Slim\Http\Request;
  */
 class Http
 {
-
     /**
      * Request
      *
@@ -45,8 +44,7 @@ class Http
     public function get($key, $default = null)
     {
         $query = $this->request->getQueryParams();
-        $result = isset($query[$key]) ? $query[$key] : $default;
-        return $result;
+        return isset($query[$key]) ? $query[$key] : $default;
     }
 
     /**
@@ -59,8 +57,7 @@ class Http
     public function post($key, $default = null)
     {
         $post = $this->request->getParsedBody();
-        $result = isset($post[$key]) ? $post[$key] : $default;
-        return $result;
+        return isset($post[$key]) ? $post[$key] : $default;
     }
 
     /**
@@ -132,42 +129,5 @@ class Http
         $result .= (empty($port)) ? $host . $path : $host . ":" . $port . $path;
         $result .= strlen($query) ? '?' . $query : '';
         return $result;
-    }
-
-    /**
-     * Returns true if a JSON request has been received.
-     *
-     * @param Request $request Request
-     * @return bool Status
-     */
-    public function isJson(Request $request)
-    {
-        $type = $request->getHeader('Content-Type');
-        return !empty($type[0]) && (strpos($type[0], 'application/json') !== false);
-    }
-
-    /**
-     * Returns true if runing from localhost
-     *
-     * @return bool
-     */
-    public function isLocalhost()
-    {
-        $ipAddress = $this->getIp();
-        return $ipAddress === '127.0.0.1' || $ipAddress === '::1';
-    }
-
-    /**
-     * Find out the client's IP address from the headers available to us.
-     *
-     * @return string IP address
-     */
-    public function getIp()
-    {
-        $ipAddress = null;
-        if (isset($this->server['REMOTE_ADDR'])) {
-            $ipAddress = $this->server['REMOTE_ADDR'];
-        }
-        return $ipAddress;
     }
 }

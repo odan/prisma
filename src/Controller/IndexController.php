@@ -32,7 +32,6 @@ class IndexController extends AppController
         $viewData = $this->getViewData([
             'text' => $text,
             'counter' => $counter,
-            'ip' => $this->http->getIp(),
             'url' => $this->http->getUrl()
         ]);
 

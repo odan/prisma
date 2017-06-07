@@ -11,7 +11,6 @@ $this->end();
         <div class="col-md-12">
             <h1><?= $this->e(__('Hello')); ?> <?= $this->e(__('World')); ?></h1>
             Users: <a href="users">users</a><br>
-            IP: <?= $this->e($ip); ?><br>
             URL: <?= $this->e($url); ?><br>
         </div>
     </div>
