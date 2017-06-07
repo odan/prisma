@@ -2,11 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\User\UserSession;
 use App\Table\UserTable;
-use Cake\Database\Connection;
-use League\Plates\Engine;
-use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -15,23 +11,6 @@ use Slim\Http\Response;
  */
 class UserController extends AppController
 {
-
-    /**
-     * Constructor.
-     *
-     * @param Engine $view
-     * @param Connection $db
-     * @param LoggerInterface $logger
-     * @param UserSession $user
-     */
-    public function __construct(Engine $view, Connection $db, UserSession $user, LoggerInterface $logger)
-    {
-        $this->view = $view;
-        $this->db = $db;
-        $this->user = $user;
-        $this->logger = $logger;
-    }
-
     /**
      * Index
      *
