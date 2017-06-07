@@ -6,7 +6,6 @@ use App\Service\User\UserSession;
 use App\Util\Http;
 use Cake\Database\Connection;
 use League\Plates\Engine;
-use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Slim\Exception\SlimException;
 use Slim\Http\Request;
@@ -46,18 +45,6 @@ class AppController
      * @var Connection
      */
     protected $db;
-
-    /**
-     * AppController constructor.
-     * @param ContainerInterface $container
-     */
-    public function __construct(ContainerInterface $container)
-    {
-        $this->view = $container->get('view');
-        $this->logger = $container->get('logger');
-        $this->user = $container->get('user');
-        $this->db = $container->get('db');
-    }
 
     /**
      * Set request.

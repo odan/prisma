@@ -12,9 +12,9 @@ class User extends BaseModel
      * Get user by id
      *
      * @param int $id User id
-     * @return array A row
+     * @return array|false A row
      */
-    public function getById($id)
+    public function findById($id)
     {
         $query = $this->db->newQuery()
             ->select(['id', 'firstname', 'lastname', 'deleted', 'updated_at'])

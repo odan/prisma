@@ -1,5 +1,8 @@
 <?php
 
+use Slim\Http\Request;
+use Slim\Http\Response;
+
 /**
  * Define the Slim application routes
  *
@@ -11,26 +14,57 @@
 $app = app();
 
 // Default page
-$app->get('/', 'App\Controller\IndexController:indexPage');
+$app->get('/', function (Request $request) {
+    /* @var \App\Controller\IndexController $controller */
+    $controller = $this->get(\App\Controller\IndexController::class);
+    return $controller->indexPage($request);
+});
 
 // Json request
-$app->get('/index/load', 'App\Controller\IndexController:load');
+$app->get('/index/load', function (Request $request) {
+    /* @var \App\Controller\IndexController $controller */
+    $controller = $this->get(\App\Controller\IndexController::class);
+    return $controller->load($request);
+});
 
 // Login
 // No auth check for this actions
 // Option: _auth = false (no authentication and authorization)
-$app->post('/login', '\App\Controller\LoginController:loginSubmit')->setArgument('_auth', false);
-$app->get('/login', '\App\Controller\LoginController:loginPage')->setArgument('_auth', false);
-$app->get('/logout', '\App\Controller\LoginController:logout')->setArgument('_auth', false);
+$app->post('/login', function (Request $request) {
+    /* @var \App\Controller\LoginController $controller */
+    $controller = $this->get(\App\Controller\LoginController::class);
+    return $controller->loginSubmit($request);
+})->setArgument('_auth', false);;
+
+$app->get('/login', function (Request $request) {
+    /* @var \App\Controller\LoginController $controller */
+    $controller = $this->get(\App\Controller\LoginController::class);
+    return $controller->loginPage($request);
+})->setArgument('_auth', false);;
+
+$app->get('/logout', function (Request $request) {
+    /* @var \App\Controller\LoginController $controller */
+    $controller = $this->get(\App\Controller\LoginController::class);
+    return $controller->logout($request);
+})->setArgument('_auth', false);;
 
 // Users
-$app->get('/users', '\App\Controller\UserController:indexPage');
+$app->get('/users', function (Request $request) {
+    /* @var \App\Controller\UserController $controller */
+    $controller = $this->get(\App\Controller\UserController::class);
+    return $controller->indexPage($request);
+});
 
-// this route will only match if {id} is numeric
-$app->get('/users/{id:[0-9]+}', '\App\Controller\UserController:editPage');
+// This route will only match if {id} is numeric
+$app->get('/users/{id:[0-9]+}', function (Request $request) {
+    /* @var \App\Controller\UserController $controller */
+    $controller = $this->get(\App\Controller\UserController::class);
+    return $controller->editPage($request);
+});
 
 // Sub-Resource
-$app->get('/users/{id:[0-9]+}/reviews', '\App\Controller\UserController:reviewPage');
-
-$app->get('/foo', '\App\Controller\FooController:foo');
-$app->get('/archive/{month:[0-9]+}', '\App\Controller\FooController:showArchive');
+$app->get('/users/{id:[0-9]+}/reviews', function (Request $request, Response $response, $args) {
+    /* @var \App\Controller\UserController $controller */
+    $controller = $this->get(\App\Controller\UserController::class);
+    return $controller->reviewPage($request, $response, $args);
+});

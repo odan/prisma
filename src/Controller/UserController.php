@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Service\User\UserSession;
+use Cake\Database\Connection;
+use League\Plates\Engine;
+use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -10,6 +14,22 @@ use Slim\Http\Response;
  */
 class UserController extends AppController
 {
+
+    /**
+     * Constructor.
+     *
+     * @param Engine $view
+     * @param Connection $db
+     * @param LoggerInterface $logger
+     * @param UserSession $user
+     */
+    public function __construct(Engine $view, Connection $db, UserSession $user, LoggerInterface $logger)
+    {
+        $this->view = $view;
+        $this->db = $db;
+        $this->user = $user;
+        $this->logger = $logger;
+    }
 
     /**
      * Index
@@ -28,11 +48,9 @@ class UserController extends AppController
      * Edit page
      *
      * @param Request $request The request
-     * @param Response $response The response
-     * @param array|null $args Arguments
      * @return Response
      */
-    public function editPage(Request $request, Response $response, array $args = null)
+    public function editPage(Request $request)
     {
         $this->setRequest($request);
 
@@ -54,7 +72,7 @@ class UserController extends AppController
         // Get routing arguments
         //$attributes = $request->getAttributes();
         //$vars = $request->getAttribute('vars');
-        $id = $args['id'];
+        $id = $request->getAttribute('id');
 
         // Get config value
         //$env = config()->get('env');

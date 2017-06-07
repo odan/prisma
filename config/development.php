@@ -9,6 +9,7 @@ ini_set('display_errors', '1');
 
 $config = [];
 
+// Display all errors
 $config['displayErrorDetails'] = true;
 
 // Logger
