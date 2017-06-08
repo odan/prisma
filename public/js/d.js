@@ -1077,7 +1077,7 @@ $d.window = function (config) {
     if (config.height) {
         var value = gs(config.height);
         if (value.indexOf('%')) {
-            var value = ($(window).height() / 100) * parseFloat(value) - 190;
+            value = ($(window).height() / 100) * parseFloat(value) - 190;
             config['height'] = value + 'px';
         }
     }
@@ -1086,7 +1086,7 @@ $d.window = function (config) {
     if (config.maxheight) {
         var value = gs(config.maxheight);
         if (value.indexOf('%')) {
-            var value = ($(window).height() / 100) * parseFloat(value) - 190;
+            value = ($(window).height() / 100) * parseFloat(value) - 190;
             config['maxheight'] = value + 'px';
         }
     }
@@ -1818,22 +1818,24 @@ $d.setValidation = function (selector, style, msg, type) {
 };
 
 /**
- * Show validation results.
+ * Show validation errors.
  *
- * @param {Object} form
+ * @param {Object|String} form Form selector
+ * @param {Object} errors Array with errors
  * @returns {undefined}
  */
-$d.showValidation = function (form, validation) {
-    if (!validation) {
+$d.showValidation = function (form, errors) {
+    if (!errors) {
         return;
     }
-    for (var name in validation) {
-        var message = validation[name];
-        var elField = $d.getField(form, name);
+    $.each(errors, function (key, value) {
+        var message = typeof value.message !== 'undefined' ? value.message : value;
+        var field = typeof value.field !== 'undefined' ? value.field : key;
+        var elField = $d.getField(form, field);
         if (elField && elField.length) {
             $d.setValidation(elField, 'error', message);
         }
-    }
+    });
 };
 
 /**
