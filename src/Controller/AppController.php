@@ -112,11 +112,11 @@ class AppController
         $result[] = 'assets::css/d.css';
         // Customized notifIt with bootstrap colors
         $result[] = 'assets::css/notifIt-app.css';
-        $result[] = 'view::Index/css/layout.css';
+        $result[] = 'view::Home/css/layout.css';
         //$files[] = 'Index/css/print.css';
         $result[] = 'assets::js/d.js';
         $result[] = 'assets::js/notifIt.js';
-        $result[] = 'view::Index/js/app.js';
+        $result[] = 'view::Home/js/app.js';
 
         if (!empty($assets)) {
             $result = array_merge($result, $assets);

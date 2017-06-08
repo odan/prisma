@@ -30,5 +30,4 @@ class BaseTable
     {
         $this->db = $db;
     }
-
 }

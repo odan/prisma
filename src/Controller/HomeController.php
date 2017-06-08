@@ -8,7 +8,7 @@ use Slim\Http\Response;
 /**
  * IndexController
  */
-class IndexController extends AppController
+class HomeController extends AppController
 {
     /**
      * Index action
@@ -36,7 +36,7 @@ class IndexController extends AppController
         ]);
 
         // Render template
-        return $this->render('view::Index/index-index.html.php', $viewData);
+        return $this->render('view::Home/home-index.html.php', $viewData);
     }
 
     /**

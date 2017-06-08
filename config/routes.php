@@ -15,15 +15,15 @@ $app = app();
 
 // Default page
 $app->get('/', function (Request $request) {
-    /* @var \App\Controller\IndexController $controller */
-    $controller = $this->get(\App\Controller\IndexController::class);
+    /* @var \App\Controller\HomeController $controller */
+    $controller = $this->get(\App\Controller\HomeController::class);
     return $controller->indexPage($request);
 });
 
 // Json request
 $app->get('/index/load', function (Request $request) {
-    /* @var \App\Controller\IndexController $controller */
-    $controller = $this->get(\App\Controller\IndexController::class);
+    /* @var \App\Controller\HomeController $controller */
+    $controller = $this->get(\App\Controller\HomeController::class);
     return $controller->load($request);
 });
 

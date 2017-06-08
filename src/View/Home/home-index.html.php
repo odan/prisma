@@ -2,8 +2,8 @@
 $this->layout('view::Layout/layout.html.php', $this->data);
 
 $this->push('assets');
-echo $this->assets(['view::Index/index-index.js'], ['inline' => false, 'name' => 'index-index.js']);
-echo $this->assets(['view::Index/index-index.css'], ['inline' => false, 'name' => 'index-index.css']);
+echo $this->assets(['view::Home/home-index.js'], ['inline' => false, 'name' => 'home-index.js']);
+echo $this->assets(['view::Home/home-index.css'], ['inline' => false, 'name' => 'home-index.css']);
 $this->end();
 ?>
 <div id="content" class="container">

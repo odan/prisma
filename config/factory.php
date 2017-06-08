@@ -66,12 +66,12 @@ $container['user'] = function (Container $container) {
 // -----------------------------------------------------------------------------
 // Action factories
 // -----------------------------------------------------------------------------
-$container[\App\Controller\IndexController::class] = function (Container $container) {
+$container[\App\Controller\HomeController::class] = function (Container $container) {
     $view = $container->get('view');
     $db = $container->get('db');
     $user = $container->get('user');
     $logger = $container->get('logger');
-    return new \App\Controller\IndexController($view, $db, $user, $logger);
+    return new \App\Controller\HomeController($view, $db, $user, $logger);
 };
 
 $container[\App\Controller\UserController::class] = function (Container $container) {
