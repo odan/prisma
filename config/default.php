@@ -18,7 +18,7 @@ $config['public'] = $config['root'] . '/public';
 
 // Slim Settings
 $config['displayErrorDetails'] = false;
-$config['determineRouteBeforeAppMiddleware'] = false;
+$config['determineRouteBeforeAppMiddleware'] = true;
 
 // Application settings
 $config['app'] = [
