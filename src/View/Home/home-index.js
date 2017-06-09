@@ -55,7 +55,8 @@ app.index.Index = function Index(options)
             });
         }).fail(function (xhr) {
             $d.hideLoad();
-            $d.alert("Server error");
+            var message = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : "Server error";
+            $d.alert(message);
         });
     };
 

@@ -7,6 +7,22 @@ use Slim\Container;
 $container = app()->getContainer();
 
 // -----------------------------------------------------------------------------
+// Slim factories
+// -----------------------------------------------------------------------------
+
+// Handle PHP Exceptions
+$container['errorHandler'] = function (Container $container) {
+    $displayErrorDetails = $container->get('settings')['displayErrorDetails'];
+    $logger = $container->get('logger');
+    return new App\Handlers\Error($displayErrorDetails, $logger);
+};
+
+// Handle PHP 7 Errors
+$container['phpErrorHandler'] = function (Container $container) {
+    return $container['errorHandler'];
+};
+
+// -----------------------------------------------------------------------------
 // Service factories
 // -----------------------------------------------------------------------------
 $container['view'] = function (Container $container) {
