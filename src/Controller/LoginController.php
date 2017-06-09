@@ -18,13 +18,12 @@ class LoginController extends AppController
      */
     public function loginPage(Request $request)
     {
-        $this->setRequest($request);
         $this->user->logout();
 
         $assets = $this->getAssets();
         $assets[] = 'view::Login/login.css';
 
-        $viewData = $this->getViewData();
+        $viewData = $this->getViewData($request);
         return $this->render('view::Login/login.html.php', $viewData);
     }
 
@@ -36,7 +35,6 @@ class LoginController extends AppController
      */
     public function loginSubmit(Request $request)
     {
-        $this->setRequest($request);
         $data = $request->getParsedBody();
         $username = $data['username'];
         $password = $data['password'];
@@ -44,7 +42,7 @@ class LoginController extends AppController
         $result = $this->user->login($username, $password);
         $url = ($result) ? '/' : '/login';
 
-        return $this->redirect($url);
+        return $this->redirect($request, $url);
     }
 
     /**
@@ -55,8 +53,7 @@ class LoginController extends AppController
      */
     public function logout(Request $request)
     {
-        $this->setRequest($request);
         $this->user->logout();
-        return $this->redirect('/login');
+        return $this->redirect($request, '/login');
     }
 }

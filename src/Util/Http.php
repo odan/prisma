@@ -17,13 +17,6 @@ class Http
     public $request;
 
     /**
-     * Server
-     *
-     * @var array
-     */
-    public $server;
-
-    /**
      * Constructor
      *
      * @param Request $request The request
@@ -31,49 +24,17 @@ class Http
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->server = $this->request->getServerParams();
-    }
-
-    /**
-     * Get GET parameter.
-     *
-     * @param string $key Key
-     * @param mixed $default Default value
-     * @return mixed Value
-     */
-    public function get($key, $default = null)
-    {
-        $query = $this->request->getQueryParams();
-        return isset($query[$key]) ? $query[$key] : $default;
-    }
-
-    /**
-     * Get POST parameter
-     *
-     * @param string $key Key
-     * @param mixed $default Default value
-     * @return mixed Value
-     */
-    public function post($key, $default = null)
-    {
-        $post = $this->request->getParsedBody();
-        return isset($post[$key]) ? $post[$key] : $default;
     }
 
     /**
      * Returns a URL rooted at the base url for all relative URLs in a document
      *
-     * @param string $internalUri the route
-     * @param bool $asAbsoluteUrl return absolute or relative url
+     * @param string $path the path
      * @return string base url for $internalUri
      */
-    public function getBaseUrl($internalUri, $asAbsoluteUrl = true)
+    public function getBaseUrl($path)
     {
-        $result = $internalUri;
-        if ($asAbsoluteUrl === true) {
-            $result = $this->getHostUrl() . $result;
-        }
-        return $result;
+        return $this->getHostUrl() . $path;
     }
 
     /**
@@ -107,8 +68,9 @@ class Http
      */
     public function isSecure()
     {
-        if (!empty($this->server['HTTPS'])) {
-            return strtolower($this->server['HTTPS']) !== 'off';
+        $server = $this->request->getServerParams();;
+        if (!empty($server['HTTPS'])) {
+            return strtolower($server['HTTPS']) !== 'off';
         }
         return false;
     }

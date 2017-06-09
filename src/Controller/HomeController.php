@@ -18,8 +18,6 @@ class HomeController extends AppController
      */
     public function indexPage(Request $request)
     {
-        $this->setRequest($request);
-
         // Increment counter
         $counter = $this->user->get('counter', 0);
         $counter++;
@@ -29,10 +27,10 @@ class HomeController extends AppController
             'Loaded successfully!' => __('Loaded successfully!')
         ]);
 
-        $viewData = $this->getViewData([
+        $viewData = $this->getViewData($request, [
             'text' => $text,
             'counter' => $counter,
-            'url' => $this->http->getUrl()
+            'url' => $request->getAttribute('url')
         ]);
 
         // Render template
@@ -47,7 +45,6 @@ class HomeController extends AppController
      */
     public function load(Request $request)
     {
-        $this->setRequest($request);
         $data = $request->getParsedBody();
         $result = [
             'message' => __('Loaded successfully!'),

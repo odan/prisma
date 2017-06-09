@@ -56,11 +56,16 @@
         </apply>
     </target>
 
+    <target name="serve" description="Start PHP server">
+        <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
+            <arg line="-S 0.0.0.0:8080 -t public public/index.php"/>
+        </exec>
+    </target>
+
     <target name="apigen" description="Generate API documentation using ApiGen">
         <delete dir="${basedir}/build/api"/>
         <mkdir dir="${basedir}/build/api"/>
-        <exec executable="${basedir}/vendor/bin/apigen${ext}" searchpath="true" resolveexecutable="true"
-              failonerror="true">
+        <exec executable="${basedir}/vendor/bin/apigen${ext}" searchpath="true" resolveexecutable="true" failonerror="true">
             <arg line="generate -s ${basedir}/src -d ${basedir}/build/api --exclude *.html.php,env.example.phps,env.php"/>
         </exec>
     </target>

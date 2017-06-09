@@ -7,7 +7,6 @@ use App\Util\Http;
 use Cake\Database\Connection;
 use League\Plates\Engine;
 use Psr\Log\LoggerInterface;
-use Slim\Exception\SlimException;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -63,38 +62,27 @@ class AppController
     }
 
     /**
-     * Set request.
+     * HTTP helper.
      *
      * @param Request $request
-     * @throws SlimException
+     * @return Http
      */
-    protected function setRequest(Request $request)
-    {
-        $this->request = $request;
-        $this->http = new Http($request);
-
-        // Authentication check
-        $attributes = $request->getAttributes();
-        $auth = isset($attributes['_auth']) ? $attributes['_auth'] : true;
-
-        if ($auth === true && !$this->user->isValid()) {
-            // Redirect to login page
-            $response = $this->redirect('/login');
-            throw new SlimException($request, $response);
-        }
+    protected function getHttp(Request $request) {
+        return new Http($request);
     }
 
     /**
      * Redirect to url
      *
+     * @param Request $request
      * @param string $url The URL
      * @param int $status HTTP status code
      * @return Response Redirect response
      */
-    protected function redirect($url, $status = null)
+    protected function redirect(Request $request, $url, $status = null)
     {
         if (strpos($url, '/') === 0) {
-            $url = $this->http->getBaseUrl($url);
+            $url = $request->getAttribute('hostUrl') . $url;
         }
         return (new Response())->withRedirect($url, $status);
     }
@@ -148,13 +136,14 @@ class AppController
     /**
      * Get view data.
      *
+     * @param Request $request
      * @param array $viewData
      * @return array View data
      */
-    protected function getViewData(array $viewData = [])
+    protected function getViewData(Request $request, array $viewData = [])
     {
         $result = [
-            'baseUrl' => $this->http->getBaseUrl('/'),
+            'baseUrl' => $request->getAttribute('baseUrl'),
         ];
         if (!empty($viewData)) {
             $result = array_replace_recursive($result, $viewData);

@@ -6,6 +6,36 @@ use Slim\Http\Response;
 $app = app();
 $container = $app->getContainer();
 
+// Authentication middleware
+$app->add(function (Request $request, Response $response, $next) use ($container) {
+    /* @var \Slim\Route $route */
+    $route = $request->getAttribute('route');
+    $auth = $route->getArgument('_auth', true);
+
+    /* @var \App\Service\User\UserSession $user */
+    $user = $container->get('user');
+    if ($auth === true && !$user->isValid()) {
+        // Redirect to login page
+
+        /* @var \Slim\Router $router */
+        $router = $this->get('router');
+        $uri = $router->pathFor('login');
+        return $response = $response->withRedirect($uri);
+    } else {
+        return $response = $next($request, $response);
+    }
+});
+
+// Http middleware
+$app->add(function (Request $request, Response $response, $next) use ($container) {
+    $http = new \App\Util\Http($request);
+    $request = $request->withAttribute('url', $http->getUrl());
+    $request = $request->withAttribute('baseUrl', $http->getBaseUrl('/'));
+    $request = $request->withAttribute('hostUrl', $http->getHostUrl());
+    $request = $request->withAttribute('secure', $http->isSecure());
+    return $response = $next($request, $response);
+});
+
 // Session middleware
 $app->add(function (Request $request, Response $response, $next) use ($container) {
     /* @var $session \Aura\Session\Session */
@@ -14,4 +44,3 @@ $app->add(function (Request $request, Response $response, $next) use ($container
     $session->commit();
     return $response;
 });
-

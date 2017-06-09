@@ -33,11 +33,18 @@ app.index.Index = function Index(options)
     this.load = function () {
         $d.showLoad();
 
+        var data = {
+            username: "max",
+            email: "max@example.com"
+        };
+
         $.ajax({
             url: $d.getBaseUrl("index/load"),
-            type: "GET",
+            type: "POST",
             cache: false,
-            contentType: 'application/json'
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify(data)
         }).done(function (data) {
             $d.hideLoad();
             $d.log(data);

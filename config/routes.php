@@ -21,7 +21,7 @@ $app->get('/', function (Request $request) {
 });
 
 // Json request
-$app->get('/index/load', function (Request $request) {
+$app->post('/index/load', function (Request $request) {
     /* @var \App\Controller\HomeController $controller */
     $controller = $this->get(\App\Controller\HomeController::class);
     return $controller->load($request);
@@ -34,19 +34,19 @@ $app->post('/login', function (Request $request) {
     /* @var \App\Controller\LoginController $controller */
     $controller = $this->get(\App\Controller\LoginController::class);
     return $controller->loginSubmit($request);
-})->setArgument('_auth', false);;
+})->setArgument('_auth', false);
 
 $app->get('/login', function (Request $request) {
     /* @var \App\Controller\LoginController $controller */
     $controller = $this->get(\App\Controller\LoginController::class);
     return $controller->loginPage($request);
-})->setArgument('_auth', false);;
+})->setArgument('_auth', false)->setName('login');
 
 $app->get('/logout', function (Request $request) {
     /* @var \App\Controller\LoginController $controller */
     $controller = $this->get(\App\Controller\LoginController::class);
     return $controller->logout($request);
-})->setArgument('_auth', false);;
+})->setArgument('_auth', false);
 
 // Users
 $app->get('/users', function (Request $request) {
