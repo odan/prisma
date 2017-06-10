@@ -63,8 +63,9 @@ php install.php
 | resources/ | Other resource files |
 | src/ | PHP source code |
 | src/Controller/ | Controllers and actions |
+| src/Model/ | Tables and entities |
 | src/Service/ | Service layer, domain models, business and use case logic  |
-| src/View/ | Templates |
+| src/Template/ | Templates |
 | tmp/ | Temp, cache and logfiles |
 | tests/ | Test code |
 | vendor/ | Reserved for package managers |
