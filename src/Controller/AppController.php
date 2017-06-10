@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Service\User\UserSession;
-use App\Util\Http;
+use App\Utility\Http;
 use Cake\Database\Connection;
 use League\Plates\Engine;
 use Psr\Log\LoggerInterface;

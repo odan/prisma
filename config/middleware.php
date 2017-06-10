@@ -28,7 +28,7 @@ $app->add(function (Request $request, Response $response, $next) use ($container
 
 // Http middleware
 $app->add(function (Request $request, Response $response, $next) use ($container) {
-    $http = new \App\Util\Http($request);
+    $http = new \App\Utility\Http($request);
     $request = $request->withAttribute('url', $http->getUrl());
     $request = $request->withAttribute('baseUrl', $http->getBaseUrl('/'));
     $request = $request->withAttribute('hostUrl', $http->getHostUrl());
