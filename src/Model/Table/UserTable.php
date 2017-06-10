@@ -24,7 +24,7 @@ class UserTable extends BaseTable
             ->from('users')
             ->where(['id' => $id]);
 
-        if(!$row = $query->execute()->fetch('assoc')) {
+        if (!$row = $query->execute()->fetch('assoc')) {
             return null;
         }
 
