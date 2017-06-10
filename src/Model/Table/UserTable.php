@@ -15,7 +15,7 @@ class UserTable extends BaseTable
      * Get user by id
      *
      * @param int $id User id
-     * @return UserEntity|object A row
+     * @return UserEntity|null A row
      */
     public function findById($id)
     {
@@ -24,7 +24,9 @@ class UserTable extends BaseTable
             ->from('users')
             ->where(['id' => $id]);
 
-        $row = $query->execute()->fetch('assoc');
+        if(!$row = $query->execute()->fetch('assoc')) {
+            return null;
+        }
 
         $hydrator = new Hydrator();
         return $hydrator->hydrate((array)$row, new UserEntity());
