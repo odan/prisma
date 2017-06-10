@@ -62,30 +62,20 @@ class AppController
     }
 
     /**
-     * HTTP helper.
-     *
-     * @param Request $request
-     * @return Http
-     */
-    protected function getHttp(Request $request)
-    {
-        return new Http($request);
-    }
-
-    /**
      * Redirect to url
      *
+     * @param Response $response The response
      * @param Request $request
      * @param string $url The URL
      * @param int $status HTTP status code
      * @return Response Redirect response
      */
-    protected function redirect(Request $request, $url, $status = null)
+    protected function redirect(Request $request, Response $response, $url, $status = null)
     {
         if (strpos($url, '/') === 0) {
             $url = $request->getAttribute('hostUrl') . $url;
         }
-        return (new Response())->withRedirect($url, $status);
+        return $response->withRedirect($url, $status);
     }
 
     /**
@@ -155,27 +145,30 @@ class AppController
     /**
      * Render template.
      *
+     * @param Response $response The response
      * @param string $name Template file
      * @param array $viewData View data
      * @return Response
      */
-    protected function render($name, array $viewData = array())
+    protected function render(Response $response, $name, array $viewData = array())
     {
         $content = $this->view->render($name, $viewData);
-        $response = new Response();
-        $response->getBody()->write($content);
+        $body = $response->getBody();
+        $body->rewind();
+        $body->write($content);
         return $response;
     }
 
     /**
      * Helper to return JSON from a controller.
      *
+     * @param Response $response The response
      * @param mixed $data Data
      * @param int $status HTTP status code (200 = OK, 422 Unprocessable entity / validation failed)
      * @return Response
      */
-    protected function json($data, $status = null)
+    protected function json(Response $response, $data, $status = null)
     {
-        return (new Response())->withJson($data, $status);
+        return $response->withJson($data, $status);
     }
 }

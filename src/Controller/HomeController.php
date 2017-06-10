@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use Slim\Http\Request;
-use Slim\Http\Response;
+use Psr\Http\Message\RequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
 
 /**
  * IndexController
@@ -14,9 +14,10 @@ class HomeController extends AppController
      * Index action
      *
      * @param Request $request The request
+     * @param Response $response The response
      * @return Response
      */
-    public function indexPage(Request $request)
+    public function indexPage(Request $request, Response $response)
     {
         // Increment counter
         $counter = $this->user->get('counter', 0);
@@ -34,22 +35,23 @@ class HomeController extends AppController
         ]);
 
         // Render template
-        return $this->render('view::Home/home-index.html.php', $viewData);
+        return $this->render($response, 'view::Home/home-index.html.php', $viewData);
     }
 
     /**
      * Action (Json)
      *
      * @param Request $request The request
+     * @param Response $response The response
      * @return Response Json response
      */
-    public function load(Request $request)
+    public function load(Request $request, Response $response)
     {
         $data = $request->getParsedBody();
         $result = [
             'message' => __('Loaded successfully!'),
             'data' => $data
         ];
-        return $this->json($result);
+        return $this->json($response, $result);
     }
 }

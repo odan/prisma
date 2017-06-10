@@ -15,9 +15,10 @@ class UserController extends AppController
      * Index
      *
      * @param Request $request The request
+     * @param Response $response The response
      * @return Response
      */
-    public function indexPage(Request $request)
+    public function indexPage(Request $request, Response $response)
     {
         $userTable = new UserTable($this->db);
         $users = $userTable->getAll();
@@ -26,16 +27,17 @@ class UserController extends AppController
             'users' => $users
         ]);
 
-        return $this->render('view::User/user-index.html.php', $viewData);
+        return $this->render($response, 'view::User/user-index.html.php', $viewData);
     }
 
     /**
      * Edit page
      *
      * @param Request $request The request
+     * @param Response $response The response
      * @return Response
      */
-    public function editPage(Request $request)
+    public function editPage(Request $request, Response $response)
     {
         // Get all GET parameters
         //$query = $request->getQueryParams();
@@ -68,7 +70,7 @@ class UserController extends AppController
         ]);
 
         // Render template
-        return $this->render('view::User/user-edit.html.php', $viewData);
+        return $this->render($response, 'view::User/user-edit.html.php', $viewData);
     }
 
     /**
