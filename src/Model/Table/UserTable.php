@@ -27,7 +27,7 @@ class UserTable extends BaseTable
         $row = $query->execute()->fetch('assoc');
 
         $hydrator = new Hydrator();
-        return $hydrator->hydrate($row, new UserEntity());
+        return $hydrator->hydrate((array)$row, new UserEntity());
     }
 
     /**
