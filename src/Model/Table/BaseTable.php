@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Table;
+namespace App\Model\Table;
 
 use Cake\Database\Connection;
 

@@ -67,7 +67,8 @@ class AppController
      * @param Request $request
      * @return Http
      */
-    protected function getHttp(Request $request) {
+    protected function getHttp(Request $request)
+    {
         return new Http($request);
     }
 

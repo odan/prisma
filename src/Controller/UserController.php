@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Table\UserTable;
+use App\Model\Table\UserTable;
 use Slim\Http\Request;
 use Slim\Http\Response;
 

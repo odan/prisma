@@ -14,7 +14,7 @@ $container = app()->getContainer();
 $container['errorHandler'] = function (Container $container) {
     $displayErrorDetails = $container->get('settings')['displayErrorDetails'];
     $logger = $container->get('logger');
-    return new App\Handlers\Error($displayErrorDetails, $logger);
+    return new App\Handler\Error($displayErrorDetails, $logger);
 };
 
 // Handle PHP 7 Errors

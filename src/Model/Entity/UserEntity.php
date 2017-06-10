@@ -7,7 +7,7 @@
  * Entities are just value objects which contains no methods to manipulate the database.
  */
 
-namespace App\Entity;
+namespace App\Model\Entity;
 
 class UserEntity
 {

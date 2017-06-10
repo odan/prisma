@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Handlers;
+namespace App\Handler;
 
 use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -9,7 +9,7 @@ use Slim\Handlers\PhpError;
 use Throwable;
 
 /**
- * Class Error handler
+ * Application Error handler
  */
 final class Error extends PhpError
 {
@@ -51,17 +51,17 @@ final class Error extends PhpError
      * Render error as Text.
      *
      * @param Throwable $error
-     * @return string
+     * @return array
      */
     protected function renderArrayError(Throwable $error)
     {
-        $result = [];
-        $result['type'] = get_class($error);
-        $result['code'] = $error->getCode();
-        $result['message'] = $error->getMessage();
-        $result['file'] = $error->getFile();
-        $result['line'] = $error->getLine();
-        $result['trace'] = $error->getTraceAsString();
-        return $result;
+        return [
+            'type' => get_class($error),
+            'code' => $error->getCode(),
+            'message' => $error->getMessage(),
+            'file' => $error->getFile(),
+            'line' => $error->getLine(),
+            'trace' => $error->getTraceAsString()
+        ];
     }
 }

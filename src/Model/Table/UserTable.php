@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Table;
+namespace App\Model\Table;
 
-use App\Entity\UserEntity;
+use App\Model\Entity\UserEntity;
 use Zend\Hydrator\ClassMethods as Hydrator;
 
 /**
@@ -15,7 +15,7 @@ class UserTable extends BaseTable
      * Get user by id
      *
      * @param int $id User id
-     * @return UserEntity|null A row
+     * @return UserEntity|object A row
      */
     public function findById($id)
     {
