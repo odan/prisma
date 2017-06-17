@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Model\Table\UserTable;
+use App\Repository\UserRepository;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -20,8 +20,8 @@ class UserController extends AppController
      */
     public function indexPage(Request $request, Response $response)
     {
-        $userTable = new UserTable($this->db);
-        $users = $userTable->getAll();
+        $userRepo = new UserRepository($this->db);
+        $users = $userRepo->getAll();
 
         $viewData = $this->getViewData($request, [
             'users' => $users
@@ -49,8 +49,8 @@ class UserController extends AppController
         $userId = $request->getAttribute('id');
 
         // Repository example
-        $userTable = new UserTable($this->db);
-        $user = $userTable->findById($userId);
+        $userRepo = new UserRepository($this->db);
+        $user = $userRepo->findById($userId);
 
         // Session example
         // Increment counter

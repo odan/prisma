@@ -7,9 +7,12 @@
  * Entities are just value objects which contains no methods to manipulate the database.
  */
 
-namespace App\Model\Entity;
+namespace App\Entity;
 
-class UserEntity
+/**
+ * Class UserEntity
+ */
+class UserEntity extends BaseEntity
 {
     protected $id;
     protected $username;
@@ -35,12 +38,11 @@ class UserEntity
 
     /**
      * @param mixed $id
-     * @return UserEntity
+     * @return void
      */
     public function setId($id)
     {
         $this->id = $id;
-        return $this;
     }
 
     /**
@@ -53,12 +55,11 @@ class UserEntity
 
     /**
      * @param mixed $username
-     * @return UserEntity
+     * @return void
      */
     public function setUsername($username)
     {
         $this->username = $username;
-        return $this;
     }
 
     /**
@@ -71,12 +72,11 @@ class UserEntity
 
     /**
      * @param mixed $password
-     * @return UserEntity
+     * @return void
      */
     public function setPassword($password)
     {
         $this->password = $password;
-        return $this;
     }
 
     /**
@@ -89,12 +89,11 @@ class UserEntity
 
     /**
      * @param mixed $email
-     * @return UserEntity
+     * @return void
      */
     public function setEmail($email)
     {
         $this->email = $email;
-        return $this;
     }
 
     /**
@@ -107,12 +106,11 @@ class UserEntity
 
     /**
      * @param mixed $firstName
-     * @return UserEntity
+     * @return void
      */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
-        return $this;
     }
 
     /**
@@ -125,12 +123,11 @@ class UserEntity
 
     /**
      * @param mixed $lastName
-     * @return UserEntity
+     * @return void
      */
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
-        return $this;
     }
 
     /**
@@ -143,12 +140,11 @@ class UserEntity
 
     /**
      * @param mixed $role
-     * @return UserEntity
+     * @return void
      */
     public function setRole($role)
     {
         $this->role = $role;
-        return $this;
     }
 
     /**
@@ -161,12 +157,11 @@ class UserEntity
 
     /**
      * @param mixed $locale
-     * @return UserEntity
+     * @return void
      */
     public function setLocale($locale)
     {
         $this->locale = $locale;
-        return $this;
     }
 
     /**
@@ -179,12 +174,11 @@ class UserEntity
 
     /**
      * @param mixed $disabled
-     * @return UserEntity
+     * @return void
      */
     public function setDisabled($disabled)
     {
         $this->disabled = $disabled;
-        return $this;
     }
 
     /**
@@ -197,12 +191,11 @@ class UserEntity
 
     /**
      * @param mixed $created
-     * @return UserEntity
+     * @return void
      */
     public function setCreated($created)
     {
         $this->created = $created;
-        return $this;
     }
 
     /**
@@ -215,12 +208,11 @@ class UserEntity
 
     /**
      * @param mixed $createdBy
-     * @return UserEntity
+     * @return void
      */
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
-        return $this;
     }
 
     /**
@@ -233,12 +225,11 @@ class UserEntity
 
     /**
      * @param mixed $updated
-     * @return UserEntity
+     * @return void
      */
     public function setUpdated($updated)
     {
         $this->updated = $updated;
-        return $this;
     }
 
     /**
@@ -251,11 +242,10 @@ class UserEntity
 
     /**
      * @param mixed $updatedBy
-     * @return UserEntity
+     * @return void
      */
     public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;
-        return $this;
     }
 }

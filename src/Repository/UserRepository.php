@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Model\Table;
+namespace App\Repository;
 
-use App\Model\Entity\UserEntity;
-use Zend\Hydrator\ClassMethods as Hydrator;
+use App\Entity\UserEntity;
 
 /**
  * User
  */
-class UserTable extends BaseTable
+class UserRepository extends BaseRepository
 {
 
     /**
@@ -28,8 +27,7 @@ class UserTable extends BaseTable
             return null;
         }
 
-        $hydrator = new Hydrator();
-        return $hydrator->hydrate((array)$row, new UserEntity());
+        return new UserEntity($row);
     }
 
     /**
@@ -44,10 +42,9 @@ class UserTable extends BaseTable
             ->from('users');
         $rows = $query->execute()->fetchAll('assoc');
 
-        $hydrator = new Hydrator();
         $result = [];
         foreach ($rows as $row) {
-            $result[] = $hydrator->hydrate($row, new UserEntity());
+            $result[] = new UserEntity($row);
         }
         return $result;
     }
