@@ -69,7 +69,6 @@ class Http
     public function isSecure()
     {
         $server = $this->request->getServerParams();
-        ;
         if (!empty($server['HTTPS'])) {
             return strtolower($server['HTTPS']) !== 'off';
         }

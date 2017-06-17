@@ -36,16 +36,6 @@ class BaseTable
     }
 
     /**
-     * Create a new Query instance for this table.
-     *
-     * @return Query
-     */
-    public function newQuery()
-    {
-        return $this->db->newQuery()->from($this->table);
-    }
-
-    /**
      * Find row by id.
      *
      * @param int $id
@@ -57,6 +47,16 @@ class BaseTable
         $query = $this->newQuery();
         $query->select('*')->where(['id' => $id]);
         return $query->execute()->fetch('assoc');
+    }
+
+    /**
+     * Create a new Query instance for this table.
+     *
+     * @return Query
+     */
+    public function newQuery()
+    {
+        return $this->db->newQuery()->from($this->table);
     }
 
     /**
