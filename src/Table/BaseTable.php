@@ -40,7 +40,7 @@ class BaseTable
      *
      * @return Query
      */
-    public function getQuery()
+    public function newQuery()
     {
         return $this->db->newQuery()->from($this->table);
     }
@@ -54,7 +54,7 @@ class BaseTable
      */
     public function findById($id)
     {
-        $query = $this->getQuery();
+        $query = $this->newQuery();
         $query->select('*')->where(['id' => $id]);
         return $query->execute()->fetch('assoc');
     }
@@ -66,7 +66,7 @@ class BaseTable
      */
     public function getAll()
     {
-        $query = $this->getQuery()->select('*');
+        $query = $this->newQuery()->select('*');
         return $query->execute()->fetchAll('assoc');
     }
 

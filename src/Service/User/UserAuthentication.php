@@ -3,6 +3,7 @@
 namespace App\Service\User;
 
 use App\Service\Base\BaseService;
+use App\Table\UserTable;
 use Cake\Database\Connection;
 
 /**
@@ -60,9 +61,9 @@ class UserAuthentication extends BaseService
      */
     public function authenticate()
     {
-        $query = $this->db->newQuery()
+        $userTable = new UserTable($this->db);
+        $query = $userTable->newQuery()
             ->select(['*'])
-            ->from('users')
             ->where(['username' => $this->username])
             ->where(['disabled' => 0]);
 
