@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\UserRepository;
+use App\Table\UserTable;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -20,7 +20,7 @@ class UserController extends AppController
      */
     public function indexPage(Request $request, Response $response)
     {
-        $userRepo = new UserRepository($this->db);
+        $userRepo = new UserTable($this->db);
         $users = $userRepo->getAll();
 
         $viewData = $this->getViewData($request, [
@@ -49,7 +49,7 @@ class UserController extends AppController
         $userId = $request->getAttribute('id');
 
         // Repository example
-        $userRepo = new UserRepository($this->db);
+        $userRepo = new UserTable($this->db);
         $user = $userRepo->findById($userId);
 
         // Session example

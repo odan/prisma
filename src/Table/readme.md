@@ -1,4 +1,4 @@
-#### Model: Data Access layer
+#### Model layer: Repository
 
 * This layer provides access to the persistence layer.
 * This layer is only ever invoked by Service objects.
