@@ -22,15 +22,15 @@ class UserTable extends BaseTable
      * Get user by id
      *
      * @param int $id User id
-     * @return UserEntity|null A row
+     * @return UserEntity A row
      * @throws Exception On error
      */
     public function getUserById($id)
     {
-        if (!$row = parent::findById($id)) {
+        if (!$row = $this->findById($id)) {
             throw new Exception(__('User not found: %s', $id));
         }
-        return new UserEntity($row);
+        return new UserEntity((array)$row);
     }
 
     /**
@@ -41,7 +41,7 @@ class UserTable extends BaseTable
     public function getAllUsers()
     {
         $result = [];
-        foreach (parent::getAll() as $row) {
+        foreach ($this->getAll() as $row) {
             $result[] = new UserEntity($row);
         }
         return $result;

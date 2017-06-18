@@ -40,7 +40,7 @@ class BaseTable
      *
      * @param int $id
      *
-     * @return array $row with data from database
+     * @return array|false $row with data from database
      */
     public function findById($id)
     {
