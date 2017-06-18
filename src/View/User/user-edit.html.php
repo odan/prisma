@@ -12,7 +12,6 @@ $this->end();
             <h1><?= $this->e(__('Edit user: %s', $id)); ?></h1>
             Username: <?= $this->e($username); ?><br>
             Counter: <?= $this->e($counter); ?>
-            <?php var_dump($files); ?>
         </div>
     </div>
 </div>
