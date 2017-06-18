@@ -50,7 +50,7 @@ class UserController extends AppController
 
         // Repository example
         $userRepo = new UserTable($this->db);
-        $user = $userRepo->findById($userId);
+        $user = $userRepo->getUserById($userId);
 
         // Session example
         // Increment counter

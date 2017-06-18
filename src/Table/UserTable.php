@@ -3,6 +3,7 @@
 namespace App\Table;
 
 use App\Entity\UserEntity;
+use Exception;
 
 /**
  * User Repository
@@ -22,11 +23,12 @@ class UserTable extends BaseTable
      *
      * @param int $id User id
      * @return UserEntity|null A row
+     * @throws Exception On error
      */
-    public function findById($id)
+    public function getUserById($id)
     {
         if (!$row = parent::findById($id)) {
-            return null;
+            throw new Exception(__('User not found: %s', $id));
         }
         return new UserEntity($row);
     }
@@ -36,7 +38,7 @@ class UserTable extends BaseTable
      *
      * @return UserEntity[] Rows
      */
-    public function getAll()
+    public function getAllUsers()
     {
         $result = [];
         foreach (parent::getAll() as $row) {
