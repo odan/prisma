@@ -5,7 +5,6 @@ This is a simple skeleton project for Slim 3 that includes Plates, Sessions and 
 [![Latest Version on Packagist](https://img.shields.io/github/release/odan/prisma.svg)](https://github.com/odan/prisma/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
 [![Build Status](https://travis-ci.org/odan/prisma.svg?branch=master)](https://travis-ci.org/odan/prisma)
-[![Coverage Status](https://scrutinizer-ci.com/g/odan/prisma/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/odan/prisma/code-structure)
 [![Quality Score](https://scrutinizer-ci.com/g/odan/prisma/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/odan/prisma/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/odan/prisma.svg)](https://packagist.org/packages/odan/prisma)
 
@@ -18,6 +17,7 @@ This is a simple skeleton project for Slim 3 that includes Plates, Sessions and 
 * Translations - [symfony/translation](https://github.com/symfony/Translation)
 * Database - [cakephp/database](https://github.com/cakephp/database)
 * Database Migrations - [robmorgan/phinx](https://github.com/robmorgan/phinx)
+* Migrations Generator - [odan/phinx-migrations-generator](https://github.com/odan/phinx-migrations-generator)
 * Assets Cache - [odan/plates-asset-cache](https://github.com/odan/plates-asset-cache)
 * Unit tests - [phpunit/phpunit](https://github.com/sebastianbergmann/phpunit)
 * Directory structure - [php-pds/skeleton](https://github.com/php-pds/skeleton)
