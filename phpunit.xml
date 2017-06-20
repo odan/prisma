@@ -15,6 +15,7 @@
                 <directory>docs</directory>
                 <directory>public</directory>
                 <directory>resources</directory>
+                <directory>src/View</directory>
                 <directory>src/Template</directory>
                 <directory>tmp</directory>
                 <directory>vendor</directory>
