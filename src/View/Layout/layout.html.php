@@ -38,7 +38,7 @@
     <?= $this->section('assets') ?>
     <?php
     if (!empty($text)) :
-        echo sprintf('<script>$d.addText(%s)</script>', json_encode($text));
+        echo sprintf('<script>$d.addText(%s)</script>', json_encode($text, JSON_HEX_QUOT | JSON_HEX_APOS));
     endif;
     ?>
 </head>
