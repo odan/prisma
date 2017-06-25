@@ -16,15 +16,13 @@ $app = app();
 // Default page
 $app->get('/', function (Request $request, Response $response) {
     /** @var $this \Slim\Container */
-   $controller = $this->get(\App\Controller\HomeController::class);
-   return $controller->indexPage($request, $response);
+    return $this->get(\App\Controller\HomeController::class)->indexPage($request, $response);
 });
 
 // Json request
 $app->post('/index/load', function (Request $request, Response $response) {
     /** @var $this \Slim\Container */
-    $controller = $this->get(\App\Controller\HomeController::class);
-    return $controller->load($request, $response);
+    return $this->get(\App\Controller\HomeController::class)->load($request, $response);
 });
 
 // Login
@@ -32,39 +30,33 @@ $app->post('/index/load', function (Request $request, Response $response) {
 // Option: _auth = false (no authentication and authorization)
 $app->post('/login', function (Request $request, Response $response) {
     /** @var $this \Slim\Container */
-    $controller = $this->get(\App\Controller\LoginController::class);
-    return $controller->loginSubmit($request, $response);
+    return $this->get(\App\Controller\LoginController::class)->loginSubmit($request, $response);
 })->setArgument('_auth', false);
 
 $app->get('/login', function (Request $request, Response $response) {
     /** @var $this \Slim\Container */
-    $controller = $this->get(\App\Controller\LoginController::class);
-    return $controller->loginPage($request, $response);
+    return $this->get(\App\Controller\LoginController::class)->loginPage($request, $response);
 })->setArgument('_auth', false)->setName('login');
 
 $app->get('/logout', function (Request $request, Response $response) {
     /** @var $this \Slim\Container */
-    $controller = $this->get(\App\Controller\LoginController::class);
-    return $controller->logout($request, $response);
+    return $this->get(\App\Controller\LoginController::class)->logout($request, $response);
 })->setArgument('_auth', false);
 
 // Users
 $app->get('/users', function (Request $request, Response $response) {
     /** @var $this \Slim\Container */
-    $controller = $this->get(\App\Controller\UserController::class);
-    return $controller->indexPage($request, $response);
+    return $this->get(\App\Controller\UserController::class)->indexPage($request, $response);
 });
 
 // This route will only match if {id} is numeric
 $app->get('/users/{id:[0-9]+}', function (Request $request, Response $response) {
     /** @var $this \Slim\Container */
-    $controller = $this->get(\App\Controller\UserController::class);
-    return $controller->editPage($request, $response);
+    return $this->get(\App\Controller\UserController::class)->editPage($request, $response);
 });
 
 // Sub-Resource
 $app->get('/users/{id:[0-9]+}/reviews', function (Request $request, Response $response, $args) {
     /** @var $this \Slim\Container */
-    $controller = $this->get(\App\Controller\UserController::class);
-    return $controller->reviewPage($request, $response, $args);
+    return $this->get(\App\Controller\UserController::class)->reviewPage($request, $response, $args);
 });
