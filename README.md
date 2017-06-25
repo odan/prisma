@@ -13,10 +13,10 @@ This is a simple skeleton project for Slim 3 that includes Plates, Sessions and 
 
 * Template Engine - [league/plates](https://github.com/thephpleague/plates)
 * Logging - [monolog/monolog](https://github.com/Seldaek/monolog) 
-* Sessions - [aura/session](https://github.com/aura/session)
+* Sessions - [aura/session](https://github.com/auraphp/Aura.Session)
 * Translations - [symfony/translation](https://github.com/symfony/Translation)
 * Database - [cakephp/database](https://github.com/cakephp/database)
-* Database Migrations - [robmorgan/phinx](https://github.com/robmorgan/phinx)
+* Database Migrations - [cakephp/phinx](https://github.com/cakephp/phinx)
 * Migrations Generator - [odan/phinx-migrations-generator](https://github.com/odan/phinx-migrations-generator)
 * Assets Cache - [odan/plates-asset-cache](https://github.com/odan/plates-asset-cache)
 * Unit tests - [phpunit/phpunit](https://github.com/sebastianbergmann/phpunit)
