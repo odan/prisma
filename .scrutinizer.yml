@@ -26,6 +26,19 @@ tools:
         runs: 1
 
 build:
+    environment:
+        php: 7.1.1
+        mysql: true
+        postgresql: false
+        mongodb: false
+        elasticsearch: false
+        redis: false
+        memcached: false
+        neo4j: false
+        rabbitmq: false
+    dependencies:
+        before:
+            - mysql -uroot -e 'CREATE DATABASE test'
     tests:
         override:
             -
