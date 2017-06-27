@@ -79,31 +79,6 @@ class AppController
     }
 
     /**
-     * Returns global assets (js, css).
-     *
-     * @param array $assets Assets to append
-     * @return array Array of assets
-     */
-    protected function getAssets(array $assets = array())
-    {
-        // Global assets
-        $result = [];
-        $result[] = 'assets::css/d.css';
-        // Customized notifIt with bootstrap colors
-        $result[] = 'assets::css/notifIt-app.css';
-        $result[] = 'view::Home/css/layout.css';
-        //$files[] = 'Index/css/print.css';
-        $result[] = 'assets::js/d.js';
-        $result[] = 'assets::js/notifIt.js';
-        $result[] = 'view::Home/js/app.js';
-
-        if (!empty($assets)) {
-            $result = array_merge($result, $assets);
-        }
-        return $result;
-    }
-
-    /**
      * Returns translated text.
      *
      * @param array $text Text

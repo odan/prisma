@@ -65,8 +65,7 @@ class UserController extends AppController
         $viewData = $this->getViewData($request, [
             'id' => $user->getId(),
             'username' => $user->getUsername(),
-            'counter' => $counter,
-            'assets' => $this->getAssets(),
+            'counter' => $counter
         ]);
 
         // Render template

@@ -20,10 +20,6 @@ class LoginController extends AppController
     public function loginPage(Request $request, Response $response)
     {
         $this->user->logout();
-
-        $assets = $this->getAssets();
-        $assets[] = 'view::Login/login.css';
-
         $viewData = $this->getViewData($request);
         return $this->render($response, 'view::Login/login.html.php', $viewData);
     }
