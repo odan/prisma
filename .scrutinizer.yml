@@ -36,9 +36,6 @@ build:
         memcached: false
         neo4j: false
         rabbitmq: false
-    dependencies:
-        before:
-            - mysql -uroot -e 'CREATE DATABASE test'
     tests:
         override:
             -
