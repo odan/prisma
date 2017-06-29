@@ -3,6 +3,10 @@
 namespace App\Table;
 
 use App\Utility\Database;
+use Aura\SqlQuery\Common\DeleteInterface;
+use Aura\SqlQuery\Common\InsertInterface;
+use Aura\SqlQuery\Common\SelectInterface;
+use Aura\SqlQuery\Common\UpdateInterface;
 use Aura\SqlQuery\Mysql\Delete;
 use Aura\SqlQuery\Mysql\Insert;
 use Aura\SqlQuery\Mysql\Select;
@@ -54,7 +58,7 @@ class BaseTable
     /**
      * Create a new select query instance for this table.
      *
-     * @return Select
+     * @return SelectInterface|Select
      */
     protected function newSelect()
     {
@@ -103,7 +107,7 @@ class BaseTable
     /**
      * Create a new insert query instance for this table.
      *
-     * @return Insert
+     * @return InsertInterface|Insert
      */
     protected function newInsert()
     {
@@ -127,7 +131,7 @@ class BaseTable
     /**
      * Create a new update query instance for this table.
      *
-     * @return Update
+     * @return UpdateInterface|Update
      */
     protected function newUpdate()
     {
@@ -149,7 +153,7 @@ class BaseTable
     /**
      * Create a new delete query instance for this table.
      *
-     * @return Delete
+     * @return DeleteInterface|Delete
      */
     protected function newDelete()
     {
