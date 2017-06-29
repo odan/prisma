@@ -27,7 +27,7 @@ function app($container = [])
 /**
  * A simple PHP Dependency Injection Container.
  *
- * @return \Slim\Container|ContainerInterface
+ * @return \Slim\Container
  */
 function container()
 {
