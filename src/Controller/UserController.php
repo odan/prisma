@@ -21,7 +21,7 @@ class UserController extends AppController
     public function indexPage(Request $request, Response $response)
     {
         $userRepo = new UserTable($this->db);
-        $users = $userRepo->getAll();
+        $users = $userRepo->findAll();
 
         $viewData = $this->getViewData($request, [
             'users' => $users
@@ -51,6 +51,13 @@ class UserController extends AppController
         // Repository example
         $userRepo = new UserTable($this->db);
         $user = $userRepo->getUserById($userId);
+
+        // Insert a new user
+        $userRepo->insert(['username' => 'max-' . uuid()]);
+        $newId = $userRepo->lastInsertId();
+
+        // Delete a user
+        $userRepo->delete($newId);
 
         // Session example
         // Increment counter

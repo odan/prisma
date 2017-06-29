@@ -13,9 +13,8 @@
   "license": "MIT",
   "require": {
     "php": "^7.0",
+    "aura/sqlquery": "^2.7",
     "aura/session": "^2.1",
-    "cakephp/database": "^3.2.10",
-    "cakephp/utility": "^3.2.10",
     "league/plates": "3.*",
     "monolog/monolog": "^1.18.0",
     "odan/phinx-migrations-generator": "^2.1",

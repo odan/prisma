@@ -2,9 +2,13 @@
 
 namespace App\Table;
 
-use Cake\Database\Connection;
-use Cake\Database\Query;
-use Cake\Database\StatementInterface;
+use App\Utility\Database;
+use Aura\SqlQuery\Common\DeleteInterface;
+use Aura\SqlQuery\Common\InsertInterface;
+use Aura\SqlQuery\Common\SelectInterface;
+use Aura\SqlQuery\Common\UpdateInterface;
+use Aura\SqlQuery\QueryInterface;
+use PDOStatement;
 
 /**
  * Base Repository
@@ -12,9 +16,9 @@ use Cake\Database\StatementInterface;
 class BaseTable
 {
     /**
-     * Connection
+     * Database
      *
-     * @var Connection
+     * @var Database
      */
     protected $db;
 
@@ -28,11 +32,46 @@ class BaseTable
     /**
      * Constructor
      *
-     * @param Connection $db
+     * @param Database $db
      */
-    public function __construct(Connection $db)
+    public function __construct(Database $db)
     {
         $this->db = $db;
+    }
+
+    /**
+     * Returns an array with all rows.
+     *
+     * @return array $rows
+     */
+    public function findAll()
+    {
+        $query = $this->newSelect()->cols(['*']);
+        $statement = $this->executeQuery($query);
+        return $statement->fetchAll();
+    }
+
+    /**
+     * Create a new select query instance for this table.
+     *
+     * @return SelectInterface
+     */
+    protected function newSelect()
+    {
+        return $this->db->getQuery()->newSelect()->from($this->table);
+    }
+
+    /**
+     * Create a new Query instance for this table.
+     *
+     * @param QueryInterface $query
+     * @return PDOStatement
+     */
+    protected function executeQuery(QueryInterface $query)
+    {
+        $statement = $this->db->getPdo()->prepare($query->getStatement());
+        $statement->execute($query->getBindValues());
+        return $statement;
     }
 
     /**
@@ -44,65 +83,88 @@ class BaseTable
      */
     public function findById($id)
     {
-        $query = $this->newQuery();
-        $query->select('*')->where(['id' => $id]);
-        return $query->execute()->fetch('assoc');
-    }
-
-    /**
-     * Create a new Query instance for this table.
-     *
-     * @return Query
-     */
-    public function newQuery()
-    {
-        return $this->db->newQuery()->from($this->table);
-    }
-
-    /**
-     * Returns an array with all rows.
-     *
-     * @return array $rows
-     */
-    public function getAll()
-    {
-        $query = $this->newQuery()->select('*');
-        return $query->execute()->fetchAll('assoc');
+        $query = $this->newSelect();
+        $query->cols(['*'])->where('id = ?', $id);
+        return $this->executeQuery($query)->fetch();
     }
 
     /**
      * Insert into database.
      *
      * @param array $row Row data
-     * @return StatementInterface
+     * @return PDOStatement
      */
     public function insert($row)
     {
-        return $this->db->insert($this->table, $row);
+        $insert = $this->newInsert()->cols($row);
+        return $this->executeQuery($insert);
+    }
+
+    /**
+     * Create a new insert query instance for this table.
+     *
+     * @return InsertInterface
+     */
+    protected function newInsert()
+    {
+        return $this->db->getQuery()->newInsert()->into($this->table);
     }
 
     /**
      * Update a row.
      *
-     * @param int $id Id
      * @param array $row Row data
-     * @return StatementInterface
+     * @param int $id Id
+     * @return PDOStatement
      */
-    public function update($id, $row)
+    public function update($row, $id)
     {
-        $query = $this->db->newQuery();
-        $query->update($this->table)->set($row)->where(['id' => $id]);
-        return $query->execute();
+        $query = $this->newUpdate();
+        $query->cols($row)->where(['id' => $id]);
+        return $this->executeQuery($query);
     }
 
     /**
-     * Delete a row.
+     * Create a new update query instance for this table.
+     *
+     * @return UpdateInterface
+     */
+    protected function newUpdate()
+    {
+        return $this->db->getQuery()->newUpdate()->table($this->table);
+    }
+
+    /**
+     * Delete a row by id.
      *
      * @param int $id Id
-     * @return bool true on success, false otherwise
+     * @return PDOStatement
      */
     public function delete($id)
     {
-        return (bool)$this->db->delete($this->table, ['id' => $id]);
+        $query = $this->newDelete()->where('id = ?', $id);
+        return $this->executeQuery($query);
+    }
+
+    /**
+     * Create a new delete query instance for this table.
+     *
+     * @return DeleteInterface
+     */
+    protected function newDelete()
+    {
+        return $this->db->getQuery()->newDelete()->from($this->table);
+    }
+
+    /**
+     * Returns the ID of the last inserted row or sequence value
+     *
+     * @param string $name [optional] <p>
+     * Name of the sequence object from which the ID should be returned.
+     * @return string The row ID of the last row that was inserted into the database.
+     */
+    public function lastInsertId($name = null)
+    {
+        return $this->db->getPdo()->lastInsertId($name);
     }
 }

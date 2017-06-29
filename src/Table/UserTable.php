@@ -41,7 +41,7 @@ class UserTable extends BaseTable
     public function getAllUsers()
     {
         $result = [];
-        foreach ($this->getAll() as $row) {
+        foreach ($this->findAll() as $row) {
             $result[] = new UserEntity($row);
         }
         return $result;

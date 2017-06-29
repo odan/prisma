@@ -1,5 +1,6 @@
 <?php
 
+use Aura\SqlQuery\QueryFactory;
 use Monolog\Logger;
 use Slim\Container;
 
@@ -14,7 +15,7 @@ $container = app()->getContainer();
 $container['errorHandler'] = function (Container $container) {
     $displayErrorDetails = $container->get('settings')['displayErrorDetails'];
     $logger = $container->get('logger');
-    return new App\Handler\Error($displayErrorDetails, $logger);
+    return new \App\Handler\Error((bool)$displayErrorDetails, $logger);
 };
 
 // Handle PHP 7 Errors
@@ -34,7 +35,7 @@ $container['view'] = function (Container $container) {
     $engine->addFolder('view', $settings['view']['path']);
 
     // Register Asset extension
-    $engine->loadExtension(new \Odan\Asset\PlatesAssetExtension($settings['assets']));
+    $engine->loadExtension(new \Odan\Asset\PlatesAssetExtension((array)$settings['assets']));
     return $engine;
 };
 
@@ -54,10 +55,33 @@ $container['logger'] = function (Container $container) {
 };
 
 $container['db'] = function (Container $container) {
-    $settings = $container->get('settings');
-    $driver = new Cake\Database\Driver\Mysql($settings['db']);
-    $db = new Cake\Database\Connection(['driver' => $driver]);
+    $pdo = $container->get('pdo');
+    $query = $container->get('query');
+    $db = new \App\Utility\Database($pdo, $query);
     return $db;
+};
+
+$container['pdo'] = function (Container $container) {
+    $settings = $container->get('settings')['db'];
+    $driver = $settings['driver'];
+    $host = $settings['host'];
+    $database = $settings['database'];
+    $username = $settings['username'];
+    $password = $settings['password'];
+    $charset = $settings['charset'];
+    $collation = $settings['collation'];
+    $db = new PDO("$driver:host=$host;dbname=$database;charset=$charset", $username, $password, array(
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_PERSISTENT => false,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES $charset COLLATE $collation"
+    ));
+    return $db;
+};
+
+$container['query'] = function (Container $container) {
+    $settings = $container->get('settings')['db'];
+    return new QueryFactory($settings['driver']);
 };
 
 $container['session'] = function (Container $container) {

@@ -74,14 +74,7 @@ $config['db'] = array(
     'driver' => 'mysql',
     'host' => '127.0.0.1',
     'charset' => 'utf8',
-    'collation' => 'utf8_unicode_ci',
-    'prefix' => '',
-    'flags' => [
-        // Enable exceptions
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        // Set default fetch mode
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-    ]
+    'collation' => 'utf8_unicode_ci'
 );
 
 // E-Mail settings

@@ -3,9 +3,9 @@
 namespace App\Service\User;
 
 use App\Service\Base\BaseService;
+use App\Utility\Database;
 use Aura\Session\Segment;
 use Aura\Session\Session;
-use Cake\Database\Connection;
 
 /**
  * User Session Handler
@@ -30,7 +30,7 @@ class UserSession extends BaseService
     /**
      * Database
      *
-     * @var Connection
+     * @var Database
      */
     protected $db;
 
@@ -48,10 +48,10 @@ class UserSession extends BaseService
      * UserSession constructor.
      *
      * @param Session $session Storage
-     * @param Connection $db Database
+     * @param Database $db Database
      * @param string $secret Secret session key
      */
-    public function __construct(Session $session, Connection $db, $secret = '')
+    public function __construct(Session $session, Database $db, $secret = '')
     {
         $this->session = $session;
         $this->segment = $this->session->getSegment('app');

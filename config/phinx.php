@@ -2,10 +2,8 @@
 
 require_once __DIR__ . '/bootstrap.php';
 
-/* @var $db \Cake\Database\Connection */
-$db = container()->get('db');
-$db->getDriver()->connect();
-$pdo = $db->getDriver()->connection();
+/* @var $pdo PDO */
+$pdo = container()->get('pdo');
 
 return array(
     'paths' => [
