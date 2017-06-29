@@ -159,7 +159,7 @@ class BaseTable
     /**
      * Returns the ID of the last inserted row or sequence value
      *
-     * @param string $name [optional] <p>
+     * @param string $name [optional]
      * Name of the sequence object from which the ID should be returned.
      * @return string The row ID of the last row that was inserted into the database.
      */

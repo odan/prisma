@@ -2,6 +2,7 @@
 
 namespace App\Service\User;
 
+use App\Entity\UserEntity;
 use App\Table\UserTable;
 use App\Utility\Database;
 
@@ -10,13 +11,6 @@ use App\Utility\Database;
  */
 class UserAuthentication extends UserTable
 {
-
-    /**
-     * Database
-     *
-     * @var Database
-     */
-    protected $db;
 
     /**
      * Username
@@ -33,6 +27,8 @@ class UserAuthentication extends UserTable
     protected $password;
 
     /**
+     * Token
+     *
      * @var Token
      */
     protected $token;
@@ -71,10 +67,11 @@ class UserAuthentication extends UserTable
             return new AuthenticationResult(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND);
         }
 
-        if (!$this->token->verifyHash($this->password, $userRow['password'])) {
+        $user = new UserEntity($userRow);
+        if (!$this->token->verifyHash($this->password, $user->getPassword())) {
             return new AuthenticationResult(AuthenticationResult::FAILURE_CREDENTIAL_INVALID);
         }
 
-        return new AuthenticationResult(AuthenticationResult::SUCCESS, $userRow);
+        return new AuthenticationResult(AuthenticationResult::SUCCESS, $user);
     }
 }
