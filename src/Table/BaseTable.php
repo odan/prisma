@@ -124,7 +124,7 @@ class BaseTable
     public function update($row, $id)
     {
         $query = $this->newUpdate();
-        $query->cols($row)->where(['id' => $id]);
+        $query->cols($row)->where(['id = ?', $id]);
         return $this->executeQuery($query);
     }
 
