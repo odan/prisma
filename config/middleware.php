@@ -20,9 +20,9 @@ $app->add(function (Request $request, Response $response, $next) use ($container
         /* @var \Slim\Router $router */
         $router = $this->get('router');
         $uri = $router->pathFor('login');
-        return $response = $response->withRedirect($uri);
+        return $response->withRedirect($uri);
     } else {
-        return $response = $next($request, $response);
+        return $next($request, $response);
     }
 });
 
@@ -33,7 +33,7 @@ $app->add(function (Request $request, Response $response, $next) use ($container
     $request = $request->withAttribute('baseUrl', $http->getBaseUrl('/'));
     $request = $request->withAttribute('hostUrl', $http->getHostUrl());
     $request = $request->withAttribute('secure', $http->isSecure());
-    return $response = $next($request, $response);
+    return $next($request, $response);
 });
 
 // Session middleware
