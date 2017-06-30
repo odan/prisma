@@ -22,6 +22,11 @@ This is a simple skeleton project for Slim 3 that includes Plates, Sessions and 
 * Unit tests - [phpunit/phpunit](https://github.com/sebastianbergmann/phpunit)
 * Directory structure - [php-pds/skeleton](https://github.com/php-pds/skeleton)
 
+## Online Demo
+
+* http://prisma.bplaced.net/
+* Logins: `admin / admin` and `user / user`
+
 ## Installation
 
 **Step 1:** Create a new project:
