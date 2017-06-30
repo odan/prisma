@@ -5,8 +5,6 @@
  */
 
 use Psr\Container\ContainerInterface;
-use Symfony\Component\Translation\Loader\MoFileLoader;
-use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator;
 
 /**
@@ -66,26 +64,4 @@ function __($message)
         $translated = vsprintf($translated, $context);
     }
     return $translated;
-}
-
-/**
- * Set locale
- *
- * @param string $locale
- * @param string $domain
- * @return void
- */
-function set_locale($locale = 'en_US', $domain = 'messages')
-{
-    $settings = container()->get('settings');
-    $moFile = sprintf('%s/%s_%s.mo', $settings['locale']['path'], $locale, $domain);
-
-    $translator = new Translator($locale, new MessageSelector());
-    $translator->addLoader('mo', new MoFileLoader());
-
-    $translator->addResource('mo', $moFile, $locale, $domain);
-    $translator->setLocale($locale);
-
-    // Inject translator into function
-    container()->offsetSet('translator', $translator);
 }

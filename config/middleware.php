@@ -36,6 +36,15 @@ $app->add(function (Request $request, Response $response, $next) use ($container
     return $next($request, $response);
 });
 
+// Language middleware
+$app->add(function (Request $request, Response $response, $next) use ($container) {
+    /** @var \App\Service\User\UserSession $user */
+    $user = $container->get('user');
+    $user->setLocale($user->getLocale());
+    return $next($request, $response);
+});
+
+
 // Session middleware
 $app->add(function (Request $request, Response $response, $next) use ($container) {
     /* @var $session \Aura\Session\Session */

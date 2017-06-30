@@ -16,6 +16,3 @@ read(__DIR__ . '/middleware.php');
 
 // Register routes
 read(__DIR__ . '/routes.php');
-
-// Set default language
-set_locale('en_US');

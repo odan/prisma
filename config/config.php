@@ -13,7 +13,7 @@ if (file_exists(__DIR__ . '/env.php')) {
 }
 
 if (isset($environment['env'])) {
-    $config = array_replace_recursive($config, read(__DIR__ . '/' . $environment['env'] . '.php'));
+    $config = array_replace_recursive($config, require __DIR__ . '/' . $environment['env'] . '.php');
 }
 
 if ($environment) {

@@ -5,8 +5,6 @@
 //
 // Database
 
-$config = [];
-
 // Database
 $config['db']['database'] = 'staging_dbname';
 
