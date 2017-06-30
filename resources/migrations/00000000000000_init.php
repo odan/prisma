@@ -39,17 +39,13 @@ class Init extends AbstractMigration
                 ->addColumn('role', 'string', ['limit' => 255, 'null' => true, 'comment' => ''])
                 ->addColumn('locale', 'string', ['limit' => 255, 'null' => true, 'comment' => ''])
                 ->addColumn('disabled', 'boolean', ['null' => false, 'default' => 0, 'comment' => ''])
-                ->addColumn('created', 'datetime', ['null' => true, 'comment' => ''])
+                ->addColumn('created_at', 'datetime', ['null' => true, 'comment' => ''])
             ->addColumn('created_by', 'integer', ['null' => true, 'comment' => ''])
-                ->addColumn('updated', 'datetime', ['null' => true, 'comment' => ''])
+                ->addColumn('updated_at', 'datetime', ['null' => true, 'comment' => ''])
             ->addColumn('updated_by', 'integer', ['null' => true, 'comment' => ''])
                 ->addIndex(['username'], ['unique' => true])
-                ->addIndex(['created_user_id'])
-                ->addIndex(['updated_user_id'])
-                ->addIndex(['deleted_user_id'])
-                //->addForeignKey('created_user_id', 'users', 'id')
-                //->addForeignKey('updated_user_id', 'users', 'id')
-                //->addForeignKey('deleted_user_id', 'users', 'id')
+                ->addIndex(['created_by'])
+                ->addIndex(['updated_by'])
                 ->save();
 
         // Insert records
