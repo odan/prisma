@@ -7,7 +7,9 @@ use Aura\SqlQuery\Mysql\Delete;
 use Aura\SqlQuery\Mysql\Insert;
 use Aura\SqlQuery\Mysql\Select;
 use Aura\SqlQuery\Mysql\Update;
+use Aura\SqlQuery\QueryFactory;
 use Aura\SqlQuery\QueryInterface;
+use PDO;
 use PDOStatement;
 
 /**
@@ -16,11 +18,18 @@ use PDOStatement;
 class BaseTable
 {
     /**
-     * Database
+     * Connection
      *
-     * @var Database
+     * @var PDO
      */
-    protected $db;
+    protected $pdo;
+
+    /**
+     * Query Builder
+     *
+     * @var QueryFactory
+     */
+    protected $query;
 
     /**
      * Table name
@@ -36,7 +45,8 @@ class BaseTable
      */
     public function __construct(Database $db)
     {
-        $this->db = $db;
+        $this->pdo = $db->getPdo();
+        $this->query = $db->getQuery();
     }
 
     /**
@@ -58,7 +68,7 @@ class BaseTable
      */
     protected function newSelect()
     {
-        return $this->db->getQuery()->newSelect()->from($this->table);
+        return $this->query->newSelect()->from($this->table);
     }
 
     /**
@@ -69,7 +79,7 @@ class BaseTable
      */
     protected function executeQuery(QueryInterface $query)
     {
-        $statement = $this->db->getPdo()->prepare($query->getStatement());
+        $statement = $this->pdo->prepare($query->getStatement());
         $statement->execute($query->getBindValues());
         return $statement;
     }
@@ -107,7 +117,7 @@ class BaseTable
      */
     protected function newInsert()
     {
-        return $this->db->getQuery()->newInsert()->into($this->table);
+        return $this->query->newInsert()->into($this->table);
     }
 
     /**
@@ -131,7 +141,7 @@ class BaseTable
      */
     protected function newUpdate()
     {
-        return $this->db->getQuery()->newUpdate()->table($this->table);
+        return $this->query->newUpdate()->table($this->table);
     }
 
     /**
@@ -153,7 +163,7 @@ class BaseTable
      */
     protected function newDelete()
     {
-        return $this->db->getQuery()->newDelete()->from($this->table);
+        return $this->query->newDelete()->from($this->table);
     }
 
     /**
@@ -165,6 +175,6 @@ class BaseTable
      */
     public function lastInsertId($name = null)
     {
-        return $this->db->getPdo()->lastInsertId($name);
+        return $this->pdo->lastInsertId($name);
     }
 }

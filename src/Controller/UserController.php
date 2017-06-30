@@ -70,8 +70,8 @@ class UserController extends AppController
 
         // Add data to template
         $viewData = $this->getViewData($request, [
-            'id' => $user->getId(),
-            'username' => $user->getUsername(),
+            'id' => $user->id,
+            'username' => $user->username,
             'counter' => $counter
         ]);
 

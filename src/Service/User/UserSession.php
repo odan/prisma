@@ -150,9 +150,9 @@ class UserSession extends BaseService
         $this->token = $this->createToken($this->secret);
 
         // Store user settings in session
-        $this->set('user.id', $user->getId());
-        $this->set('user.role', $user->getRole());
-        $this->setLocale($user->getLocale());
+        $this->set('user.id', $user->id);
+        $this->set('user.role', $user->role);
+        $this->setLocale($user->locale);
         return true;
     }
 

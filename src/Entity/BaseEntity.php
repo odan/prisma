@@ -9,7 +9,8 @@
 
 namespace App\Entity;
 
-use Zend\Hydrator\ClassMethods as Hydrator;
+use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
+use Zend\Hydrator\ObjectProperty as Hydrator;
 
 /**
  * Class BaseEntity
@@ -26,7 +27,7 @@ class BaseEntity
     public function __construct(array $row = null)
     {
         if ($row) {
-            (new Hydrator())->hydrate($row, $this);
+            (new Hydrator())->setNamingStrategy(new UnderscoreNamingStrategy())->hydrate($row, $this);
         }
     }
 
@@ -37,6 +38,6 @@ class BaseEntity
      */
     public function toArray()
     {
-        return (new Hydrator())->extract($this);
+        return (new Hydrator())->setNamingStrategy(new UnderscoreNamingStrategy())->extract($this);
     }
 }

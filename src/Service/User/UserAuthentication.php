@@ -68,7 +68,8 @@ class UserAuthentication extends UserTable
         }
 
         $user = new UserEntity($userRow);
-        if (!$this->token->verifyHash($this->password, $user->getPassword())) {
+
+        if (!$this->token->verifyHash($this->password, $user->password)) {
             return new AuthenticationResult(AuthenticationResult::FAILURE_CREDENTIAL_INVALID);
         }
 
