@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Demo\n"
-"POT-Creation-Date: 2016-06-21 19:34+0100\n"
-"PO-Revision-Date: 2016-06-22 18:16+0100\n"
+"POT-Creation-Date: 2017-06-30 23:35+0100\n"
+"PO-Revision-Date: 2017-06-30 23:35+0100\n"
 "Last-Translator: User <user@example.com>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -15,113 +15,127 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: Controller/AppController.php:55
+#: Controller/AppController.php:91
 msgid "Ok"
 msgstr "Ok"
 
-#: Controller/AppController.php:56
+#: Controller/AppController.php:92
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: Controller/AppController.php:57
+#: Controller/AppController.php:93
 msgid "Yes"
 msgstr "Ja"
 
-#: Controller/AppController.php:58
+#: Controller/AppController.php:94
 msgid "No"
 msgstr "Nein"
 
-#: Controller/IndexController.php:31
+#: Controller/HomeController.php:28 Controller/HomeController.php:52
 msgid "Loaded successfully!"
 msgstr "Erfolgreich gestartet!"
 
-#: View/Index/html/index.html.php:4
+#: Table/UserTable.php:31
+#, php-format
+msgid "User not found: %s"
+msgstr "Benutzer nicht gefunden: %s"
+
+#: View/Home/home-index.html.php:12
 msgid "Hello"
 msgstr "Hallo"
 
-#: View/Index/html/index.html.php:4
+#: View/Home/home-index.html.php:12
 msgid "World"
 msgstr "Welt"
 
-#: View/Index/html/login.html.php:10 View/Index/html/login.html.php:25
-msgid "Sign in"
-msgstr "Einloggen"
-
-#: View/Index/html/login.html.php:19
-msgid "Please sign in"
-msgstr "Bitte einloggen"
-
-#: View/Index/html/login.html.php:20
-msgid "Username"
-msgstr "Benutzername"
-
-#: View/Index/html/login.html.php:21
-msgid "Password"
-msgstr "Kennwort"
-
-#: View/Layout/html/layout.html.php:2
+#: View/Layout/layout.html.php:2
 msgid "en"
 msgstr "de"
 
-#: View/Layout/html/layout.html.php:11
+#: View/Layout/layout.html.php:11
 msgid "Demo"
 msgstr "Demo"
 
-#: View/Layout/html/layout.html.php:27
+#: View/Layout/layout.html.php:52
 msgid "Toggle navigation"
 msgstr "Navigation umschalten"
 
-#: View/Layout/html/layout.html.php:32
+#: View/Layout/layout.html.php:57
 msgid "Project name"
 msgstr "Projektname"
 
-#: View/Layout/html/layout.html.php:36
+#: View/Layout/layout.html.php:61
 msgid "Home"
 msgstr "Home"
 
-#: View/Layout/html/layout.html.php:37
+#: View/Layout/layout.html.php:62
 msgid "About"
 msgstr "Über"
 
-#: View/Layout/html/layout.html.php:38
+#: View/Layout/layout.html.php:63
 msgid "Contact"
 msgstr "Kontakt"
 
-#: View/Layout/html/layout.html.php:40
+#: View/Layout/layout.html.php:66
 msgid "Dropdown"
 msgstr "Dropdown"
 
-#: View/Layout/html/layout.html.php:42
+#: View/Layout/layout.html.php:68
 msgid "Action"
 msgstr "Aktion"
 
-#: View/Layout/html/layout.html.php:43
+#: View/Layout/layout.html.php:69
 msgid "Another action"
 msgstr "Weitere Aktion"
 
-#: View/Layout/html/layout.html.php:44
+#: View/Layout/layout.html.php:70
 msgid "Something else here"
 msgstr "Etwas anderes"
 
-#: View/Layout/html/layout.html.php:46
+#: View/Layout/layout.html.php:72
 msgid "Nav header"
 msgstr "Navigation Header"
 
-#: View/Layout/html/layout.html.php:47
+#: View/Layout/layout.html.php:73
 msgid "Separated link"
 msgstr "Seperater link"
 
-#: View/Layout/html/layout.html.php:48
+#: View/Layout/layout.html.php:74
 msgid "One more separated link"
 msgstr "Noch ein seperater Link"
 
-#: View/Layout/html/layout.html.php:53
+#: View/Layout/layout.html.php:79
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: View/Layout/html/layout.html.php:54
+#: View/Layout/layout.html.php:80
 msgid "Logout"
 msgstr "Logout"
+
+#: View/Login/login.html.php:10 View/Login/login.html.php:31
+msgid "Sign in"
+msgstr "Einloggen"
+
+#: View/Login/login.html.php:25
+msgid "Please sign in"
+msgstr "Bitte einloggen"
+
+#: View/Login/login.html.php:26
+msgid "Username"
+msgstr "Benutzername"
+
+#: View/Login/login.html.php:27
+msgid "Password"
+msgstr "Kennwort"
+
+#: View/User/user-edit.html.php:12
+#, php-format
+msgid "Edit user: %s"
+msgstr "Benutzer: %s"
+
+#: View/User/user-index.html.php:12
+msgid "Users index"
+msgstr "Benutzer Index"
 
 #~ msgid "Admin"
 #~ msgstr "Admin"
