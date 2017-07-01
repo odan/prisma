@@ -13,8 +13,8 @@
   "license": "MIT",
   "require": {
     "php": "^7.0",
-    "aura/sqlquery": "^2.7",
     "aura/session": "^2.1",
+    "fpdo/fluentpdo": "^1.1",
     "league/plates": "3.*",
     "monolog/monolog": "^1.18.0",
     "odan/phinx-migrations-generator": "^2.1",

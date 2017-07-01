@@ -49,15 +49,16 @@ class UserController extends AppController
         $userId = $request->getAttribute('id');
 
         // Repository example
-        $userRepo = new UserTable($this->db);
-        $user = $userRepo->getUserById($userId);
+        $userTable = new UserTable($this->db);
+        $user = $userTable->getUserById($userId);
+
+        //$users = $userTable->getAllUsers();
 
         // Insert a new user
-        $userRepo->insert(['username' => 'max-' . uuid()]);
-        $newId = $userRepo->lastInsertId();
+        $newUserId = $userTable->insert(['username' => 'max-' . uuid()]);
 
         // Delete a user
-        $userRepo->delete($newId);
+        $userTable->delete($newUserId);
 
         // Session example
         // Increment counter

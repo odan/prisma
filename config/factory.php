@@ -80,8 +80,7 @@ $container['pdo'] = function (Container $container) {
 };
 
 $container['query'] = function (Container $container) {
-    $settings = $container->get('settings')['db'];
-    return new QueryFactory($settings['driver']);
+    return new FluentPDO($container->get('pdo'));
 };
 
 $container['session'] = function (Container $container) {

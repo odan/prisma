@@ -2,8 +2,8 @@
 
 namespace App\Utility;
 
-use Aura\SqlQuery\QueryFactory as Query;
 use PDO;
+use FluentPDO;
 
 /**
  * Database object container
@@ -16,7 +16,7 @@ class Database
     protected $pdo;
 
     /**
-     * @var Query
+     * @var FluentPDO
      */
     protected $query;
 
@@ -25,7 +25,7 @@ class Database
      * @param PDO $pdo
      * @param Query $query
      */
-    public function __construct(PDO $pdo, Query $query)
+    public function __construct(PDO $pdo, FluentPDO $query)
     {
         $this->pdo = $pdo;
         $this->query = $query;
@@ -40,7 +40,7 @@ class Database
     }
 
     /**
-     * @return Query
+     * @return FluentPDO
      */
     public function getQuery()
     {

@@ -3,14 +3,10 @@
 namespace App\Table;
 
 use App\Utility\Database;
-use Aura\SqlQuery\Mysql\Delete;
-use Aura\SqlQuery\Mysql\Insert;
-use Aura\SqlQuery\Mysql\Select;
-use Aura\SqlQuery\Mysql\Update;
-use Aura\SqlQuery\QueryFactory;
-use Aura\SqlQuery\QueryInterface;
+use FluentPDO;
 use PDO;
 use PDOStatement;
+use SelectQuery;
 
 /**
  * Base Repository
@@ -27,7 +23,7 @@ class BaseTable
     /**
      * Query Builder
      *
-     * @var QueryFactory
+     * @var FluentPDO
      */
     protected $query;
 
@@ -50,38 +46,23 @@ class BaseTable
     }
 
     /**
+     * Create a new select query instance for this table.
+     *
+     * @return SelectQuery
+     */
+    protected function newSelect()
+    {
+        return $this->query->from($this->table);
+    }
+
+    /**
      * Returns an array with all rows.
      *
      * @return array $rows
      */
     public function findAll()
     {
-        $query = $this->newSelect()->cols(['*']);
-        $statement = $this->executeQuery($query);
-        return $statement->fetchAll();
-    }
-
-    /**
-     * Create a new select query instance for this table.
-     *
-     * @return Select
-     */
-    protected function newSelect()
-    {
-        return $this->query->newSelect()->from($this->table);
-    }
-
-    /**
-     * Create a new Query instance for this table.
-     *
-     * @param QueryInterface $query
-     * @return PDOStatement
-     */
-    protected function executeQuery(QueryInterface $query)
-    {
-        $statement = $this->pdo->prepare($query->getStatement());
-        $statement->execute($query->getBindValues());
-        return $statement;
+        return $this->newSelect()->fetchAll();
     }
 
     /**
@@ -93,31 +74,18 @@ class BaseTable
      */
     public function findById($id)
     {
-        $query = $this->newSelect();
-        $query->cols(['*'])->where('id = ?', $id);
-        return $this->executeQuery($query)->fetch();
+        return $this->newSelect()->where('id', $id)->fetch();
     }
 
     /**
      * Insert into database.
      *
      * @param array $row Row data
-     * @return PDOStatement
+     * @return int|false Last inserted id or false
      */
     public function insert($row)
     {
-        $insert = $this->newInsert()->cols($row);
-        return $this->executeQuery($insert);
-    }
-
-    /**
-     * Create a new insert query instance for this table.
-     *
-     * @return Insert
-     */
-    protected function newInsert()
-    {
-        return $this->query->newInsert()->into($this->table);
+        return $this->query->insertInto($this->table, $row)->execute();
     }
 
     /**
@@ -129,41 +97,18 @@ class BaseTable
      */
     public function update($row, $id)
     {
-        $query = $this->newUpdate();
-        $query->cols($row)->where('id = ?', $id);
-        return $this->executeQuery($query);
-    }
-
-    /**
-     * Create a new update query instance for this table.
-     *
-     * @return Update
-     */
-    protected function newUpdate()
-    {
-        return $this->query->newUpdate()->table($this->table);
+        return $this->query->update($this->table, $row)->where($id)->execute();
     }
 
     /**
      * Delete a row by id.
      *
      * @param int $id Id
-     * @return PDOStatement
+     * @return int|false Number of affected rows
      */
     public function delete($id)
     {
-        $query = $this->newDelete()->where('id = ?', $id);
-        return $this->executeQuery($query);
-    }
-
-    /**
-     * Create a new delete query instance for this table.
-     *
-     * @return Delete
-     */
-    protected function newDelete()
-    {
-        return $this->query->newDelete()->from($this->table);
+        return $this->query->deleteFrom($this->table, $id)->execute();
     }
 
     /**
@@ -175,6 +120,6 @@ class BaseTable
      */
     public function lastInsertId($name = null)
     {
-        return $this->pdo->lastInsertId($name);
+        return $this->query->getPdo()->lastInsertId($name);
     }
 }

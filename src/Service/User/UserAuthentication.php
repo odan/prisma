@@ -57,11 +57,10 @@ class UserAuthentication extends UserTable
     public function authenticate()
     {
         $query = $this->newSelect()
-            ->cols(['*'])
-            ->where('username = ?', $this->username)
-            ->where('disabled = ?', 0);
+            ->where('username', $this->username)
+            ->where('disabled', 0);
 
-        $userRow = $this->executeQuery($query)->fetch();
+        $userRow = $query->execute()->fetch();
 
         if (empty($userRow)) {
             return new AuthenticationResult(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND);
