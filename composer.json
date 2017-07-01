@@ -50,5 +50,8 @@
     "psr-4": {
       "App\\Test\\": "tests"
     }
+  },
+  "config": {
+    "sort-packages": true
   }
 }
