@@ -25,7 +25,7 @@ This is a simple skeleton project for Slim 3 that includes Plates, Sessions and 
 ## Online Demo
 
 * http://prisma.bplaced.net/
-* Logins: `admin / admin` and `user / user`
+* Login: `admin / admin` and `user / user`
 
 ## Installation
 

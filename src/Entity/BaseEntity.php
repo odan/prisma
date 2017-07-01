@@ -40,4 +40,15 @@ class BaseEntity
     {
         return (new Hydrator())->setNamingStrategy(new UnderscoreNamingStrategy())->extract($this);
     }
+
+    /**
+     * Convert to json.
+     *
+     * @param int $options Options
+     * @return string A json string
+     */
+    public function toJson($options = 0)
+    {
+        return json_encode($this->toArray(), $options);
+    }
 }
