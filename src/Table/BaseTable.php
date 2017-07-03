@@ -3,6 +3,7 @@
 namespace App\Table;
 
 use App\Utility\Database;
+use Exception;
 use FluentPDO;
 use PDO;
 use PDOStatement;
@@ -81,7 +82,8 @@ class BaseTable
      * Insert into database.
      *
      * @param array $row Row data
-     * @return int|false Last inserted id or false
+     * @return string Last inserted id
+     * @throws Exception On error
      */
     public function insert($row)
     {
@@ -103,12 +105,17 @@ class BaseTable
     /**
      * Delete a row by id.
      *
-     * @param int $id Id
-     * @return int|false Number of affected rows
+     * @param int|string $id Id
+     * @return int Number of affected rows
+     * @throws Exception On error
      */
     public function delete($id)
     {
-        return $this->query->deleteFrom($this->table, $id)->execute();
+        $result = $this->query->deleteFrom($this->table, $id)->execute();
+        if($result === false) {
+            throw new Exception(__('Delete failed'));
+        }
+        return $result;
     }
 
     /**

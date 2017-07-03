@@ -23,7 +23,7 @@ class Database
     /**
      * Database constructor.
      * @param PDO $pdo
-     * @param Query $query
+     * @param FluentPDO $query
      */
     public function __construct(PDO $pdo, FluentPDO $query)
     {

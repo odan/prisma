@@ -52,7 +52,7 @@ class UserController extends AppController
         $userTable = new UserTable($this->db);
         $user = $userTable->getUserById($userId);
 
-        //$users = $userTable->getAllUsers();
+        $users = $userTable->getAllUsers();
 
         // Insert a new user
         $newUserId = $userTable->insert(['username' => 'max-' . uuid()]);
