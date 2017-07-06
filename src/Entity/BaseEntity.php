@@ -33,7 +33,7 @@ class BaseEntity
      */
     public function __construct(array $row = null)
     {
-        if(!static::$hydrator) {
+        if (!static::$hydrator) {
             static::$hydrator = (new Hydrator())->setNamingStrategy(new UnderscoreNamingStrategy());
         }
         if ($row) {
@@ -48,7 +48,7 @@ class BaseEntity
      */
     public function toArray()
     {
-        return (new Hydrator())->setNamingStrategy(new UnderscoreNamingStrategy())->extract($this);
+        return static::$hydrator->extract($this);
     }
 
     /**
