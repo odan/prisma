@@ -17,13 +17,6 @@ use Zend\Hydrator\ObjectProperty as Hydrator;
  */
 class BaseEntity
 {
-
-    /**
-     * Hydrator
-     *
-     * @var Hydrator
-     */
-    static $hydrator = null;
     
     /**
      * Constructor.
@@ -33,13 +26,25 @@ class BaseEntity
      */
     public function __construct(array $row = null)
     {
-        if (!static::$hydrator) {
-            static::$hydrator = (new Hydrator())->setNamingStrategy(new UnderscoreNamingStrategy());
-        }
         if ($row) {
-            static::$hydrator->hydrate($row, $this);
+            $this->getHydrator()->hydrate($row, $this);
         }
     }
+    
+    /**
+     * Get Hydrator.
+     *
+     * @return Hydrator Hydrator
+     */
+    protected function getHydrator()
+    {
+        static $hydrator = null;
+        if (!$hydrator) {
+            $hydrator = (new Hydrator())->setNamingStrategy(new UnderscoreNamingStrategy());
+        }
+        return $hydrator;
+    }
+    
 
     /**
      * Convert to array.
@@ -48,7 +53,7 @@ class BaseEntity
      */
     public function toArray()
     {
-        return static::$hydrator->extract($this);
+        return $this->getHydrator()->extract($this);
     }
 
     /**
