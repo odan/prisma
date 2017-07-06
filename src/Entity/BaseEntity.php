@@ -19,6 +19,13 @@ class BaseEntity
 {
 
     /**
+     * Hydrator
+     *
+     * @var Hydrator
+     */
+    static $hydrator = null;
+    
+    /**
      * Constructor.
      *
      * BaseEntity constructor.
@@ -26,8 +33,11 @@ class BaseEntity
      */
     public function __construct(array $row = null)
     {
+        if(!static::$hydrator) {
+            static::$hydrator = (new Hydrator())->setNamingStrategy(new UnderscoreNamingStrategy());
+        }
         if ($row) {
-            (new Hydrator())->setNamingStrategy(new UnderscoreNamingStrategy())->hydrate($row, $this);
+            static::$hydrator->hydrate($row, $this);
         }
     }
 
