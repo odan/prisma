@@ -17,7 +17,7 @@ use Zend\Hydrator\ObjectProperty as Hydrator;
  */
 class BaseEntity
 {
-    
+
     /**
      * Constructor.
      *
@@ -30,7 +30,7 @@ class BaseEntity
             $this->getHydrator()->hydrate($row, $this);
         }
     }
-    
+
     /**
      * Get Hydrator.
      *
@@ -44,7 +44,6 @@ class BaseEntity
         }
         return $hydrator;
     }
-    
 
     /**
      * Convert to array.

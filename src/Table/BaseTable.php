@@ -112,7 +112,7 @@ class BaseTable
     public function delete($id)
     {
         $result = $this->query->deleteFrom($this->table, $id)->execute();
-        if($result === false) {
+        if ($result === false) {
             throw new Exception(__('Delete failed'));
         }
         return $result;
