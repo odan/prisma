@@ -15,7 +15,7 @@ This is a simple skeleton project for Slim 3 that includes Plates, Sessions and 
 * Logging - [monolog/monolog](https://github.com/Seldaek/monolog) 
 * Sessions - [aura/session](https://github.com/auraphp/Aura.Session)
 * Translations - [symfony/translation](https://github.com/symfony/Translation)
-* Query Builder - [auraphp/aura.sqlquery](https://github.com/auraphp/Aura.SqlQuery)
+* Query Builder - [cakephp/database](https://github.com/cakephp/database)
 * Migrations - [cakephp/phinx](https://github.com/cakephp/phinx)
 * Migrations Generator - [odan/phinx-migrations-generator](https://github.com/odan/phinx-migrations-generator)
 * Assets Cache - [odan/plates-asset-cache](https://github.com/odan/plates-asset-cache)
@@ -81,11 +81,11 @@ You can define custom routes in [config/routes.php](config/routes.php).
 
 ## SQL Query Builder
 
-This framework comes with [Aura.SqlQuery](https://github.com/auraphp/Aura.SqlQuery) as SQL query builder.
+This framework comes with [CakePHP Database](https://github.com/cakephp/database) as SQL query builder.
 
 The database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your application, and works on all supported database systems.
 
-For more details how to build queries read the **[documentation](https://github.com/auraphp/Aura.SqlQuery/blob/3.x/docs/index.md)**.
+For more details how to build queries read the **[documentation](http://book.cakephp.org/3.0/en/orm/query-builder.html)**.
 
 ## Migrations
 
