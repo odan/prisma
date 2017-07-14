@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Service\User\UserSession;
-use App\Utility\Database;
 use App\Utility\Http;
+use Cake\Database\Connection;
 use League\Plates\Engine;
 use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
@@ -41,7 +41,7 @@ class AppController
     protected $user;
 
     /**
-     * @var Database
+     * @var Connection
      */
     protected $db;
 
@@ -49,11 +49,11 @@ class AppController
      * Constructor.
      *
      * @param Engine $view
-     * @param Database $db
+     * @param Connection $db
      * @param LoggerInterface $logger
      * @param UserSession $user
      */
-    public function __construct(Engine $view, Database $db, UserSession $user, LoggerInterface $logger)
+    public function __construct(Engine $view, Connection $db, UserSession $user, LoggerInterface $logger)
     {
         $this->view = $view;
         $this->db = $db;

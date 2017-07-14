@@ -4,7 +4,7 @@ namespace App\Service\User;
 
 use App\Entity\UserEntity;
 use App\Table\UserTable;
-use App\Utility\Database;
+use Cake\Database\Connection;
 
 /**
  * User Authentication Adapter
@@ -36,12 +36,12 @@ class UserAuthentication extends UserTable
     /**
      * Constructor.
      *
-     * @param Database $db
+     * @param Connection $db
      * @param Token $token
      * @param string $username
      * @param string $password
      */
-    public function __construct(Database $db, Token $token, $username, $password)
+    public function __construct(Connection $db, Token $token, $username, $password)
     {
         parent::__construct($db);
         $this->token = $token;
@@ -56,11 +56,12 @@ class UserAuthentication extends UserTable
      */
     public function authenticate()
     {
-        $query = $this->newSelect()
-            ->where('username', $this->username)
-            ->where('disabled', 0);
+        $query = $this->newQuery()->select('*')->where([
+            'username' => $this->username,
+            'disabled' => 0
+        ]);
 
-        $userRow = $query->execute()->fetch();
+        $userRow = $query->execute()->fetch('assoc');
 
         if (empty($userRow)) {
             return new AuthenticationResult(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND);

@@ -1,6 +1,5 @@
 <?php
 
-use Aura\SqlQuery\QueryFactory;
 use Monolog\Logger;
 use Slim\Container;
 
@@ -55,32 +54,16 @@ $container['logger'] = function (Container $container) {
 };
 
 $container['db'] = function (Container $container) {
-    $pdo = $container->get('pdo');
-    $query = $container->get('query');
-    $db = new \App\Utility\Database($pdo, $query);
-    return $db;
+    $settings = $container->get('settings');
+    $driver = new Cake\Database\Driver\Mysql($settings['db']);
+    return new Cake\Database\Connection(['driver' => $driver]);
 };
 
 $container['pdo'] = function (Container $container) {
-    $settings = $container->get('settings')['db'];
-    $driver = $settings['driver'];
-    $host = $settings['host'];
-    $database = $settings['database'];
-    $username = $settings['username'];
-    $password = $settings['password'];
-    $charset = $settings['charset'];
-    $collation = $settings['collation'];
-    $db = new PDO("$driver:host=$host;dbname=$database;charset=$charset", $username, $password, array(
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_PERSISTENT => false,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES $charset COLLATE $collation"
-    ));
-    return $db;
-};
-
-$container['query'] = function (Container $container) {
-    return new FluentPDO($container->get('pdo'));
+    /* @var $db \Cake\Database\Connection */
+    $db = $container->get('db');
+    $db->getDriver()->connect();
+    return $db->getDriver()->connection();
 };
 
 $container['session'] = function (Container $container) {

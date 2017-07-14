@@ -3,9 +3,9 @@
 namespace App\Service\User;
 
 use App\Service\Base\BaseService;
-use App\Utility\Database;
 use Aura\Session\Segment;
 use Aura\Session\Session;
+use Cake\Database\Connection;
 use Symfony\Component\Translation\Loader\MoFileLoader;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator;
@@ -33,7 +33,7 @@ class UserSession extends BaseService
     /**
      * Database
      *
-     * @var Database
+     * @var Connection
      */
     protected $db;
 
@@ -51,10 +51,10 @@ class UserSession extends BaseService
      * UserSession constructor.
      *
      * @param Session $session Storage
-     * @param Database $db Database
+     * @param Connection $db Database
      * @param string $secret Secret session key
      */
-    public function __construct(Session $session, Database $db, $secret = '')
+    public function __construct(Session $session, Connection $db, $secret = '')
     {
         $this->session = $session;
         $this->segment = $this->session->getSegment('app');

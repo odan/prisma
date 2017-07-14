@@ -55,7 +55,7 @@ class UserController extends AppController
         $users = $userTable->getAllUsers();
 
         // Insert a new user
-        $newUserId = $userTable->insert(['username' => 'max-' . uuid()]);
+        $newUserId = $userTable->insert(['username' => 'max-' . uuid()])->lastInsertId();
 
         // Delete a user
         $userTable->delete($newUserId);
@@ -73,7 +73,8 @@ class UserController extends AppController
         $viewData = $this->getViewData($request, [
             'id' => $user->id,
             'username' => $user->username,
-            'counter' => $counter
+            'counter' => $counter,
+            'users' => $users
         ]);
 
         // Render template

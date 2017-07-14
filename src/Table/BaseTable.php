@@ -2,12 +2,10 @@
 
 namespace App\Table;
 
-use App\Utility\Database;
+use Cake\Database\Connection;
+use Cake\Database\Query;
+use Cake\Database\StatementInterface;
 use Exception;
-use FluentPDO;
-use PDO;
-use PDOStatement;
-use SelectQuery;
 
 /**
  * Base Repository
@@ -15,18 +13,11 @@ use SelectQuery;
 class BaseTable
 {
     /**
-     * Connection
+     * Database connection
      *
-     * @var PDO
+     * @var Connection
      */
-    protected $pdo;
-
-    /**
-     * Query Builder
-     *
-     * @var FluentPDO
-     */
-    protected $query;
+    protected $db;
 
     /**
      * Table name
@@ -38,22 +29,21 @@ class BaseTable
     /**
      * Constructor
      *
-     * @param Database $db
+     * @param Connection $db
      */
-    public function __construct(Database $db)
+    public function __construct(Connection $db)
     {
-        $this->pdo = $db->getPdo();
-        $this->query = $db->getQuery();
+        $this->db = $db;
     }
 
     /**
      * Create a new select query instance for this table.
      *
-     * @return SelectQuery
+     * @return Query
      */
-    protected function newSelect()
+    protected function newQuery()
     {
-        return $this->query->from($this->table);
+        return $this->db->newQuery()->from($this->table);
     }
 
     /**
@@ -63,70 +53,88 @@ class BaseTable
      */
     public function findAll()
     {
-        return $this->newSelect()->fetchAll();
+        return $this->newQuery()->select('*')->execute()->fetchAll('assoc');
     }
 
     /**
      * Find row by id.
      *
      * @param int $id
-     *
      * @return array|false $row with data from database
      */
     public function findById($id)
     {
-        return $this->newSelect()->where('id', $id)->fetch();
+        return $this->newQuery()->select('*')->where(['id' => $id])->execute()->fetch('assoc');
     }
 
     /**
-     * Insert into database.
+     * Insert a row into the given table name using the key value pairs of data.
      *
      * @param array $row Row data
-     * @return string Last inserted id
+     * @return StatementInterface Statement
      * @throws Exception On error
      */
     public function insert($row)
     {
-        return $this->query->insertInto($this->table, $row)->execute();
+        return $this->db->insert($this->table, $row);
     }
 
     /**
-     * Update a row.
+     * Update all rows for the matching key value identifiers with the given data.
      *
      * @param array $row Row data
-     * @param int $id Id
-     * @return PDOStatement
+     * @param int|array $where Id or where condition
+     * @return StatementInterface Statement
      */
-    public function update($row, $id)
+    public function update($row, $where)
     {
-        return $this->query->update($this->table, $row)->where($id)->execute();
+        $query = $this->db->newQuery()->update($this->table)->set($row);
+        if ($this->isInteger($where)) {
+            $query->where(['id' => $where]);
+        } else {
+            $query->where($where);
+        }
+        return $query->execute();
     }
 
     /**
-     * Delete a row by id.
+     * Delete all rows of a table matching the given identifier, where keys are column names.
      *
-     * @param int|string $id Id
-     * @return int Number of affected rows
+     * @param int|array $where Id or where condition
+     * @return StatementInterface Statement
      * @throws Exception On error
      */
-    public function delete($id)
+    public function delete($where)
     {
-        $result = $this->query->deleteFrom($this->table, $id)->execute();
-        if ($result === false) {
-            throw new Exception(__('Delete failed'));
+        $query = $this->db->newQuery()->delete($this->table);
+        if ($this->isInteger($where)) {
+            $query->where(['id' => $where]);
+        } else {
+            $query->where($where);
         }
-        return $result;
+        return $query->execute();
     }
 
     /**
      * Returns the ID of the last inserted row or sequence value
      *
-     * @param string $name [optional]
-     * Name of the sequence object from which the ID should be returned.
+     * @param string $table Table [optional]
+     * @param string $column Column [optional]
      * @return string The row ID of the last row that was inserted into the database.
      */
-    public function lastInsertId($name = null)
+    public function lastInsertId($table = null, $column = null)
     {
-        return $this->query->getPdo()->lastInsertId($name);
+        return $this->db->getDriver()->lastInsertId($table, $column);
+    }
+
+    /**
+     * Is big integer.
+     *
+     * @param mixed $value Value
+     * @return bool Status
+     */
+    protected function isInteger($value)
+    {
+        return (is_numeric($value) && ctype_digit(strval($value)));
     }
 }
