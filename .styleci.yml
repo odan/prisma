@@ -13,7 +13,6 @@ enabled:
   - phpdoc_scalar
   - phpdoc_types
   - strict
-  - declare_strict_types
   - php_unit_strict
 
 finder:
