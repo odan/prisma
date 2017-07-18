@@ -12,7 +12,6 @@ enabled:
   - phpdoc_no_package
   - phpdoc_scalar
   - phpdoc_types
-  - strict
   - php_unit_strict
 
 finder:
