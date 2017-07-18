@@ -44,9 +44,9 @@ class Token
     /**
      * Check if token is correct for this string
      *
-     * @param string $value
-     * @param string $token
-     * @return boolean
+     * @param string $value Value
+     * @param string $token Token
+     * @return bool Status
      */
     public function check($value, $token)
     {
