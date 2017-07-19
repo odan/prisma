@@ -22,6 +22,9 @@ $container['phpErrorHandler'] = function (Container $container) {
     return $container['errorHandler'];
 };
 
+// Enable autowiring
+$container['callableResolver'] = new \App\Utility\DependencyResolver($container);
+
 // -----------------------------------------------------------------------------
 // Service factories
 // -----------------------------------------------------------------------------
@@ -83,31 +86,4 @@ $container['user'] = function (Container $container) {
     $secret = $settings['app']['secret'];
     $user = new \App\Service\User\UserSession($session, $db, $secret);
     return $user;
-};
-
-// -----------------------------------------------------------------------------
-// Action factories
-// -----------------------------------------------------------------------------
-$container[\App\Controller\HomeController::class] = function (Container $container) {
-    $view = $container->get('view');
-    $db = $container->get('db');
-    $user = $container->get('user');
-    $logger = $container->get('logger');
-    return new \App\Controller\HomeController($view, $db, $user, $logger);
-};
-
-$container[\App\Controller\UserController::class] = function (Container $container) {
-    $view = $container->get('view');
-    $db = $container->get('db');
-    $user = $container->get('user');
-    $logger = $container->get('logger');
-    return new \App\Controller\UserController($view, $db, $user, $logger);
-};
-
-$container[\App\Controller\LoginController::class] = function (Container $container) {
-    $view = $container->get('view');
-    $db = $container->get('db');
-    $user = $container->get('user');
-    $logger = $container->get('logger');
-    return new \App\Controller\LoginController($view, $db, $user, $logger);
 };
