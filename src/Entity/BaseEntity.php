@@ -40,7 +40,8 @@ class BaseEntity
     {
         static $hydrator = null;
         if (!$hydrator) {
-            $hydrator = (new Hydrator())->setNamingStrategy(new UnderscoreNamingStrategy());
+            $hydrator = new Hydrator();
+            $hydrator->setNamingStrategy(new UnderscoreNamingStrategy());
         }
         return $hydrator;
     }
