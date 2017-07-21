@@ -14,6 +14,9 @@ use Slim\Interfaces\CallableResolverInterface;
  */
 class DependencyResolver implements CallableResolverInterface
 {
+    /**
+     * Slim callable pattern
+     */
     const CALLABLE_PATTERN = '!^([^\:]+)\:([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)$!';
 
     /**
@@ -54,27 +57,48 @@ class DependencyResolver implements CallableResolverInterface
         }
 
         // check for slim callable as "class:method"
-        $method = null;
+        list($className, $method) = $this->getSlimCallable($toResolve);
+        if (!$className) {
+            throw new RuntimeException(sprintf('Invalid callable: %s', $toResolve));
+        }
+        if ($this->container->has($className)) {
+            return $this->resolver->resolve($toResolve);
+        }
+        return $this->createCallback($className, $method);
+    }
+
+    /**
+     * Check for slim callable as "class:method".
+     *
+     * @param mixed $toResolve ID
+     * @return array class name and method name
+     */
+    protected function getSlimCallable($toResolve)
+    {
         if (preg_match(self::CALLABLE_PATTERN, $toResolve, $matches)) {
             $className = $matches[1];
             $method = $matches[2];
-            if ($this->container->has($className)) {
-                return $this->resolver->resolve($toResolve);
-            }
+            return [$className, $method];
         }
+        return [null, null];
+    }
 
+    /**
+     * Create callback.
+     *
+     * @param string $className Class name
+     * @param string $method Method name
+     * @return array Callable
+     * @throws RuntimeException Class not found
+     */
+    protected function createCallback($className, $method)
+    {
         if (!class_exists($className)) {
             throw new RuntimeException(sprintf('Class %s does not exist', $className));
         }
-
         $reflectionClass = new ReflectionClass($className);
-        if (!$reflectionClass->isInstantiable()) {
-            return $this->resolver->resolve($toResolve);
-        }
-
         $args = $this->resolveParameters($reflectionClass->getConstructor()->getParameters(), $className);
         $instance = $reflectionClass->newInstanceArgs($args);
-
         return [$instance, $method];
     }
 
@@ -112,8 +136,11 @@ class DependencyResolver implements CallableResolverInterface
     }
 
     /**
-     * @param Callable $callable
+     * Assert callable.
+     *
+     * @param mixed $callable Callable
      * @throws RuntimeException if the callable is not resolvable
+     * @return bool Status
      */
     protected function assertCallable($callable)
     {
@@ -123,5 +150,6 @@ class DependencyResolver implements CallableResolverInterface
                 is_array($callable) || is_object($callable) ? json_encode($callable) : $callable
             ));
         }
+        return true;
     }
 }
