@@ -51,12 +51,9 @@ class DependencyResolver implements CallableResolverInterface
         if (is_callable($toResolve)) {
             return $toResolve;
         }
-
         if (!is_string($toResolve)) {
             $this->assertCallable($toResolve);
         }
-
-        // check for slim callable as "class:method"
         list($className, $method) = $this->getSlimCallable($toResolve);
         if ($this->container->has($className)) {
             return $this->resolver->resolve($toResolve);
