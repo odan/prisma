@@ -110,24 +110,37 @@ class DependencyResolver implements CallableResolverInterface
         if (empty($parameters)) {
             return [];
         }
-
         $args = [];
         foreach ($parameters as $param) {
-            $arg = null;
             $paramClassName = $param->getClass()->getName();
-            $name = $param->getName();
-            if ($this->container->offsetExists($paramClassName)) {
-                $arg = $this->container->get($paramClassName);
-            }
-            if (!$arg && $this->container->offsetExists($name)) {
-                $arg = $this->container->get($name);
-            }
-            if (!$arg) {
-                throw new RuntimeException(sprintf('Dependencies of class %s cannot be resolved', $className));
-            }
-            $args[] = $arg;
+            $paramName = $param->getName();
+            $args[] = $this->getArgumentInstance($className, $paramClassName, $paramName);
         }
         return $args;
+    }
+
+    /**
+     * Get argument instance from container.
+     *
+     * @param string $className
+     * @param string $argClassName
+     * @param string $argVariableName
+     * @return mixed|null
+     * @throws RuntimeException Dependencies of class cannot be resolved
+     */
+    protected function getArgumentInstance($className, $argClassName, $argVariableName)
+    {
+        $arg = null;
+        if ($this->container->offsetExists($argClassName)) {
+            $arg = $this->container->get($argClassName);
+        }
+        if (!$arg && $this->container->offsetExists($argVariableName)) {
+            $arg = $this->container->get($argVariableName);
+        }
+        if (!$arg) {
+            throw new RuntimeException(sprintf('Dependencies of class %s cannot be resolved', $className));
+        }
+        return $arg;
     }
 
     /**
