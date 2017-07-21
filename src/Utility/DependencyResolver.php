@@ -3,6 +3,7 @@
 namespace App\Utility;
 
 use ReflectionClass;
+use ReflectionParameter;
 use RuntimeException;
 use Slim\CallableResolver;
 use Slim\Container;
@@ -65,12 +66,34 @@ class DependencyResolver implements CallableResolverInterface
         if (!class_exists($className)) {
             throw new RuntimeException(sprintf('Class %s does not exist', $className));
         }
+
         $reflectionClass = new ReflectionClass($className);
         if (!$reflectionClass->isInstantiable()) {
             return $this->resolver->resolve($toResolve);
         }
+
+        $args = $this->resolveParameters($reflectionClass->getConstructor()->getParameters(), $className);
+        $instance = $reflectionClass->newInstanceArgs($args);
+
+        return [$instance, $method];
+    }
+
+    /**
+     * Resolve parameters.
+     *
+     * @param ReflectionParameter[] $parameters ReflectionParameter
+     * @param string $className Class name
+     * @return array
+     * @throws RuntimeException
+     */
+    protected function resolveParameters($parameters, $className)
+    {
+        if (empty($parameters)) {
+            return [];
+        }
+
         $args = [];
-        foreach ($reflectionClass->getConstructor()->getParameters() as $param) {
+        foreach ($parameters as $param) {
             $arg = null;
             $paramClassName = $param->getClass()->getName();
             $name = $param->getName();
@@ -85,9 +108,7 @@ class DependencyResolver implements CallableResolverInterface
             }
             $args[] = $arg;
         }
-
-        $instance = $reflectionClass->newInstanceArgs($args);
-        return [$instance, $method];
+        return $args;
     }
 
     /**
