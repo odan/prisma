@@ -58,9 +58,6 @@ class DependencyResolver implements CallableResolverInterface
 
         // check for slim callable as "class:method"
         list($className, $method) = $this->getSlimCallable($toResolve);
-        if (!$className) {
-            throw new RuntimeException(sprintf('Invalid callable: %s', $toResolve));
-        }
         if ($this->container->has($className)) {
             return $this->resolver->resolve($toResolve);
         }
@@ -72,6 +69,7 @@ class DependencyResolver implements CallableResolverInterface
      *
      * @param mixed $toResolve ID
      * @return array class name and method name
+     * @throws RuntimeException Invalid callable
      */
     protected function getSlimCallable($toResolve)
     {
@@ -80,7 +78,7 @@ class DependencyResolver implements CallableResolverInterface
             $method = $matches[2];
             return [$className, $method];
         }
-        return [null, null];
+        throw new RuntimeException(sprintf('Invalid callable: %s', $toResolve));
     }
 
     /**
