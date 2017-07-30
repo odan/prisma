@@ -23,8 +23,8 @@ class UserEntity extends BaseEntity
     public $role;
     public $locale;
     public $disabled;
-    public $created;
+    public $createdAt;
     public $createdBy;
-    public $updated;
+    public $updatedAt;
     public $updatedBy;
 }

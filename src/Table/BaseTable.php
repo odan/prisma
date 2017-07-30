@@ -2,6 +2,7 @@
 
 namespace App\Table;
 
+use App\Entity\BaseEntity;
 use Cake\Database\Connection;
 use Cake\Database\Query;
 use Cake\Database\StatementInterface;
@@ -70,24 +71,30 @@ class BaseTable
     /**
      * Insert a row into the given table name using the key value pairs of data.
      *
-     * @param array $row Row data
+     * @param array|object $row Row data
      * @return StatementInterface Statement
      * @throws Exception On error
      */
     public function insert($row)
     {
+        if($row instanceof BaseEntity) {
+            $row = $row->toArray();
+        }
         return $this->db->insert($this->table, $row);
     }
 
     /**
      * Update all rows for the matching key value identifiers with the given data.
      *
-     * @param array $row Row data
+     * @param array|object $row Row data
      * @param int|array $where Id or where condition
      * @return StatementInterface Statement
      */
     public function update($row, $where)
     {
+        if($row instanceof BaseEntity) {
+            $row = $row->toArray();
+        }
         $query = $this->db->newQuery()->update($this->table)->set($row);
         if ($this->isInteger($where)) {
             $query->where(['id' => $where]);
