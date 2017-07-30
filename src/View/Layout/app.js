@@ -1,4 +1,4 @@
-app = {};
+var app = {};
 
 /**
  * Base class for all pages
