@@ -24,9 +24,9 @@ class HomeController extends AppController
         $counter++;
         $this->user->set('counter', $counter);
 
-        $text = $this->getText([
+        $text = [
             'Loaded successfully!' => __('Loaded successfully!')
-        ]);
+        ];
 
         $viewData = $this->getViewData($request, [
             'text' => $text,

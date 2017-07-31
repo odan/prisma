@@ -79,23 +79,17 @@ class AppController
     }
 
     /**
-     * Returns translated text.
+     * Returns default text.
      *
-     * @param array $text Text
      * @return array Array with translated text
      */
-    protected function getText(array $text = array())
+    protected function getText()
     {
-        // Default text
         $result = [];
         $result['Ok'] = __('Ok');
         $result['Cancel'] = __('Cancel');
         $result['Yes'] = __('Yes');
         $result['No'] = __('No');
-
-        if (!empty($text)) {
-            $result = array_replace_recursive($result, $text);
-        }
         return $result;
     }
 
@@ -110,6 +104,7 @@ class AppController
     {
         $result = [
             'baseUrl' => $request->getAttribute('baseUrl'),
+            'text' => $this->getText()
         ];
         if (!empty($viewData)) {
             $result = array_replace_recursive($result, $viewData);
