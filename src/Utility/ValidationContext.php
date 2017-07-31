@@ -19,7 +19,7 @@ class ValidationContext
     }
 
     /**
-     * Set main message.
+     * Set message.
      *
      * @param string $message Main Message
      */
@@ -29,9 +29,9 @@ class ValidationContext
     }
 
     /**
-     * Get main .
+     * Get message.
      *
-     * @return null|string Main message
+     * @return null|string Message
      */
     public function getMessage()
     {
@@ -42,7 +42,8 @@ class ValidationContext
      * Add new error.
      *
      * @param string|int $field Error field name
-     * @param string $message Error message for $field
+     * @param string|null $message Error message for $field
+     * @return void
      */
     public function addError($field, $message)
     {
@@ -89,10 +90,9 @@ class ValidationContext
      */
     public function toArray()
     {
-        $result = [
+        return [
             "message" => $this->message,
             "errors" => $this->errors
         ];
-        return $result;
     }
 }

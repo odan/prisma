@@ -83,7 +83,7 @@ class DependencyResolver implements CallableResolverInterface
      *
      * @param string $className Class name
      * @param string $method Method name
-     * @return array Callable
+     * @return callable|array Callable
      * @throws RuntimeException Class not found
      */
     protected function createCallback($className, $method)

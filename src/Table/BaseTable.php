@@ -77,7 +77,7 @@ class BaseTable
      */
     public function insert($row)
     {
-        if($row instanceof BaseEntity) {
+        if ($row instanceof BaseEntity) {
             $row = $row->toArray();
         }
         return $this->db->insert($this->table, $row);
@@ -87,12 +87,12 @@ class BaseTable
      * Update all rows for the matching key value identifiers with the given data.
      *
      * @param array|object $row Row data
-     * @param int|array $where Id or where condition
+     * @param string|array|\Cake\Database\ExpressionInterface|callable|null $where Id or where condition
      * @return StatementInterface Statement
      */
     public function update($row, $where)
     {
-        if($row instanceof BaseEntity) {
+        if ($row instanceof BaseEntity) {
             $row = $row->toArray();
         }
         $query = $this->db->newQuery()->update($this->table)->set($row);
@@ -107,7 +107,7 @@ class BaseTable
     /**
      * Delete all rows of a table matching the given identifier, where keys are column names.
      *
-     * @param int|array $where Id or where condition
+     * @param string|array|\Cake\Database\ExpressionInterface|callable|null $where Id or where condition
      * @return StatementInterface Statement
      * @throws Exception On error
      */
