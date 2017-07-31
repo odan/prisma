@@ -52,8 +52,9 @@ class Collection extends ArrayIterator
      */
     public function filter(callable $func)
     {
-        foreach ($this as $key => $value) {
-            if (!$func($value, $key)) {
+        $keys = array_keys($this->getArrayCopy());
+        foreach ($keys as $key) {
+            if (!$func($this[$key], $key)) {
                 unset($this[$key]);
             }
         }
