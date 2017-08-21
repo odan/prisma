@@ -11,7 +11,7 @@ use Exception;
 /**
  * Base Repository
  */
-class BaseTable
+abstract class BaseTable
 {
     /**
      * Database connection
