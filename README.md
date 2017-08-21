@@ -73,7 +73,7 @@ php install.php
 | src/View/ | Templates |
 | tmp/ | Temp, cache and logfiles |
 | tests/ | Test code |
-| vendor/ | Reserved for package managers |
+| vendor/ | Reserved for composer |
 
 ## Routing
 
@@ -107,12 +107,6 @@ php phinx.php generate
 
 For more details how to create and manage migrations read the [Phinx](http://docs.phinx.org/en/latest/) documentation.
 
-## Testing
-
-``` bash
-$ composer test
-```
-
 ## Environment configuration
 
 You can keep sensitive information's out of version control with a separate ´env.php´ for each environment.
@@ -125,7 +119,7 @@ Just rename the file 'env.example.php' to 'env.php'
 
 ### Continuous Delivery
 
-You can build artifact's (ZIP files) which are tested and ready for the next deployment step.
+You can build artifact's (ZIP files) which are tested and ready for deployment.
 
 ``` bash
 $ ant build
