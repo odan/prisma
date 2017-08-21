@@ -15,7 +15,7 @@ use Zend\Hydrator\ObjectProperty as Hydrator;
 /**
  * Class BaseEntity
  */
-class BaseEntity
+abstract class BaseEntity
 {
 
     /**
