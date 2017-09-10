@@ -11,7 +11,7 @@ use Exception;
 /**
  * Base Repository
  */
-class BaseRepository implements RepositoryInterface
+abstract class BaseRepository implements RepositoryInterface
 {
     /**
      * Database connection

@@ -8,7 +8,7 @@ use Zend\Hydrator\ObjectProperty as Hydrator;
 /**
  * Class BaseModel
  */
-class BaseModel implements ModelInterface
+abstract class BaseModel implements ModelInterface
 {
 
     /**
