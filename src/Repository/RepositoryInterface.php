@@ -7,5 +7,4 @@ namespace App\Repository;
  */
 interface RepositoryInterface
 {
-
 }

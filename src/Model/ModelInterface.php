@@ -10,5 +10,4 @@ namespace App\Model;
  */
 interface ModelInterface
 {
-
 }
