@@ -14,7 +14,7 @@ $container = app()->getContainer();
 $container['errorHandler'] = function (Container $container) {
     $displayErrorDetails = $container->get('settings')['displayErrorDetails'];
     $logger = $container->get('logger');
-    return new \App\Handler\Error((bool)$displayErrorDetails, $logger);
+    return new App\Utility\ErrorHandler((bool)$displayErrorDetails, $logger);
 };
 
 // Handle PHP 7 Errors
@@ -23,7 +23,7 @@ $container['phpErrorHandler'] = function (Container $container) {
 };
 
 // Enable autowiring
-$container['callableResolver'] = new \App\Utility\DependencyResolver($container);
+$container['callableResolver'] = new App\Utility\DependencyResolver($container);
 
 // -----------------------------------------------------------------------------
 // Service factories
@@ -63,7 +63,7 @@ $container['db'] = function (Container $container) {
 };
 
 $container['pdo'] = function (Container $container) {
-    /* @var $db \Cake\Database\Connection */
+    /* @var \Cake\Database\Connection $db */
     $db = $container->get('db');
     $db->getDriver()->connect();
     return $db->getDriver()->connection();

@@ -2,7 +2,8 @@
 
 namespace App\Service\User;
 
-use App\Service\Base\BaseService;
+use App\Repository\UserRepository;
+use App\Service\BaseService;
 use Aura\Session\Segment;
 use Aura\Session\Session;
 use Cake\Database\Connection;
@@ -153,7 +154,8 @@ class UserSession extends BaseService
     public function login($username, $password)
     {
         // Check username and password
-        $auth = new UserAuthentication($this->db, $this->token, $username, $password);
+        $userRepository = new UserRepository($this->db);
+        $auth = new UserAuthenticationService($userRepository, $this->token, $username, $password);
         $authResult = $auth->authenticate();
 
         if (!$authResult->isValid()) {
@@ -178,6 +180,7 @@ class UserSession extends BaseService
         $this->set('user.id', $user->id);
         $this->set('user.role', $user->role);
         $this->setLocale($user->locale);
+
         return true;
     }
 
@@ -205,6 +208,7 @@ class UserSession extends BaseService
         $this->set('user.locale', $locale);
         $this->set('user.domain', $domain);
         $this->setTranslatorLocale($locale, $domain);
+
         return true;
     }
 
@@ -247,6 +251,7 @@ class UserSession extends BaseService
         if (is_array($role) && in_array($userRole, $role)) {
             return true;
         }
+
         return false;
     }
 
@@ -258,6 +263,7 @@ class UserSession extends BaseService
     public function isValid()
     {
         $id = $this->get('user.id');
+
         return !empty($id);
     }
 }

@@ -17,7 +17,7 @@ class LoginController extends AppController
      * @param Response $response The response
      * @return Response
      */
-    public function loginPage(Request $request, Response $response)
+    public function loginPage(Request $request, Response $response): Response
     {
         $this->user->logout();
         $viewData = $this->getViewData($request);
@@ -31,7 +31,7 @@ class LoginController extends AppController
      * @param Response $response The response
      * @return Response
      */
-    public function loginSubmit(Request $request, Response $response)
+    public function loginSubmit(Request $request, Response $response): Response
     {
         $data = $request->getParsedBody();
         $username = $data['username'];
@@ -50,7 +50,7 @@ class LoginController extends AppController
      * @param Response $response The response
      * @return Response Redirect response
      */
-    public function logout(Request $request, Response $response)
+    public function logout(Request $request, Response $response): Response
     {
         $this->user->logout();
         return $this->redirect($request, $response, '/login');

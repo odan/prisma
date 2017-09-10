@@ -11,6 +11,11 @@ class Token
      */
     protected $secret = '';
 
+    /**
+     * Token constructor.
+     *
+     * @param string $secret
+     */
     public function __construct($secret = '')
     {
         $this->secret = $secret;

@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Service\Base;
+namespace App\Service;
 
 /**
- * Model: Service layer
+ * Application service
  *
  * This layer provides cohesive, high-level logic for related
  * parts of an application. This layer is invoked directly by
  * the Controller and View helpers.
  *
- * The business logic should be placed in the model service layer,
+ * The business logic should be placed in the service layer,
  * and we should be aiming for fat models and skinny controllers.
  */
-class BaseService
+interface ServiceInterface
 {
 }

@@ -2,15 +2,21 @@
 
 namespace App\Service\User;
 
-use App\Entity\UserEntity;
-use App\Table\UserTable;
-use Cake\Database\Connection;
+use App\Model\User;
+use App\Repository\UserRepository;
+use App\Service\BaseService;
 
 /**
  * User Authentication Adapter
  */
-class UserAuthentication extends UserTable
+class UserAuthenticationService extends BaseService
 {
+    /**
+     * User Repository
+     *
+     * @var UserRepository
+     */
+    protected $userRepository;
 
     /**
      * Username
@@ -36,14 +42,14 @@ class UserAuthentication extends UserTable
     /**
      * Constructor.
      *
-     * @param Connection $db
+     * @param UserRepository $userRepository
      * @param Token $token
      * @param string $username
      * @param string $password
      */
-    public function __construct(Connection $db, Token $token, $username, $password)
+    public function __construct(UserRepository $userRepository, Token $token, $username, $password)
     {
-        parent::__construct($db);
+        $this->userRepository = $userRepository;
         $this->token = $token;
         $this->username = $username;
         $this->password = $password;
@@ -56,7 +62,7 @@ class UserAuthentication extends UserTable
      */
     public function authenticate()
     {
-        $query = $this->newQuery()->select('*')->where([
+        $query = $this->userRepository->newQuery()->select('*')->where([
             'username' => $this->username,
             'disabled' => 0
         ]);
@@ -67,7 +73,7 @@ class UserAuthentication extends UserTable
             return new AuthenticationResult(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND);
         }
 
-        $user = new UserEntity($userRow);
+        $user = new User($userRow);
 
         if (!$this->token->verifyHash($this->password, $user->password)) {
             return new AuthenticationResult(AuthenticationResult::FAILURE_CREDENTIAL_INVALID);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Handler;
+namespace App\Utility;
 
 use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -11,7 +11,7 @@ use Throwable;
 /**
  * Application Error handler
  */
-final class Error extends PhpError
+final class ErrorHandler extends PhpError
 {
     /**
      * @var Logger

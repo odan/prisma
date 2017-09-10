@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Table\UserTable;
+use App\Repository\UserRepository;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -16,11 +16,11 @@ class UserController extends AppController
      *
      * @param Request $request The request
      * @param Response $response The response
-     * @return Response
+     * @return Response The new response
      */
-    public function indexPage(Request $request, Response $response)
+    public function indexPage(Request $request, Response $response): Response
     {
-        $userRepo = new UserTable($this->db);
+        $userRepo = new UserRepository($this->db);
         $users = $userRepo->findAll();
 
         $viewData = $this->getViewData($request, [
@@ -35,9 +35,9 @@ class UserController extends AppController
      *
      * @param Request $request The request
      * @param Response $response The response
-     * @return Response
+     * @return Response The new response
      */
-    public function editPage(Request $request, Response $response)
+    public function editPage(Request $request, Response $response): Response
     {
         // Get all GET parameters
         //$query = $request->getQueryParams();
@@ -49,7 +49,7 @@ class UserController extends AppController
         $userId = $request->getAttribute('id');
 
         // Repository example
-        $userTable = new UserTable($this->db);
+        $userTable = new UserRepository($this->db);
         $user = $userTable->getUserById($userId);
 
         $users = $userTable->getAllUsers();
@@ -89,7 +89,7 @@ class UserController extends AppController
      * @param array|null $args Arguments
      * @return Response Response
      */
-    public function reviewPage(Request $request, Response $response, array $args = null)
+    public function reviewPage(Request $request, Response $response, array $args = null): Response
     {
         $id = $args['id'];
         $response->getBody()->write("Action: Show all reviews of user: $id<br>");

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Table;
+namespace App\Repository;
 
-use App\Entity\UserEntity;
+use App\Model\User;
 use Exception;
 
 /**
  * User Repository
  */
-class UserTable extends BaseTable
+class UserRepository extends BaseRepository
 {
 
     /**
@@ -22,7 +22,7 @@ class UserTable extends BaseTable
      * Get user by id
      *
      * @param int $id User id
-     * @return UserEntity A row
+     * @return User A row
      * @throws Exception On error
      */
     public function getUserById($id)
@@ -30,19 +30,19 @@ class UserTable extends BaseTable
         if (!$row = $this->findById($id)) {
             throw new Exception(__('User not found: %s', $id));
         }
-        return new UserEntity((array)$row);
+        return new User((array)$row);
     }
 
     /**
      * Get all rows
      *
-     * @return UserEntity[] Rows
+     * @return User[] Rows
      */
     public function getAllUsers()
     {
         $result = [];
         foreach ($this->findAll() as $row) {
-            $result[] = new UserEntity($row);
+            $result[] = new User($row);
         }
         return $result;
     }

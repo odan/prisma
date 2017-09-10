@@ -17,7 +17,7 @@ class HomeController extends AppController
      * @param Response $response The response
      * @return Response
      */
-    public function indexPage(Request $request, Response $response)
+    public function indexPage(Request $request, Response $response): Response
     {
         // Increment counter
         $counter = $this->user->get('counter', 0);
@@ -45,7 +45,7 @@ class HomeController extends AppController
      * @param Response $response The response
      * @return Response Json response
      */
-    public function load(Request $request, Response $response)
+    public function load(Request $request, Response $response): Response
     {
         $data = $request->getParsedBody();
         $result = [

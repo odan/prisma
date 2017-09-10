@@ -1,21 +1,14 @@
 <?php
 
-/**
- * While Table Objects represent and provide access to a collection of objects,
- * entities represent individual rows or domain objects in your application.
- *
- * Entities are just value objects which contains no methods to manipulate the database.
- */
-
-namespace App\Entity;
+namespace App\Model;
 
 use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 use Zend\Hydrator\ObjectProperty as Hydrator;
 
 /**
- * Class BaseEntity
+ * Class BaseModel
  */
-class BaseEntity
+class BaseModel implements ModelInterface
 {
 
     /**

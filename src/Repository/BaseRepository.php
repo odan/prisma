@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Table;
+namespace App\Repository;
 
-use App\Entity\BaseEntity;
+use App\Model\ModelInterface;
 use Cake\Database\Connection;
 use Cake\Database\Query;
 use Cake\Database\StatementInterface;
@@ -11,7 +11,7 @@ use Exception;
 /**
  * Base Repository
  */
-class BaseTable
+class BaseRepository implements RepositoryInterface
 {
     /**
      * Database connection
@@ -42,7 +42,7 @@ class BaseTable
      *
      * @return Query
      */
-    protected function newQuery()
+    public function newQuery()
     {
         return $this->db->newQuery()->from($this->table);
     }
@@ -77,7 +77,7 @@ class BaseTable
      */
     public function insert($row)
     {
-        if ($row instanceof BaseEntity) {
+        if ($row instanceof ModelInterface) {
             $row = $row->toArray();
         }
         return $this->db->insert($this->table, $row);

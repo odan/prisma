@@ -70,7 +70,7 @@ class AppController
      * @param int $status HTTP status code
      * @return Response Redirect response
      */
-    protected function redirect(Request $request, Response $response, $url, $status = null)
+    protected function redirect(Request $request, Response $response, $url, $status = null): Response
     {
         if (strpos($url, '/') === 0) {
             $url = $request->getAttribute('hostUrl') . $url;
@@ -83,7 +83,7 @@ class AppController
      *
      * @return array Array with translated text
      */
-    protected function getText()
+    protected function getText(): array
     {
         $result = [];
         $result['Ok'] = __('Ok');
@@ -100,7 +100,7 @@ class AppController
      * @param array $viewData
      * @return array View data
      */
-    protected function getViewData(Request $request, array $viewData = [])
+    protected function getViewData(Request $request, array $viewData = []): array
     {
         $result = [
             'baseUrl' => $request->getAttribute('baseUrl'),
@@ -120,7 +120,7 @@ class AppController
      * @param array $viewData View data
      * @return Response
      */
-    protected function render(Response $response, $name, array $viewData = array())
+    protected function render(Response $response, $name, array $viewData = array()): Response
     {
         $content = $this->view->render($name, $viewData);
         $body = $response->getBody();
@@ -137,7 +137,7 @@ class AppController
      * @param int $status HTTP status code (200 = OK, 422 Unprocessable entity / validation failed)
      * @return Response
      */
-    protected function json(Response $response, $data, $status = null)
+    protected function json(Response $response, $data, $status = null): Response
     {
         return $response->withJson($data, $status);
     }
