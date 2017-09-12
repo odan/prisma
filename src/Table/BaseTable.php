@@ -20,7 +20,7 @@ use Exception;
  *
  * This way all the database logic is moved to the specific repository and I can type hint
  * it's returned models. This methodology also results in cleaner easier to read
- * code and further separates your core logic from Eloquent.
+ * code and further separates your core logic from the query builder.
  */
 abstract class BaseTable implements TableInterface
 {
