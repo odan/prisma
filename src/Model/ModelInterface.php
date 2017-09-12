@@ -10,4 +10,25 @@ namespace App\Model;
  */
 interface ModelInterface
 {
+    /**
+     * Return the ID.
+     *
+     * @return string|int The ID
+     */
+    public function getId();
+
+    /**
+     * Convert to array.
+     *
+     * @return array Data
+     */
+    public function toArray();
+
+    /**
+     * Convert to json.
+     *
+     * @param int $options Options
+     * @return string A json string
+     */
+    public function toJson($options = 0);
 }

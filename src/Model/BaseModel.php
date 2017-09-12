@@ -12,6 +12,13 @@ abstract class BaseModel implements ModelInterface
 {
 
     /**
+     * The ID.
+     *
+     * @var string|int
+     */
+    public $id;
+
+    /**
      * Constructor.
      *
      * BaseEntity constructor.
@@ -22,6 +29,16 @@ abstract class BaseModel implements ModelInterface
         if ($row) {
             $this->getHydrator()->hydrate($row, $this);
         }
+    }
+
+    /**
+     * Return the ID.
+     *
+     * @return string|int The ID
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**

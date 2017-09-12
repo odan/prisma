@@ -18,6 +18,5 @@ $config['assets']['minify'] = 0;
 
 // Database
 $config['db']['database'] = '{{db_database}}';
-$config['db']['database'] = 'prisma';
 
 return $config;

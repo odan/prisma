@@ -2,7 +2,6 @@
 
 namespace App\Service\User;
 
-use App\Repository\UserRepository;
 use App\Service\BaseService;
 use Aura\Session\Segment;
 use Aura\Session\Session;

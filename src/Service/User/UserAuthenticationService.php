@@ -2,8 +2,6 @@
 
 namespace App\Service\User;
 
-use App\Model\User;
-use App\Repository\UserRepository;
 use App\Service\BaseService;
 
 /**
@@ -62,18 +60,11 @@ class UserAuthenticationService extends BaseService
      */
     public function authenticate()
     {
-        $query = $this->userRepository->newQuery()->select('*')->where([
-            'username' => $this->username,
-            'disabled' => 0
-        ]);
+        $user = $this->userRepository->findByUsername($this->username);
 
-        $userRow = $query->execute()->fetch('assoc');
-
-        if (empty($userRow)) {
+        if (empty($user)) {
             return new AuthenticationResult(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND);
         }
-
-        $user = new User($userRow);
 
         if (!$this->token->verifyHash($this->password, $user->password)) {
             return new AuthenticationResult(AuthenticationResult::FAILURE_CREDENTIAL_INVALID);

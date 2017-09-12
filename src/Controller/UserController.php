@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use App\Repository\UserRepository;
+use App\Model\User;
+use App\Service\User\UserRepository;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -20,8 +21,8 @@ class UserController extends AppController
      */
     public function indexPage(Request $request, Response $response): Response
     {
-        $userRepo = new UserRepository($this->db);
-        $users = $userRepo->findAll();
+        $userRepository = new UserRepository($this->db);
+        $users = $userRepository->findAll();
 
         $viewData = $this->getViewData($request, [
             'users' => $users
@@ -49,16 +50,23 @@ class UserController extends AppController
         $userId = $request->getAttribute('id');
 
         // Repository example
-        $userTable = new UserRepository($this->db);
-        $user = $userTable->getUserById($userId);
-
-        $users = $userTable->getAllUsers();
+        $userRepository = new UserRepository($this->db);
+        $user = $userRepository->getById($userId);
 
         // Insert a new user
-        $newUserId = $userTable->insert(['username' => 'max-' . uuid()])->lastInsertId();
+        $newUser = new User();
+        $newUser->username = 'admin-' . uuid();
+        $newUser->disabled = 0;
+        $newUserId = $userRepository->insert($newUser)->lastInsertId();
+
+        // Get new new user
+        $newUser = $userRepository->getById($newUserId);
 
         // Delete a user
-        $userTable->delete($newUserId);
+        $userRepository->delete($newUser);
+
+        // Get all users
+        $users = $userRepository->findAll();
 
         // Session example
         // Increment counter
