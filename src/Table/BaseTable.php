@@ -9,7 +9,7 @@ use Cake\Database\StatementInterface;
 use Exception;
 
 /**
- * Using Repository The Right Way
+ * Repositories The Right Way
  *
  * Implement separate database logic functions for all your needs inside
  * the specific repositories, so your service classes/controllers end up looking like this:

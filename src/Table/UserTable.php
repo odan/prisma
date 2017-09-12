@@ -25,12 +25,12 @@ class UserTable extends BaseTable
      */
     public function findAll()
     {
-        $entities = [];
+        $users = [];
         foreach ($this->fetchAll() as $row) {
-            $entities[] = new User($row);
+            $users[] = new User($row);
         }
 
-        return $entities;
+        return $users;
     }
 
     /**
