@@ -8,7 +8,7 @@ use Slim\Http\Response;
 /**
  * LoginController.
  */
-class LoginController extends AppController
+class LoginController extends BaseController
 {
     /**
      * User login

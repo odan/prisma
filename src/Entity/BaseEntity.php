@@ -1,22 +1,15 @@
 <?php
 
-namespace App\Model;
+namespace App\Entity;
 
 use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 use Zend\Hydrator\ObjectProperty as Hydrator;
 
 /**
- * Class BaseModel
+ * Base Entity
  */
-abstract class BaseModel implements ModelInterface
+abstract class BaseEntity implements EntityInterface
 {
-
-    /**
-     * The ID.
-     *
-     * @var string|int
-     */
-    public $id;
 
     /**
      * Constructor.
@@ -29,16 +22,6 @@ abstract class BaseModel implements ModelInterface
         if ($row) {
             $this->getHydrator()->hydrate($row, $this);
         }
-    }
-
-    /**
-     * Return the ID.
-     *
-     * @return string|int The ID
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

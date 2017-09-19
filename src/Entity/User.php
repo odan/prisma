@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Model;
+namespace App\Entity;
 
 /**
- * User model
+ * User
  */
-class User extends BaseModel
+class User extends BaseEntity
 {
     public $id;
     public $username;

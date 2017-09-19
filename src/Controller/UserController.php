@@ -2,15 +2,16 @@
 
 namespace App\Controller;
 
-use App\Model\User;
+use App\Entity\User;
 use App\Service\User\UserRepository;
+use App\Service\User\UserService;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
  * UserController
  */
-class UserController extends AppController
+class UserController extends BaseController
 {
     /**
      * Index
@@ -57,7 +58,7 @@ class UserController extends AppController
         $newUser = new User();
         $newUser->username = 'admin-' . uuid();
         $newUser->disabled = 0;
-        $newUserId = $userRepository->insert($newUser)->lastInsertId();
+        $newUserId = $userRepository->insert($newUser);
 
         // Get new new user
         $newUser = $userRepository->getById($newUserId);

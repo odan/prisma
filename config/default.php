@@ -39,7 +39,7 @@ $config['cache'] = [
 
 // View settings
 $config['view'] = [
-    'path' => $config['root'] . '/src/Template'
+    'path' => $config['root'] . '/src/View'
 ];
 
 // Assets

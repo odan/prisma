@@ -7,7 +7,7 @@ use App\Service\BaseService;
 /**
  * User Authentication Adapter
  */
-class UserAuthenticationService extends BaseService
+class UserAuthentication extends BaseService
 {
     /**
      * User Repository

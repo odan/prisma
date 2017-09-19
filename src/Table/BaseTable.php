@@ -2,7 +2,7 @@
 
 namespace App\Table;
 
-use App\Model\ModelInterface;
+use App\Entity\EntityInterface;
 use Cake\Database\Connection;
 use Cake\Database\Query;
 use Cake\Database\StatementInterface;
@@ -53,7 +53,7 @@ abstract class BaseTable implements TableInterface
      *
      * @return Query The query instance
      */
-    protected function query()
+    public function newQuery()
     {
         return $this->db->newQuery()->from($this->table);
     }
@@ -64,9 +64,9 @@ abstract class BaseTable implements TableInterface
      * @param int|string $id The ID
      * @return array|false The row
      */
-    protected function fetchById($id)
+    public function fetchById($id)
     {
-        return $this->query()->select('*')->where(['id' => $id])->execute()->fetch('assoc');
+        return $this->newQuery()->select('*')->where(['id' => $id])->execute()->fetch('assoc');
     }
 
     /**
@@ -74,37 +74,41 @@ abstract class BaseTable implements TableInterface
      *
      * @return array Array with rows
      */
-    protected function fetchAll()
+    public function fetchAll()
     {
-        return $this->query()->select('*')->execute()->fetchAll('assoc');
+        return $this->newQuery()->select('*')->execute()->fetchAll('assoc');
     }
 
     /**
      * Insert a row into the given table name using the key value pairs of data.
      *
-     * @param ModelInterface $model The model
+     * @param EntityInterface $entity The entity
      * @return StatementInterface Statement
      */
-    public function insert(ModelInterface $model)
+    public function insert(EntityInterface $entity)
     {
-        return $this->db->insert($this->table, $model->toArray());
+        return $this->db->insert($this->table, $entity->toArray());
     }
 
     /**
      * Update of an entity's data in the table.
      *
-     * @param ModelInterface $model Model
+     * @param EntityInterface $entity The entity
      * @param array|null $data The actual data that needs to be saved
-     * @return bool Status
+     * @return bool Success
+     * @throws Exception On error
      */
-    public function update(ModelInterface $model, $data = null): bool
+    public function update(EntityInterface $entity, $data = null): bool
     {
+        if (empty($entity->id)) {
+            throw new Exception(__('The entity [id] is not defined'));
+        }
         if ($data === null) {
-            $data = $model->toArray();
+            $data = $entity->toArray();
         }
 
         $query = $this->db->newQuery()->update($this->table)->set($data);
-        $statement = $query->where(['id' => $model->getId()])->execute();
+        $statement = $query->where(['id' => $entity->id])->execute();
         $success = $statement->errorCode() === '00000';
         $statement->closeCursor();
 
@@ -114,13 +118,13 @@ abstract class BaseTable implements TableInterface
     /**
      * Update all rows for the matching key value identifiers with the given data.
      *
-     * @param array|ModelInterface $fields Row data
+     * @param array|EntityInterface $fields Row data
      * @param string|array|\Cake\Database\ExpressionInterface|callable|null $conditions Id or where condition
      * @return int Row count
      */
     public function updateAll($fields, $conditions = null)
     {
-        if ($fields instanceof ModelInterface) {
+        if ($fields instanceof EntityInterface) {
             $fields = $fields->toArray();
         }
 
@@ -141,17 +145,17 @@ abstract class BaseTable implements TableInterface
     /**
      * Delete a single entity.
      *
-     * @param ModelInterface $model
+     * @param EntityInterface $entity
      * @return bool Success
      * @throws Exception On error
      */
-    public function delete(ModelInterface $model)
+    public function delete(EntityInterface $entity)
     {
-        if (!$model->getId()) {
+        if (empty($entity->id)) {
             throw new Exception(__('The entity [id] is not defined'));
         }
 
-        $statement = $this->db->newQuery()->delete($this->table)->where(['id' => $model->getId()])->execute();
+        $statement = $this->db->newQuery()->delete($this->table)->where(['id' => $entity->id])->execute();
         $success = $statement->errorCode() === '00000';
 
         return $success;

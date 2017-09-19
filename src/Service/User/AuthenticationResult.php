@@ -2,7 +2,7 @@
 
 namespace App\Service\User;
 
-use App\Model\User;
+use App\Entity\User;
 
 /**
  * Class AuthenticationResult

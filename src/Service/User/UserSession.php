@@ -2,7 +2,6 @@
 
 namespace App\Service\User;
 
-use App\Service\BaseService;
 use Aura\Session\Segment;
 use Aura\Session\Session;
 use Cake\Database\Connection;
@@ -13,7 +12,7 @@ use Symfony\Component\Translation\Translator;
 /**
  * User Session Handler
  */
-class UserSession extends BaseService
+class UserSession
 {
 
     /**
@@ -154,7 +153,7 @@ class UserSession extends BaseService
     {
         // Check username and password
         $userRepository = new UserRepository($this->db);
-        $auth = new UserAuthenticationService($userRepository, $this->token, $username, $password);
+        $auth = new UserAuthentication($userRepository, $this->token, $username, $password);
         $authResult = $auth->authenticate();
 
         if (!$authResult->isValid()) {
