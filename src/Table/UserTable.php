@@ -5,7 +5,7 @@ namespace App\Table;
 /**
  * User Table
  */
-class UserTable extends BaseTable
+class UserTable extends AbstractTable
 {
 
     /**

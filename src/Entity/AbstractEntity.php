@@ -8,7 +8,7 @@ use Zend\Hydrator\ObjectProperty as Hydrator;
 /**
  * Base Entity
  */
-abstract class BaseEntity implements EntityInterface
+abstract class AbstractEntity implements EntityInterface
 {
 
     /**

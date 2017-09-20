@@ -5,7 +5,7 @@ namespace App\Entity;
 /**
  * Customer
  */
-class Customer extends BaseEntity
+class Customer extends AbstractEntity
 {
     public $id;
     public $title;

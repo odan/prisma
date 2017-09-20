@@ -7,7 +7,7 @@ use App\Table\TableInterface;
 /**
  * Repository
  */
-abstract class BaseRepository implements RepositoryInterface
+abstract class AbstractRepository implements RepositoryInterface
 {
     /**
      * @var TableInterface

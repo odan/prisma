@@ -2,9 +2,9 @@
 
 namespace App\Service\Customer;
 
-use App\Repository\BaseRepository;
+use App\Repository\AbstractRepository;
 
-class CustomerRepository extends BaseRepository
+class CustomerRepository extends AbstractRepository
 {
 
 }

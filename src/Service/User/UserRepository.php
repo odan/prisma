@@ -3,7 +3,7 @@
 namespace App\Service\User;
 
 use App\Entity\User;
-use App\Repository\BaseRepository;
+use App\Repository\AbstractRepository;
 use App\Table\UserTable;
 use Cake\Database\Connection;
 use Exception;
@@ -11,7 +11,7 @@ use Exception;
 /**
  * User Repository
  */
-class UserRepository extends BaseRepository
+class UserRepository extends AbstractRepository
 {
 
     /**

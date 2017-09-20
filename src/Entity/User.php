@@ -5,7 +5,7 @@ namespace App\Entity;
 /**
  * User
  */
-class User extends BaseEntity
+class User extends AbstractEntity
 {
     public $id;
     public $username;

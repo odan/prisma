@@ -22,7 +22,7 @@ use Exception;
  * it's returned models. This methodology also results in cleaner easier to read
  * code and further separates your core logic from the ORM / query builder.
  */
-abstract class BaseTable implements TableInterface
+abstract class AbstractTable implements TableInterface
 {
     /**
      * Database connection

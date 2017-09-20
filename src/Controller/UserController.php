@@ -11,7 +11,7 @@ use Slim\Http\Response;
 /**
  * UserController
  */
-class UserController extends BaseController
+class UserController extends AbstractController
 {
     /**
      * Index

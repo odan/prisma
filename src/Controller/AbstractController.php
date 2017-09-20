@@ -13,7 +13,7 @@ use Slim\Http\Response;
 /**
  * AppController
  */
-abstract class BaseController
+abstract class AbstractController
 {
     /**
      * @var Request

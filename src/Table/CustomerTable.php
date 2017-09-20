@@ -7,7 +7,7 @@ use App\Entity\Customer;
 /**
  * Customer Table
  */
-class CustomerTable extends BaseTable
+class CustomerTable extends AbstractTable
 {
 
     /**

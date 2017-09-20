@@ -8,7 +8,7 @@ use Slim\Http\Response;
 /**
  * IndexController
  */
-class HomeController extends BaseController
+class HomeController extends AbstractController
 {
     /**
      * Index action

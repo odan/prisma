@@ -2,9 +2,9 @@
 
 namespace App\Service\User;
 
-use App\Service\BaseService;
+use App\Service\AbstractService;
 
-class UserService extends BaseService
+class UserService extends AbstractService
 {
 
 }

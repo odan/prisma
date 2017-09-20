@@ -2,12 +2,12 @@
 
 namespace App\Service\User;
 
-use App\Service\BaseService;
+use App\Service\AbstractService;
 
 /**
  * User Authentication Adapter
  */
-class UserAuthentication extends BaseService
+class UserAuthentication extends AbstractService
 {
     /**
      * User Repository
