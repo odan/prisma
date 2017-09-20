@@ -153,7 +153,7 @@ class UserSession
     {
         // Check username and password
         $userRepository = new UserRepository($this->db);
-        $auth = new UserAuthentication($userRepository, $this->token, $username, $password);
+        $auth = new AuthenticationService($userRepository, $this->token, $username, $password);
         $authResult = $auth->authenticate();
 
         if (!$authResult->isValid()) {
