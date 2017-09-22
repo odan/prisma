@@ -2,16 +2,26 @@
 
 namespace App\Utility;
 
+/**
+ * Class ValidationContext
+ */
 class ValidationContext
 {
-    private $message;
 
-    private $errors = [];
+    /**
+     * @var null|string
+     */
+    protected $message;
+
+    /**
+     * @var array
+     */
+    protected $errors = [];
 
     /**
      * ValidationContext constructor.
      *
-     * @param string|null $message Main message
+     * @param string $message Main message
      */
     public function __construct(string $message = null)
     {

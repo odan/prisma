@@ -85,10 +85,10 @@ class UserController extends AbstractController
     /**
      * User review page.
      *
-     * @param $id
+     * @param string $id
      * @return Response Response
      */
-    public function reviewPage($id = null): Response
+    public function reviewPage($id): Response
     {
         $this->response->getBody()->write("Action: Show all reviews of user: $id<br>");
         return $this->response;

@@ -121,7 +121,7 @@
 
     <target name="check-doc" description="Docblock check">
         <exec executable="${basedir}/vendor/bin/phpdoccheck${ext}" failonerror="true">
-            <arg line="-d ${basedir}/src/Service" />
+            <arg line="-d ${basedir}/src" />
         </exec>
     </target>
 

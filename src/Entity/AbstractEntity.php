@@ -15,7 +15,7 @@ abstract class AbstractEntity implements EntityInterface
      * Constructor.
      *
      * BaseEntity constructor.
-     * @param array|null $row
+     * @param array $row
      */
     public function __construct(array $row = null)
     {
