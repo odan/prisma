@@ -47,17 +47,24 @@ class UserSession
     protected $secret = '';
 
     /**
+     * @var UserRepository
+     */
+    protected $userRepository;
+
+    /**
      * UserSession constructor.
      *
      * @param Session $session Storage
      * @param Connection $db Database
+     * @param UserRepository $userRepository The User repository
      * @param string $secret Secret session key
      */
-    public function __construct(Session $session, Connection $db, $secret = '')
+    public function __construct(Session $session, Connection $db, UserRepository $userRepository, $secret = '')
     {
         $this->session = $session;
         $this->segment = $this->session->getSegment('app');
         $this->db = $db;
+        $this->userRepository = $userRepository;
         $this->secret = $secret;
         $this->token = $this->createToken($secret);
     }
@@ -132,14 +139,9 @@ class UserSession
         $settings = container()->get('settings');
         $moFile = sprintf('%s/%s_%s.mo', $settings['locale']['path'], $locale, $domain);
 
-        $translator = new Translator($locale, new MessageSelector());
-        $translator->addLoader('mo', new MoFileLoader());
-
+        $translator = container()->get(Translator::class);
         $translator->addResource('mo', $moFile, $locale, $domain);
         $translator->setLocale($locale);
-
-        // Inject translator into function
-        container()->set('translator', $translator);
     }
 
     /**
@@ -152,8 +154,7 @@ class UserSession
     public function login($username, $password)
     {
         // Check username and password
-        $userRepository = new UserRepository($this->db);
-        $auth = new AuthenticationService($userRepository, $this->token, $username, $password);
+        $auth = new AuthenticationService($this->userRepository, $this->token, $username, $password);
         $authResult = $auth->authenticate();
 
         if (!$authResult->isValid()) {

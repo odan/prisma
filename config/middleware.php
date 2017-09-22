@@ -1,5 +1,7 @@
 <?php
 
+use Aura\Session\Session;
+use App\Service\User\UserSession;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -13,7 +15,7 @@ $app->add(function (Request $request, Response $response, $next) use ($container
     $auth = $route->getArgument('_auth', true);
 
     /* @var \App\Service\User\UserSession $user */
-    $user = $container->get('user');
+    $user = $container->get(UserSession::class);
     if ($auth === true && !$user->isValid()) {
         // Redirect to login page
 
@@ -39,16 +41,14 @@ $app->add(function (Request $request, Response $response, $next) use ($container
 
 // Language middleware
 $app->add(function (Request $request, Response $response, $next) use ($container) {
-    /** @var \App\Service\User\UserSession $user */
-    $user = $container->get('user');
+    $user = $container->get(UserSession::class);
     $user->setLocale($user->getLocale());
     return $next($request, $response);
 });
 
 // Session middleware
 $app->add(function (Request $request, Response $response, $next) use ($container) {
-    /* @var $session \Aura\Session\Session */
-    $session = $container->get('session');
+    $session = $container->get(Session::class);
     $response = $next($request, $response);
     $session->commit();
     return $response;

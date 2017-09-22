@@ -3,7 +3,7 @@
 require_once __DIR__ . '/bootstrap.php';
 
 /* @var $pdo PDO */
-$pdo = container()->get('pdo');
+$pdo = container()->get('PDO');
 
 return array(
     'paths' => [

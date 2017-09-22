@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\User\UserRepository;
 use Slim\Http\Response;
 
 /**
@@ -24,15 +25,16 @@ class LoginController extends AbstractController
     /**
      * User login submit
      *
+     * @param UserRepository $userRepository The User repository
      * @return Response
      */
-    public function loginSubmit(): Response
+    public function loginSubmit(UserRepository $userRepository): Response
     {
         $data = $this->request->getParsedBody();
         $username = $data['username'];
         $password = $data['password'];
 
-        $result = $this->user->login($username, $password);
+        $result = $this->user->login($username, $password, $userRepository);
         $url = ($result) ? '/' : '/login';
 
         return $this->redirect($url);

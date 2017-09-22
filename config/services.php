@@ -4,7 +4,6 @@
  * Services and helper functions
  */
 
-use Psr\Container\ContainerInterface;
 use Symfony\Component\Translation\Translator;
 
 /**
@@ -61,7 +60,7 @@ function settings()
 function __($message)
 {
     /* @var $translator Translator */
-    $translator = container()->get('translator');
+    $translator = container()->get(Translator::class);
     $translated = $translator->trans($message);
     $context = array_slice(func_get_args(), 1);
     if (!empty($context)) {

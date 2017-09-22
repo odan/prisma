@@ -14,11 +14,11 @@ class UserController extends AbstractController
     /**
      * Index
      *
+     * @param UserRepository $userRepository The User repository
      * @return Response The new response
      */
-    public function indexPage(): Response
+    public function indexPage(UserRepository $userRepository): Response
     {
-        $userRepository = new UserRepository($this->db);
         $users = $userRepository->findAll();
 
         $viewData = $this->getViewData([
