@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Service\User\UserRepository;
-use App\Service\User\UserService;
 use Slim\Http\Response;
 
 /**
