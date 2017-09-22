@@ -23,7 +23,7 @@ before_script:
 script:
   - ant lint
   - ant phpstan
-  - ant check-comments
+  - ant check-doc
   - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
 after_success:
