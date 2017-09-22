@@ -10,7 +10,7 @@ use App\Table\TableInterface;
 abstract class AbstractRepository implements RepositoryInterface
 {
     /**
-     * @var TableInterface
+     * @var mixed
      */
     protected $table;
 }

@@ -2,8 +2,6 @@
 
 namespace App\Table;
 
-use App\Entity\Customer;
-
 /**
  * Customer Table
  */

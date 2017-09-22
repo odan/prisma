@@ -6,5 +6,4 @@ use App\Service\AbstractService;
 
 class CustomerService extends AbstractService
 {
-
 }

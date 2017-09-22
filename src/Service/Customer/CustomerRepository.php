@@ -6,5 +6,4 @@ use App\Repository\AbstractRepository;
 
 class CustomerRepository extends AbstractRepository
 {
-
 }
