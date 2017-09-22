@@ -9,16 +9,21 @@ ini_set('display_errors', '0');
 // Timezone
 date_default_timezone_set('Europe/Berlin');
 
-$config = [];
+// Slim settings
+$config = [
+    'httpVersion' => '1.1',
+    'responseChunkSize' => 4096,
+    'outputBuffering' => 'append',
+    'determineRouteBeforeAppMiddleware' => true,
+    'displayErrorDetails' => false,
+    'addContentLengthHeader' => true,
+    'routerCacheFile' => false,
+];
 
 // Path settings
 $config['root'] = dirname(__DIR__);
 $config['temp'] = $config['root'] . '/tmp';
 $config['public'] = $config['root'] . '/public';
-
-// Slim Settings
-$config['displayErrorDetails'] = false;
-$config['determineRouteBeforeAppMiddleware'] = true;
 
 // Application settings
 $config['app'] = [

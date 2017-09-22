@@ -16,30 +16,28 @@ class UserController extends AbstractController
     /**
      * Index
      *
-     * @param Request $request The request
-     * @param Response $response The response
      * @return Response The new response
      */
-    public function indexPage(Request $request, Response $response): Response
+    public function indexPage(): Response
     {
         $userRepository = new UserRepository($this->db);
         $users = $userRepository->findAll();
 
-        $viewData = $this->getViewData($request, [
+        $viewData = $this->getViewData([
             'users' => $users
         ]);
 
-        return $this->render($response, 'view::User/user-index.html.php', $viewData);
+        return $this->render('view::User/user-index.html.php', $viewData);
     }
 
     /**
      * Edit page
      *
-     * @param Request $request The request
-     * @param Response $response The response
+     * @param string $id The User ID (routing argument)
+     * @param UserRepository $userRepository The User repository
      * @return Response The new response
      */
-    public function editPage(Request $request, Response $response): Response
+    public function editPage($id, UserRepository $userRepository): Response
     {
         // Get all GET parameters
         //$query = $request->getQueryParams();
@@ -47,12 +45,8 @@ class UserController extends AbstractController
         // Get all POST/JSON parameters
         //$post = $request->getParsedBody();
 
-        // Get routing arguments
-        $userId = $request->getAttribute('id');
-
         // Repository example
-        $userRepository = new UserRepository($this->db);
-        $user = $userRepository->getById($userId);
+        $user = $userRepository->getById($id);
 
         // Insert a new user
         $newUser = new User();
@@ -79,7 +73,7 @@ class UserController extends AbstractController
         $this->logger->info('My log message');
 
         // Add data to template
-        $viewData = $this->getViewData($request, [
+        $viewData = $this->getViewData([
             'id' => $user->id,
             'username' => $user->username,
             'counter' => $counter,
@@ -87,21 +81,18 @@ class UserController extends AbstractController
         ]);
 
         // Render template
-        return $this->render($response, 'view::User/user-edit.html.php', $viewData);
+        return $this->render('view::User/user-edit.html.php', $viewData);
     }
 
     /**
      * User review page.
      *
-     * @param Request $request The request
-     * @param Response $response The response
-     * @param array|null $args Arguments
+     * @param int $id
      * @return Response Response
      */
-    public function reviewPage(Request $request, Response $response, array $args = null): Response
+    public function reviewPage($id = null): Response
     {
-        $id = $args['id'];
-        $response->getBody()->write("Action: Show all reviews of user: $id<br>");
-        return $response;
+        $this->response->getBody()->write("Action: Show all reviews of user: $id<br>");
+        return $this->response;
     }
 }

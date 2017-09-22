@@ -10,22 +10,26 @@ use Symfony\Component\Translation\Translator;
 /**
  * App instance.
  *
- * @param ContainerInterface|array $container Either a ContainerInterface or an associative array of app settings
- * @return \Slim\App
+ * @return \DI\Bridge\Slim\App
  */
-function app($container = [])
+function app()
 {
-    static $slim = null;
-    if ($slim === null) {
-        $slim = new \Slim\App($container);
+    static $app = null;
+    if ($app === null) {
+        $app = new class() extends \DI\Bridge\Slim\App {
+            protected function configureContainer(\DI\ContainerBuilder $builder)
+            {
+                $builder->addDefinitions(__DIR__ . '/container.php');
+            }
+        };
     }
-    return $slim;
+    return $app;
 }
 
 /**
  * A simple PHP Dependency Injection Container.
  *
- * @return \Slim\Container
+ * @return \DI\Container
  */
 function container()
 {

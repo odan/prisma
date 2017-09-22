@@ -33,6 +33,7 @@ $app->add(function (Request $request, Response $response, $next) use ($container
     $request = $request->withAttribute('baseUrl', $http->getBaseUrl('/'));
     $request = $request->withAttribute('hostUrl', $http->getHostUrl());
     $request = $request->withAttribute('secure', $http->isSecure());
+    $container->set('request', $request);
     return $next($request, $response);
 });
 
@@ -43,7 +44,6 @@ $app->add(function (Request $request, Response $response, $next) use ($container
     $user->setLocale($user->getLocale());
     return $next($request, $response);
 });
-
 
 // Session middleware
 $app->add(function (Request $request, Response $response, $next) use ($container) {

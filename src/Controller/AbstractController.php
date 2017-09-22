@@ -21,6 +21,11 @@ abstract class AbstractController
     protected $request;
 
     /**
+     * @var Response
+     */
+    protected $response;
+
+    /**
      * @var Http
      */
     protected $http;
@@ -36,6 +41,26 @@ abstract class AbstractController
     protected $logger;
 
     /**
+     * Constructor.
+     *
+     * @param Request $request The request
+     * @param Response $response The response
+     * @param Connection $db
+     * @param Engine $view
+     * @param LoggerInterface $logger
+     * @param UserSession $user
+     */
+    public function __construct(Request $request, Response $response, Connection $db, Engine $view, UserSession $user, LoggerInterface $logger)
+    {
+        $this->request = $request;
+        $this->response = $response;
+        $this->view = $view;
+        $this->db = $db;
+        $this->user = $user;
+        $this->logger = $logger;
+    }
+
+    /**
      * @var UserSession
      */
     protected $user;
@@ -46,36 +71,18 @@ abstract class AbstractController
     protected $db;
 
     /**
-     * Constructor.
-     *
-     * @param Engine $view
-     * @param Connection $db
-     * @param LoggerInterface $logger
-     * @param UserSession $user
-     */
-    public function __construct(Engine $view, Connection $db, UserSession $user, LoggerInterface $logger)
-    {
-        $this->view = $view;
-        $this->db = $db;
-        $this->user = $user;
-        $this->logger = $logger;
-    }
-
-    /**
      * Redirect to url
      *
-     * @param Response $response The response
-     * @param Request $request
      * @param string $url The URL
      * @param int $status HTTP status code
      * @return Response Redirect response
      */
-    protected function redirect(Request $request, Response $response, $url, $status = null): Response
+    protected function redirect($url, $status = null): Response
     {
         if (strpos($url, '/') === 0) {
-            $url = $request->getAttribute('hostUrl') . $url;
+            $url = $this->request->getAttribute('hostUrl') . $url;
         }
-        return $response->withRedirect($url, $status);
+        return $this->response->withRedirect($url, $status);
     }
 
     /**
@@ -96,14 +103,13 @@ abstract class AbstractController
     /**
      * Get view data.
      *
-     * @param Request $request
      * @param array $viewData
      * @return array View data
      */
-    protected function getViewData(Request $request, array $viewData = []): array
+    protected function getViewData(array $viewData = []): array
     {
         $result = [
-            'baseUrl' => $request->getAttribute('baseUrl'),
+            'baseUrl' => $this->request->getAttribute('baseUrl'),
             'text' => $this->getText()
         ];
         if (!empty($viewData)) {
@@ -115,30 +121,28 @@ abstract class AbstractController
     /**
      * Render template.
      *
-     * @param Response $response The response
      * @param string $name Template file
      * @param array $viewData View data
      * @return Response
      */
-    protected function render(Response $response, $name, array $viewData = array()): Response
+    protected function render($name, array $viewData = array()): Response
     {
         $content = $this->view->render($name, $viewData);
-        $body = $response->getBody();
+        $body = $this->response->getBody();
         $body->rewind();
         $body->write($content);
-        return $response;
+        return $this->response;
     }
 
     /**
      * Helper to return JSON from a controller.
      *
-     * @param Response $response The response
      * @param mixed $data Data
      * @param int $status HTTP status code (200 = OK, 422 Unprocessable entity / validation failed)
      * @return Response
      */
-    protected function json(Response $response, $data, $status = null): Response
+    protected function json($data, $status = null): Response
     {
-        return $response->withJson($data, $status);
+        return $this->response->withJson($data, $status);
     }
 }

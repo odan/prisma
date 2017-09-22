@@ -2,14 +2,8 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-// Instantiate a slim application with container
+// Instantiate the slim application
 app();
-
-// Load settings
-settings()->replace(read(__DIR__ . '/config.php'));
-
-// Set up dependencies
-read(__DIR__ . '/factory.php');
 
 // Register middleware
 read(__DIR__ . '/middleware.php');

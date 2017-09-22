@@ -139,7 +139,7 @@ class UserSession
         $translator->setLocale($locale);
 
         // Inject translator into function
-        container()->offsetSet('translator', $translator);
+        container()->set('translator', $translator);
     }
 
     /**

@@ -13,46 +13,40 @@ class LoginController extends AbstractController
     /**
      * User login
      *
-     * @param Request $request The request
-     * @param Response $response The response
      * @return Response
      */
-    public function loginPage(Request $request, Response $response): Response
+    public function loginPage(): Response
     {
         $this->user->logout();
-        $viewData = $this->getViewData($request);
-        return $this->render($response, 'view::Login/login.html.php', $viewData);
+        $viewData = $this->getViewData();
+        return $this->render('view::Login/login.html.php', $viewData);
     }
 
     /**
      * User login submit
      *
-     * @param Request $request The request
-     * @param Response $response The response
      * @return Response
      */
-    public function loginSubmit(Request $request, Response $response): Response
+    public function loginSubmit(): Response
     {
-        $data = $request->getParsedBody();
+        $data = $this->request->getParsedBody();
         $username = $data['username'];
         $password = $data['password'];
 
         $result = $this->user->login($username, $password);
         $url = ($result) ? '/' : '/login';
 
-        return $this->redirect($request, $response, $url);
+        return $this->redirect($url);
     }
 
     /**
      * User logout
      *
-     * @param Request $request The request
-     * @param Response $response The response
      * @return Response Redirect response
      */
-    public function logout(Request $request, Response $response): Response
+    public function logout(): Response
     {
         $this->user->logout();
-        return $this->redirect($request, $response, '/login');
+        return $this->redirect('/login');
     }
 }
