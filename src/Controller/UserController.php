@@ -85,7 +85,7 @@ class UserController extends AbstractController
     /**
      * User review page.
      *
-     * @param int $id
+     * @param $id
      * @return Response Response
      */
     public function reviewPage($id = null): Response

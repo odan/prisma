@@ -65,7 +65,7 @@ class UserSession
     /**
      * Create token object.
      *
-     * @param $secret
+     * @param string $secret
      * @return Token
      */
     protected function createToken($secret)

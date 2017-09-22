@@ -119,25 +119,13 @@
         </exec>
     </target>
 
-    <target name="check-comments" description="Code style fixer">
-        <mkdir dir="${basedir}/build"/>
-        <get src="https://github.com/squizlabs/PHP_CodeSniffer/releases/download/3.0.2/phpcs.phar"
-             dest="${basedir}/build/phpcs.phar" skipexisting="true"/>
-        <exec executable="php" searchpath="true" resolveexecutable="true">
-            <arg value="${basedir}/build/phpcs.phar"/>
-            <arg value="${basedir}/src/"/>
-            <arg value="--standard=Squiz"/>
-            <arg value="--sniffs=Squiz.Commenting.FunctionComment,Squiz.Commenting.FunctionCommentThrowTag,Squiz.Commenting.ClassComment,Squiz.Commenting.FileComment,Squiz.Commenting.VariableComment"/>
-        </exec>
-        <exec executable="php" searchpath="true" resolveexecutable="true">
-            <arg value="${basedir}/build/phpcs.phar"/>
-            <arg value="${basedir}/tests/"/>
-            <arg value="--standard=Squiz"/>
-            <arg value="--sniffs=Squiz.Commenting.FunctionComment,Squiz.Commenting.FunctionCommentThrowTag,Squiz.Commenting.ClassComment,Squiz.Commenting.FileComment,Squiz.Commenting.VariableComment"/>
+    <target name="check-doc" description="Docblock check">
+        <exec executable="${basedir}/vendor/bin/phpdoccheck${ext}" failonerror="true">
+            <arg line="-d ${basedir}/src/Service" />
         </exec>
     </target>
 
-    <target name="check-all" depends="lint,phpstan,check-comments,phpunit" />
+    <target name="check-all" depends="lint,phpstan,check-doc,phpunit" />
 
     <target name="build" depends="lint,phpunit">
         <!-- Load properties -->

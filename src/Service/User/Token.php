@@ -2,6 +2,9 @@
 
 namespace App\Service\User;
 
+/**
+ * Class Token
+ */
 class Token
 {
     /**
