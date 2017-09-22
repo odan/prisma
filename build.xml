@@ -120,7 +120,7 @@
     </target>
 
     <target name="check-doc" description="Docblock check">
-        <exec executable="${basedir}/vendor/bin/phpdoccheck${ext}" searchpath="true" resolveexecutable="true" failonerror="true">
+        <exec executable="${basedir}/vendor/bin/phpdoccheck" searchpath="true" resolveexecutable="true" failonerror="true">
             <arg line="-d ${basedir}/src" />
         </exec>
     </target>
