@@ -21,8 +21,7 @@ before_script:
   - cd $TRAVIS_BUILD_DIR
 
 script:
-  - ant lint
-  - ant phpstan
+  - ant check-all
   - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
 after_success:
