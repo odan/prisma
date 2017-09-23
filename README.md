@@ -72,9 +72,9 @@ php install.php
 | src/ | PHP source code (Namepspace App) |
 | src/Controller/ | Controllers and actions. The controller is in charge of analyzing the request and calling the relevant services or repositories. |
 | src/Repository/ | Repositories. Communicating with the database. |
-| src/Model/ | Domain models (entities). Values from/for the repositories. |
-| src/Service/ | Services are objects that perform some kind of computation (Business logic / use cases). It can be on the "domain layer" (i.e. computation that is directly related to the code of your application - what makes your application specific - ) or it can be purely technical services (like a mailer, a logger, etc...) |
-| src/View/ | Templates. Render the data in HTML (unless it is directly sent in another format like JSON). |
+| src/Entity/ | Entities (Domain objects) |
+| src/Service/ | Business logic |
+| src/View/ | HTML Templates |
 | tmp/ | Temp, cache and logfiles |
 | tests/ | Test code |
 | vendor/ | Reserved for composer |
