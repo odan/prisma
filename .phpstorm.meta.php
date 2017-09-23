@@ -9,6 +9,12 @@ namespace PHPSTORM_META {
         \Slim\Container::get('') => [
             '' == '@',
         ],
+        \Interop\Container\ContainerInterface::get('') => [
+            '' == '@',
+        ],
+        \DI\Container::get('') => [
+            '' == '@',
+        ],
     ];
 }
 

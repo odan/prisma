@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Service\User\UserSession;
-use App\Utility\Http;
 use Cake\Database\Connection;
 use League\Plates\Engine;
 use Psr\Log\LoggerInterface;
@@ -16,59 +15,40 @@ use Slim\Http\Response;
 abstract class AbstractController
 {
     /**
+     * @Inject
      * @var Request
      */
     protected $request;
 
     /**
+     * @Inject
      * @var Response
      */
     protected $response;
 
     /**
-     * @var Http
+     * @Inject
+     * @var Connection
      */
-    protected $http;
+    protected $db;
 
     /**
+     * @Inject
      * @var Engine
      */
     protected $view;
 
     /**
-     * @var LoggerInterface
-     */
-    protected $logger;
-
-    /**
-     * Constructor.
-     *
-     * @param Request $request The request
-     * @param Response $response The response
-     * @param Connection $db
-     * @param Engine $view
-     * @param LoggerInterface $logger
-     * @param UserSession $user
-     */
-    public function __construct(Request $request, Response $response, Connection $db, Engine $view, UserSession $user, LoggerInterface $logger)
-    {
-        $this->request = $request;
-        $this->response = $response;
-        $this->view = $view;
-        $this->db = $db;
-        $this->user = $user;
-        $this->logger = $logger;
-    }
-
-    /**
+     * @Inject
      * @var UserSession
      */
     protected $user;
 
     /**
-     * @var Connection
+     * @Inject
+     * @var LoggerInterface
      */
-    protected $db;
+    protected $logger;
 
     /**
      * Redirect to url

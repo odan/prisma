@@ -12,14 +12,28 @@ use Slim\Http\Response;
 class UserController extends AbstractController
 {
     /**
+     * @var UserRepository
+     */
+    protected $userRepository;
+
+    /**
+     * Constructor.
+     *
+     * @param UserRepository $userRepository
+     */
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
+    /**
      * Index
      *
-     * @param UserRepository $userRepository The User repository
      * @return Response The new response
      */
-    public function indexPage(UserRepository $userRepository): Response
+    public function indexPage(): Response
     {
-        $users = $userRepository->findAll();
+        $users = $this->userRepository->findAll();
 
         $viewData = $this->getViewData([
             'users' => $users
@@ -32,10 +46,9 @@ class UserController extends AbstractController
      * Edit page
      *
      * @param string $id The User ID (routing argument)
-     * @param UserRepository $userRepository The User repository
      * @return Response The new response
      */
-    public function editPage($id, UserRepository $userRepository): Response
+    public function editPage($id): Response
     {
         // Get all GET parameters
         //$query = $request->getQueryParams();
@@ -44,22 +57,22 @@ class UserController extends AbstractController
         //$post = $request->getParsedBody();
 
         // Repository example
-        $user = $userRepository->getById($id);
+        $user = $this->userRepository->getById($id);
 
         // Insert a new user
         $newUser = new User();
         $newUser->username = 'admin-' . uuid();
         $newUser->disabled = 0;
-        $newUserId = $userRepository->insert($newUser);
+        $newUserId = $this->userRepository->insert($newUser);
 
         // Get new new user
-        $newUser = $userRepository->getById($newUserId);
+        $newUser = $this->userRepository->getById($newUserId);
 
         // Delete a user
-        $userRepository->delete($newUser);
+        $this->userRepository->delete($newUser);
 
         // Get all users
-        $users = $userRepository->findAll();
+        $users = $this->userRepository->findAll();
 
         // Session example
         // Increment counter

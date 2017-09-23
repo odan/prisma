@@ -13,11 +13,6 @@
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/ie10-viewport-bug-workaround.js"></script>
         <?php echo $this->assets(['view::Login/login.css'], ['inline' => false, 'public' => true]); ?>
-        <?php
-        if (!empty($text)) :
-            echo sprintf('<script>$d.addText(%s)</script>', json_encode($text, JSON_HEX_QUOT | JSON_HEX_APOS));
-        endif;
-        ?>
     </head>
     <body>
         <div class="container">

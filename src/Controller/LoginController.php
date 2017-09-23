@@ -25,16 +25,15 @@ class LoginController extends AbstractController
     /**
      * User login submit
      *
-     * @param UserRepository $userRepository The User repository
      * @return Response
      */
-    public function loginSubmit(UserRepository $userRepository): Response
+    public function loginSubmit(): Response
     {
         $data = $this->request->getParsedBody();
         $username = $data['username'];
         $password = $data['password'];
 
-        $result = $this->user->login($username, $password, $userRepository);
+        $result = $this->user->login($username, $password);
         $url = ($result) ? '/' : '/login';
 
         return $this->redirect($url);
