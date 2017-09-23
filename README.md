@@ -11,9 +11,11 @@ This is a simple skeleton project for Slim 3 that includes Plates, Sessions and 
 
 ## Main packages
 
+* Micro-Framework - [slimphp/slim](https://github.com/slimphp/Slim)
 * Dependency Injection Container - [php-di/php-di](https://github.com/PHP-DI/PHP-DI)
 * Template Engine - [league/plates](https://github.com/thephpleague/plates)
 * Query Builder - [cakephp/database](https://github.com/cakephp/database)
+* Object hydrator - [zendframework/zend-hydrator](https://github.com/zendframework/zend-hydrator)
 * Sessions - [aura/session](https://github.com/auraphp/Aura.Session)
 * Translations - [symfony/translation](https://github.com/symfony/Translation)
 * Logging - [monolog/monolog](https://github.com/Seldaek/monolog) 
