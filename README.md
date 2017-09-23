@@ -11,17 +11,17 @@ This is a simple skeleton project for Slim 3 that includes Plates, Sessions and 
 
 ## Main packages
 
-* Micro-Framework - [slimphp/slim](https://github.com/slimphp/Slim)
-* Dependency Injection Container - [php-di/php-di](https://github.com/PHP-DI/PHP-DI)
+* Router, Middleware, PSR-7 HTTP messages - [slimphp/slim](https://github.com/slimphp/Slim)
+* Dependency Injection with Autowiring - [php-di/php-di](https://github.com/PHP-DI/PHP-DI)
 * Template Engine - [league/plates](https://github.com/thephpleague/plates)
-* Query Builder - [cakephp/database](https://github.com/cakephp/database)
+* Assets Cache - [odan/plates-asset-cache](https://github.com/odan/plates-asset-cache)
+* Database Query Builder - [cakephp/database](https://github.com/cakephp/database)
+* Migrations - [cakephp/phinx](https://github.com/cakephp/phinx)
+* Migrations Generator - [odan/phinx-migrations-generator](https://github.com/odan/phinx-migrations-generator)
 * Object hydrator - [zendframework/zend-hydrator](https://github.com/zendframework/zend-hydrator)
 * Sessions - [aura/session](https://github.com/auraphp/Aura.Session)
 * Translations - [symfony/translation](https://github.com/symfony/Translation)
 * Logging - [monolog/monolog](https://github.com/Seldaek/monolog) 
-* Assets Cache - [odan/plates-asset-cache](https://github.com/odan/plates-asset-cache)
-* Migrations - [cakephp/phinx](https://github.com/cakephp/phinx)
-* Migrations Generator - [odan/phinx-migrations-generator](https://github.com/odan/phinx-migrations-generator)
 * Unit tests - [phpunit/phpunit](https://github.com/sebastianbergmann/phpunit)
 * Directory structure - [php-pds/skeleton](https://github.com/php-pds/skeleton)
 
