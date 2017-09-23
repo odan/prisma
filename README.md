@@ -11,7 +11,7 @@ This is a simple skeleton project for Slim 3 that includes Plates, Sessions and 
 
 ## Main packages
 
-* Dependency Injection Container - [PHP-DI](http://php-di.org/)
+* Dependency Injection Container - [php-di/php-di](https://github.com/PHP-DI/PHP-DI)
 * Template Engine - [league/plates](https://github.com/thephpleague/plates)
 * Query Builder - [cakephp/database](https://github.com/cakephp/database)
 * Sessions - [aura/session](https://github.com/auraphp/Aura.Session)
