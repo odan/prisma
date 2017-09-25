@@ -5,7 +5,6 @@ namespace App\Table;
 use Cake\Database\Connection;
 use Cake\Database\Query;
 use Cake\Database\StatementInterface;
-use Exception;
 
 /**
  * Repositories The Right Way
