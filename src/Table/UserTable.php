@@ -13,5 +13,5 @@ class UserTable extends AbstractTable
      *
      * @var string
      */
-    protected $table = 'users';
+    protected $tableName = 'users';
 }

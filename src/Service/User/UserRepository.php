@@ -98,7 +98,7 @@ class UserRepository extends AbstractRepository
      */
     public function insert(User $user)
     {
-        return $this->table->insert($user)->lastInsertId();
+        return $this->table->insert($user->toArray())->lastInsertId();
     }
 
     /**
@@ -109,6 +109,6 @@ class UserRepository extends AbstractRepository
      */
     public function delete(User $user)
     {
-        return $this->table->delete($user);
+        return $this->table->delete($user->id)->rowCount() == 1;
     }
 }

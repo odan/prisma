@@ -2,7 +2,6 @@
 
 namespace App\Table;
 
-use App\Entity\EntityInterface;
 use Cake\Database\Connection;
 use Cake\Database\Query;
 use Cake\Database\StatementInterface;
@@ -36,7 +35,7 @@ abstract class AbstractTable implements TableInterface
      *
      * @var string|null
      */
-    protected $table = null;
+    protected $tableName = null;
 
     /**
      * Constructor
@@ -55,7 +54,7 @@ abstract class AbstractTable implements TableInterface
      */
     public function newQuery()
     {
-        return $this->db->newQuery()->from($this->table);
+        return $this->db->newQuery()->from($this->tableName);
     }
 
     /**
@@ -82,98 +81,42 @@ abstract class AbstractTable implements TableInterface
     /**
      * Insert a row into the given table name using the key value pairs of data.
      *
-     * @param EntityInterface $entity The entity
+     * @param array $data The row data
      * @return StatementInterface Statement
      */
-    public function insert(EntityInterface $entity)
+    public function insert(array $data)
     {
-        return $this->db->insert($this->table, $entity->toArray());
+        return $this->db->insert($this->tableName, $data);
     }
 
     /**
-     * Update of an entity's data in the table.
+     * Update of a single row in the table.
      *
-     * @param EntityInterface $entity The entity
-     * @param array|null $data The actual data that needs to be saved
-     * @return bool Success
-     * @throws Exception On error
+     * @param array $row The actual row data that needs to be saved
+     * @param int|string|array $conditions Id or conditions
+     * @return StatementInterface Statement
      */
-    public function update(EntityInterface $entity, $data = null): bool
+    public function update(array $row, $conditions): bool
     {
-        if (empty($entity->id)) {
-            throw new Exception(__('The entity [id] is not defined'));
-        }
-        if ($data === null) {
-            $data = $entity->toArray();
+        if (!is_array($conditions)) {
+            $conditions = ['id' => $conditions];
         }
 
-        $query = $this->db->newQuery()->update($this->table)->set($data);
-        $statement = $query->where(['id' => $entity->id])->execute();
-        $success = $statement->errorCode() === '00000';
-        $statement->closeCursor();
-
-        return $success;
-    }
-
-    /**
-     * Update all rows for the matching key value identifiers with the given data.
-     *
-     * @param array|EntityInterface $fields Row data
-     * @param string|array|\Cake\Database\ExpressionInterface|callable|null $conditions Id or where condition
-     * @return int Row count
-     */
-    public function updateAll($fields, $conditions = null)
-    {
-        if ($fields instanceof EntityInterface) {
-            $fields = $fields->toArray();
-        }
-
-        $query = $this->db->newQuery()->update($this->table)->set($fields);
-
-        if (is_numeric($conditions) && ctype_digit(strval($conditions))) {
-            $query->where(['id' => $conditions]);
-        } else {
-            $query->where($conditions);
-        }
-
-        $statement = $query->execute();
-        $statement->closeCursor();
-
-        return $statement->rowCount();
+        return $this->db->update($this->tableName, $row, $conditions);
     }
 
     /**
      * Delete a single entity.
      *
-     * @param EntityInterface $entity
-     * @return bool Success
-     * @throws Exception On error
+     * @param int|array $conditions ID or conditions
+     * @return StatementInterface Statement
      */
-    public function delete(EntityInterface $entity)
+    public function delete($conditions)
     {
-        if (empty($entity->id)) {
-            throw new Exception(__('The entity [id] is not defined'));
+        if (!is_array($conditions)) {
+            $conditions = ['id' => $conditions];
         }
-
-        $statement = $this->db->newQuery()->delete($this->table)->where(['id' => $entity->id])->execute();
-        $success = $statement->errorCode() === '00000';
-
-        return $success;
-    }
-
-    /**
-     * Delete all rows of a table matching the given identifier, where keys are column names.
-     *
-     * @param string|array|\Cake\Database\ExpressionInterface|callable|null $conditions Id or where condition
-     * @return int The number of rows affected by the statement
-     */
-    public function deleteAll($conditions = null)
-    {
-        $query = $this->db->newQuery()->delete()->where($conditions);
-        $statement = $query->execute();
-        $statement->closeCursor();
-
-        return $statement->rowCount();
+        return $this->db->delete($this->tableName, $conditions);
     }
 
     /**

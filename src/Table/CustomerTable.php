@@ -13,5 +13,5 @@ class CustomerTable extends AbstractTable
      *
      * @var string
      */
-    protected $table = 'customers';
+    protected $tableName = 'customers';
 }
