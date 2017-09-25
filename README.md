@@ -72,7 +72,7 @@ php install.php
 | src/ | PHP source code (Namepspace App) |
 | src/Controller/ | Controllers and actions. The controller is in charge of analyzing the request and calling the relevant services or repositories. |
 | src/Repository/ | Repositories. Communicating with the database. |
-| src/Entity/ | Entities (Domain objects) |
+| src/Entity/ | Entities (A table row) |
 | src/Service/ | Business logic |
 | src/View/ | HTML Templates |
 | tmp/ | Temp, cache and logfiles |
