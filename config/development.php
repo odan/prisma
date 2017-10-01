@@ -17,7 +17,7 @@ $config['logger']['level'] = \Monolog\Logger::DEBUG;
 $config['assets']['minify'] = 0;
 
 // No locale cache
-$config['locale']['path'] = null;
+$config['locale']['cache'] = null;
 
 // Database
 $config['db']['database'] = '{{db_database}}';
