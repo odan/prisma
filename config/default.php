@@ -83,12 +83,12 @@ $config['db'] = array(
     'host' => '127.0.0.1',
     'charset' => 'utf8',
     'collation' => 'utf8_unicode_ci',
-    'prefix' => '',
     'flags' => [
+        PDO::ATTR_PERSISTENT => false,
         // Enable exceptions
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         // Set default fetch mode
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     ]
 );
 

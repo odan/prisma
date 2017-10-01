@@ -2,9 +2,11 @@
 
 namespace App\Table;
 
-use Cake\Database\Connection;
-use Cake\Database\Query;
-use Cake\Database\StatementInterface;
+use Odan\Database\Connection;
+use Odan\Database\DeleteQuery;
+use Odan\Database\InsertQuery;
+use Odan\Database\SelectQuery;
+use Odan\Database\UpdateQuery;
 
 /**
  * Repositories The Right Way
@@ -49,11 +51,11 @@ abstract class AbstractTable implements TableInterface
     /**
      * Create a new select query instance for this table.
      *
-     * @return Query The query instance
+     * @return SelectQuery The query instance
      */
     public function newQuery()
     {
-        return $this->db->newQuery()->from($this->tableName);
+        return $this->db->select()->from($this->tableName);
     }
 
     /**
@@ -64,7 +66,7 @@ abstract class AbstractTable implements TableInterface
      */
     public function fetchById($id)
     {
-        return $this->newQuery()->select('*')->where(['id' => $id])->execute()->fetch('assoc');
+        return $this->newQuery()->columns('*')->where('id', '=', $id)->query()->fetch();
     }
 
     /**
@@ -74,18 +76,22 @@ abstract class AbstractTable implements TableInterface
      */
     public function fetchAll()
     {
-        return $this->newQuery()->select('*')->execute()->fetchAll('assoc');
+        return $this->newQuery()->columns('*')->query()->fetchAll();
     }
 
     /**
      * Insert a row into the given table name using the key value pairs of data.
      *
-     * @param array $data The row data
-     * @return StatementInterface Statement
+     * @param array|null $data The row data
+     * @return InsertQuery Statement
      */
-    public function insert(array $data)
+    public function insert(array $data = null): InsertQuery
     {
-        return $this->db->insert($this->tableName, $data);
+        $insert = $this->db->insert()->into($this->tableName);
+        if ($data) {
+            $insert->set($data);
+        }
+        return $insert;
     }
 
     /**
@@ -93,38 +99,50 @@ abstract class AbstractTable implements TableInterface
      *
      * @param array $row The actual row data that needs to be saved
      * @param int|string|array $conditions Id or conditions
-     * @return StatementInterface Statement
+     * @return UpdateQuery Statement
      */
-    public function update(array $row, $conditions): bool
+    public function update(array $row, $conditions): UpdateQuery
     {
         if (!is_array($conditions)) {
             $conditions = ['id' => $conditions];
         }
 
-        return $this->db->update($this->tableName, $row, $conditions);
+        $update = $this->db->update()->table($this->tableName)->set($row);
+
+        foreach ($conditions as $key => $value) {
+            $update->where($key, '=', $value);
+        }
+
+        return $update;
     }
 
     /**
      * Delete a single entity.
      *
      * @param int|array $conditions ID or conditions
-     * @return StatementInterface Statement
+     * @return DeleteQuery Statement
      */
-    public function delete($conditions)
+    public function delete($conditions): DeleteQuery
     {
         if (!is_array($conditions)) {
             $conditions = ['id' => $conditions];
         }
-        return $this->db->delete($this->tableName, $conditions);
+
+        $delete = $this->db->delete()->from($this->tableName);
+        foreach ($conditions as $key => $value) {
+            $delete->where($key, '=', $value);
+        }
+
+        return $delete;
     }
 
     /**
      * Returns the ID of the last inserted row or sequence value
      *
-     * @return int|string The row ID of the last row that was inserted into the database.
+     * @return string The row ID of the last row that was inserted into the database.
      */
-    public function lastInsertId()
+    public function lastInsertId(): string
     {
-        return $this->db->getDriver()->lastInsertId();
+        return $this->db->lastInsertId();
     }
 }

@@ -5,13 +5,12 @@
 use App\Utility\ErrorHandler;
 use Aura\Session\Session;
 use Aura\Session\SessionFactory;
-use Cake\Database\Connection;
-use Cake\Database\Driver\Mysql;
 use DI\Container;
 use League\Plates\Engine;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Odan\Asset\PlatesAssetExtension;
+use Odan\Database\Connection;
 use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -36,6 +35,11 @@ $container[Request::class] = DI\get('request');
 $container[Response::class] = DI\get('response');
 $container[Router::class] = DI\get('router');
 $container['phpErrorHandler'] = DI\get('errorHandler');
+
+// -----------------------------------------------------------------------------
+// Custom aliases
+// -----------------------------------------------------------------------------
+$container[PDO::class] = DI\get(Connection::class);
 
 // -----------------------------------------------------------------------------
 // Slim definitions
@@ -82,16 +86,18 @@ $container[Engine::class] = function (Container $container) {
 
 $container[Connection::class] = function (Container $container) {
     $settings = $container->get('settings');
-    $driver = new Mysql($settings['db']);
+    $driver = $settings['db']['driver'];
+    $host = $settings['db']['host'];
+    $database = $settings['db']['database'];
+    $username = $settings['db']['username'];
+    $password = $settings['db']['password'];
+    $charset = $settings['db']['charset'];
+    $collate = $settings['db']['collation'];
+    $dsn = "$driver:host=$host;dbname=$database;charset=$charset";
+    $options = $settings['db']['flags'];
+    $options[PDO::MYSQL_ATTR_INIT_COMMAND] = "SET NAMES $charset COLLATE $collate";
 
-    return new Connection(['driver' => $driver]);
-};
-
-$container[PDO::class] = function (Container $container) {
-    $db = $container->get(Connection::class);
-    $db->getDriver()->connect();
-
-    return $db->getDriver()->connection();
+    return new Connection($dsn, $username, $password, $options);
 };
 
 $container[Session::class] = function (Container $container) {

@@ -14,11 +14,11 @@
   "require": {
     "php": "^7.0",
     "aura/session": "^2.1",
-    "cakephp/database": "^3.4",
     "doctrine/annotations": "^1.5",
     "doctrine/cache": "^1.7",
     "league/plates": "3.*",
     "monolog/monolog": "^1.18.0",
+    "odan/database": "^0.3.0",
     "odan/phinx-migrations-generator": "^2.1",
     "odan/plates-asset-cache": "^0.3.5",
     "odan/util": "^0.1.0",

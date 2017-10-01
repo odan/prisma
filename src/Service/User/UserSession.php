@@ -4,7 +4,7 @@ namespace App\Service\User;
 
 use Aura\Session\Segment;
 use Aura\Session\Session;
-use Cake\Database\Connection;
+use Odan\Database\Connection;
 use Symfony\Component\Translation\Translator;
 
 /**

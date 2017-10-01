@@ -5,8 +5,8 @@ namespace App\Service\User;
 use App\Entity\User;
 use App\Repository\AbstractRepository;
 use App\Table\UserTable;
-use Cake\Database\Connection;
 use Exception;
+use Odan\Database\Connection;
 
 /**
  * User Repository
@@ -78,10 +78,11 @@ class UserRepository extends AbstractRepository
      */
     public function findByUsername($username)
     {
-        $row = $this->table->newQuery()->select('*')
-            ->where(['username' => $username, 'disabled' => 0])
-            ->execute()
-            ->fetch('assoc');
+        $row = $this->table->newQuery()->columns('*')
+            ->where('username', '=', $username)
+            ->where('disabled', '=', 0)
+            ->query()
+            ->fetch();
 
         if (empty($row)) {
             return null;
@@ -96,9 +97,9 @@ class UserRepository extends AbstractRepository
      * @param User $user The user
      * @return string The new ID.
      */
-    public function insert(User $user)
+    public function insert(User $user): string
     {
-        return $this->table->insert($user->toArray())->lastInsertId();
+        return $this->table->insert()->insertGetId($user->toArray());
     }
 
     /**
@@ -109,6 +110,6 @@ class UserRepository extends AbstractRepository
      */
     public function delete(User $user)
     {
-        return $this->table->delete($user->id)->rowCount() == 1;
+        return $this->table->delete($user->id)->execute();
     }
 }
