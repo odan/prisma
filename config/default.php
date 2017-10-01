@@ -67,8 +67,9 @@ $config['session'] = [
 // Locale settings
 $config['locale'] = [
     'path' => $config['root'] . '/resources/locale',
+    'cache' => $config['temp'] . '/locale-cache',
     'locale' => 'en_US',
-    'domain' => 'messages'
+    'domain' => 'messages',
 ];
 
 // Database migration settings

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Demo\n"
-"POT-Creation-Date: 2017-06-30 23:35+0100\n"
-"PO-Revision-Date: 2017-06-30 23:35+0100\n"
+"POT-Creation-Date: 2017-10-01 21:30+0100\n"
+"PO-Revision-Date: 2017-10-01 21:31+0100\n"
 "Last-Translator: User <user@example.com>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -15,27 +15,27 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: Controller/AppController.php:91
+#: Controller/AbstractController.php:76
 msgid "Ok"
 msgstr "Ok"
 
-#: Controller/AppController.php:92
+#: Controller/AbstractController.php:77
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: Controller/AppController.php:93
+#: Controller/AbstractController.php:78
 msgid "Yes"
 msgstr "Ja"
 
-#: Controller/AppController.php:94
+#: Controller/AbstractController.php:79
 msgid "No"
 msgstr "Nein"
 
-#: Controller/HomeController.php:28 Controller/HomeController.php:52
+#: Controller/HomeController.php:25 Controller/HomeController.php:47
 msgid "Loaded successfully!"
 msgstr "Erfolgreich gestartet!"
 
-#: Table/UserTable.php:31
+#: Service/User/UserRepository.php:68
 #, php-format
 msgid "User not found: %s"
 msgstr "Benutzer nicht gefunden: %s"
@@ -112,19 +112,19 @@ msgstr "Einstellungen"
 msgid "Logout"
 msgstr "Logout"
 
-#: View/Login/login.html.php:10 View/Login/login.html.php:31
+#: View/Login/login.html.php:10 View/Login/login.html.php:26
 msgid "Sign in"
 msgstr "Einloggen"
 
-#: View/Login/login.html.php:25
+#: View/Login/login.html.php:20
 msgid "Please sign in"
 msgstr "Bitte einloggen"
 
-#: View/Login/login.html.php:26
+#: View/Login/login.html.php:21
 msgid "Username"
 msgstr "Benutzername"
 
-#: View/Login/login.html.php:27
+#: View/Login/login.html.php:22
 msgid "Password"
 msgstr "Kennwort"
 
@@ -136,6 +136,9 @@ msgstr "Benutzer: %s"
 #: View/User/user-index.html.php:12
 msgid "Users index"
 msgstr "Benutzer Index"
+
+#~ msgid "Text"
+#~ msgstr "Text"
 
 #~ msgid "Admin"
 #~ msgstr "Admin"

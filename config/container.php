@@ -109,7 +109,7 @@ $container[Translator::class] = function (Container $container) {
     $settings = $container->get('settings')['locale'];
     $moFile = sprintf('%s/%s_%s.mo', $settings['path'], $settings['locale'], $settings['domain']);
 
-    $translator = new Translator($settings['locale'], new MessageSelector());
+    $translator = new Translator($settings['locale'], new MessageSelector(), $settings['cache']);
     $translator->addLoader('mo', new MoFileLoader());
 
     $translator->addResource('mo', $moFile, $settings['locale'], $settings['domain']);

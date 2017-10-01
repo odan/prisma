@@ -16,6 +16,9 @@ $config['logger']['level'] = \Monolog\Logger::DEBUG;
 // View
 $config['assets']['minify'] = 0;
 
+// No locale cache
+$config['locale']['path'] = null;
+
 // Database
 $config['db']['database'] = '{{db_database}}';
 $config['db']['database'] = 'prisma';
