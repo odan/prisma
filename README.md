@@ -15,7 +15,7 @@ This is a simple skeleton project for Slim 3 that includes Plates, Sessions and 
 * Dependency Injection with Autowiring - [php-di/php-di](https://github.com/PHP-DI/PHP-DI)
 * Template Engine - [league/plates](https://github.com/thephpleague/plates)
 * Assets Cache - [odan/plates-asset-cache](https://github.com/odan/plates-asset-cache)
-* Database Query Builder - [cakephp/database](https://github.com/cakephp/database)
+* Database Query Builder - [odan/database](https://github.com/odan/database)
 * Migrations - [cakephp/phinx](https://github.com/cakephp/phinx)
 * Migrations Generator - [odan/phinx-migrations-generator](https://github.com/odan/phinx-migrations-generator)
 * Object hydrator - [zendframework/zend-hydrator](https://github.com/zendframework/zend-hydrator)
