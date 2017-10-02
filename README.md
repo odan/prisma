@@ -87,7 +87,7 @@ You can define custom routes in [config/routes.php](config/routes.php).
 
 This framework comes with [odan/database](https://github.com/odan/database) as SQL query builder.
 
-The database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your application, and works on all supported database systems.
+The database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your application, and works great with MySQL and MariaDB.
 
 For more details how to build queries read the **[documentation](https://github.com/odan/database/blob/master/docs/index.md)**.
 
