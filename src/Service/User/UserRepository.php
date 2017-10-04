@@ -81,7 +81,7 @@ class UserRepository extends AbstractRepository
         $row = $this->table->newQuery()->columns('*')
             ->where('username', '=', $username)
             ->where('disabled', '=', 0)
-            ->query()
+            ->execute()
             ->fetch();
 
         if (empty($row)) {

@@ -66,7 +66,7 @@ abstract class AbstractTable implements TableInterface
      */
     public function fetchById($id)
     {
-        return $this->newQuery()->columns('*')->where('id', '=', $id)->query()->fetch();
+        return $this->newQuery()->columns('*')->where('id', '=', $id)->execute()->fetch();
     }
 
     /**
@@ -76,7 +76,7 @@ abstract class AbstractTable implements TableInterface
      */
     public function fetchAll()
     {
-        return $this->newQuery()->columns('*')->query()->fetchAll();
+        return $this->newQuery()->columns('*')->execute()->fetchAll();
     }
 
     /**
