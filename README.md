@@ -15,7 +15,7 @@ This is a simple skeleton project for Slim 3 that includes Plates, Sessions and 
 * Dependency Injection with Autowiring - [php-di/php-di](https://github.com/PHP-DI/PHP-DI)
 * Template Engine - [league/plates](https://github.com/thephpleague/plates)
 * Assets Cache - [odan/plates-asset-cache](https://github.com/odan/plates-asset-cache)
-* Database Query Builder - [cakephp/database](https://github.com/cakephp/database)
+* Database Query Builder - [odan/database](https://github.com/odan/database)
 * Migrations - [cakephp/phinx](https://github.com/cakephp/phinx)
 * Migrations Generator - [odan/phinx-migrations-generator](https://github.com/odan/phinx-migrations-generator)
 * Object hydrator - [zendframework/zend-hydrator](https://github.com/zendframework/zend-hydrator)
@@ -85,11 +85,11 @@ You can define custom routes in [config/routes.php](config/routes.php).
 
 ## SQL Query Builder
 
-This framework comes with [CakePHP Database](https://github.com/cakephp/database) as SQL query builder.
+This framework comes with [odan/database](https://github.com/odan/database) as SQL query builder.
 
-The database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your application, and works on all supported database systems.
+The database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your application, and works great with MySQL and MariaDB.
 
-For more details how to build queries read the **[documentation](http://book.cakephp.org/3.0/en/orm/query-builder.html)**.
+For more details how to build queries read the **[documentation](https://github.com/odan/database/blob/master/docs/index.md)**.
 
 ## Migrations
 
