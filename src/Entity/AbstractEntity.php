@@ -2,8 +2,7 @@
 
 namespace App\Entity;
 
-use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
-use Zend\Hydrator\ObjectProperty as Hydrator;
+use Odan\Hydrator\ObjectProperty as Hydrator;
 
 /**
  * Base Entity
@@ -34,7 +33,6 @@ abstract class AbstractEntity implements EntityInterface
         static $hydrator = null;
         if (!$hydrator) {
             $hydrator = new Hydrator();
-            $hydrator->setNamingStrategy(new UnderscoreNamingStrategy());
         }
         return $hydrator;
     }
