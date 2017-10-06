@@ -1,7 +1,7 @@
 {
   "name": "odan/prisma",
   "type": "project",
-  "description": "A lightweight PHP framework based on Slim 3",
+  "description": "A skeleton project for Slim 3",
   "keywords": [
     "slim",
     "skeleton",
@@ -9,7 +9,7 @@
     "psr-7",
     "middleware"
   ],
-  "homepage": "http://github.com/odan/prisma",
+  "homepage": "https://github.com/odan/prisma",
   "license": "MIT",
   "require": {
     "php": "^7.0",
