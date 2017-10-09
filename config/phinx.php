@@ -7,7 +7,7 @@ $pdo = container()->get('PDO');
 
 return array(
     'paths' => [
-        'migrations' => settings()->get('migration')['path']
+        'migrations' => settings()['migration']['path']
     ],
     'environments' => [
         'default_migration_table' => "phinxlog",
