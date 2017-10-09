@@ -12,14 +12,14 @@ This is a simple skeleton project for Slim 3 that includes Plates, Sessions and 
 ## Main packages
 
 * Router, Middleware, PSR-7 HTTP messages - [slimphp/slim](https://github.com/slimphp/Slim)
+* Sessions - [aura/session](https://github.com/auraphp/Aura.Session)
 * Dependency Injection with Autowiring - [php-di/php-di](https://github.com/PHP-DI/PHP-DI)
 * Template Engine - [league/plates](https://github.com/thephpleague/plates)
 * Assets Cache - [odan/plates-asset-cache](https://github.com/odan/plates-asset-cache)
 * Database Query Builder - [odan/database](https://github.com/odan/database)
 * Migrations - [cakephp/phinx](https://github.com/cakephp/phinx)
 * Migrations Generator - [odan/phinx-migrations-generator](https://github.com/odan/phinx-migrations-generator)
-* Object hydrator - [odan/zend-hydrator](https://github.com/odan/hydrator)
-* Sessions - [aura/session](https://github.com/auraphp/Aura.Session)
+* Hydrator - [odan/zend-hydrator](https://github.com/odan/hydrator)
 * Translations - [symfony/translation](https://github.com/symfony/Translation)
 * Logging - [monolog/monolog](https://github.com/Seldaek/monolog) 
 * Unit tests - [phpunit/phpunit](https://github.com/sebastianbergmann/phpunit)
