@@ -21,6 +21,5 @@ $config['locale']['cache'] = null;
 
 // Database
 $config['db']['database'] = '{{db_database}}';
-$config['db']['database'] = 'prisma';
 
 return $config;
