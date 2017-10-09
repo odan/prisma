@@ -70,8 +70,8 @@ php install.php
 | public/ | Web server files |
 | resources/ | Other resource files (assets, locales, migrations) |
 | src/ | PHP source code (Namepspace App) |
-| src/Controller/ | Controllers and actions. The controller is in charge of analyzing the request and calling the relevant services or repositories. |
-| src/Repository/ | Repositories. Communicating with the database. |
+| src/Controller/ | Controllers and actions |
+| src/Repository/ | Repositories. Communicating with the database |
 | src/Entity/ | Entities (Each entity object instance represents a database table row) |
 | src/Service/ | Business logic |
 | src/View/ | HTML Templates |
