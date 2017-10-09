@@ -1,6 +1,6 @@
 <?php
 
-// Container configuration
+// Service container configuration
 
 use App\Utility\ErrorHandler;
 use Aura\Session\Session;
