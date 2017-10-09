@@ -48,7 +48,7 @@ function container()
 /**
  * Get application settings.
  *
- * @return \Slim\Collection
+ * @return mixed
  */
 function settings()
 {
