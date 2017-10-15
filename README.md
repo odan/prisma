@@ -71,7 +71,7 @@ php install.php
 | resources/ | Other resource files (assets, locales, migrations) |
 | src/ | PHP source code (The App namespace) |
 | src/Controller/ | Controllers and actions |
-| src/Repository/ | Repositories (Communicating with the database) |
+| src/Repository/ | Repositories (Communication with the database) |
 | src/Table/ | The Table Gateway (Represents a table) |
 | src/Entity/ | Entities (Represents a table row) |
 | src/Service/ | Business logic |
