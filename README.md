@@ -71,10 +71,12 @@ php install.php
 | resources/ | Other resource files (assets, locales, migrations) |
 | src/ | PHP source code (Namepspace App) |
 | src/Controller/ | Controllers and actions |
-| src/Repository/ | Repositories. Communicating with the database |
-| src/Entity/ | Entities (Each entity object instance represents a database table row) |
+| src/Repository/ | Repositories (Communicating with the database) |
+| src/Table/ | The Table Gateway (Represents a table) |
+| src/Entity/ | Entities (Represents a table row) |
 | src/Service/ | Business logic |
-| src/View/ | HTML Templates |
+| src/Utility/ | Helper classes |
+| src/View/ | Templates |
 | tmp/ | Temp, cache and logfiles |
 | tests/ | Test code |
 | vendor/ | Reserved for composer |
