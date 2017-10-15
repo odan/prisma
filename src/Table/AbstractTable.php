@@ -68,7 +68,7 @@ abstract class AbstractTable implements TableInterface
      * Fetch row by id.
      *
      * @param int|string $id The ID
-     * @return array|false The row
+     * @return array|null The row
      */
     public function fetchById($id)
     {
@@ -88,8 +88,8 @@ abstract class AbstractTable implements TableInterface
     /**
      * Insert a row into the given table name using the key value pairs of data.
      *
-     * @param array|null $row The row data
-     * @return InsertQuery Statement
+     * @param array|null $row The row data. An associative array containing column-value pairs.
+     * @return InsertQuery The insert query object.
      */
     public function insert(array $row = null): InsertQuery
     {
@@ -101,11 +101,11 @@ abstract class AbstractTable implements TableInterface
     }
 
     /**
-     * Update of a single row in the table.
+     * Executes an SQL UPDATE statement on a table.
      *
-     * @param array $row The actual row data that needs to be saved
-     * @param int|string|array $conditions The ID or the WHERE conditions
-     * @return UpdateQuery Statement
+     * @param array $row The actual row data that needs to be saved. An associative array containing column-value pairs.
+     * @param int|string|array $conditions The ID or the WHERE conditions as associative array containing column-value pairs.
+     * @return UpdateQuery The update query object
      */
     public function update(array $row, $conditions): UpdateQuery
     {
@@ -123,10 +123,10 @@ abstract class AbstractTable implements TableInterface
     }
 
     /**
-     * Delete a single entity.
+     * Executes an SQL DELETE statement on a table.
      *
-     * @param int|array $conditions The ID or the WHERE conditions
-     * @return DeleteQuery Statement
+     * @param int|array $conditions The ID or the WHERE conditions as associative array containing column-value pairs.
+     * @return DeleteQuery The delete query object.
      */
     public function delete($conditions): DeleteQuery
     {
