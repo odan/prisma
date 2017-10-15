@@ -69,7 +69,7 @@ php install.php
 | docs/ | Documentation and examples |
 | public/ | Web server files |
 | resources/ | Other resource files (assets, locales, migrations) |
-| src/ | PHP source code (Namepspace App) |
+| src/ | PHP source code (The App namespace) |
 | src/Controller/ | Controllers and actions |
 | src/Repository/ | Repositories (Communicating with the database) |
 | src/Table/ | The Table Gateway (Represents a table) |
