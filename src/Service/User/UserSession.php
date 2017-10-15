@@ -4,7 +4,7 @@ namespace App\Service\User;
 
 use Aura\Session\Segment;
 use Aura\Session\Session;
-use Odan\Database\Connection;
+use Odan\Config\ConfigBag;
 use Symfony\Component\Translation\Translator;
 
 /**
@@ -28,11 +28,18 @@ class UserSession
     protected $segment;
 
     /**
-     * Database
+     * Translator
      *
-     * @var Connection
+     * @var Translator
      */
-    protected $db;
+    protected $translator;
+
+    /**
+     * Locale path
+     *
+     * @var string
+     */
+    protected $localePath;
 
     /**
      * @var Token
@@ -53,18 +60,20 @@ class UserSession
      * UserSession constructor.
      *
      * @param Session $session Storage
-     * @param Connection $db Database
      * @param UserRepository $userRepository The User repository
-     * @param string $secret Secret session key
+     * @param Translator $translator Translator
+     * @param ConfigBag $config The application settings
      */
-    public function __construct(Session $session, Connection $db, UserRepository $userRepository, $secret = '')
+    public function __construct(Session $session, UserRepository $userRepository, Translator $translator, ConfigBag $config)
     {
         $this->session = $session;
         $this->segment = $this->session->getSegment('app');
-        $this->db = $db;
         $this->userRepository = $userRepository;
-        $this->secret = $secret;
-        $this->token = $this->createToken($secret);
+        $this->translator = $translator;
+        $settings = $config->export();
+        $this->localePath = $settings['locale']['path'];
+        $this->secret =  $settings['app']['secret'];
+        $this->token = $this->createToken($this->secret);
     }
 
     /**
@@ -134,12 +143,10 @@ class UserSession
      */
     protected function setTranslatorLocale($locale = 'en_US', $domain = 'messages')
     {
-        $settings = container()->get('settings');
-        $moFile = sprintf('%s/%s_%s.mo', $settings['locale']['path'], $locale, $domain);
+        $moFile = sprintf('%s/%s_%s.mo', $this->localePath, $locale, $domain);
 
-        $translator = container()->get(Translator::class);
-        $translator->addResource('mo', $moFile, $locale, $domain);
-        $translator->setLocale($locale);
+        $this->translator->addResource('mo', $moFile, $locale, $domain);
+        $this->translator->setLocale($locale);
     }
 
     /**

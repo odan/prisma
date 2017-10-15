@@ -18,6 +18,7 @@
     "doctrine/cache": "^1.7",
     "league/plates": "3.*",
     "monolog/monolog": "^1.18.0",
+    "odan/config": "^0.2.0",
     "odan/database": "^0.4.0",
     "odan/hydrator": "^1.0",
     "odan/phinx-migrations-generator": "^2.1",

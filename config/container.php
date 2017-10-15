@@ -10,6 +10,7 @@ use League\Plates\Engine;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Odan\Asset\PlatesAssetExtension;
+use Odan\Config\ConfigBag;
 use Odan\Database\Connection;
 use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
@@ -24,8 +25,14 @@ $container = [];
 // -----------------------------------------------------------------------------
 // Settings
 // -----------------------------------------------------------------------------
-$container['settings'] = function () {
-    return read(__DIR__ . '/config.php');
+$container['settings'] = function (Container $container) {
+    return $container->get(ConfigBag::class)->export();
+};
+
+$container[ConfigBag::class] = function (Container $container) {
+    $config = new ConfigBag();
+    $config->load(__DIR__ . '/config.php');
+    return $config;
 };
 
 // -----------------------------------------------------------------------------
@@ -58,7 +65,7 @@ $container['errorHandler'] = function (Container $container) {
 $container[LoggerInterface::class] = function (Container $container) {
     $settings = $container->get('settings');
     $logger = new Logger($settings['logger']['name']);
-
+    
     $level = $settings['logger']['level'];
     if (!isset($level)) {
         $level = Logger::ERROR;
