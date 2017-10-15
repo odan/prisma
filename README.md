@@ -19,7 +19,7 @@ This is a simple skeleton project for Slim 3 that includes Plates, Sessions and 
 * Database Query Builder - [odan/database](https://github.com/odan/database)
 * Migrations - [cakephp/phinx](https://github.com/cakephp/phinx)
 * Migrations Generator - [odan/phinx-migrations-generator](https://github.com/odan/phinx-migrations-generator)
-* Hydrator - [odan/zend-hydrator](https://github.com/odan/hydrator)
+* Hydrator - [odan/hydrator](https://github.com/odan/hydrator)
 * Translations - [symfony/translation](https://github.com/symfony/Translation)
 * Logging - [monolog/monolog](https://github.com/Seldaek/monolog) 
 * Unit tests - [phpunit/phpunit](https://github.com/sebastianbergmann/phpunit)
