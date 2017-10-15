@@ -29,7 +29,7 @@ $container['settings'] = function (Container $container) {
     return $container->get(ConfigBag::class)->export();
 };
 
-$container[ConfigBag::class] = function (Container $container) {
+$container[ConfigBag::class] = function () {
     $config = new ConfigBag();
     $config->load(__DIR__ . '/config.php');
     return $config;
@@ -65,7 +65,7 @@ $container['errorHandler'] = function (Container $container) {
 $container[LoggerInterface::class] = function (Container $container) {
     $settings = $container->get('settings');
     $logger = new Logger($settings['logger']['name']);
-    
+
     $level = $settings['logger']['level'];
     if (!isset($level)) {
         $level = Logger::ERROR;
