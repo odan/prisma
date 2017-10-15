@@ -1,3 +1,6 @@
+# Path-based git attributes
+# https://www.kernel.org/pub/software/scm/git/docs/gitattributes.html
+
 public/* linguist-vendored
 docs/* linguist-documentation
 
@@ -23,12 +26,11 @@ docs/* linguist-documentation
 *.woff binary
 *.woff2 binary
 
-# ------------------------------------------------------------------------------
-# All the files and directories that can be excluded from dist, 
-# we could have a more clean vendor/
-#
-# So when someone will install that package through with --prefer-dist option, 
-# all the files and directories listed in .gitattributes file will be excluded. 
-# This could have a big impact on big deployments and/or testing. 
-# ------------------------------------------------------------------------------
-
+# Ignore all test and documentation with "export-ignore".
+/.gitattributes     export-ignore
+/.gitignore         export-ignore
+/.travis.yml        export-ignore
+/phpunit.xml.dist   export-ignore
+/.scrutinizer.yml   export-ignore
+/tests              export-ignore
+/docs               export-ignore

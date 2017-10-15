@@ -78,7 +78,7 @@ class UserRepository extends AbstractRepository
      */
     public function findByUsername($username)
     {
-        $row = $this->table->newQuery()->columns('*')
+        $row = $this->table->select()->columns('*')
             ->where('username', '=', $username)
             ->where('disabled', '=', 0)
             ->execute()

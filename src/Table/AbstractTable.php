@@ -9,18 +9,13 @@ use Odan\Database\SelectQuery;
 use Odan\Database\UpdateQuery;
 
 /**
- * Repositories The Right Way
+ * Table Gateways
  *
- * Implement separate database logic functions for all your needs inside
- * the specific repositories, so your service classes/controllers end up looking like this:
+ * The Table Gateway subcomponent provides an object-oriented representation of a database table;
+ * its methods mirror the most common table operations. In code, the interface resembles.
  *
- * $user = $userRepository->findByUsername('admin');
- * $users = $userRepository->findAdminIdsCreatedBeforeDate('2016-01-18 19:21:20');
- * $posts = $postRepository->chunkFilledPostsBeforeDate('2016-01-18 19:21:20');
- *
- * This way all the database logic is moved to the specific repository and I can type hint
- * it's returned models. This methodology also results in cleaner easier to read
- * code and further separates your core logic from the ORM / query builder.
+ * Out of the box, this implementation makes no assumptions about table structure or metadata,
+ * and when select() is executed, a simple SelectQuery object will be returned.
  */
 abstract class AbstractTable implements TableInterface
 {
@@ -49,11 +44,22 @@ abstract class AbstractTable implements TableInterface
     }
 
     /**
+     * Return the table name.
+     *
+     * @return string The table name
+     */
+    public function getTable(): string
+    {
+        return $this->tableName;
+    }
+
+
+    /**
      * Create a new select query instance for this table.
      *
      * @return SelectQuery The query instance
      */
-    public function newQuery()
+    public function select(): SelectQuery
     {
         return $this->db->select()->from($this->tableName);
     }
@@ -66,7 +72,7 @@ abstract class AbstractTable implements TableInterface
      */
     public function fetchById($id)
     {
-        return $this->newQuery()->columns('*')->where('id', '=', $id)->execute()->fetch();
+        return $this->select()->columns('*')->where('id', '=', $id)->execute()->fetch();
     }
 
     /**
@@ -76,20 +82,20 @@ abstract class AbstractTable implements TableInterface
      */
     public function fetchAll()
     {
-        return $this->newQuery()->columns('*')->execute()->fetchAll();
+        return $this->select()->columns('*')->execute()->fetchAll();
     }
 
     /**
      * Insert a row into the given table name using the key value pairs of data.
      *
-     * @param array|null $data The row data
+     * @param array|null $row The row data
      * @return InsertQuery Statement
      */
-    public function insert(array $data = null): InsertQuery
+    public function insert(array $row = null): InsertQuery
     {
         $insert = $this->db->insert()->into($this->tableName);
-        if ($data) {
-            $insert->set($data);
+        if ($row) {
+            $insert->set($row);
         }
         return $insert;
     }
@@ -98,7 +104,7 @@ abstract class AbstractTable implements TableInterface
      * Update of a single row in the table.
      *
      * @param array $row The actual row data that needs to be saved
-     * @param int|string|array $conditions Id or conditions
+     * @param int|string|array $conditions The ID or the WHERE conditions
      * @return UpdateQuery Statement
      */
     public function update(array $row, $conditions): UpdateQuery
@@ -119,7 +125,7 @@ abstract class AbstractTable implements TableInterface
     /**
      * Delete a single entity.
      *
-     * @param int|array $conditions ID or conditions
+     * @param int|array $conditions The ID or the WHERE conditions
      * @return DeleteQuery Statement
      */
     public function delete($conditions): DeleteQuery
