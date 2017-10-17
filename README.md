@@ -61,25 +61,31 @@ php install.php
 
 ## Directory structure
 
-| Directory  | Content |
-|----------|-------------|
-| build/ | Artifact files |
-| bin/ | Command-line executables |
-| config/ | Configuration files |
-| docs/ | Documentation and examples |
-| public/ | Web server files |
-| resources/ | Other resource files (assets, locales, migrations) |
-| src/ | PHP source code (The App namespace) |
-| src/Controller/ | Controllers and actions |
-| src/Repository/ | Repositories (Communication with the database) |
-| src/Table/ | The Table Gateway (Represents a table) |
-| src/Entity/ | Entities (Represents a table row) |
-| src/Service/ | Business logic |
-| src/Utility/ | Helper classes |
-| src/View/ | Templates |
-| tmp/ | Temp, cache and logfiles |
-| tests/ | Test code |
-| vendor/ | Reserved for composer |
+| Root-Directory | Sub-Directory | Content |
+|----------|----------|-------------|
+| build/ | | Artifact files |
+| bin/ | | Command-line executables |
+| config/ | | Configuration files |
+| docs/ | | Documentation and examples |
+| public/ | | Web server files |
+| resources/ | | Other resource files |
+| | assets/ | Raw, un-compiled assets such as LESS, SASS, or JavaScript |
+| | locale/ | The language files (translations) |
+| | migrations/ | Database migration files (Phinx) |
+| | templates/ | The views (HTML templates) |
+| src/ | | PHP source code (The App namespace) |
+| src/ | Controller/ | Controllers and actions |
+| src/ | Repository/ | Repositories (Communication with the database) |
+| src/ | Table/ | The Table Gateway (Represents a table) |
+| src/ | Entity/ | Entities (Represents a table row) |
+| src/ | Service/ | Business logic |
+| src/ | Utility/ | Helper classes |
+| var/ | | Files to which the application writes data during of its operation |
+| | tmp/ | Temporary files |
+| | log/ | Log files |
+| | cache/ | Cache files |
+| tests/ | | Test code |
+| vendor/ | | Reserved for composer |
 
 ## Routing
 
