@@ -74,12 +74,12 @@ php install.php
 | | migrations/ | Database migration files (Phinx) |
 | | templates/ | The views (HTML templates) |
 | src/ | | PHP source code (The App namespace) |
-| src/ | Controller/ | Controllers and actions |
-| src/ | Repository/ | Repositories (Communication with the database) |
-| src/ | Table/ | The Table Gateway (Represents a table) |
-| src/ | Entity/ | Entities (Represents a table row) |
-| src/ | Service/ | Business logic |
-| src/ | Utility/ | Helper classes |
+| | Controller/ | Controllers and actions |
+| | Repository/ | Repositories (Communication with the database) |
+| | Table/ | The Table Gateway (Represents a table) |
+| | Entity/ | Entities (Represents a table row) |
+| | Service/ | Business logic |
+| | Utility/ | Helper classes |
 | var/ | | Files to which the application writes data during of its operation |
 | | tmp/ | Temporary files |
 | | log/ | Log files |
