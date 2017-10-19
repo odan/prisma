@@ -74,11 +74,11 @@ php install.php
 | | migrations | Database migration files (Phinx) |
 | src | | PHP source code (The App namespace) |
 | | Controller | Controllers and actions |
+| | Entity | Entities (Represents a table row) |
 | | Repository | Repositories (Communication with the database) |
+| | Service | Business logic |
 | | Table | The Table Gateway (Represents a table) |
 | | Template | The views (HTML templates) |
-| | Entity | Entities (Represents a table row) |
-| | Service | Business logic |
 | | Utility | Helper classes |
 | var | | Files to which the application writes data during of its operation |
 | | tmp | Temporary files |
