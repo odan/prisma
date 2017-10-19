@@ -63,29 +63,29 @@ php install.php
 
 | Root-Directory | Sub-Directory | Content |
 |----------|----------|-------------|
-| build/ | | Artifact files |
-| bin/ | | Command-line executables |
-| config/ | | Configuration files |
-| docs/ | | Documentation and examples |
-| public/ | | Web server files |
-| resources/ | | Other resource files |
-| | assets/ | Raw, un-compiled assets such as LESS, SASS, or JavaScript |
-| | locale/ | The language files (translations) |
-| | migrations/ | Database migration files (Phinx) |
-| | templates/ | The views (HTML templates) |
-| src/ | | PHP source code (The App namespace) |
-| | Controller/ | Controllers and actions |
-| | Repository/ | Repositories (Communication with the database) |
-| | Table/ | The Table Gateway (Represents a table) |
-| | Entity/ | Entities (Represents a table row) |
-| | Service/ | Business logic |
-| | Utility/ | Helper classes |
-| var/ | | Files to which the application writes data during of its operation |
-| | tmp/ | Temporary files |
-| | log/ | Log files |
-| | cache/ | Cache files |
-| tests/ | | Test code |
-| vendor/ | | Reserved for composer |
+| build | | Artifact files |
+| bin | | Command-line executables |
+| config | | Configuration files |
+| docs | | Documentation and examples |
+| public | | Web server files |
+| resources | | Other resource files |
+| | assets | Raw, un-compiled assets such as LESS, SASS, or JavaScript |
+| | locale | The language files (translations) |
+| | migrations | Database migration files (Phinx) |
+| src | | PHP source code (The App namespace) |
+| | Controller | Controllers and actions |
+| | Repository | Repositories (Communication with the database) |
+| | Table | The Table Gateway (Represents a table) |
+| | Template | The views (HTML templates) |
+| | Entity | Entities (Represents a table row) |
+| | Service | Business logic |
+| | Utility | Helper classes |
+| var | | Files to which the application writes data during of its operation |
+| | tmp | Temporary files |
+| | log | Log files |
+| | cache | Cache files |
+| tests | | Test code |
+| vendor | | Reserved for composer |
 
 ## Routing
 
