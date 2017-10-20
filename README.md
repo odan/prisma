@@ -80,10 +80,10 @@ php install.php
 | | Table | The Table Gateway (Represents a table) |
 | | Template | The views (HTML templates) |
 | | Utility | Helper classes |
+| tests | | Test code |
 | tmp | | Temporary files |
 | | logs | Log files |
 | | cache | Cache files |
-| tests | | Test code |
 | vendor | | Reserved for composer |
 
 ## Routing
