@@ -33,7 +33,7 @@ $config['app'] = [
 // Logger settings
 $config['logger'] = [
     'name' => 'app',
-    'file' => $config['temp'] . '/log/app.log',
+    'file' => $config['temp'] . '/logs/app.log',
     'level' => \Monolog\Logger::ERROR
 ];
 
@@ -44,7 +44,7 @@ $config['cache'] = [
 
 // View settings
 $config['view'] = [
-    'path' => $config['root'] . '/src/View'
+    'path' => $config['root'] . '/templates'
 ];
 
 // Assets

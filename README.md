@@ -80,8 +80,7 @@ php install.php
 | | Table | The Table Gateway (Represents a table) |
 | | Template | The views (HTML templates) |
 | | Utility | Helper classes |
-| var | | Files to which the application writes data during of its operation |
-| | temp | Temporary files |
+| tmp | | Temporary files |
 | | logs | Log files |
 | | cache | Cache files |
 | tests | | Test code |

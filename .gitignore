@@ -23,9 +23,13 @@ tmp/*
 tmp/log/*
 !tmp/log/empty
 
-!tmp/cache/
-tmp/cache/*
-!tmp/cache/empty
+!tmp/logs/
+tmp/logs/*
+!tmp/logs/empty
+
+!tmp/assets-cache/
+tmp/assets-cache/*
+!tmp/assets-cache/empty
 
 vendor/
 build/
