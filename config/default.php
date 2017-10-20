@@ -37,11 +37,6 @@ $config['logger'] = [
     'level' => \Monolog\Logger::ERROR
 ];
 
-// Cache settings
-$config['cache'] = [
-    'path' => $config['temp'] . '/cache'
-];
-
 // View settings
 $config['view'] = [
     'path' => $config['root'] . '/templates'

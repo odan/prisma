@@ -83,7 +83,7 @@ php install.php
 | tests | | Test code |
 | tmp | | Temporary files |
 | | logs | Log files |
-| | cache | Cache files |
+| | assets-cache | Internal assets cache |
 | vendor | | Reserved for composer |
 
 ## Routing
