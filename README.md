@@ -81,8 +81,8 @@ php install.php
 | | Template | The views (HTML templates) |
 | | Utility | Helper classes |
 | var | | Files to which the application writes data during of its operation |
-| | tmp | Temporary files |
-| | log | Log files |
+| | temp | Temporary files |
+| | logs | Log files |
 | | cache | Cache files |
 | tests | | Test code |
 | vendor | | Reserved for composer |
