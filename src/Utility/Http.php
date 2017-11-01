@@ -2,6 +2,7 @@
 
 namespace App\Utility;
 
+use Slim\Http\Environment;
 use Slim\Http\Request;
 
 /**
@@ -14,16 +15,24 @@ class Http
      *
      * @var Request
      */
-    public $request;
+    private $request;
+
+    /**
+     * Environment
+     *
+     * @var Environment
+     */
+    private $environment;
 
     /**
      * Constructor
      *
      * @param Request $request The request
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request, Environment $environment)
     {
         $this->request = $request;
+        $this->environment = $environment;
     }
 
     /**
@@ -34,7 +43,30 @@ class Http
      */
     public function getBaseUrl($path)
     {
-        return $this->getHostUrl() . $path;
+        $result = $this->getHostUrl() . $this->getBasePath($path);
+
+        return $result;
+    }
+
+    /**
+     * Returns a URL rooted at the base url for all relative URLs in a document
+     *
+     * @param string $path the path
+     * @return string base url for $internalUri
+     */
+    public function getBasePath($path)
+    {
+        if ($this->environment->get('REAL_SCRIPT_NAME')) {
+            $scriptName = $this->environment->get('REAL_SCRIPT_NAME');
+        } else {
+            $scriptName = $this->environment->get('SCRIPT_NAME');
+        }
+
+        $baseUri = dirname(dirname($scriptName));
+        $result = str_replace('\\', '/', $baseUri) . $path;
+        $result = str_replace('//', '/', $result);
+
+        return $result;
     }
 
     /**
@@ -49,6 +81,7 @@ class Http
         $port = $uri->getPort();
         $result = $this->isSecure() ? 'https://' : 'http://';
         $result .= (empty($port)) ? $host : $host . ":" . $port;
+
         return $result;
     }
 
@@ -72,6 +105,7 @@ class Http
         if (!empty($server['HTTPS'])) {
             return strtolower($server['HTTPS']) !== 'off';
         }
+
         return false;
     }
 
@@ -86,10 +120,13 @@ class Http
         $host = $uri->getHost();
         $port = $uri->getPort();
         $path = $uri->getPath();
+        $path = strpos($path, '/') === 0 ? $path: '/' . $path;
+        $path = $this->getBasePath($path);
         $query = $uri->getQuery();
         $result = $this->isSecure() ? 'https://' : 'http://';
         $result .= (empty($port)) ? $host . $path : $host . ":" . $port . $path;
         $result .= strlen($query) ? '?' . $query : '';
+
         return $result;
     }
 }

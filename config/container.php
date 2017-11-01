@@ -29,6 +29,15 @@ $container['settings'] = function (Container $container) {
     return $container->get(ConfigBag::class)->export();
 };
 
+$container['environment'] = function () {
+    // Fix the Slim 3 subdirectory issue (#1529)
+    // This fix makes it possible to run the app from localhost/slim_app_dir
+    $scriptName = $_SERVER['SCRIPT_NAME'];
+    $_SERVER['REAL_SCRIPT_NAME'] = $scriptName;
+    $_SERVER['SCRIPT_NAME'] = dirname(dirname($scriptName)) . '/' . basename($scriptName);
+    return new Slim\Http\Environment($_SERVER);
+};
+
 $container[ConfigBag::class] = function () {
     $config = new ConfigBag();
     $config->load(__DIR__ . '/config.php');

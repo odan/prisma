@@ -60,9 +60,21 @@ abstract class AbstractController
     protected function redirect($url, $status = null): Response
     {
         if (strpos($url, '/') === 0) {
-            $url = $this->request->getAttribute('hostUrl') . $url;
+            $url = $this->url($url);
         }
+
         return $this->response->withRedirect($url, $status);
+    }
+
+    /**
+     * Get read url
+     *
+     * @param $path
+     * @return string
+     */
+    protected function url($path)
+    {
+        return $this->request->getAttribute('baseUrl') . ltrim($path, '/');
     }
 
     /**
@@ -77,6 +89,7 @@ abstract class AbstractController
         $result['Cancel'] = __('Cancel');
         $result['Yes'] = __('Yes');
         $result['No'] = __('No');
+
         return $result;
     }
 
@@ -95,6 +108,7 @@ abstract class AbstractController
         if (!empty($viewData)) {
             $result = array_replace_recursive($result, $viewData);
         }
+
         return $result;
     }
 
@@ -111,6 +125,7 @@ abstract class AbstractController
         $body = $this->response->getBody();
         $body->rewind();
         $body->write($content);
+
         return $this->response;
     }
 

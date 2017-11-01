@@ -12,6 +12,10 @@ $container = $app->getContainer();
 $app->add(function (Request $request, Response $response, $next) use ($container) {
     /* @var \Slim\Route $route */
     $route = $request->getAttribute('route');
+
+    if(!$route) {
+        return $next($request, $response);
+    }
     $auth = $route->getArgument('_auth', true);
 
     /* @var \App\Service\User\UserSession $user */
@@ -30,7 +34,7 @@ $app->add(function (Request $request, Response $response, $next) use ($container
 
 // Http middleware
 $app->add(function (Request $request, Response $response, $next) use ($container) {
-    $http = new \App\Utility\Http($request);
+    $http = new \App\Utility\Http($request, $container->get('environment'));
     $request = $request->withAttribute('url', $http->getUrl());
     $request = $request->withAttribute('baseUrl', $http->getBaseUrl('/'));
     $request = $request->withAttribute('hostUrl', $http->getHostUrl());

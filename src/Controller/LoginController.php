@@ -33,7 +33,7 @@ class LoginController extends AbstractController
         $password = $data['password'];
 
         $result = $this->user->login($username, $password);
-        $url = ($result) ? '/' : '/login';
+        $url = ($result) ? $this->url('/') : $this->url('/login');
 
         return $this->redirect($url);
     }

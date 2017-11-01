@@ -16,7 +16,7 @@
     </head>
     <body>
         <div class="container">
-            <form class="form-signin" method="POST">
+            <form class="form-signin" method="POST" action="login">
                 <h2 class="form-signin-heading"><?= $this->e(__('Please sign in')); ?></h2>
                 <input type="text" name="username" class="form-control" placeholder="<?= $this->e(__('Username')); ?>" autofocus>
                 <input type="password" name="password" class="form-control" placeholder="<?= $this->e(__('Password')); ?>">
