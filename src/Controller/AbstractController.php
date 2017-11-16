@@ -8,6 +8,7 @@ use Odan\Database\Connection;
 use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Slim\Router;
 
 /**
  * AppController
@@ -25,6 +26,12 @@ abstract class AbstractController
      * @var Response
      */
     protected $response;
+
+    /**
+     * @Inject
+     * @var Router
+     */
+    protected $router;
 
     /**
      * @Inject
@@ -51,33 +58,6 @@ abstract class AbstractController
     protected $logger;
 
     /**
-     * Redirect to url
-     *
-     * @param string $url The URL
-     * @param int $status HTTP status code
-     * @return Response Redirect response
-     */
-    protected function redirect($url, $status = null): Response
-    {
-        if (strpos($url, '/') === 0) {
-            $url = $this->url($url);
-        }
-
-        return $this->response->withRedirect($url, $status);
-    }
-
-    /**
-     * Get read url
-     *
-     * @param $path
-     * @return string
-     */
-    protected function url($path)
-    {
-        return $this->request->getAttribute('baseUrl') . ltrim($path, '/');
-    }
-
-    /**
      * Returns default text.
      *
      * @return array Array with translated text
@@ -102,7 +82,7 @@ abstract class AbstractController
     protected function getViewData(array $viewData = []): array
     {
         $result = [
-            'baseUrl' => $this->request->getAttribute('baseUrl'),
+            'baseUrl' => $this->router->pathFor('root'),
             'text' => $this->getText()
         ];
         if (!empty($viewData)) {
@@ -127,17 +107,5 @@ abstract class AbstractController
         $body->write($content);
 
         return $this->response;
-    }
-
-    /**
-     * Helper to return JSON from a controller.
-     *
-     * @param mixed $data Data
-     * @param int $status HTTP status code (200 = OK, 422 Unprocessable entity / validation failed)
-     * @return Response
-     */
-    protected function json($data, $status = null): Response
-    {
-        return $this->response->withJson($data, $status);
     }
 }

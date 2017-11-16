@@ -47,6 +47,6 @@ class HomeController extends AbstractController
             'message' => __('Loaded successfully!'),
             'data' => $data
         ];
-        return $this->json($result);
+        return $this->response->withJson($result);
     }
 }

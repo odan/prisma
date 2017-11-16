@@ -33,9 +33,9 @@ class LoginController extends AbstractController
         $password = $data['password'];
 
         $result = $this->user->login($username, $password);
-        $url = ($result) ? $this->url('/') : $this->url('/login');
+        $url = ($result) ? $this->router->pathFor('root') : $this->router->pathFor('login');
 
-        return $this->redirect($url);
+        return $this->response->withRedirect($url);
     }
 
     /**
@@ -46,6 +46,6 @@ class LoginController extends AbstractController
     public function logout(): Response
     {
         $this->user->logout();
-        return $this->redirect('/login');
+        return $this->response->withRedirect($this->router->pathFor('login'));
     }
 }

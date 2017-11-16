@@ -11,7 +11,7 @@
 $app = app();
 
 // Default page
-$app->get('/', ['App\Controller\HomeController', 'indexPage']);
+$app->get('/', ['App\Controller\HomeController', 'indexPage'])->setName('root');
 
 // Json request
 $app->post('/index/load', ['App\Controller\HomeController', 'load']);
@@ -22,11 +22,6 @@ $app->post('/index/load', ['App\Controller\HomeController', 'load']);
 $app->post('/login', ['App\Controller\LoginController', 'loginSubmit'])->setArgument('_auth', false);
 $app->get('/login', ['App\Controller\LoginController', 'loginPage'])->setArgument('_auth', false)->setName('login');
 $app->get('/logout', ['App\Controller\LoginController', 'logout'])->setArgument('_auth', false);
-
-$app->get('/hello/{name}', function (\Slim\Http\Request $request, $response) {
-    $response->getBody()->write('Hello!');
-    return $response;
-})->setArgument('_auth', false);;
 
 // Users
 $app->get('/users', ['App\Controller\UserController', 'indexPage']);
