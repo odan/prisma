@@ -18,5 +18,4 @@ namespace App\Repository;
  */
 abstract class AbstractRepository implements RepositoryInterface
 {
-
 }
