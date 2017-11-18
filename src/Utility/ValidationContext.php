@@ -59,8 +59,8 @@ class ValidationContext
     public function addError($field, $message): void
     {
         $this->errors[] = [
-            "field" => $field,
-            "message" => $message
+            'field' => $field,
+            'message' => $message
         ];
     }
 
@@ -104,8 +104,8 @@ class ValidationContext
     public function toArray(): array
     {
         return [
-            "message" => $this->message,
-            "errors" => $this->errors
+            'message' => $this->message,
+            'errors' => $this->errors
         ];
     }
 }

@@ -24,7 +24,7 @@ final class ErrorHandler extends PhpError
      * @param bool $displayErrorDetails Set to true to display full details
      * @param Logger $logger The logger
      */
-    public function __construct($displayErrorDetails = false, Logger $logger)
+    public function __construct(bool $displayErrorDetails = false, Logger $logger)
     {
         parent::__construct($displayErrorDetails);
         $this->logger = $logger;
