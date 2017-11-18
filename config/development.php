@@ -20,6 +20,6 @@ $config['assets']['minify'] = 0;
 $config['locale']['cache'] = null;
 
 // Database
-$config['db']['database'] = 'prisma';
+$config['db']['database'] = '{{db_database}}';
 
 return $config;
