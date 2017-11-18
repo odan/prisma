@@ -34,10 +34,11 @@ $app->add(function (Request $request, Response $response, $next) use ($container
 
 // Http middleware
 $app->add(function (Request $request, Response $response, $next) use ($container) {
-    $http = new \App\Utility\Http($request, $container->get('environment'));
-    $request = $request->withAttribute('url', $http->getUrl());
-    $request = $request->withAttribute('hostUrl', $http->getHostUrl());
-    $request = $request->withAttribute('secure', $http->isSecure());
+    //Checks whether the request is secure or not.
+    $server = $request->getServerParams();
+    $secure = !empty($server['HTTPS']) && strtolower($server['HTTPS']) !== 'off';
+    $request = $request->withAttribute('secure', $secure);
+
     $container->set('request', $request);
     return $next($request, $response);
 });

@@ -28,7 +28,8 @@ class HomeController extends AbstractController
         $viewData = $this->getViewData([
             'text' => $text,
             'counter' => $counter,
-            'url' => $this->request->getAttribute('url')
+            'url' => $this->request->getUri(),
+            'secure' => $this->request->getAttribute('secure') ? __('Yes'): __('No'),
         ]);
 
         // Render template

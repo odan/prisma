@@ -12,6 +12,7 @@ $this->end();
             <h1><?= $this->e(__('Hello')); ?> <?= $this->e(__('World')); ?></h1>
             Users: <a href="users">users</a><br>
             URL: <?= $this->e($url); ?><br>
+            HTTPS: <?= $this->e($secure); ?><br>
         </div>
     </div>
 </div>
