@@ -11,7 +11,7 @@ use Slim\Http\Response;
 use Slim\Router;
 
 /**
- * AppController
+ * AbstractController (Base class)
  */
 abstract class AbstractController
 {

@@ -15,6 +15,13 @@ class UserRepository extends AbstractRepository
 {
 
     /**
+     * The Table Gateway object
+     *
+     * @var UserTable
+     */
+    private $table;
+
+    /**
      * Constructor.
      *
      * @param Connection $db

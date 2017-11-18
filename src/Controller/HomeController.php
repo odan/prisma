@@ -5,7 +5,7 @@ namespace App\Controller;
 use Slim\Http\Response;
 
 /**
- * IndexController
+ * HomeController
  */
 class HomeController extends AbstractController
 {

@@ -2,8 +2,6 @@
 
 namespace App\Repository;
 
-use App\Table\TableInterface;
-
 /**
  * Repositories The Right Way
  *
@@ -20,10 +18,5 @@ use App\Table\TableInterface;
  */
 abstract class AbstractRepository implements RepositoryInterface
 {
-    /**
-     * The Table Gateway object
-     *
-     * @var TableInterface
-     */
-    protected $table;
+
 }
