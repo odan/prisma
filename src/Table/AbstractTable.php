@@ -91,7 +91,7 @@ abstract class AbstractTable implements TableInterface
      * @param array|null $row The row data. An associative array containing column-value pairs.
      * @return InsertQuery The insert query object.
      */
-    public function insert(array $row = null): InsertQuery
+    public function insert($row = null): InsertQuery
     {
         $insert = $this->db->insert()->into($this->tableName);
         if ($row) {

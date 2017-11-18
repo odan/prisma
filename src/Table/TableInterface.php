@@ -16,7 +16,7 @@ interface TableInterface
 
     public function select(): SelectQuery;
 
-    public function insert(array $row = null): InsertQuery;
+    public function insert($row = null): InsertQuery;
 
     public function update(array $row, $conditions): UpdateQuery;
 
