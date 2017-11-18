@@ -11,12 +11,12 @@ class ValidationContext
     /**
      * @var null|string
      */
-    protected $message;
+    private $message;
 
     /**
      * @var array
      */
-    protected $errors = [];
+    private $errors = [];
 
     /**
      * ValidationContext constructor.
@@ -32,8 +32,9 @@ class ValidationContext
      * Set message.
      *
      * @param string $message Main Message
+     * @return void
      */
-    public function setMessage(string $message)
+    public function setMessage(string $message): void
     {
         $this->message = $message;
     }
@@ -55,7 +56,7 @@ class ValidationContext
      * @param string|null $message Error message for $field
      * @return void
      */
-    public function addError($field, $message)
+    public function addError($field, $message): void
     {
         $this->errors[] = [
             "field" => $field,
@@ -68,7 +69,7 @@ class ValidationContext
      *
      * @return array All errors
      */
-    public function getErrors()
+    public function getErrors(): array
     {
         return $this->errors;
     }
@@ -79,26 +80,28 @@ class ValidationContext
      *
      * @return bool False if no errors
      */
-    public function failed()
+    public function failed(): bool
     {
         return !empty($this->errors);
     }
 
     /**
-     * Reset class.
+     * Reset message and errors.
+     *
+     * @return void
      */
-    public function clear()
+    public function clear(): void
     {
-        unset($this->message);
+        $this->message = null;
         $this->errors = [];
     }
 
     /**
-     * Return main message with all errors as array.
+     * Return message with all errors as array.
      *
      * @return array Result
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             "message" => $this->message,

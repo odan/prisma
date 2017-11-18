@@ -21,21 +21,21 @@ class AuthenticationResult
      *
      * @var int
      */
-    protected $code;
+    private $code;
 
     /**
      * Identity
      *
      * @var User|null
      */
-    protected $identity;
+    private $identity;
 
     /**
      * Messages
      *
      * @var array
      */
-    protected $messages;
+    private $messages;
 
     /**
      * Constructor.
@@ -56,7 +56,7 @@ class AuthenticationResult
      *
      * @return bool
      */
-    public function isValid()
+    public function isValid(): bool
     {
         return $this->code === static::SUCCESS;
     }
@@ -73,7 +73,7 @@ class AuthenticationResult
      *
      * @return int Result constant identifier
      */
-    public function getCode()
+    public function getCode(): int
     {
         return $this->code;
     }
@@ -93,7 +93,7 @@ class AuthenticationResult
      *
      * @return array
      */
-    public function getMessages()
+    public function getMessages(): array
     {
         return $this->messages;
     }

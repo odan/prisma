@@ -18,43 +18,43 @@ class UserSession
      *
      * @var Session
      */
-    protected $session;
+    private $session;
 
     /**
      * Session segment
      *
      * @var Segment
      */
-    protected $segment;
+    private $segment;
 
     /**
      * Translator
      *
      * @var Translator
      */
-    protected $translator;
+    private $translator;
 
     /**
      * Locale path
      *
      * @var string
      */
-    protected $localePath;
+    private $localePath;
 
     /**
      * @var Token
      */
-    protected $token;
+    private $token;
 
     /**
      * @var string
      */
-    protected $secret = '';
+    private $secret = '';
 
     /**
      * @var UserRepository
      */
-    protected $userRepository;
+    private $userRepository;
 
     /**
      * UserSession constructor.
@@ -82,7 +82,7 @@ class UserSession
      * @param string $secret
      * @return Token
      */
-    protected function createToken($secret)
+    protected function createToken($secret): Token
     {
         return new Token($this->session->getId() . $secret);
     }
@@ -90,11 +90,11 @@ class UserSession
     /**
      * Get user Id.
      *
-     * @return int User Id
+     * @return string User Id
      */
-    public function getId()
+    public function getId(): string
     {
-        return (int)$this->get('user.id');
+        return (string)$this->get('user.id');
     }
 
     /**
@@ -114,7 +114,7 @@ class UserSession
      *
      * @return Token
      */
-    public function getToken()
+    public function getToken(): Token
     {
         return $this->token;
     }
@@ -123,9 +123,9 @@ class UserSession
      * Get locale
      *
      * @param string $default
-     * @return  string Locale
+     * @return string Locale
      */
-    public function getLocale($default = 'en_US')
+    public function getLocale($default = 'en_US'): string
     {
         $result = $this->get('user.locale');
         if (empty($result)) {
@@ -141,7 +141,7 @@ class UserSession
      * @param string $domain
      * @return void
      */
-    protected function setTranslatorLocale($locale = 'en_US', $domain = 'messages')
+    protected function setTranslatorLocale($locale = 'en_US', $domain = 'messages'): void
     {
         $moFile = sprintf('%s/%s_%s.mo', $this->localePath, $locale, $domain);
 
@@ -156,7 +156,7 @@ class UserSession
      * @param string $password Password
      * @return bool Status
      */
-    public function login($username, $password)
+    public function login($username, $password): bool
     {
         // Check username and password
         $auth = new AuthenticationService($this->userRepository, $this->token, $username, $password);
@@ -195,7 +195,7 @@ class UserSession
      * @param mixed $value Value
      * @return void
      */
-    public function set($key, $value)
+    public function set($key, $value): void
     {
         $this->segment->set($key, $value);
     }
@@ -207,7 +207,7 @@ class UserSession
      * @param string $domain
      * @return bool Status
      */
-    public function setLocale($locale = 'en_US', $domain = 'messages')
+    public function setLocale($locale = 'en_US', $domain = 'messages'): bool
     {
         $this->set('user.locale', $locale);
         $this->set('user.domain', $domain);
@@ -221,7 +221,7 @@ class UserSession
      *
      * @return bool Status
      */
-    public function logout()
+    public function logout(): bool
     {
         $this->set('user.id', null);
         $this->set('user.role', null);
@@ -240,7 +240,7 @@ class UserSession
      * or array('ROLE_ADMIN', 'ROLE_USER')
      * @return bool Status
      */
-    public function is($role)
+    public function is($role): bool
     {
         // Current user role
         $userRole = $this->get('user.role');
@@ -264,7 +264,7 @@ class UserSession
      *
      * @return bool Status
      */
-    public function isValid()
+    public function isValid(): bool
     {
         $id = $this->get('user.id');
 

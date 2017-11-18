@@ -28,7 +28,7 @@ abstract class AbstractEntity implements EntityInterface
      *
      * @return Hydrator Hydrator
      */
-    protected function getHydrator()
+    protected function getHydrator(): Hydrator
     {
         static $hydrator = null;
         if (!$hydrator) {
@@ -42,7 +42,7 @@ abstract class AbstractEntity implements EntityInterface
      *
      * @return array Data
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->getHydrator()->extract($this);
     }
@@ -53,7 +53,7 @@ abstract class AbstractEntity implements EntityInterface
      * @param int $options Options
      * @return string A json string
      */
-    public function toJson($options = 0)
+    public function toJson($options = 0): string
     {
         return json_encode($this->toArray(), $options);
     }

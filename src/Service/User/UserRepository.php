@@ -67,6 +67,7 @@ class UserRepository extends AbstractRepository
         if (!$user = $this->findById($id)) {
             throw new Exception(__('User not found: %s', $id));
         }
+
         return $user;
     }
 
@@ -108,7 +109,7 @@ class UserRepository extends AbstractRepository
      * @param User $user The user
      * @return bool success
      */
-    public function delete(User $user)
+    public function delete(User $user): bool
     {
         return $this->table->delete($user->id)->execute();
     }

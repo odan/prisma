@@ -11,6 +11,10 @@ cache.properties
 env.php
 config/env.php
 
+!public/assets/
+public/assets/*
+!public/assets/.htaccess
+
 !public/cache/
 public/cache/*
 !public/cache/.htaccess

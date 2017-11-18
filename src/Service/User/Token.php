@@ -12,7 +12,7 @@ class Token
      *
      * @var string
      */
-    protected $secret = '';
+    private $secret = '';
 
     /**
      * Token constructor.
@@ -32,7 +32,7 @@ class Token
      * @param array $options
      * @return string
      */
-    public function hash($password, $algo = 1, $options = array())
+    public function hash($password, $algo = 1, $options = array()): string
     {
         return password_hash($password, $algo, $options);
     }
@@ -44,7 +44,7 @@ class Token
      * @param string $hash
      * @return bool
      */
-    public function verifyHash($password, $hash)
+    public function verifyHash($password, $hash): bool
     {
         return password_verify($password, $hash);
     }
@@ -56,7 +56,7 @@ class Token
      * @param string $token Token
      * @return bool Status
      */
-    public function check($value, $token)
+    public function check($value, $token): bool
     {
         $realHash = $this->create($value);
         return ($token === $realHash);
@@ -68,7 +68,7 @@ class Token
      * @param string $value
      * @return string
      */
-    public function create($value)
+    public function create($value): string
     {
         return sha1($value . $this->secret);
     }

@@ -17,7 +17,7 @@ class BaseType
      * @param mixed $typeValue Value
      * @return bool True if code exists
      */
-    public static function exists($typeValue)
+    public static function exists($typeValue): bool
     {
         $class = new ReflectionClass(static::class);
         return in_array($typeValue, $class->getConstants());
@@ -30,13 +30,13 @@ class BaseType
      * @return string Name
      * @throws Exception
      */
-    public static function getName($typeValue)
+    public static function getName($typeValue): string
     {
         $class = new ReflectionClass(static::class);
-        $consts = array_flip($class->getConstants());
-        if (!array_key_exists($typeValue, $consts)) {
+        $constants = array_flip($class->getConstants());
+        if (!array_key_exists($typeValue, $constants)) {
             throw new Exception(__('Invalid type ID: %s', $typeValue));
         }
-        return $consts[$typeValue];
+        return $constants[$typeValue];
     }
 }

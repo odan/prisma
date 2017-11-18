@@ -14,28 +14,28 @@ class AuthenticationService extends AbstractService
      *
      * @var UserRepository
      */
-    protected $userRepository;
+    private $userRepository;
 
     /**
      * Username
      *
      * @var string
      */
-    protected $username;
+    private $username;
 
     /**
      * Password
      *
      * @var string
      */
-    protected $password;
+    private $password;
 
     /**
      * Token
      *
      * @var Token
      */
-    protected $token;
+    private $token;
 
     /**
      * Constructor.
@@ -58,7 +58,7 @@ class AuthenticationService extends AbstractService
      *
      * @return AuthenticationResult
      */
-    public function authenticate()
+    public function authenticate(): AuthenticationResult
     {
         $user = $this->userRepository->findByUsername($this->username);
 

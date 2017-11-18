@@ -99,7 +99,7 @@ abstract class AbstractController
      * @param array $viewData View data
      * @return Response
      */
-    protected function render($name, array $viewData = array()): Response
+    protected function render($name, array $viewData = []): Response
     {
         $content = $this->view->render($name, $viewData);
         $body = $this->response->getBody();

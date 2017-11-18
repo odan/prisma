@@ -16,7 +16,7 @@ final class ErrorHandler extends PhpError
     /**
      * @var Logger
      */
-    protected $logger;
+    private $logger;
 
     /**
      * Constructor
@@ -38,7 +38,7 @@ final class ErrorHandler extends PhpError
      * @param Throwable $exception
      * @return Response
      */
-    public function __invoke(Request $request, Response $response, Throwable $exception)
+    public function __invoke(Request $request, Response $response, Throwable $exception): Response
     {
         // Log the message
         $context = $this->renderArrayError($exception);
@@ -53,7 +53,7 @@ final class ErrorHandler extends PhpError
      * @param Throwable $error
      * @return array
      */
-    protected function renderArrayError(Throwable $error)
+    protected function renderArrayError(Throwable $error): array
     {
         return [
             'type' => get_class($error),

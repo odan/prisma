@@ -48,7 +48,7 @@ class UserController extends AbstractController
      * @param string $id The User ID (routing argument)
      * @return Response The new response
      */
-    public function editPage($id): Response
+    public function editPage(string $id): Response
     {
         // Get all GET parameters
         //$query = $request->getQueryParams();
@@ -101,7 +101,7 @@ class UserController extends AbstractController
      * @param string $id
      * @return Response Response
      */
-    public function reviewPage($id): Response
+    public function reviewPage(string $id): Response
     {
         $this->response->getBody()->write("Action: Show all reviews of user: $id<br>");
         return $this->response;

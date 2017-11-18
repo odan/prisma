@@ -48,7 +48,7 @@ $config['assets'] = [
     // Internal cache adapter
     'cache' => new \Symfony\Component\Cache\Adapter\FilesystemAdapter('assets-cache', 0, $config['temp']),
     // Public assets cache directory
-    'public_dir' => $config['public'] . '/cache',
+    'public_dir' => $config['public'] . '/assets',
     // Enable JavaScript and CSS compression
     'minify' => 1
 ];
