@@ -64,7 +64,7 @@ function settings()
  *
  * <code>
  * echo __('Hello');
- * echo __('There are %s persons logged', 7);
+ * echo __('There are %s users logged in.', 7);
  * </code>
  */
 function __($message)
