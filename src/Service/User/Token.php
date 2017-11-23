@@ -59,7 +59,7 @@ class Token
     public function check($value, $token): bool
     {
         $realHash = $this->create($value);
-        return ($token === $realHash);
+        return hash_equals($realHash, $token);
     }
 
     /**
