@@ -70,6 +70,6 @@ class Token
      */
     public function create($value): string
     {
-        return sha1($value . $this->secret);
+        return hash('sha256', $value . $this->secret);
     }
 }
