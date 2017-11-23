@@ -32,7 +32,7 @@ class Token
      * @param array $options
      * @return string
      */
-    public function hash($password, $algo = 1, $options = array()): string
+    public function create($password, $algo = 1, $options = array()): string
     {
         return password_hash($password, $algo, $options);
     }
@@ -44,32 +44,9 @@ class Token
      * @param string $hash
      * @return bool
      */
-    public function verifyHash($password, $hash): bool
+    public function verify($password, $hash): bool
     {
         return password_verify($password, $hash);
     }
 
-    /**
-     * Check if token is correct for this string
-     *
-     * @param string $value Value
-     * @param string $token Token
-     * @return bool Status
-     */
-    public function check($value, $token): bool
-    {
-        $realHash = $this->create($value);
-        return hash_equals($realHash, $token);
-    }
-
-    /**
-     * Generate Hash-Token from string
-     *
-     * @param string $value
-     * @return string
-     */
-    public function create($value): string
-    {
-        return hash('sha512', $value . $this->secret);
-    }
 }

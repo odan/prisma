@@ -240,7 +240,7 @@ class UserSession
      * or array('ROLE_ADMIN', 'ROLE_USER')
      * @return bool Status
      */
-    public function is($role): bool
+    public function hasRole($role): bool
     {
         // Current user role
         $userRole = $this->get('user.role');

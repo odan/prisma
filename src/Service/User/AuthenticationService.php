@@ -66,7 +66,7 @@ class AuthenticationService extends AbstractService
             return new AuthenticationResult(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND);
         }
 
-        if (!$this->token->verifyHash($this->password, $user->password)) {
+        if (!$this->token->verify($this->password, $user->password)) {
             return new AuthenticationResult(AuthenticationResult::FAILURE_CREDENTIAL_INVALID);
         }
 
