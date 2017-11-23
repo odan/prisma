@@ -1,7 +1,7 @@
 <?php
 
 use Aura\Session\Session;
-use App\Service\User\UserSession;
+use App\Service\User\Authentication;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -18,9 +18,9 @@ $app->add(function (Request $request, Response $response, $next) use ($container
     }
     $auth = $route->getArgument('_auth', true);
 
-    /* @var \App\Service\User\UserSession $user */
-    $user = $container->get(UserSession::class);
-    if ($auth === true && !$user->isValid()) {
+    /* @var \App\Service\User\Authentication $user */
+    $user = $container->get(Authentication::class);
+    if ($auth === true && !$user->check()) {
         // Redirect to login page
 
         /* @var \Slim\Router $router */
@@ -45,7 +45,7 @@ $app->add(function (Request $request, Response $response, $next) use ($container
 
 // Language middleware
 $app->add(function (Request $request, Response $response, $next) use ($container) {
-    $user = $container->get(UserSession::class);
+    $user = $container->get(Authentication::class);
     $user->setLocale($user->getLocale());
     return $next($request, $response);
 });

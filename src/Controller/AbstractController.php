@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\User\UserSession;
+use App\Service\User\Authentication;
 use League\Plates\Engine;
 use Odan\Database\Connection;
 use Psr\Log\LoggerInterface;
@@ -47,7 +47,7 @@ abstract class AbstractController
 
     /**
      * @Inject
-     * @var UserSession
+     * @var Authentication
      */
     protected $user;
 

@@ -8,9 +8,9 @@ use Odan\Config\ConfigBag;
 use Symfony\Component\Translation\Translator;
 
 /**
- * User Session Handler
+ * Authentication
  */
-class UserSession
+class Authentication
 {
 
     /**
@@ -260,11 +260,11 @@ class UserSession
     }
 
     /**
-     * Check if user is authenticated (logged in)
+     * Determining if the current user is authenticated (logged in)
      *
      * @return bool Status
      */
-    public function isValid(): bool
+    public function check(): bool
     {
         $id = $this->get('user.id');
 
