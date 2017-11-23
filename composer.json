@@ -23,7 +23,7 @@
     "odan/hydrator": "^1.0",
     "odan/phinx-migrations-generator": "^2.1",
     "odan/plates-asset-cache": "^0.3.5",
-    "odan/util": "^0.1.0",
+    "odan/util": "^0.2.0",
     "php-di/slim-bridge": "^1.0",
     "slim/slim": "^3.9",
     "symfony/translation": "~3.0"
