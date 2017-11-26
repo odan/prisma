@@ -33,7 +33,7 @@ class HomeController extends AbstractController
         ]);
 
         // Render template
-        return $this->render('view::Home/home-index.html.php', $viewData);
+        return $this->render('Home/home-index.twig', $viewData);
     }
 
     /**

@@ -1,0 +1,23 @@
+{% extends "Layout/layout.twig" %}
+
+{% block assets %}
+    {{ assets({files: ['Home/home-index.js'], name: 'home-index.js'}) }}
+    {{ assets({files: ['Home/home-index.css'], name: 'home-index.css'}) }}
+{% endblock %}
+
+{% block content %}
+
+    <div id="content" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{ __('Hello World') }}</h1>
+                Users: <a href="users">users</a><br>
+                URL: {{ url }}<br>
+                HTTPS: {{ secure }} <br>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

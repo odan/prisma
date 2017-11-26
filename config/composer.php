@@ -16,7 +16,8 @@ if ($event == 'update-assets') {
     update_assets();
 }
 
-function update_assets() {
+function update_assets()
+{
     echo "Updating assets\n";
     echo "  - Updating Bootstrap\n";
     file_put_contents(__DIR__ . '/../public/css/bootstrap.css', file_get_contents('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css'));

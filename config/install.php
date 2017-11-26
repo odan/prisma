@@ -8,7 +8,7 @@ file_put_contents(__DIR__ . '/default.php', str_replace('{{app_secret}}', bin2he
 
 $env = !empty($argv[2]) && $argv[1] == '--env' ? $argv[2] : null;
 
-if($env == 'travis') {
+if ($env == 'travis') {
     $mySqlHost = '127.0.0.1';
     $mySqlDatabase = 'test';
     $mySqlUsername = 'root';

@@ -39,7 +39,7 @@ class UserController extends AbstractController
             'users' => $users
         ]);
 
-        return $this->render('view::User/user-index.html.php', $viewData);
+        return $this->render('User/user-index.twig', $viewData);
     }
 
     /**
@@ -92,7 +92,7 @@ class UserController extends AbstractController
         ]);
 
         // Render template
-        return $this->render('view::User/user-edit.html.php', $viewData);
+        return $this->render('User/user-edit.twig', $viewData);
     }
 
     /**

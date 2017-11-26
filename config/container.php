@@ -6,10 +6,8 @@ use App\Utility\ErrorHandler;
 use Aura\Session\Session;
 use Aura\Session\SessionFactory;
 use DI\Container;
-use League\Plates\Engine;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
-use Odan\Asset\PlatesAssetExtension;
 use Odan\Config\ConfigBag;
 use Odan\Database\Connection;
 use Psr\Log\LoggerInterface;
@@ -86,18 +84,25 @@ $container[LoggerInterface::class] = function (Container $container) {
     return $logger;
 };
 
-$container[Engine::class] = function (Container $container) {
+$container[\Slim\Views\Twig::class] = function (Container $container) {
     $settings = $container->get('settings');
-    $engine = new Engine($settings['view']['path'], null);
+    $viewPath = $settings['twig']['path'];
 
-    // Add folder shortcut (assets::file.js)
-    $engine->addFolder('assets', $settings['assets']['path']);
-    $engine->addFolder('view', $settings['view']['path']);
+    $twig = new \Slim\Views\Twig($viewPath, [
+        'cache' => $settings['twig']['cache_enabled'] ? $settings['twig']['cache_path']: false
+    ]);
 
-    // Register Asset extension
-    $engine->loadExtension(new PlatesAssetExtension((array)$settings['assets']));
+    /* @var Twig_Loader_Filesystem $loader */
+    $loader = $twig->getLoader();
+    $loader->addPath($settings['public'], 'public');
 
-    return $engine;
+    // Instantiate and add Slim specific extension
+    $basePath = rtrim(str_ireplace('index.php', '', $container->get('request')->getUri()->getBasePath()), '/');
+    $twig->addExtension(new Slim\Views\TwigExtension($container->get('router'), $basePath));
+    $twig->addExtension(new \Odan\Twig\TwigAssetsExtension($twig->getEnvironment(), $settings['assets']));
+    $twig->addExtension(new \Odan\Twig\TwigTranslationExtension());
+
+    return $twig;
 };
 
 $container[Connection::class] = function (Container $container) {

@@ -1,0 +1,13 @@
+{% extends "Layout/layout.twig" %}
+
+{% block content %}
+    <div id="content" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{ __('Edit user: %s', id) }}</h1>
+                Username: {{ username }}<br>
+                Counter: {{ counter  }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

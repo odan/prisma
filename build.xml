@@ -125,6 +125,12 @@
         </exec>
     </target>
 
+    <target name="parse-twig" description="Parse all Twig templates">
+        <exec executable="php" searchpath="true" resolveexecutable="true">
+            <arg value="${basedir}/bin/parse-twig.php"/>
+        </exec>
+    </target>
+
     <target name="check-all" depends="lint,phpstan,check-doc,phpunit" />
 
     <target name="build" depends="lint,phpunit">

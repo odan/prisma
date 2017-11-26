@@ -1,24 +1,8 @@
 <?php
 
-namespace PHPSTORM_META {
+namespace PHPSTORM_META;
 
-    $STATIC_METHOD_TYPES = [
-        \Psr\Container\ContainerInterface::get('') => [
-            '' == '@',
-        ],
-        \Slim\Container::get('') => [
-            '' == '@',
-        ],
-        \Interop\Container\ContainerInterface::get('') => [
-            '' == '@',
-        ],
-        \DI\Container::get('') => [
-            '' == '@',
-        ],
-    ];
-}
-
-
-
-
-
+override(\Psr\Container\ContainerInterface::get(0), map(['' => '@']));
+override(\Slim\Container::get(0), map(['' => '@']));
+override(\Interop\Container\ContainerInterface::get(0), map(['' => '@']));
+override(\DI\Container::get(0), map(['' => '@']));

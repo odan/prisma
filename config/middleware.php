@@ -1,7 +1,7 @@
 <?php
 
-use Aura\Session\Session;
 use App\Service\User\Authentication;
+use Aura\Session\Session;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -13,7 +13,7 @@ $app->add(function (Request $request, Response $response, $next) use ($container
     /* @var \Slim\Route $route */
     $route = $request->getAttribute('route');
 
-    if(!$route) {
+    if (!$route) {
         return $next($request, $response);
     }
     $auth = $route->getArgument('_auth', true);

@@ -12,7 +12,7 @@
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/ie10-viewport-bug-workaround.js"></script>
-        <?php echo $this->assets(['view::Login/login.css'], ['inline' => false, 'public' => true]); ?>
+        <?php echo $this->assets(['view::Login/login.css']); ?>
     </head>
     <body>
         <div class="container">

@@ -38,17 +38,20 @@ $config['logger'] = [
 ];
 
 // View settings
-$config['view'] = [
-    'path' => $config['root'] . '/templates'
+$config['twig'] = [
+    'path' => $config['root'] . '/templates',
+    'cache_enabled' => false,
+    'cache_path' =>  $config['temp'] . '/twig-cache'
 ];
 
 // Assets
 $config['assets'] = [
-    'path' => $config['public'],
-    // Internal cache adapter
-    'cache' => new \Symfony\Component\Cache\Adapter\FilesystemAdapter('assets-cache', 0, $config['temp']),
     // Public assets cache directory
-    'public_dir' => $config['public'] . '/assets',
+    'path' => $config['public'] . '/assets',
+    // Cache settings
+    'cache_enabled' => true,
+    'cache_path' => $config['temp'],
+    'cache_name' => 'assets-cache',
     // Enable JavaScript and CSS compression
     'minify' => 1
 ];

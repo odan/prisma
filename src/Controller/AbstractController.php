@@ -3,12 +3,12 @@
 namespace App\Controller;
 
 use App\Service\User\Authentication;
-use League\Plates\Engine;
 use Odan\Database\Connection;
 use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Router;
+use Slim\Views\Twig;
 
 /**
  * AbstractController (Base class)
@@ -41,9 +41,9 @@ abstract class AbstractController
 
     /**
      * @Inject
-     * @var Engine
+     * @var Twig
      */
-    protected $view;
+    protected $twig;
 
     /**
      * @Inject
@@ -101,11 +101,6 @@ abstract class AbstractController
      */
     protected function render($name, array $viewData = []): Response
     {
-        $content = $this->view->render($name, $viewData);
-        $body = $this->response->getBody();
-        $body->rewind();
-        $body->write($content);
-
-        return $this->response;
+        return $this->twig->render($this->response, $name, $viewData);
     }
 }

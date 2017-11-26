@@ -48,5 +48,4 @@ class Token
     {
         return password_verify($password, $hash);
     }
-
 }

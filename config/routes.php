@@ -27,7 +27,7 @@ $app->get('/logout', ['App\Controller\LoginController', 'logout'])->setArgument(
 $app->get('/users', ['App\Controller\UserController', 'indexPage']);
 
 // This route will only match if {id} is numeric
-$app->get('/users/{id:[0-9]+}', ['App\Controller\UserController', 'editPage']);
+$app->get('/users/{id:[0-9]+}', ['App\Controller\UserController', 'editPage'])->setName('users-edit');
 
 // Sub-Resource
 $app->get('/users/{id:[0-9]+}/reviews', ['App\Controller\UserController', 'reviewPage']);

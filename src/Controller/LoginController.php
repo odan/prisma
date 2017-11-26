@@ -18,7 +18,7 @@ class LoginController extends AbstractController
     {
         $this->user->logout();
         $viewData = $this->getViewData();
-        return $this->render('view::Login/login.html.php', $viewData);
+        return $this->render('Login/login.twig', $viewData);
     }
 
     /**
