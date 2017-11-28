@@ -36,26 +36,6 @@ function app()
 }
 
 /**
- * A simple PHP Dependency Injection Container.
- *
- * @return \DI\Container
- */
-function container()
-{
-    return app()->getContainer();
-}
-
-/**
- * Get application settings.
- *
- * @return mixed
- */
-function settings()
-{
-    return container()->get('settings');
-}
-
-/**
  * Text translation (I18n)
  *
  * @param string $message
@@ -70,7 +50,7 @@ function settings()
 function __($message)
 {
     /* @var $translator Translator */
-    $translator = container()->get(Translator::class);
+    $translator = app()->getContainer()->get(Translator::class);
     $translated = $translator->trans($message);
     $context = array_slice(func_get_args(), 1);
     if (!empty($context)) {

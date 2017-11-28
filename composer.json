@@ -22,7 +22,7 @@
     "odan/hydrator": "^1.0",
     "odan/phinx-migrations-generator": "^2.1",
     "odan/twig-assets": "^0.2.0",
-    "odan/twig-translation": "^0.1.0",
+    "odan/twig-translation": "^0.2.2",
     "odan/util": "^0.2.0",
     "php-di/slim-bridge": "^1.0",
     "slim/slim": "^3.9",

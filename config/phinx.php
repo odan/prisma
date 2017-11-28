@@ -3,11 +3,11 @@
 require_once __DIR__ . '/bootstrap.php';
 
 /* @var $pdo PDO */
-$pdo = container()->get('PDO');
+$pdo = app()->getContainer()->get('PDO');
 
 return array(
     'paths' => [
-        'migrations' => settings()['migration']['path']
+        'migrations' => app()->getContainer()->get('settings')['migration']['path']
     ],
     'environments' => [
         'default_migration_table' => "phinxlog",

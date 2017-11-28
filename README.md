@@ -20,7 +20,7 @@ This is a simple skeleton project for Slim 3 that includes Plates, Sessions and 
 * Migrations - [cakephp/phinx](https://github.com/cakephp/phinx)
 * Migrations Generator - [odan/phinx-migrations-generator](https://github.com/odan/phinx-migrations-generator)
 * Hydrator - [odan/hydrator](https://github.com/odan/hydrator)
-* Translations - [symfony/translation](https://github.com/symfony/Translation), [twig-translation](https://github.com/odan/twig-translation)
+* Translations - [symfony/translation](https://github.com/symfony/Translation), [odan/twig-translation](https://github.com/odan/twig-translation)
 * Logging - [monolog/monolog](https://github.com/Seldaek/monolog) 
 * Unit tests - [phpunit/phpunit](https://github.com/sebastianbergmann/phpunit)
 * Directory structure - [php-pds/skeleton](https://github.com/php-pds/skeleton)
@@ -91,11 +91,11 @@ This framework comes with [odan/database](https://github.com/odan/database) as S
 
 The database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your application, and works great with MySQL and MariaDB.
 
-For more details how to build queries read the **[documentation](https://github.com/odan/database/blob/master/docs/index.md)**.
+For more details how to build queries read the **[documentation](https://github.com/odan/database/blob/master/docs/readme.md)**.
 
 ## Migrations
 
-This framework provides console access for **[Phinx](https://phinx.org/)** to create database migrations. 
+This skeleton project provides console access for **[Phinx](https://phinx.org/)** to create database migrations. 
 
 * To create a new migration manually:
 

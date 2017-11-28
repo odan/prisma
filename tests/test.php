@@ -1,7 +1,7 @@
 <?php
 
 // Debug from console
-// set XDEBUG_CONFIG="idekey=netbeans-xdebug"
+// set XDEBUG_CONFIG="idekey=xdebug"
 // php test.php
 
 require_once __DIR__ . '/../vendor/autoload.php';
