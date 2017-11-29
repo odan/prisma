@@ -78,6 +78,7 @@ php install.php
 | tests | | Test code |
 | tmp | | Temporary files |
 | | logs | Log files |
+| | twig-cache | Internal twig cache |
 | | assets-cache | Internal assets cache |
 | vendor | | Reserved for composer |
 
