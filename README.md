@@ -25,6 +25,12 @@ This is a simple skeleton project for Slim 3 that includes Plates, Sessions and 
 * Unit tests - [phpunit/phpunit](https://github.com/sebastianbergmann/phpunit)
 * Directory structure - [php-pds/skeleton](https://github.com/php-pds/skeleton)
 
+## Requirements
+
+* PHP 7.0+
+* Apache
+* MySQL
+
 ## Installation
 
 **Step 1:** Create a new project:
@@ -44,15 +50,8 @@ php install.php
 
 **Step 3:** Run it<br>
 
-1. `$ cd my-app/public`
-2. `$ php -S 0.0.0.0:8080`
-3. Browse to http://localhost:8080
-4. Login with username / password: `admin / admin` or `user / user`
-
-## Requirements
-
-* PHP 7.0+
-* MySQL
+* You don't have to start the PHP built-in web server. Just open the local url e.g. http://localhost and navigate to the page.
+* Login with username / password: `admin / admin` or `user / user`
 
 ## Directory structure
 
