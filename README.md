@@ -30,6 +30,7 @@ This is a Slim 3 skeleton project that includes Routing, Middleware, DI, Twig te
 * PHP 7.0+
 * Apache
 * MySQL
+* []Apache Ant](http://ant.apache.org/) (recommended)
 
 ## Installation
 
