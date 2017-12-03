@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Service\User\UserRepository;
-use Slim\Http\Response;
+use Psr\Http\Message\ResponseInterface as Response;
 
 /**
  * HomeController

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\User\Authentication;
 use Odan\Database\Connection;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -97,9 +98,9 @@ abstract class AbstractController
      *
      * @param string $name Template file
      * @param array $viewData View data
-     * @return Response|\Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
-    protected function render($name, array $viewData = []): Response
+    protected function render($name, array $viewData = []): ResponseInterface
     {
         return $this->twig->render($this->response, $name, $viewData);
     }

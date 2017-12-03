@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Slim\Http\Response;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * LoginController.
@@ -12,9 +12,9 @@ class LoginController extends AbstractController
     /**
      * User login
      *
-     * @return Response
+     * @return ResponseInterface
      */
-    public function loginPage(): Response
+    public function loginPage(): ResponseInterface
     {
         $this->user->logout();
         $viewData = $this->getViewData();
@@ -24,9 +24,9 @@ class LoginController extends AbstractController
     /**
      * User login submit
      *
-     * @return Response
+     * @return ResponseInterface
      */
-    public function loginSubmit(): Response
+    public function loginSubmit(): ResponseInterface
     {
         $data = $this->request->getParsedBody();
         $username = $data['username'];
@@ -41,9 +41,9 @@ class LoginController extends AbstractController
     /**
      * User logout
      *
-     * @return Response Redirect response
+     * @return ResponseInterface Redirect response
      */
-    public function logout(): Response
+    public function logout(): ResponseInterface
     {
         $this->user->logout();
         return $this->response->withRedirect($this->router->pathFor('login'));
