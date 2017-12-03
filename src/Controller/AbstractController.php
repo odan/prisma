@@ -64,13 +64,13 @@ abstract class AbstractController
      */
     protected function getText(): array
     {
-        $result = [];
-        $result['Ok'] = __('Ok');
-        $result['Cancel'] = __('Cancel');
-        $result['Yes'] = __('Yes');
-        $result['No'] = __('No');
+        $text = [];
+        $text['Ok'] = __('Ok');
+        $text['Cancel'] = __('Cancel');
+        $text['Yes'] = __('Yes');
+        $text['No'] = __('No');
 
-        return $result;
+        return $text;
     }
 
     /**

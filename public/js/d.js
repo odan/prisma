@@ -112,17 +112,6 @@ function gh(str) {
 }
 
 /**
- * Translate text.
- *
- * @param {String} str
- * @param {Object} replace
- * @returns {String}
- */
-function __(str, replace) {
-    return $d.getText(str, replace);
-}
-
-/**
  * Returns a formatted string using the first argument as a printf-like format.
  *
  * The first argument is a string that contains zero or more placeholders.
@@ -379,8 +368,7 @@ $d.isEmail = function (email) {
  */
 $d.encodeUrl = function (str) {
     str = (str + '').toString();
-    str = encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').
-            replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');
+    str = encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');
     return str;
 };
 
@@ -440,6 +428,7 @@ $d.uuid = function () {
     function s4() {
         return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     }
+
     var str = s4() + '' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
     return str;
 };
@@ -628,8 +617,7 @@ $d.getBaseUrl = function (path) {
  */
 $d.urlParams = function () {
     var search = location.search.substring(1);
-    var query = search ? $.parseJSON('{"' + search.replace(/&/g, '","').
-            replace(/=/g, '":"') + '"}') : {};
+    var query = search ? $.parseJSON('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}') : {};
 
     query = $d.map(query, function (k, v) {
         return $d.decodeUrl(v);
@@ -721,7 +709,7 @@ $d.getDateTimeIso = function (date) {
  */
 $d.isValidDateObject = function (date) {
     var result = (Object.prototype.toString.call(date) === "[object Date]"
-            && isNaN(date.getTime()) === false);
+        && isNaN(date.getTime()) === false);
     return result;
 };
 
@@ -766,31 +754,27 @@ $d.clearText = function () {
 };
 
 /**
- * Get Text.
+ * Translate text.
  *
- * @param {String} message
- * @param {Object} replace
+ * @param {String} Message
+ * @param {String|Object} ...context
  * @returns {String}
  */
-$d.getText = function (message, replace) {
-    var result = message;
-    if (empty($d.cache.text)) {
-        // Placeholder
-        if (!empty(replace)) {
-            result = $d.interpolate(result, replace);
-        }
-        return result;
-    }
-
+function __(message) {
     if (message in $d.cache.text) {
-        result = $d.cache.text[message] + '';
+        message = $d.cache.text[message] + '';
     }
-
-    // Placeholder
-    if (!empty(replace)) {
-        result = $d.interpolate(result, replace);
+    if (arguments.length > 1) {
+        if (typeof arguments[1] === 'object') {
+            // Named placeholders
+            message = $d.interpolate(message, arguments[1]);
+        } else {
+            // sprintf placeholders (%s)
+            var args = Array.prototype.slice.call(arguments);
+            message = sprintf.apply(this, args);
+        }
     }
-    return result;
+    return message;
 };
 
 /**
@@ -851,16 +835,6 @@ $d.getBrowser = function () {
         return 'opera';
     }
     return '';
-};
-
-/**
- * Returns true if browser.
- *
- * @param {String} browser
- * @returns {Boolean}
- */
-$d.isBrowser = function (browser) {
-    return $d.getBrowser() === browser;
 };
 
 /**
@@ -1052,15 +1026,15 @@ $d.template = function (html, data) {
 $d.window = function (config) {
 
     config = $.extend({
-        title: false,
-        body: '',
-        buttons: [],
-        focus: 'first'
-                // width: '560px'
-                // height: '400px',
-                // maxheight: '400px'
-    },
-    config);
+            title: false,
+            body: '',
+            buttons: [],
+            focus: 'first'
+            // width: '560px'
+            // height: '400px',
+            // maxheight: '400px'
+        },
+        config);
 
     var footer = '';
 
@@ -1245,24 +1219,24 @@ $d.alert = function (config, callback) {
     }
 
     config = $.extend({
-        title: false,
-        text: text,
-        modal: {
-            backdrop: 'static',
-            keyboard: false,
-            show: true
-        }
-    },
-    config);
+            title: false,
+            text: text,
+            modal: {
+                backdrop: 'static',
+                keyboard: false,
+                show: true
+            }
+        },
+        config);
 
     var wnd = $d.window({
         title: config.title,
         body: config.html || gh(config.text),
         buttons: [{
-                text: __('OK'),
-                'class': 'btn btn-primary',
-                dismiss: 'modal'
-            }]
+            text: __('OK'),
+            'class': 'btn btn-primary',
+            dismiss: 'modal'
+        }]
     });
 
     if (typeof callback === 'function') {
@@ -1310,13 +1284,13 @@ $d.prompt = function (config, callback) {
     var callbackFlag = false;
 
     config = $.extend({
-        title: false,
-        text: text,
-        defaultText: '',
-        validate: function (value) {
-            return true;
-        },
-        buttons: [{
+            title: false,
+            text: text,
+            defaultText: '',
+            validate: function (value) {
+                return true;
+            },
+            buttons: [{
                 text: __('OK'),
                 'class': 'btn btn-primary',
                 dismiss: 'modal',
@@ -1331,14 +1305,14 @@ $d.prompt = function (config, callback) {
                     callbackFlag = false;
                 }
             }],
-        primary: 'ok',
-        modal: {
-            backdrop: 'static',
-            keyboard: false,
-            show: true
-        }
-    },
-    config);
+            primary: 'ok',
+            modal: {
+                backdrop: 'static',
+                keyboard: false,
+                show: true
+            }
+        },
+        config);
 
     var html = '<div class="row"><div class="col-sm-12">';
     html += '<form role="form" onsubmit="return false">';
@@ -1407,9 +1381,9 @@ $d.confirm = function (config, callback) {
     var callbackFlag = true;
 
     config = $.extend({
-        title: false,
-        text: text,
-        buttons: [{
+            title: false,
+            text: text,
+            buttons: [{
                 text: __('OK'),
                 'class': 'btn btn-primary',
                 dismiss: 'modal',
@@ -1430,14 +1404,14 @@ $d.confirm = function (config, callback) {
                     }
                 }
             }],
-        primary: 'ok',
-        modal: {
-            backdrop: 'static',
-            keyboard: false,
-            show: true
-        }
-    },
-    config);
+            primary: 'ok',
+            modal: {
+                backdrop: 'static',
+                keyboard: false,
+                show: true
+            }
+        },
+        config);
 
     var wnd = $d.window({
         title: config.title,
@@ -1480,7 +1454,7 @@ $d.getForm = function (id) {
 
     // Because serializeArray() ignores unset checkboxes and radio buttons
     arr = arr.concat(
-            $(id).find('input[type=checkbox]:not(:checked)').map(
+        $(id).find('input[type=checkbox]:not(:checked)').map(
             function () {
                 var ret = {
                     name: this.name,
@@ -1593,11 +1567,11 @@ $d.getFieldName = function (el) {
 $d.loadForm = function (options) {
     // overwrite default options
     options = $.extend({
-        name: 'data',
-        data: null,
-        form: window.document
-    },
-    options);
+            name: 'data',
+            data: null,
+            form: window.document
+        },
+        options);
 
     if (empty(options.data)) {
         return;
@@ -1671,16 +1645,16 @@ $d.loadDropdown = function (dropdown) {
 
     // overwrite default settings
     dropdown = $.extend({
-        control: null,
-        options: null,
-        value: 'value',
-        text: 'text',
-        blank: false,
-        selected_value: null,
-        // Can be array (multiple select)
-        selected_text: null // Same
-    },
-    dropdown);
+            control: null,
+            options: null,
+            value: 'value',
+            text: 'text',
+            blank: false,
+            selected_value: null,
+            // Can be array (multiple select)
+            selected_text: null // Same
+        },
+        dropdown);
 
     var el = $(dropdown.control);
     if (!el.length) {
@@ -1942,9 +1916,9 @@ $d.setCookie = function (key, value, options) {
 $d.getCookie = function (key, defaultValue, options) {
     options = options || {};
     var decode = options.raw ?
-            function (s) {
-                return s;
-            } : decodeURIComponent;
+        function (s) {
+            return s;
+        } : decodeURIComponent;
 
     var pairs = document.cookie.split('; ');
     for (var i = 0, pair; pair = pairs[i] && pairs[i].split('='); i++) {
@@ -1987,7 +1961,7 @@ $d.loadElements = function (array, callback) {
 
         // callback for external scripts
         var extern = false;
-        if ('src' in  element.attr) {
+        if ('src' in element.attr) {
             extern = true;
         }
         if (extern) {
@@ -2019,22 +1993,22 @@ $d.loadElements = function (array, callback) {
  *
  * @param {Object} options
  *
- * Variable name	Type	Posible values	Default
+ * Variable name    Type    Posible values    Default
  *
- * type	String	success, error, warning, info	default
- * msg	String	Message
- * position	String	left, center, right, bottom	center
- * width	Integer-String	Number > 0, 'all'	400
- * height	Integer	Number between 0 and 100	60
- * autohide	Boolean	true, false	true
- * opacity	Float	From 0 to 1	1
- * multiline	Boolean	true, false	false
- * fade	Boolean	true, false	false
- * bgcolor	String	HEX color	#444
- * color	String	HEX color	#EEE
- * timeout	Integer	Miliseconds	5000
- * zindex	Integer	The z-index of the notification	null (ignored)
- * offset	Integer	The offset in pixels from the edge of the screen	0
+ * type    String    success, error, warning, info    default
+ * msg    String    Message
+ * position    String    left, center, right, bottom    center
+ * width    Integer-String    Number > 0, 'all'    400
+ * height    Integer    Number between 0 and 100    60
+ * autohide    Boolean    true, false    true
+ * opacity    Float    From 0 to 1    1
+ * multiline    Boolean    true, false    false
+ * fade    Boolean    true, false    false
+ * bgcolor    String    HEX color    #444
+ * color    String    HEX color    #EEE
+ * timeout    Integer    Miliseconds    5000
+ * zindex    Integer    The z-index of the notification    null (ignored)
+ * offset    Integer    The offset in pixels from the edge of the screen    0
  *
  * @returns {undefined}
  *

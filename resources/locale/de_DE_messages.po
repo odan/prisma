@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Demo\n"
-"POT-Creation-Date: 2017-11-28 19:40+0100\n"
-"PO-Revision-Date: 2017-11-28 21:23+0100\n"
+"POT-Creation-Date: 2017-12-03 14:58+0100\n"
+"PO-Revision-Date: 2017-12-03 14:58+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -24,17 +24,34 @@ msgstr "Ok"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: Controller/AbstractController.php:70 Controller/HomeController.php:32
+#: Controller/AbstractController.php:70 Controller/HomeController.php:39
 msgid "Yes"
 msgstr "Ja"
 
-#: Controller/AbstractController.php:71 Controller/HomeController.php:32
+#: Controller/AbstractController.php:71 Controller/HomeController.php:39
 msgid "No"
 msgstr "Nein"
 
-#: Controller/HomeController.php:25 Controller/HomeController.php:48
+#: Controller/HomeController.php:32 Controller/HomeController.php:57
 msgid "Loaded successfully!"
 msgstr "Erfolgreich gestartet!"
+
+#: Controller/HomeController.php:77
+msgid "Current user"
+msgstr "Aktueller Benutzer"
+
+#: Controller/HomeController.php:78
+msgid "User-ID"
+msgstr "Benutzer-ID"
+
+#: Controller/HomeController.php:79
+#: ..\tmp\twig-cache/39/39c41c2ece3d667c72ce2f55623ae5db4665cef8627a6f4082f7d9c70c21adb8.php:53
+msgid "Username"
+msgstr "Benutzername"
+
+#: Controller/HomeController.php:80
+msgid "It's"
+msgstr "Es ist"
 
 #: Service/User/UserRepository.php:75
 #, php-format
@@ -55,79 +72,71 @@ msgstr "Einloggen"
 msgid "Please sign in"
 msgstr "Bitte einloggen"
 
-#: ..\tmp\twig-cache/39/39c41c2ece3d667c72ce2f55623ae5db4665cef8627a6f4082f7d9c70c21adb8.php:53
-msgid "Username"
-msgstr "Benutzername"
-
 #: ..\tmp\twig-cache/39/39c41c2ece3d667c72ce2f55623ae5db4665cef8627a6f4082f7d9c70c21adb8.php:57
 msgid "Password"
 msgstr "Kennwort"
 
-#: ..\tmp\twig-cache/5c/5ca54cbc4a72179b3612efc5fee5830a60bdb9f90a170d56b64112aacb8cb999.php:52
-msgid "Hello World"
-msgstr "Hallo Welt"
-
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:24
+#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:25
 msgid "en"
 msgstr "de"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:39
+#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:40
 msgid "Demo"
 msgstr "Demo"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:84
+#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:71
 msgid "Toggle navigation"
 msgstr "Navigation umschalten"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:92
+#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:79
 msgid "Project name"
 msgstr "Projektname"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:99
+#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:86
 msgid "Home"
 msgstr "Home"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:103
+#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:90
 msgid "About"
 msgstr "Über"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:107
+#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:94
 msgid "Contact"
 msgstr "Kontakt"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:113
+#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:100
 msgid "Dropdown"
 msgstr "Dropdown"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:118
+#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:105
 msgid "Action"
 msgstr "Aktion"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:122
+#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:109
 msgid "Another action"
 msgstr "Weitere Aktion"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:126
+#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:113
 msgid "Something else here"
 msgstr "Etwas anderes"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:131
+#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:118
 msgid "Nav header"
 msgstr "Navigation Header"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:135
+#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:122
 msgid "Separated link"
 msgstr "Seperater link"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:139
+#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:126
 msgid "One more separated link"
 msgstr "Noch ein seperater Link"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:147
+#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:134
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:151
+#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:138
 msgid "Logout"
 msgstr "Logout"
 
@@ -140,11 +149,20 @@ msgstr "Benutzer Index"
 msgid "Edit user: %s"
 msgstr "Benutzer bearbeiten: %s"
 
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "E-Mail"
+#~ msgstr "E-Mail"
+
+#~ msgid "Hello, %s"
+#~ msgstr "Hallo, %s"
+
+#~ msgid "Hello World"
+#~ msgstr "Hallo Welt"
+
 #~ msgid "There are %s %s users"
 #~ msgstr "Es sind %s %s Benutzer"
-
-#~ msgid "Hello Mr. %s - %s"
-#~ msgstr "Hallo Herr %s - %s"
 
 #~ msgid "World"
 #~ msgstr "Welt"

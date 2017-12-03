@@ -1,20 +1,10 @@
-if (!app.index) {
-    app.index = {};
-}
-
 /**
- * Index
- *
- * @param {Object} options
+ * Class
  */
-app.index.Index = function Index(options)
-{
+var HomeIndex = function () {
 
-    /** @returns {app.index.Index} */
-    var $this = $.extend(this, new app.Page());
-
-    // Options
-    this.options = $.extend({}, options);
+    // The current object scope
+    var $this = this;
 
     /**
      * Init
@@ -33,7 +23,7 @@ app.index.Index = function Index(options)
     this.load = function () {
         $d.showLoad();
 
-        var data = {
+        var params = {
             username: "max",
             email: "max@example.com"
         };
@@ -44,7 +34,7 @@ app.index.Index = function Index(options)
             cache: false,
             contentType: 'application/json',
             dataType: 'json',
-            data: JSON.stringify(data)
+            data: JSON.stringify(params)
         }).done(function (data) {
             $d.hideLoad();
             $d.log(data);
@@ -53,6 +43,21 @@ app.index.Index = function Index(options)
                 type: "success",
                 position: "center"
             });
+
+            // Translations
+            data.text = {
+                'current_user': __('Current user'),
+                'user_id': __('User-ID'),
+                'username' : __('Username'),
+                'its': __('Its'),
+            };
+
+            var template = $('#user-template').html();
+            //Mustache.parse(template);
+            var output = Mustache.render(template, data);
+
+            $('#content').append(output);
+
         }).fail(function (xhr) {
             $d.hideLoad();
             var message = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : "Server error";
@@ -64,6 +69,5 @@ app.index.Index = function Index(options)
 };
 
 $(function () {
-    var obj = new app.index.Index();
-    obj.load();
+    (new HomeIndex()).load();
 });

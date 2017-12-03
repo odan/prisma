@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\User\UserRepository;
 use Slim\Http\Response;
 
 /**
@@ -9,6 +10,12 @@ use Slim\Http\Response;
  */
 class HomeController extends AbstractController
 {
+    /**
+     * @Inject
+     * @var UserRepository
+     */
+    private $userRepo;
+
     /**
      * Index action
      *
@@ -29,7 +36,7 @@ class HomeController extends AbstractController
             'text' => $text,
             'counter' => $counter,
             'url' => $this->request->getUri(),
-            'secure' => $this->request->getAttribute('secure') ? __('Yes'): __('No'),
+            'secure' => $this->request->getAttribute('secure') ? __('Yes') : __('No'),
         ]);
 
         // Render template
@@ -43,11 +50,35 @@ class HomeController extends AbstractController
      */
     public function load(): Response
     {
-        $data = $this->request->getParsedBody();
+        $userId = $this->user->getId();
+        $user = $this->userRepo->findById($userId);
+
         $result = [
             'message' => __('Loaded successfully!'),
-            'data' => $data
+            'now' => now(),
+            'user' => [
+                'id' => $user->id,
+                'username' => $user->username
+            ]
         ];
+
         return $this->response->withJson($result);
+    }
+
+    /**
+     * Returns default text.
+     *
+     * @return array Array with translated text
+     */
+    protected function getText(): array
+    {
+        $text = parent::getText();
+
+        $text['Current user'] = __('Current user');
+        $text['User-ID'] = __('User-ID');
+        $text['Username'] = __('Username');
+        $text['Its'] = __("It's");
+
+        return $text;
     }
 }
