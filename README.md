@@ -1,6 +1,8 @@
 # Prisma
 
-This is a Slim 3 skeleton project that includes Routing, Middleware, DI, Twig templates, Translations, Assets, Sessions, Database Queries, Migrations, Logging and Unit testing.
+This is a Slim 3 skeleton project that includes Routing, Middleware, DI,
+Twig templates, mustache.js, Translations, Assets, Sessions, Database Queries, 
+Migrations, Logging and Unit testing.
 
 [![Latest Version on Packagist](https://img.shields.io/github/release/odan/prisma.svg)](https://github.com/odan/prisma/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)

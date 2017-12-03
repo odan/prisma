@@ -97,7 +97,7 @@ abstract class AbstractController
      *
      * @param string $name Template file
      * @param array $viewData View data
-     * @return Response
+     * @return Response|\Psr\Http\Message\ResponseInterface
      */
     protected function render($name, array $viewData = []): Response
     {
