@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Service\User\UserRepository;
-use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ResponseInterface;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * HomeController
@@ -19,9 +21,11 @@ class HomeController extends AbstractController
     /**
      * Index action
      *
-     * @return Response
+     * @param Request $request
+     * @param Response $response
+     * @return ResponseInterface
      */
-    public function indexPage(): Response
+    public function indexAction(Request $request, Response $response): ResponseInterface
     {
         // Increment counter
         $counter = $this->user->get('counter', 0);
@@ -35,20 +39,21 @@ class HomeController extends AbstractController
         $viewData = $this->getViewData([
             'text' => $text,
             'counter' => $counter,
-            'url' => $this->request->getUri(),
-            'secure' => $this->request->getAttribute('secure') ? __('Yes') : __('No'),
+            'url' => $request->getUri(),
+            'secure' => $request->getAttribute('secure') ? __('Yes') : __('No'),
         ]);
 
         // Render template
-        return $this->render('Home/home-index.twig', $viewData);
+        return $this->render($response, 'Home/home-index.twig', $viewData);
     }
 
     /**
      * Action (Json)
      *
+     * @param Response $response
      * @return Response Json response
      */
-    public function load(): Response
+    public function loadAction(Response $response): ResponseInterface
     {
         $userId = $this->user->getId();
         $user = $this->userRepo->findById($userId);
@@ -62,7 +67,7 @@ class HomeController extends AbstractController
             ]
         ];
 
-        return $this->response->withJson($result);
+        return $response->withJson($result);
     }
 
     /**

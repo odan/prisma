@@ -34,7 +34,7 @@ $app->add(function (Request $request, Response $response, $next) use ($container
 
 // Http middleware
 $app->add(function (Request $request, Response $response, $next) use ($container) {
-    //Checks whether the request is secure or not.
+    // Checks whether the request is secure or not.
     $server = $request->getServerParams();
     $secure = !empty($server['HTTPS']) && strtolower($server['HTTPS']) !== 'off';
     $request = $request->withAttribute('secure', $secure);

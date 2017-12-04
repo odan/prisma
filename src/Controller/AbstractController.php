@@ -18,18 +18,6 @@ abstract class AbstractController
 {
     /**
      * @Inject
-     * @var Request
-     */
-    protected $request;
-
-    /**
-     * @Inject
-     * @var Response
-     */
-    protected $response;
-
-    /**
-     * @Inject
      * @var Router
      */
     protected $router;
@@ -96,12 +84,13 @@ abstract class AbstractController
     /**
      * Render template.
      *
+     * @param ResponseInterface $response
      * @param string $name Template file
      * @param array $viewData View data
      * @return ResponseInterface
      */
-    protected function render($name, array $viewData = []): ResponseInterface
+    protected function render(ResponseInterface $response, $name, array $viewData = []): ResponseInterface
     {
-        return $this->twig->render($this->response, $name, $viewData);
+        return $this->twig->render($response, $name, $viewData);
     }
 }

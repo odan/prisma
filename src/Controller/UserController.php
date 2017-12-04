@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Service\User\UserRepository;
-use Psr\Http\Message\ResponseInterface as Response;
+use Exception;
+use Psr\Http\Message\ResponseInterface;
+use Slim\Http\Response;
 
 /**
  * UserController
@@ -29,9 +31,10 @@ class UserController extends AbstractController
     /**
      * Index
      *
-     * @return Response The new response
+     * @param Response $response
+     * @return ResponseInterface The new response
      */
-    public function indexPage(): Response
+    public function indexAction(Response $response): ResponseInterface
     {
         $users = $this->userRepository->findAll();
 
@@ -39,16 +42,18 @@ class UserController extends AbstractController
             'users' => $users
         ]);
 
-        return $this->render('User/user-index.twig', $viewData);
+        return $this->render($response, 'User/user-index.twig', $viewData);
     }
 
     /**
      * Edit page
      *
-     * @param string $id The User ID (routing argument)
-     * @return Response The new response
+     * @param Response $response
+     * @param string $id
+     * @return ResponseInterface The new response
+     * @throws Exception
      */
-    public function editPage(string $id): Response
+    public function editAction(Response $response, string $id): ResponseInterface
     {
         // Get all GET parameters
         //$query = $request->getQueryParams();
@@ -92,18 +97,21 @@ class UserController extends AbstractController
         ]);
 
         // Render template
-        return $this->render('User/user-edit.twig', $viewData);
+        return $this->render($response, 'User/user-edit.twig', $viewData);
     }
 
     /**
      * User review page.
      *
+     * @param Response $response
      * @param string $id
      * @return Response Response
      */
-    public function reviewPage(string $id): Response
+    public function reviewAction(Response $response, string $id): ResponseInterface
     {
-        $this->response->getBody()->write("Action: Show all reviews of user: $id<br>");
-        return $this->response;
+        // $id = $args['id'];
+
+        $response->getBody()->write("Action: Show all reviews of user: $id<br>");
+        return $response;
     }
 }
