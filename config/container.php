@@ -145,4 +145,13 @@ $container[Translator::class] = function (Container $container) {
     return $translator;
 };
 
+$container[\App\Service\User\AuthenticationOptions::class] = function (Container $container) {
+    $settings = $container->get('settings');
+
+    $authSettings = new \App\Service\User\AuthenticationOptions();
+    $authSettings->localePath = $settings['locale']['path'];
+    $authSettings->secret = $settings['app']['secret'];
+    return $authSettings;
+};
+
 return $container;

@@ -35,21 +35,14 @@ class Authentication
     private $translator;
 
     /**
-     * Locale path
-     *
-     * @var string
-     */
-    private $localePath;
-
-    /**
      * @var Token
      */
     private $token;
 
     /**
-     * @var string
+     * @var AuthenticationOptions
      */
-    private $secret = '';
+    private $options;
 
     /**
      * @var UserRepository
@@ -62,18 +55,16 @@ class Authentication
      * @param Session $session Storage
      * @param UserRepository $userRepository The User repository
      * @param Translator $translator Translator
-     * @param ConfigBag $config The application settings
+     * @param AuthenticationOptions $options
      */
-    public function __construct(Session $session, UserRepository $userRepository, Translator $translator, ConfigBag $config)
+    public function __construct(Session $session, UserRepository $userRepository, Translator $translator, AuthenticationOptions $options)
     {
         $this->session = $session;
         $this->segment = $this->session->getSegment('app');
         $this->userRepository = $userRepository;
         $this->translator = $translator;
-        $settings = $config->export();
-        $this->localePath = $settings['locale']['path'];
-        $this->secret =  $settings['app']['secret'];
-        $this->token = $this->createToken($this->secret);
+        $this->options = $options;
+        $this->token = $this->createToken($this->options->secret);
     }
 
     /**
@@ -143,7 +134,7 @@ class Authentication
      */
     protected function setTranslatorLocale($locale = 'en_US', $domain = 'messages'): void
     {
-        $moFile = sprintf('%s/%s_%s.mo', $this->localePath, $locale, $domain);
+        $moFile = sprintf('%s/%s_%s.mo', $this->options->localePath, $locale, $domain);
 
         $this->translator->addResource('mo', $moFile, $locale, $domain);
         $this->translator->setLocale($locale);
@@ -178,7 +169,7 @@ class Authentication
         $this->session->start();
 
         // Create new token
-        $this->token = $this->createToken($this->secret);
+        $this->token = $this->createToken($this->options->secret);
 
         // Store user settings in session
         $this->set('user.id', $user->id);
