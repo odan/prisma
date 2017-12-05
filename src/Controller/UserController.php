@@ -114,7 +114,7 @@ class UserController extends AbstractController
      * @param Request $request
      * @param Response $response
      * @param array $args
-     * @return Response Response
+     * @return ResponseInterface Response
      */
     public function reviewAction(Request $request, Response $response, $args): ResponseInterface
     {

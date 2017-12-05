@@ -18,7 +18,12 @@ class HomeController extends AbstractController
      */
     protected $userRepo;
 
-
+    /**
+     * Constructor.
+     *
+     * @param ControllerOptions $options
+     * @param UserRepository $userRepo
+     */
     public function __construct(ControllerOptions $options, UserRepository $userRepo)
     {
         parent::__construct($options);
@@ -59,7 +64,7 @@ class HomeController extends AbstractController
      *
      * @param Request $request
      * @param Response $response
-     * @return Response Json response
+     * @return ResponseInterface Json response
      */
     public function loadAction(Request $request, Response $response): ResponseInterface
     {

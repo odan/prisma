@@ -8,6 +8,9 @@ use Psr\Log\LoggerInterface;
 use Slim\Router;
 use Slim\Views\Twig;
 
+/**
+ * Class ControllerOptions
+ */
 class ControllerOptions
 {
 
