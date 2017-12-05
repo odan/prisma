@@ -71,12 +71,12 @@ php install.php
 | | migrations | Database migration files (Phinx) |
 | src | | PHP source code (The App namespace) |
 | | Controller | Controllers and actions |
-| | Entity | Entities (Represents a table row) |
-| | Repository | Repositories (Communication with the database) |
+| | Entity | Entities (Represents a row and the columns) |
+| | Repository | Repositories (Communication with the database, Query methods) |
 | | Service | Business logic |
 | | Table | The Table Gateway (Represents a table) |
-| | Template | The views (HTML templates) |
 | | Utility | Helper classes |
+| templates | The Twig and Mustache templates, JS and CSS |
 | tests | | Test code |
 | tmp | | Temporary files |
 | | logs | Log files |
