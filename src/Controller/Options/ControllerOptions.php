@@ -35,5 +35,4 @@ class ControllerOptions
      * @var LoggerInterface
      */
     public $logger;
-
 }
