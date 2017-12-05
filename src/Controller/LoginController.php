@@ -14,10 +14,11 @@ class LoginController extends AbstractController
     /**
      * User login
      *
+     * @param Request $request
      * @param Response $response
      * @return ResponseInterface
      */
-    public function loginAction(Response $response): ResponseInterface
+    public function loginAction(Request $request, Response $response): ResponseInterface
     {
         $this->user->logout();
         $viewData = $this->getViewData();
@@ -46,10 +47,11 @@ class LoginController extends AbstractController
     /**
      * User logout
      *
+     * @param Request $request
      * @param Response $response
      * @return ResponseInterface Redirect response
      */
-    public function logoutAction(Response $response): ResponseInterface
+    public function logoutAction(Request $request, Response $response): ResponseInterface
     {
         $this->user->logout();
         return $response->withRedirect($this->router->pathFor('login'));

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Controller\Options\ControllerOptions;
 use App\Service\User\UserRepository;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
@@ -13,10 +14,16 @@ use Slim\Http\Response;
 class HomeController extends AbstractController
 {
     /**
-     * @Inject
      * @var UserRepository
      */
-    private $userRepo;
+    protected $userRepo;
+
+
+    public function __construct(ControllerOptions $options, UserRepository $userRepo)
+    {
+        parent::__construct($options);
+        $this->userRepo = $userRepo;
+    }
 
     /**
      * Index action
@@ -50,10 +57,11 @@ class HomeController extends AbstractController
     /**
      * Action (Json)
      *
+     * @param Request $request
      * @param Response $response
      * @return Response Json response
      */
-    public function loadAction(Response $response): ResponseInterface
+    public function loadAction(Request $request, Response $response): ResponseInterface
     {
         $userId = $this->user->getId();
         $user = $this->userRepo->findById($userId);

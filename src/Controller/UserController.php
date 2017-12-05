@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Controller\Options\ControllerOptions;
 use App\Entity\User;
 use App\Service\User\UserRepository;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
+use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
@@ -21,20 +23,23 @@ class UserController extends AbstractController
     /**
      * Constructor.
      *
+     * @param ControllerOptions $options
      * @param UserRepository $userRepository
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(ControllerOptions $options, UserRepository $userRepository)
     {
+        parent::__construct($options);
         $this->userRepository = $userRepository;
     }
 
     /**
      * Index
      *
+     * @param Request $request
      * @param Response $response
      * @return ResponseInterface The new response
      */
-    public function indexAction(Response $response): ResponseInterface
+    public function indexAction(Request $request, Response $response): ResponseInterface
     {
         $users = $this->userRepository->findAll();
 
@@ -48,13 +53,16 @@ class UserController extends AbstractController
     /**
      * Edit page
      *
+     * @param Request $request
      * @param Response $response
-     * @param string $id
+     * @param array $args
      * @return ResponseInterface The new response
      * @throws Exception
      */
-    public function editAction(Response $response, string $id): ResponseInterface
+    public function editAction(Request $request, Response $response, $args): ResponseInterface
     {
+        $id = $args['id'];
+
         // Get all GET parameters
         //$query = $request->getQueryParams();
 
@@ -103,13 +111,14 @@ class UserController extends AbstractController
     /**
      * User review page.
      *
+     * @param Request $request
      * @param Response $response
-     * @param string $id
+     * @param array $args
      * @return Response Response
      */
-    public function reviewAction(Response $response, string $id): ResponseInterface
+    public function reviewAction(Request $request, Response $response, $args): ResponseInterface
     {
-        // $id = $args['id'];
+        $id = $args['id'];
 
         $response->getBody()->write("Action: Show all reviews of user: $id<br>");
         return $response;

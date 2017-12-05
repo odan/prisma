@@ -4,7 +4,6 @@ namespace App\Service\User;
 
 use Aura\Session\Segment;
 use Aura\Session\Session;
-use Odan\Config\ConfigBag;
 use Symfony\Component\Translation\Translator;
 
 /**
@@ -135,7 +134,6 @@ class Authentication
     protected function setTranslatorLocale($locale = 'en_US', $domain = 'messages'): void
     {
         $moFile = sprintf('%s/%s_%s.mo', $this->options->localePath, $locale, $domain);
-
         $this->translator->addResource('mo', $moFile, $locale, $domain);
         $this->translator->setLocale($locale);
     }

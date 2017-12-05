@@ -2,27 +2,34 @@
 
 // Service container configuration
 
+use App\Controller\Options\ControllerOptions;
+use App\Service\User\Authentication;
+use App\Service\User\AuthenticationOptions;
+use App\Service\User\UserRepository;
 use App\Utility\ErrorHandler;
 use Aura\Session\Session;
 use Aura\Session\SessionFactory;
-use DI\Container;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Odan\Config\ConfigBag;
 use Odan\Database\Connection;
+use Psr\Container\ContainerInterface as Container;
 use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Slim\Router;
+use Slim\Views\Twig;
 use Symfony\Component\Translation\Loader\MoFileLoader;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator;
 
-$container = [];
+$container = app()->getContainer();
 
 // -----------------------------------------------------------------------------
 // Settings
 // -----------------------------------------------------------------------------
+
+$container['callableResolver'] = new Odan\SlimDi\DependencyResolver($container);
+
 $container['settings'] = function (Container $container) {
     return $container->get(ConfigBag::class)->export();
 };
@@ -42,18 +49,21 @@ $container[ConfigBag::class] = function () {
     return $config;
 };
 
-// -----------------------------------------------------------------------------
-// Slim definition aliases
-// -----------------------------------------------------------------------------
-$container[Request::class] = DI\get('request');
-$container[Response::class] = DI\get('response');
-$container[Router::class] = DI\get('router');
-$container['phpErrorHandler'] = DI\get('errorHandler');
+$container[Request::class] = function (Container $container) {
+    return $container->get('request');
+};
+
+
+$container[Response::class] = function (Container $container) {
+    return $container->get('response');
+};
 
 // -----------------------------------------------------------------------------
 // Custom aliases
 // -----------------------------------------------------------------------------
-$container[PDO::class] = DI\get(Connection::class);
+$container[PDO::class] = function ($container) {
+    return $container->get(Connection::class);
+};
 
 // -----------------------------------------------------------------------------
 // Slim definitions
@@ -64,6 +74,10 @@ $container['errorHandler'] = function (Container $container) {
     $displayErrorDetails = $container->get('settings')['displayErrorDetails'];
     $logger = $container->get(LoggerInterface::class);
     return new ErrorHandler((bool)$displayErrorDetails, $logger);
+};
+
+$container['phpErrorHandler'] = function (Container $container) {
+    return $container->get('errorHandler');
 };
 
 // -----------------------------------------------------------------------------
@@ -84,12 +98,12 @@ $container[LoggerInterface::class] = function (Container $container) {
     return $logger;
 };
 
-$container[\Slim\Views\Twig::class] = function (Container $container) {
+$container[Twig::class] = function (Container $container) {
     $settings = $container->get('settings');
     $viewPath = $settings['twig']['path'];
 
-    $twig = new \Slim\Views\Twig($viewPath, [
-        'cache' => $settings['twig']['cache_enabled'] ? $settings['twig']['cache_path']: false
+    $twig = new Twig($viewPath, [
+        'cache' => $settings['twig']['cache_enabled'] ? $settings['twig']['cache_path'] : false
     ]);
 
     /* @var Twig_Loader_Filesystem $loader */
@@ -134,24 +148,44 @@ $container[Session::class] = function (Container $container) {
 
 $container[Translator::class] = function (Container $container) {
     $settings = $container->get('settings')['locale'];
-    $moFile = sprintf('%s/%s_%s.mo', $settings['path'], $settings['locale'], $settings['domain']);
-
     $translator = new Translator($settings['locale'], new MessageSelector(), $settings['cache']);
     $translator->addLoader('mo', new MoFileLoader());
-
-    $translator->addResource('mo', $moFile, $settings['locale'], $settings['domain']);
-    $translator->setLocale($settings['locale']);
 
     return $translator;
 };
 
-$container[\App\Service\User\AuthenticationOptions::class] = function (Container $container) {
+$container[ControllerOptions::class] = function (Container $container) {
+    $options = new ControllerOptions();
+    $options->router = $container->get('router');
+    $options->logger = $container->get(LoggerInterface::class);
+    $options->db = $container->get(Connection::class);
+    $options->view = $container->get(Twig::class);
+    $options->user = $container->get(Authentication::class);
+
+    return $options;
+};
+
+$container[Authentication::class] = function (Container $container) {
+    return new Authentication(
+        $container->get(Session::class),
+        $container->get(UserRepository::class),
+        $container->get(Translator::class),
+        $container->get(AuthenticationOptions::class)
+    );
+};
+
+$container[AuthenticationOptions::class] = function (Container $container) {
     $settings = $container->get('settings');
 
-    $authSettings = new \App\Service\User\AuthenticationOptions();
+    $authSettings = new AuthenticationOptions();
     $authSettings->localePath = $settings['locale']['path'];
     $authSettings->secret = $settings['app']['secret'];
+
     return $authSettings;
+};
+
+$container[UserRepository::class] = function (Container $container) {
+    return new UserRepository($container->get(Connection::class));
 };
 
 return $container;

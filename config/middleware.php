@@ -39,7 +39,6 @@ $app->add(function (Request $request, Response $response, $next) use ($container
     $secure = !empty($server['HTTPS']) && strtolower($server['HTTPS']) !== 'off';
     $request = $request->withAttribute('secure', $secure);
 
-    $container->set('request', $request);
     return $next($request, $response);
 });
 

@@ -9,28 +9,14 @@ use Symfony\Component\Translation\Translator;
 /**
  * App instance.
  *
- * @return \DI\Bridge\Slim\App
+ * @return \Slim\App
  */
 function app()
 {
     static $app = null;
     if ($app === null) {
-        $app = new class() extends \DI\Bridge\Slim\App
-        {
-            protected function configureContainer(\DI\ContainerBuilder $builder)
-            {
-                $builder->addDefinitions(__DIR__ . '/container.php');
-
-                $settings = read(__DIR__ . '/config.php');
-                if ($settings['env'] !== 'development') {
-                    // composer require doctrine/cache
-                    $cacheDirectory = $settings['temp'] . '/container-cache';
-                    $builder->setDefinitionCache(new \Doctrine\Common\Cache\PhpFileCache($cacheDirectory));
-                }
-                // composer require doctrine/annotations
-                $builder->useAnnotations(true);
-            }
-        };
+        $settings = read(__DIR__ . '/config.php');
+        $app = new \Slim\App(["settings" => $settings]);
     }
     return $app;
 }

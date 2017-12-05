@@ -2,12 +2,11 @@
 
 namespace App\Controller;
 
+use App\Controller\Options\ControllerOptions;
 use App\Service\User\Authentication;
 use Odan\Database\Connection;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use Slim\Http\Request;
-use Slim\Http\Response;
 use Slim\Router;
 use Slim\Views\Twig;
 
@@ -17,34 +16,43 @@ use Slim\Views\Twig;
 abstract class AbstractController
 {
     /**
-     * @Inject
      * @var Router
      */
     protected $router;
 
     /**
-     * @Inject
      * @var Connection
      */
     protected $db;
 
     /**
-     * @Inject
      * @var Twig
      */
-    protected $twig;
+    protected $view;
 
     /**
-     * @Inject
      * @var Authentication
      */
     protected $user;
 
     /**
-     * @Inject
      * @var LoggerInterface
      */
     protected $logger;
+
+    /**
+     * Constructor.
+     *
+     * @param ControllerOptions $options
+     */
+    public function __construct(ControllerOptions $options)
+    {
+        $this->db = $options->db;
+        $this->logger = $options->logger;
+        $this->router = $options->router;
+        $this->user = $options->user;
+        $this->view = $options->view;
+    }
 
     /**
      * Returns default text.
@@ -91,6 +99,6 @@ abstract class AbstractController
      */
     protected function render(ResponseInterface $response, $name, array $viewData = []): ResponseInterface
     {
-        return $this->twig->render($response, $name, $viewData);
+        return $this->view->render($response, $name, $viewData);
     }
 }
