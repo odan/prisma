@@ -76,9 +76,9 @@ php install.php
 | | Service | Business logic |
 | | Table | The Table Gateway (Represents a table) |
 | | Utility | Helper classes |
-| templates | The Twig and Mustache templates, JS and CSS |
+| templates | | The Twig and Mustache templates, JS and CSS
 | tests | | Test code |
-| tmp | | Temporary files |
+| temp | | Temporary files |
 | | logs | Log files |
 | | twig-cache | Internal twig cache |
 | | assets-cache | Internal assets cache |
