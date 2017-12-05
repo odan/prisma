@@ -74,7 +74,7 @@ php install.php
 | | Entity | Entities (Represents a row and the columns) |
 | | Repository | Repositories (Communication with the database, Query methods) |
 | | Service | Business logic |
-| | Table | Table Data Gateway (Represents a table) |
+| | Table | Table Data Gateway. Represents a table. Insert, Update, Delete. |
 | | Utility | Helper classes |
 | templates | | Twig and Mustache templates + JS and CSS
 | tests | | Test code |
