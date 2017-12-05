@@ -66,17 +66,17 @@ php install.php
 | docs | | Documentation and examples |
 | public | | Web server files |
 | resources | | Other resource files |
-| | assets | Raw, un-compiled assets such as LESS, SASS, or JavaScript |
-| | locale | The language files (translations) |
+| | assets | Raw, un-compiled assets such as LESS, SASS and JavaScript |
+| | locale | Language files (translations) |
 | | migrations | Database migration files (Phinx) |
 | src | | PHP source code (The App namespace) |
 | | Controller | Controllers and actions |
 | | Entity | Entities (Represents a row and the columns) |
 | | Repository | Repositories (Communication with the database, Query methods) |
 | | Service | Business logic |
-| | Table | The Table Gateway (Represents a table) |
+| | Table | Table Data Gateway (Represents a table) |
 | | Utility | Helper classes |
-| templates | | The Twig and Mustache templates, JS and CSS
+| templates | | Twig and Mustache templates + JS and CSS
 | tests | | Test code |
 | temp | | Temporary files |
 | | logs | Log files |
