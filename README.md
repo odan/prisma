@@ -14,7 +14,7 @@ Migrations, Logging and Unit testing.
 ## Main packages
 
 * Router, Middleware, PSR-7 HTTP messages - [slimphp/slim](https://github.com/slimphp/Slim)
-* Dependency Injection with Autowiring - [php-di/php-di](https://github.com/PHP-DI/PHP-DI)
+* Dependency Injection with Autowiring - [odan/slim-di](https://github.com/odan/slim-di)
 * Template Engine - [slim/twig-view](https://github.com/slimphp/Twig-View)
 * Assets Cache - [odan/twig-assets](https://github.com/odan/twig-assets)
 * Sessions - [aura/session](https://github.com/auraphp/Aura.Session)
