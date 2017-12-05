@@ -1042,7 +1042,7 @@ $d.window = function (config) {
     // if (config.width) {
     //    var value = gs(config.width);
     //    if (value.indexOf('%')) {
-    //        var value = ($(window).width() / 100) * parseFloat(value) - 190;
+    //        var value = ($(window).width() / 100) * parseFloat(value) - 100;
     //        config['width'] = value + 'px';
     //    }
     // }
@@ -1051,7 +1051,7 @@ $d.window = function (config) {
     if (config.height) {
         var value = gs(config.height);
         if (value.indexOf('%')) {
-            value = ($(window).height() / 100) * parseFloat(value) - 190;
+            value = ($(window).height() / 100) * parseFloat(value) - 100;
             config['height'] = value + 'px';
         }
     }
@@ -1060,7 +1060,7 @@ $d.window = function (config) {
     if (config.maxheight) {
         var value = gs(config.maxheight);
         if (value.indexOf('%')) {
-            value = ($(window).height() / 100) * parseFloat(value) - 190;
+            value = ($(window).height() / 100) * parseFloat(value) - 100;
             config['maxheight'] = value + 'px';
         }
     }
