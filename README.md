@@ -78,7 +78,7 @@ php install.php
 | | Utility | Helper classes |
 | templates | | Twig and Mustache templates + JS and CSS
 | tests | | Test code |
-| temp | | Temporary files |
+| tmp | | Temporary files |
 | | logs | Log files |
 | | twig-cache | Internal twig cache |
 | | assets-cache | Internal assets cache |
