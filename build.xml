@@ -17,15 +17,26 @@
 
     <target name="cc" description="Clear application cache">
         <echo>Clear cache</echo>
-        <delete dir="${basedir}/tmp/cache/"/>
-        <mkdir dir="${basedir}/tmp/cache"/>
-        <chmod file="${basedir}/tmp/cache" perm="775"/>
-        <delete dir="${basedir}/tmp/log/"/>
-        <mkdir dir="${basedir}/tmp/log"/>
-        <chmod file="${basedir}/tmp/log" perm="775"/>
+
+        <delete dir="${basedir}/tmp/assets-cache/"/>
+        <mkdir dir="${basedir}/tmp/assets-cache"/>
+        <chmod file="${basedir}/tmp/assets-cache" perm="775"/>
+
+        <delete dir="${basedir}/tmp/twig-cache/"/>
+        <mkdir dir="${basedir}/tmp/twig-cache"/>
+        <chmod file="${basedir}/tmp/twig-cache" perm="775"/>
 
         <delete includeemptydirs="true">
-            <fileset dir="${basedir}/web/cache">
+            <fileset dir="${basedir}/tmp/logs">
+                <include name="**/*"/>
+                <exclude name="empty"/>
+            </fileset>
+        </delete>
+        <mkdir dir="${basedir}/tmp/logs"/>
+        <chmod file="${basedir}/tmp/logs" perm="775"/>
+
+        <delete includeemptydirs="true">
+            <fileset dir="${basedir}/public/assets">
                 <include name="**/*"/>
                 <exclude name=".htaccess"/>
             </fileset>
@@ -44,18 +55,31 @@
         </apply>
     </target>
 
-    <target name="serve" description="Start PHP server">
+    <target name="start" description="Start PHP server">
         <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
             <arg line="-S 0.0.0.0:8080 -t public public/index.php"/>
         </exec>
     </target>
 
+
+
     <target name="apigen" description="Generate API documentation using ApiGen">
         <delete dir="${basedir}/build/api"/>
         <mkdir dir="${basedir}/build/api"/>
-        <exec executable="${basedir}/vendor/bin/apigen${ext}" searchpath="true" resolveexecutable="true"
-              failonerror="true">
-            <arg line="generate -s ${basedir}/src -d ${basedir}/build/api --exclude *.html.php,env.example.phps,env.php"/>
+
+        <get src="https://github.com/ApiGen/ApiGen/releases/download/v4.1.2/apigen.phar"
+             dest="${basedir}/build/apigen.phar" skipexisting="true"/>
+
+        <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
+            <arg value="${basedir}/build/apigen.phar"/>
+            <arg value="generate"/>
+            <arg value="-s"/>
+            <arg value="${basedir}/src"/>
+            <arg value="-d"/>
+            <arg path="${basedir}/build/api"/>
+            <arg value="--exclude"/>
+            <arg value="*.html.php,env.example.phps,env.php"/>
+            <arg value="--debug"/>
         </exec>
     </target>
 
@@ -117,9 +141,16 @@
             <arg value="--rules=@PSR2"/>
             <arg value="--using-cache=no"/>
         </exec>
+        <exec executable="php" searchpath="true" resolveexecutable="true">
+            <arg value="${basedir}/build/php-cs-fixer.phar"/>
+            <arg value="fix"/>
+            <arg value="${basedir}/config/"/>
+            <arg value="--rules=@PSR2"/>
+            <arg value="--using-cache=no"/>
+        </exec>
     </target>
 
-    <target name="check-doc" description="Docblock check">
+    <target name="check-docblock" description="Docblock check">
         <exec executable="${basedir}/vendor/bin/phpdoccheck${ext}" searchpath="true" resolveexecutable="true" failonerror="true">
             <arg line="-d ${basedir}/src" />
         </exec>
@@ -131,7 +162,7 @@
         </exec>
     </target>
 
-    <target name="check-all" depends="lint,phpstan,check-doc,phpunit" />
+    <target name="check-all" depends="lint,phpstan,check-docblock,phpunit" />
 
     <target name="build" depends="lint,phpunit">
         <!-- Load properties -->

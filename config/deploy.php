@@ -29,7 +29,7 @@ if (file_exists($releaseDir)) {
 
 // Extract artifact (Zip file) to release directory
 $zip = new ZipArchive();
-if ($zip->open($zipFile) === TRUE) {
+if ($zip->open($zipFile) === true) {
     echo "Extract ZIP file to: $releaseDir\n";
     $zip->extractTo(__DIR__ . '/release/');
     $zip->close();

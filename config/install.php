@@ -53,7 +53,6 @@ try {
 
     echo "Setup finished\n";
     exit(0);
-
 } catch (PDOException $ex) {
     echo "Database error: " . $ex->getMessage();
     exit(1);
