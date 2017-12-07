@@ -61,28 +61,6 @@
         </exec>
     </target>
 
-
-
-    <target name="apigen" description="Generate API documentation using ApiGen">
-        <delete dir="${basedir}/build/api"/>
-        <mkdir dir="${basedir}/build/api"/>
-
-        <get src="https://github.com/ApiGen/ApiGen/releases/download/v4.1.2/apigen.phar"
-             dest="${basedir}/build/apigen.phar" skipexisting="true"/>
-
-        <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
-            <arg value="${basedir}/build/apigen.phar"/>
-            <arg value="generate"/>
-            <arg value="-s"/>
-            <arg value="${basedir}/src"/>
-            <arg value="-d"/>
-            <arg path="${basedir}/build/api"/>
-            <arg value="--exclude"/>
-            <arg value="*.html.php,env.example.phps,env.php"/>
-            <arg value="--debug"/>
-        </exec>
-    </target>
-
     <target name="phpunit" description="Run unit tests with PHPUnit">
         <exec executable="${basedir}/vendor/bin/phpunit${ext}" searchpath="true" resolveexecutable="true"
               failonerror="true" taskname="phpunit">
@@ -151,8 +129,9 @@
     </target>
 
     <target name="check-docblock" description="Docblock check">
-        <exec executable="${basedir}/vendor/bin/phpdoccheck${ext}" searchpath="true" resolveexecutable="true" failonerror="true">
-            <arg line="-d ${basedir}/src" />
+        <exec executable="${basedir}/vendor/bin/phpdoccheck${ext}" searchpath="true" resolveexecutable="true"
+              failonerror="true">
+            <arg line="-d ${basedir}/src"/>
         </exec>
     </target>
 
@@ -162,7 +141,7 @@
         </exec>
     </target>
 
-    <target name="check-all" depends="lint,phpstan,check-docblock,phpunit" />
+    <target name="check-all" depends="lint,phpstan,check-docblock,phpunit"/>
 
     <target name="build" depends="lint,phpunit">
         <!-- Load properties -->
