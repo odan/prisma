@@ -18,7 +18,7 @@
     "odan/database": "^0.4.0",
     "odan/hydrator": "^1.0",
     "odan/phinx-migrations-generator": "^2.1",
-    "odan/slim-di": "^0.1.2",
+    "odan/slim-di": "^0.2.0",
     "odan/twig-assets": "^0.2.2",
     "odan/twig-translation": "^0.2.4",
     "odan/util": "^0.2.0",

@@ -76,7 +76,7 @@ $config['migration'] = [
 ];
 
 // Database settings
-$config['db'] = array(
+$config['db'] = [
     'driver' => 'mysql',
     'host' => '127.0.0.1',
     'charset' => 'utf8',
@@ -88,10 +88,10 @@ $config['db'] = array(
         // Set default fetch mode
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     ]
-);
+];
 
 // E-Mail settings
-$config['smtp'] = array(
+$config['smtp'] = [
     'type' => 'smtp',
     'host' => '127.0.0.1',
     'port' => '25',
@@ -99,6 +99,11 @@ $config['smtp'] = array(
     'from' => 'from@example.com',
     'from_name' => 'My name',
     'to' => 'to@example.com',
-);
+];
+
+// Cli tasks
+$config['commands'] = [
+    'ExampleTask' => \App\Task\ExampleTask::class
+];
 
 return $config;
