@@ -6,12 +6,12 @@ use App\Controller\Options\ControllerOptions;
 use App\Service\User\Authentication;
 use App\Service\User\AuthenticationOptions;
 use App\Service\User\UserRepository;
+use App\Utility\AppSettings;
 use App\Utility\ErrorHandler;
 use Aura\Session\Session;
 use Aura\Session\SessionFactory;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
-use Odan\Config\ConfigBag;
 use Odan\Database\Connection;
 use Psr\Container\ContainerInterface as Container;
 use Psr\Log\LoggerInterface;
@@ -31,7 +31,7 @@ $container = app()->getContainer();
 $container['callableResolver'] = new Odan\SlimDi\DependencyResolver($container);
 
 $container['settings'] = function (Container $container) {
-    return $container->get(ConfigBag::class)->export();
+    return $container->get(AppSettings::class)->all();
 };
 
 $container['environment'] = function () {
@@ -43,10 +43,9 @@ $container['environment'] = function () {
     return new Slim\Http\Environment($_SERVER);
 };
 
-$container[ConfigBag::class] = function () {
-    $config = new ConfigBag();
-    $config->load(__DIR__ . '/config.php');
-    return $config;
+$container[AppSettings::class] = function () {
+    $settings = new AppSettings(require __DIR__ . '/config.php');
+    return $settings;
 };
 
 $container[Request::class] = function (Container $container) {
