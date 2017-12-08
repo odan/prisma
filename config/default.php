@@ -41,7 +41,7 @@ $config['logger'] = [
 $config['twig'] = [
     'path' => $config['root'] . '/templates',
     'cache_enabled' => false,
-    'cache_path' =>  $config['temp'] . '/twig-cache'
+    'cache_path' => $config['temp'] . '/twig-cache'
 ];
 
 // Assets
@@ -101,9 +101,12 @@ $config['smtp'] = [
     'to' => 'to@example.com',
 ];
 
-// Cli tasks
+// Cli commands
 $config['commands'] = [
-    'ExampleTask' => \App\Task\ExampleTask::class
+    \App\Command\ExampleCommand::class,
+    \App\Command\PhinxCommand::class,
+    \App\Command\ParseTwigCommand::class,
+    \App\Command\UpdateAssetsCommand::class,
 ];
 
 return $config;

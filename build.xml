@@ -136,8 +136,8 @@
     </target>
 
     <target name="parse-twig" description="Parse all Twig templates">
-        <exec executable="php" searchpath="true" resolveexecutable="true">
-            <arg value="${basedir}/bin/parse-twig.php"/>
+        <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
+            <arg line="${basedir}/bin/cli.php parse-twig"/>
         </exec>
     </target>
 
