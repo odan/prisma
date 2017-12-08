@@ -31,11 +31,6 @@
     "phpunit/phpunit": "^6.0"
   },
   "scripts": {
-    "test": "phpunit",
-    "test-coverage": "phpunit --coverage-clover build/logs/clover.xml --coverage-html build/coverage",
-    "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
-    "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit -n --no-patch 1 src tests",
-    "update-assets": "php cli.php update-assets",
     "post-update-cmd": "php cli.php update-assets",
     "post-install-cmd": "php cli.php update-assets"
   },
