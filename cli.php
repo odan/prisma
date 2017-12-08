@@ -4,7 +4,7 @@ if (PHP_SAPI !== 'cli') {
     exit (1);
 }
 
-require_once __DIR__ . '/../config/bootstrap.php';
+require_once __DIR__ . '/config/bootstrap.php';
 
 $container = app()->getContainer();
 $commands = $container->get('settings')['commands'];
