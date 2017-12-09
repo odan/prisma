@@ -32,7 +32,7 @@ Migrations, Logging and Unit testing.
 * PHP 7.0+
 * Apache
 * MySQL
-* [Apache Ant](http://ant.apache.org/) (optional)
+* [Apache Ant](http://ant.apache.org/)
 
 ## Installation
 
