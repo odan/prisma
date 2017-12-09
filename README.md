@@ -47,8 +47,7 @@ composer create-project --prefer-dist odan/prisma my-app
 Run the installer script and follow the instructions:
 
 ```shell
-cd config
-php install.php
+php cli.php install
 ```
 
 **Step 3:** Run it<br>

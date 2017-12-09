@@ -104,6 +104,7 @@ $config['smtp'] = [
 // Cli commands
 $config['commands'] = [
     \App\Command\ExampleCommand::class,
+    \App\Command\InstallCommand::class,
     \App\Command\PhinxCommand::class,
     \App\Command\ParseTwigCommand::class,
     \App\Command\UpdateAssetsCommand::class,
