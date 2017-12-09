@@ -16,7 +16,7 @@ foreach ($commands as $class) {
         throw new RuntimeException(sprintf('Class %s does not exist', $class));
     }
     $command = new $class();
-    if(method_exists ($command, 'setContainer')) {
+    if (method_exists($command, 'setContainer')) {
         $command->setContainer($container);
     }
     $application->add($command);
