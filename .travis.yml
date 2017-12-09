@@ -15,8 +15,7 @@ cache:
 before_script:
   - travis_retry composer self-update
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
-  - cd config
-  - php install.php --env travis
+  - php cli.php install --environment travis
   - cd $TRAVIS_BUILD_DIR
 
 script:

@@ -98,16 +98,16 @@ For more details how to build queries read the **[documentation](https://github.
 
 This skeleton project provides console access for **[Phinx](https://phinx.org/)** to create database migrations. 
 
-* To create a new migration manually:
+To create a new migration manually:
 
 ```bash
-php cli.php phinx create MyNewMigration
+$ php cli.php phinx create MyNewMigration
 ```
 
-* To create a new migration automatically:
+To generate a new migration automatically:
 
 ```bash
-php cli.php phinx generate
+$ php cli.php phinx generate
 ```
 
 For more details how to create and manage migrations read the [Phinx](http://docs.phinx.org/en/latest/) documentation.
