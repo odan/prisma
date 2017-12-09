@@ -55,8 +55,8 @@ class InstallCommand extends AbstractCommand
         file_put_contents($configPath . '/default.php', str_replace('{{app_secret}}', bin2hex(random_bytes(20)), file_get_contents($configPath . '/default.php')));
 
         $env = '';
-        if ($input->hasArgument('environment')) {
-            $env = $input->getArgument('environment');
+        if ($input->hasOption('environment')) {
+            $env = $input->getOption('environment');
         };
 
         if ($env == 'travis') {
