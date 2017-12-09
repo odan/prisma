@@ -3,11 +3,11 @@
 // Service container configuration
 
 use App\Controller\Options\ControllerOptions;
+use App\Middleware\ErrorHandlerMiddleware;
 use App\Service\User\Authentication;
 use App\Service\User\AuthenticationOptions;
 use App\Service\User\UserRepository;
 use App\Utility\AppSettings;
-use App\Utility\ErrorHandler;
 use Aura\Session\Session;
 use Aura\Session\SessionFactory;
 use Monolog\Handler\RotatingFileHandler;
@@ -72,7 +72,7 @@ $container[PDO::class] = function ($container) {
 $container['errorHandler'] = function (Container $container) {
     $displayErrorDetails = $container->get('settings')['displayErrorDetails'];
     $logger = $container->get(LoggerInterface::class);
-    return new ErrorHandler((bool)$displayErrorDetails, $logger);
+    return new ErrorHandlerMiddleware((bool)$displayErrorDetails, $logger);
 };
 
 $container['phpErrorHandler'] = function (Container $container) {
