@@ -4,6 +4,7 @@ namespace App\Command;
 
 use Exception;
 use PDO;
+use PDOException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\Console\Input\InputInterface;
@@ -125,7 +126,7 @@ class InstallCommand extends AbstractCommand
      * It's impossible to boostrap a new project with a
      * PDO adapter to a database that doesn't have the phinxlog table already created.
      *
-     * @param $pdo
+     * @param PDO $pdo
      */
     private function createPhinxLogTable(PDO $pdo)
     {
