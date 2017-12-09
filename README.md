@@ -61,7 +61,6 @@ php install.php
 | Root-Directory | Sub-Directory | Content |
 |----------|----------|-------------|
 | build | | Artifact files |
-| bin | | Command-line executables |
 | config | | Configuration files |
 | docs | | Documentation and examples |
 | public | | Web server files |
@@ -103,15 +102,13 @@ This skeleton project provides console access for **[Phinx](https://phinx.org/)*
 * To create a new migration manually:
 
 ```bash
-cd bin/
-php phinx.php create
+php cli.php phinx create MyNewMigration
 ```
 
 * To create a new migration automatically:
 
 ```bash
-cd bin/
-php phinx.php generate
+php cli.php phinx generate
 ```
 
 For more details how to create and manage migrations read the [Phinx](http://docs.phinx.org/en/latest/) documentation.
@@ -143,7 +140,7 @@ $ ant deploy
 ## Testing
 
 ``` bash
-$ composer test
+$ ant phpunit
 ```
 
 ## Security
