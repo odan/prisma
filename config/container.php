@@ -13,6 +13,7 @@ use Aura\Session\SessionFactory;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Odan\Database\Connection;
+use Odan\Slim\Csrf\CsrfMiddleware;
 use Psr\Container\ContainerInterface as Container;
 use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
@@ -109,6 +110,9 @@ $container[Twig::class] = function (Container $container) {
     $loader = $twig->getLoader();
     $loader->addPath($settings['public'], 'public');
 
+    $csrfToken = $container->get(CsrfMiddleware::class)->getToken();
+    $twig->getEnvironment()->addGlobal('csrf_token', $csrfToken);
+
     // Instantiate and add Slim specific extension
     $basePath = rtrim(str_ireplace('index.php', '', $container->get('request')->getUri()->getBasePath()), '/');
     $twig->addExtension(new Slim\Views\TwigExtension($container->get('router'), $basePath));
@@ -143,6 +147,22 @@ $container[Session::class] = function (Container $container) {
     $session->setCacheExpire($settings['session']['cache_expire']);
 
     return $session;
+};
+
+$container[CsrfMiddleware::class] = function (Container $container) {
+    $session = $container->get(Session::class);
+    $csrfValue = $session->getCsrfToken()->getValue();
+    $sessionId = $session->getId();
+    $csrf = new CsrfMiddleware($sessionId);
+    $csrf->setToken($csrfValue);
+
+    // optional settings
+    $csrf->setSalt('secret');
+    $csrf->setTokenName('__token');
+    $csrf->protectJqueryAjax(true);
+    $csrf->protectForms(true);
+
+    return $csrf;
 };
 
 $container[Translator::class] = function (Container $container) {

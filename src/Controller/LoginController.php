@@ -20,7 +20,6 @@ class LoginController extends AbstractController
      */
     public function loginAction(Request $request, Response $response): ResponseInterface
     {
-        $this->user->logout();
         $viewData = $this->getViewData();
         return $this->render($response, 'Login/login.twig', $viewData);
     }

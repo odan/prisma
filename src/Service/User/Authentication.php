@@ -2,6 +2,7 @@
 
 namespace App\Service\User;
 
+use App\Middleware\CsrfMiddleware;
 use Aura\Session\Segment;
 use Aura\Session\Session;
 use Symfony\Component\Translation\Translator;
@@ -165,6 +166,7 @@ class Authentication
         // Create new session id
         $this->session->clear();
         $this->session->start();
+        $this->session->regenerateId();
 
         // Create new token
         $this->token = $this->createToken($this->options->secret);

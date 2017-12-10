@@ -2,6 +2,7 @@
 
 use App\Service\User\Authentication;
 use Aura\Session\Session;
+use Odan\Slim\Csrf\CsrfMiddleware;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -46,6 +47,17 @@ $app->add(function (Request $request, Response $response, $next) {
     $user = $this->get(Authentication::class);
     $user->setLocale($user->getLocale());
     return $next($request, $response);
+});
+
+// Csrf protection middleware
+$app->add(function (Request $request, Response $response, $next) {
+    /* @var \Slim\Container $this */
+    $session = $this->get(Session::class);
+    $csrfValue = $session->getCsrfToken()->getValue();
+    $csrf = $this->get(CsrfMiddleware::class);
+    $csrf->setToken($csrfValue);
+
+    return $csrf->__invoke($request, $response, $next);
 });
 
 // Session middleware
