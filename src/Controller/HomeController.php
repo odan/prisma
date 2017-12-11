@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\User\UserRepository;
+use App\Repository\UserRepository;
 use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;

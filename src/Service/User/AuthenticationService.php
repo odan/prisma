@@ -2,6 +2,7 @@
 
 namespace App\Service\User;
 
+use App\Repository\UserRepository;
 use App\Service\AbstractService;
 
 /**

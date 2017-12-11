@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Service\User;
+namespace App\Repository;
 
 use App\Entity\User;
-use App\Repository\AbstractRepository;
 use App\Table\UserTable;
 use Exception;
 use Illuminate\Database\Connection;

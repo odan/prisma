@@ -5,7 +5,7 @@
 use App\Middleware\ErrorHandlerMiddleware;
 use App\Service\User\Authentication;
 use App\Service\User\AuthenticationOptions;
-use App\Service\User\UserRepository;
+use App\Repository\UserRepository;
 use App\Utility\AppSettings;
 use Aura\Session\Session;
 use Aura\Session\SessionFactory;

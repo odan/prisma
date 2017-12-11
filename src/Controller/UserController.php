@@ -2,9 +2,8 @@
 
 namespace App\Controller;
 
-use App\Controller\Options\ControllerOptions;
 use App\Entity\User;
-use App\Service\User\UserRepository;
+use App\Repository\UserRepository;
 use Exception;
 use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;

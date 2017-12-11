@@ -2,7 +2,7 @@
 
 namespace App\Service\User;
 
-use App\Middleware\CsrfMiddleware;
+use App\Repository\UserRepository;
 use Aura\Session\Segment;
 use Aura\Session\Session;
 use Symfony\Component\Translation\Translator;

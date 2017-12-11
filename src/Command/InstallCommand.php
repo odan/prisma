@@ -103,9 +103,6 @@ class InstallCommand extends AbstractCommand
 
             $pdo->exec("USE $mySqlDatabaseQuoted;");
 
-            //$output->writeln('Create table: phinxlog');
-            //$this->createPhinxLogTable($pdo);
-
             chdir($root);
             system('php cli.php phinx migrate');
 
@@ -118,27 +115,5 @@ class InstallCommand extends AbstractCommand
             $output->writeln(sprintf('<error>Unknown error: %s</error> ', $exception->getMessage()));
             return 1;
         }
-    }
-
-    /**
-     * Fix phinxlog table #1181
-     *
-     * It's impossible to boostrap a new project with a
-     * PDO adapter to a database that doesn't have the phinxlog table already created.
-     *
-     * @param PDO $pdo
-     */
-    private function createPhinxLogTable(PDO $pdo)
-    {
-        $sql = "CREATE TABLE `phinxlog` (
-              `version` bigint(20) NOT NULL,
-              `migration_name` varchar(100) DEFAULT NULL,
-              `start_time` timestamp NULL DEFAULT NULL,
-              `end_time` timestamp NULL DEFAULT NULL,
-              `breakpoint` tinyint(1) NOT NULL DEFAULT '0',
-              PRIMARY KEY (`version`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
-
-        $pdo->exec($sql);
     }
 }
