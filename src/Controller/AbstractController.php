@@ -2,11 +2,12 @@
 
 namespace App\Controller;
 
-use App\Controller\Options\ControllerOptions;
 use App\Service\User\Authentication;
-use Odan\Database\Connection;
+use Illuminate\Database\Connection;
+use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use Slim\Container;
 use Slim\Router;
 use Slim\Views\Twig;
 
@@ -43,15 +44,16 @@ abstract class AbstractController
     /**
      * Constructor.
      *
-     * @param ControllerOptions $options
+     * @param Container $container
+     * @throws ContainerException
      */
-    public function __construct(ControllerOptions $options)
+    public function __construct(Container $container)
     {
-        $this->db = $options->db;
-        $this->logger = $options->logger;
-        $this->router = $options->router;
-        $this->user = $options->user;
-        $this->view = $options->view;
+        $this->db = $container->get(Connection::class);
+        $this->logger = $container->get(LoggerInterface::class);
+        $this->router = $container->get('router');
+        $this->user = $container->get(Authentication::class);
+        $this->view = $container->get(Twig::class);
     }
 
     /**

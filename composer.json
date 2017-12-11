@@ -14,15 +14,14 @@
   "require": {
     "php": "^7.0",
     "aura/session": "^2.1",
+    "illuminate/database": "^5.5",
     "monolog/monolog": "^1.18.0",
-    "odan/database": "^0.4.0",
-    "odan/hydrator": "^1.0",
     "odan/phinx-migrations-generator": "2.1.4",
     "odan/slim-csrf": "^0.1.0",
     "odan/slim-di": "^0.2.0",
     "odan/twig-assets": "^0.2.2",
     "odan/twig-translation": "^0.2.4",
-    "odan/util": "^0.2.0",
+    "odan/util": "^0.4.0",
     "slim/slim": "^3.9",
     "slim/twig-view": "^2.3",
     "symfony/translation": "~3.0"

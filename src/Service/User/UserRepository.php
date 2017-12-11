@@ -6,7 +6,7 @@ use App\Entity\User;
 use App\Repository\AbstractRepository;
 use App\Table\UserTable;
 use Exception;
-use Odan\Database\Connection;
+use Illuminate\Database\Connection;
 
 /**
  * User Repository
@@ -39,7 +39,7 @@ class UserRepository extends AbstractRepository
     public function findAll()
     {
         $users = [];
-        foreach ($this->table->fetchAll() as $row) {
+        foreach ($this->table->newQuery()->get() as $row) {
             $users[] = new User($row);
         }
 
@@ -86,11 +86,10 @@ class UserRepository extends AbstractRepository
      */
     public function findByUsername($username)
     {
-        $row = $this->table->select()->columns('*')
+        $row = $this->table->newQuery()
             ->where('username', '=', $username)
             ->where('disabled', '=', 0)
-            ->execute()
-            ->fetch();
+            ->first();
 
         if (empty($row)) {
             return null;
@@ -107,17 +106,17 @@ class UserRepository extends AbstractRepository
      */
     public function insert(User $user): string
     {
-        return $this->table->insert()->insertGetId($user->toArray());
+        return (string)$this->table->newQuery()->insertGetId($user->toArray());
     }
 
     /**
      * Delete user.
      *
      * @param User $user The user
-     * @return bool success
+     * @return int Number of affected rows
      */
-    public function delete(User $user): bool
+    public function delete(User $user): int
     {
-        return $this->table->delete($user->id)->execute();
+        return $this->table->newQuery()->delete($user->id);
     }
 }

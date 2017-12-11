@@ -2,7 +2,8 @@
 
 namespace App\Entity;
 
-use Odan\Hydrator\ObjectProperty as Hydrator;
+use Illuminate\Support\Str;
+use RuntimeException;
 
 /**
  * Base Entity
@@ -14,27 +15,36 @@ abstract class AbstractEntity implements EntityInterface
      * Constructor.
      *
      * BaseEntity constructor.
-     * @param array $row
+     * @param mixed $values
      */
-    public function __construct(array $row = null)
+    public function __construct($values = null)
     {
-        if ($row) {
-            $this->getHydrator()->hydrate($row, $this);
+        if ($values) {
+            $this->hydrate((object)$values, $this);
         }
     }
 
     /**
-     * Get Hydrator.
+     * Hydrate array to object.
      *
-     * @return Hydrator Hydrator
+     * @param mixed $source
+     * @param mixed $destination
+     * @return mixed $destination
+     * @throws RuntimeException
      */
-    protected function getHydrator(): Hydrator
+    private function hydrate($source, $destination)
     {
-        static $hydrator = null;
-        if (!$hydrator) {
-            $hydrator = new Hydrator();
+        if (!is_object($destination)) {
+            throw new RuntimeException('Must be an object');
         }
-        return $hydrator;
+        $properties = get_class_vars(get_class($destination));
+        foreach ($source as $name => $value) {
+            $property = Str::camel($name);
+            if (array_key_exists($property, $properties)) {
+                $destination->{$property} = $value;
+            }
+        }
+        return $destination;
     }
 
     /**
@@ -44,7 +54,13 @@ abstract class AbstractEntity implements EntityInterface
      */
     public function toArray(): array
     {
-        return $this->getHydrator()->extract($this);
+        $array = array();
+        $properties = get_class_vars(get_class($this));
+        foreach ($properties as $property => $value) {
+            $key = Str::snake($property);
+            $array[$key] = $this->{$property};
+        }
+        return $array;
     }
 
     /**

@@ -6,7 +6,9 @@ use App\Controller\Options\ControllerOptions;
 use App\Entity\User;
 use App\Service\User\UserRepository;
 use Exception;
+use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
+use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -23,12 +25,13 @@ class UserController extends AbstractController
     /**
      * Constructor.
      *
-     * @param ControllerOptions $options
+     * @param Container $container
      * @param UserRepository $userRepository
+     * @throws ContainerException
      */
-    public function __construct(ControllerOptions $options, UserRepository $userRepository)
+    public function __construct(Container $container, UserRepository $userRepository)
     {
-        parent::__construct($options);
+        parent::__construct($container);
         $this->userRepository = $userRepository;
     }
 

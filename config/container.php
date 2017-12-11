@@ -2,7 +2,6 @@
 
 // Service container configuration
 
-use App\Controller\Options\ControllerOptions;
 use App\Middleware\ErrorHandlerMiddleware;
 use App\Service\User\Authentication;
 use App\Service\User\AuthenticationOptions;
@@ -12,7 +11,6 @@ use Aura\Session\Session;
 use Aura\Session\SessionFactory;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
-use Odan\Database\Connection;
 use Odan\Slim\Csrf\CsrfMiddleware;
 use Psr\Container\ContainerInterface as Container;
 use Psr\Log\LoggerInterface;
@@ -22,6 +20,7 @@ use Slim\Views\Twig;
 use Symfony\Component\Translation\Loader\MoFileLoader;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator;
+use Illuminate\Database\Connection;
 
 $container = app()->getContainer();
 
@@ -59,13 +58,6 @@ $container[Response::class] = function (Container $container) {
 };
 
 // -----------------------------------------------------------------------------
-// Custom aliases
-// -----------------------------------------------------------------------------
-$container[PDO::class] = function ($container) {
-    return $container->get(Connection::class);
-};
-
-// -----------------------------------------------------------------------------
 // Slim definitions
 // -----------------------------------------------------------------------------
 
@@ -98,6 +90,28 @@ $container[LoggerInterface::class] = function (Container $container) {
     return $logger;
 };
 
+$container[PDO::class] = function (Container $container) {
+    return $container->get(Connection::class)->getPdo();
+};
+
+$container[Connection::class] = function (Container $container) {
+    $settings = $container->get('settings');
+    $config = [
+        'driver'    => 'mysql',
+        'host'      => $settings['db']['host'],
+        'database'  => $settings['db']['database'],
+        'username'  => $settings['db']['username'],
+        'password'  => $settings['db']['password'],
+        'charset'   => $settings['db']['charset'],
+        'collation' => $settings['db']['collation'],
+        'prefix'    => '',
+    ];
+
+    $factory = new \Illuminate\Database\Connectors\ConnectionFactory(new \Illuminate\Container\Container());
+    return  $factory->make($config);
+};
+
+
 $container[Twig::class] = function (Container $container) {
     $settings = $container->get('settings');
     $viewPath = $settings['twig']['path'];
@@ -120,22 +134,6 @@ $container[Twig::class] = function (Container $container) {
     $twig->addExtension(new \Odan\Twig\TwigTranslationExtension());
 
     return $twig;
-};
-
-$container[Connection::class] = function (Container $container) {
-    $settings = $container->get('settings');
-    $driver = $settings['db']['driver'];
-    $host = $settings['db']['host'];
-    $database = $settings['db']['database'];
-    $username = $settings['db']['username'];
-    $password = $settings['db']['password'];
-    $charset = $settings['db']['charset'];
-    $collate = $settings['db']['collation'];
-    $dsn = "$driver:host=$host;dbname=$database;charset=$charset";
-    $options = $settings['db']['flags'];
-    $options[PDO::MYSQL_ATTR_INIT_COMMAND] = "SET NAMES $charset COLLATE $collate";
-
-    return new Connection($dsn, $username, $password, $options);
 };
 
 $container[Session::class] = function (Container $container) {
@@ -171,17 +169,6 @@ $container[Translator::class] = function (Container $container) {
     $translator->addLoader('mo', new MoFileLoader());
 
     return $translator;
-};
-
-$container[ControllerOptions::class] = function (Container $container) {
-    $options = new ControllerOptions();
-    $options->router = $container->get('router');
-    $options->logger = $container->get(LoggerInterface::class);
-    $options->db = $container->get(Connection::class);
-    $options->view = $container->get(Twig::class);
-    $options->user = $container->get(Authentication::class);
-
-    return $options;
 };
 
 $container[Authentication::class] = function (Container $container) {

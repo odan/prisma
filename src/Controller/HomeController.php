@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use App\Controller\Options\ControllerOptions;
 use App\Service\User\UserRepository;
+use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
+use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -21,12 +22,13 @@ class HomeController extends AbstractController
     /**
      * Constructor.
      *
-     * @param ControllerOptions $options
+     * @param Container $container
      * @param UserRepository $userRepo
+     * @throws ContainerException
      */
-    public function __construct(ControllerOptions $options, UserRepository $userRepo)
+    public function __construct(Container $container, UserRepository $userRepo)
     {
-        parent::__construct($options);
+        parent::__construct($container);
         $this->userRepo = $userRepo;
     }
 

@@ -2,23 +2,24 @@
 
 namespace App\Table;
 
-use Odan\Database\DeleteQuery;
-use Odan\Database\InsertQuery;
-use Odan\Database\SelectQuery;
-use Odan\Database\UpdateQuery;
+use Illuminate\Database\Query\Builder;
 
 /**
  * The Table Gateway Interface
  */
 interface TableInterface
 {
+    /**
+     * Return the table name.
+     *
+     * @return string The table name
+     */
     public function getTable(): string;
 
-    public function select(): SelectQuery;
-
-    public function insert($row = null): InsertQuery;
-
-    public function update(array $row, $conditions): UpdateQuery;
-
-    public function delete($conditions): DeleteQuery;
+    /**
+     * Return a new Query Builder instance.
+     *
+     * @return Builder The Query Builder
+     */
+    public function newQuery(): Builder;
 }
