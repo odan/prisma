@@ -1,6 +1,6 @@
 # Prisma
 
-This is a Slim 3 skeleton project that includes Routing, Middleware, DI,
+This is a Slim 3 skeleton project that includes Routing, Middleware,
 Twig templates, mustache.js, Translations, Assets, Sessions, Database Queries, 
 Migrations, Console Commands, Authentication, Authorization, CSRF protection, 
 Logging and Unit testing.
