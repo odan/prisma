@@ -73,6 +73,16 @@ abstract class AbstractTable implements TableInterface
     }
 
     /**
+     * Fetch all rows.
+     *
+     * @return array The rows
+     */
+    public function fetchAll()
+    {
+        return $this->newQuery()->get()->toArray();
+    }
+
+    /**
      * Returns the ID of the last inserted row or sequence value
      *
      * @return string The row ID of the last row that was inserted into the database.

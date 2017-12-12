@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Table\UserTable;
 use Exception;
 use Illuminate\Database\Connection;
+use RuntimeException;
 
 /**
  * User Repository
@@ -38,7 +39,7 @@ class UserRepository extends AbstractRepository
     public function findAll()
     {
         $users = [];
-        foreach ($this->table->newQuery()->get() as $row) {
+        foreach ($this->table->fetchAll() as $row) {
             $users[] = new User($row);
         }
 
@@ -85,10 +86,7 @@ class UserRepository extends AbstractRepository
      */
     public function findByUsername($username)
     {
-        $row = $this->table->newQuery()
-            ->where('username', '=', $username)
-            ->where('disabled', '=', 0)
-            ->first();
+        $row = $this->table->newQuery()->where('username', '=', $username)->where('disabled', '=', 0)->first();
 
         if (empty($row)) {
             return null;
@@ -101,11 +99,26 @@ class UserRepository extends AbstractRepository
      * Insert new user.
      *
      * @param User $user The user
-     * @return string The new ID.
+     * @return string The new ID
      */
     public function insert(User $user): string
     {
         return (string)$this->table->newQuery()->insertGetId($user->toArray());
+    }
+
+    /**
+     * Update user.
+     *
+     * @param User $user The user
+     * @return int Number of affected rows
+     */
+    public function update(User $user): int
+    {
+        if (empty($user->id)) {
+            throw new RuntimeException('User ID required');
+        }
+
+        return $this->table->newQuery()->where('id', '=', $user->id)->update($user->toArray());
     }
 
     /**
