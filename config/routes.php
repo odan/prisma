@@ -9,8 +9,6 @@
  * is an anonymous function.
  */
 
-$app = app();
-
 // Default page
 $app->get('/', 'App\Controller\HomeController:indexAction')->setName('root');
 
