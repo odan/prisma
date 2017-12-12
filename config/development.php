@@ -10,16 +10,11 @@ ini_set('display_errors', '1');
 // Display all errors
 $config['displayErrorDetails'] = true;
 
-// Logger
-$config['logger']['level'] = \Monolog\Logger::DEBUG;
-
-// View
-$config['assets']['minify'] = 0;
-
-// No locale cache
-$config['locale']['cache'] = null;
-
-// Database
 $config['db']['database'] = '{{db_database}}';
+$config['routerCacheFile'] = null;
+$config['logger']['level'] = \Monolog\Logger::DEBUG;
+$config['assets']['minify'] = 0;
+$config['locale']['cache'] = null;
+$config['twig']['cache_enabled'] = false;
 
 return $config;

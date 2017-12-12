@@ -29,7 +29,6 @@ $container = app()->getContainer();
 // Settings
 // -----------------------------------------------------------------------------
 
-
 $container['settings'] = function (Container $container) {
     return $container->get(AppSettings::class)->all();
 };
@@ -69,7 +68,6 @@ $container[Request::class] = function (Container $container) {
     return $container->get('request');
 };
 
-
 $container[Response::class] = function (Container $container) {
     return $container->get('response');
 };
@@ -92,10 +90,6 @@ $container[LoggerInterface::class] = function (Container $container) {
     return $logger;
 };
 
-$container[PDO::class] = function (Container $container) {
-    return $container->get(Connection::class)->getPdo();
-};
-
 $container[Connection::class] = function (Container $container) {
     $settings = $container->get('settings');
 
@@ -113,6 +107,10 @@ $container[Connection::class] = function (Container $container) {
     $factory = new ConnectionFactory(new \Illuminate\Container\Container());
 
     return  $factory->make($config);
+};
+
+$container[PDO::class] = function (Container $container) {
+    return $container->get(Connection::class)->getPdo();
 };
 
 $container[Twig::class] = function (Container $container) {

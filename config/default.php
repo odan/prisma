@@ -17,13 +17,13 @@ $config = [
     'determineRouteBeforeAppMiddleware' => true,
     'displayErrorDetails' => false,
     'addContentLengthHeader' => true,
-    'routerCacheFile' => false,
 ];
 
 // Path settings
 $config['root'] = dirname(__DIR__);
 $config['temp'] = $config['root'] . '/tmp';
 $config['public'] = $config['root'] . '/public';
+$config['routerCacheFile'] = $config['temp'] . '/routes-cache/routes.cache.php';
 
 // Application settings
 $config['app'] = [
@@ -40,7 +40,7 @@ $config['logger'] = [
 // View settings
 $config['twig'] = [
     'path' => $config['root'] . '/templates',
-    'cache_enabled' => false,
+    'cache_enabled' => true,
     'cache_path' => $config['temp'] . '/twig-cache'
 ];
 
