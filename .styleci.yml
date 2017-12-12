@@ -18,5 +18,6 @@ finder:
     - "*.php"
   path:
     - "src"
+    - "config"
     - "tests"
 
