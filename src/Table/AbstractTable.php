@@ -10,10 +10,10 @@ use stdClass;
  * Table Gateways
  *
  * The Table Gateway subcomponent provides an object-oriented representation of a database table;
- * its methods mirror the most common table operations. In code, the interface resembles.
+ * its methods mirror the most common table operations.
  *
  * Out of the box, this implementation makes no assumptions about table structure or metadata,
- * and when select() is executed, a simple SelectQuery object will be returned.
+ * and when newQuery() is executed, a simple Builder object will be returned.
  */
 abstract class AbstractTable implements TableInterface
 {
