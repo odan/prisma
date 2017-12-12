@@ -31,7 +31,8 @@
     "phpunit/phpunit": "^6.0"
   },
   "scripts": {
-
+    "post-update-cmd": "php cli.php update-assets",
+    "post-install-cmd": "php cli.php update-assets"
   },
   "autoload": {
     "psr-4": {
