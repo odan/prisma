@@ -2,7 +2,7 @@
 
 // Service container configuration
 
-use App\Middleware\ErrorHandlerMiddleware;
+use App\Utility\ErrorHandler;
 use App\Service\Auth\Authentication;
 use App\Service\Auth\AuthenticationOptions;
 use App\Repository\UserRepository;
@@ -54,7 +54,7 @@ $container[AppSettings::class] = function () {
 $container['errorHandler'] = function (Container $container) {
     $displayErrorDetails = $container->get('settings')['displayErrorDetails'];
     $logger = $container->get(LoggerInterface::class);
-    return new ErrorHandlerMiddleware((bool)$displayErrorDetails, $logger);
+    return new ErrorHandler((bool)$displayErrorDetails, $logger);
 };
 
 $container['phpErrorHandler'] = function (Container $container) {
