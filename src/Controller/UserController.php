@@ -25,13 +25,12 @@ class UserController extends AbstractController
      * Constructor.
      *
      * @param Container $container
-     * @param UserRepository $userRepository
      * @throws ContainerException
      */
-    public function __construct(Container $container, UserRepository $userRepository)
+    public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->userRepository = $userRepository;
+        $this->userRepository = $container->get(UserRepository::class);
     }
 
     /**
@@ -91,9 +90,9 @@ class UserController extends AbstractController
 
         // Session example
         // Increment counter
-        $counter = $this->user->get('counter', 0);
+        $counter = $this->session->get('counter', 0);
         $counter++;
-        $this->user->set('counter', $counter);
+        $this->session->set('counter', $counter);
 
         // Logger example
         $this->logger->info('My log message');

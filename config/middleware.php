@@ -1,8 +1,9 @@
 <?php
 
-use App\Service\Auth\Authentication;
+use App\Service\User\AuthenticationService;
 use Aura\Session\Session;
 use Odan\Slim\Csrf\CsrfMiddleware;
+use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -18,9 +19,9 @@ $app->add(function (Request $request, Response $response, $next) {
     }
     $auth = $route->getArgument('_auth', true);
 
-    /* @var \App\Service\Auth\Authentication $user */
-    $user = $this->get(Authentication::class);
-    if ($auth === true && !$user->check()) {
+    /* @var \App\Service\User\AuthenticationService $user */
+    $user = $this->get(AuthenticationService::class);
+    if ($auth === true && !$user->hasIdentity()) {
         // Redirect to login page
 
         /* @var \Slim\Router $router */
@@ -44,14 +45,28 @@ $app->add(function (Request $request, Response $response, $next) {
 
 // Language middleware
 $app->add(function (Request $request, Response $response, $next) {
-    $user = $this->get(Authentication::class);
-    $user->setLocale($user->getLocale());
+    /* @var Container $this */
+    $localization = $this->get(\App\Service\User\Localization::class);
+
+    // Get user language
+    $locale = $localization->getLocale();
+    $domain = $localization->getDomain();
+
+    // Default language
+    if (empty($locale)) {
+        $locale = 'en_US';
+        $domain = 'messages';
+    }
+
+    // Set language
+    $localization->setLanguage($locale, $domain);
+
     return $next($request, $response);
 });
 
 // Csrf protection middleware
 $app->add(function (Request $request, Response $response, $next) {
-    /* @var \Slim\Container $this */
+    /* @var Container $this */
     $session = $this->get(Session::class);
     $csrfValue = $session->getCsrfToken()->getValue();
     $csrf = $this->get(CsrfMiddleware::class);

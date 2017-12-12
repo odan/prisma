@@ -2,9 +2,9 @@
 
 // Service container configuration
 
+use App\Service\User\Localization;
 use App\Utility\ErrorHandler;
-use App\Service\Auth\Authentication;
-use App\Service\Auth\AuthenticationOptions;
+use App\Service\User\AuthenticationService;
 use App\Repository\UserRepository;
 use App\Utility\AppSettings;
 use Aura\Session\Session;
@@ -98,6 +98,7 @@ $container[PDO::class] = function (Container $container) {
 
 $container[Connection::class] = function (Container $container) {
     $settings = $container->get('settings');
+
     $config = [
         'driver'    => 'mysql',
         'host'      => $settings['db']['host'],
@@ -108,6 +109,7 @@ $container[Connection::class] = function (Container $container) {
         'collation' => $settings['db']['collation'],
         'prefix'    => '',
     ];
+
     $factory = new ConnectionFactory(new \Illuminate\Container\Container());
 
     return  $factory->make($config);
@@ -148,6 +150,15 @@ $container[Session::class] = function (Container $container) {
     return $session;
 };
 
+$container[Localization::class] = function (Container $container) {
+    $translator = $container->get(Translator::class);
+    $segment = $container->get(Session::class)->getSegment('localization');
+    $localPath = $container->get('settings')['locale']['path'];
+    $localization = new Localization($translator, $segment, $localPath);
+
+    return $localization;
+};
+
 $container[CsrfMiddleware::class] = function (Container $container) {
     $session = $container->get(Session::class);
     $csrfValue = $session->getCsrfToken()->getValue();
@@ -172,34 +183,12 @@ $container[Translator::class] = function (Container $container) {
     return $translator;
 };
 
-$container[Authentication::class] = function (Container $container) {
-    return new Authentication(
+$container[AuthenticationService::class] = function (Container $container) {
+    return new AuthenticationService(
         $container->get(Session::class),
         $container->get(UserRepository::class),
-        $container->get(Translator::class),
-        $container->get(AuthenticationOptions::class)
+        $container->get('settings')['app']['secret']
     );
-};
-
-$container[AuthenticationOptions::class] = function (Container $container) {
-    $settings = $container->get('settings');
-
-    $authSettings = new AuthenticationOptions();
-    $authSettings->localePath = $settings['locale']['path'];
-    $authSettings->secret = $settings['app']['secret'];
-
-    return $authSettings;
-};
-
-// -----------------------------------------------------------------------------
-// Controllers
-// -----------------------------------------------------------------------------
-$container[\App\Controller\HomeController::class] = function (Container $container) {
-    return new \App\Controller\HomeController($container, $container->get(UserRepository::class));
-};
-
-$container[\App\Controller\UserController::class] = function (Container $container) {
-    return new \App\Controller\UserController($container, $container->get(UserRepository::class));
 };
 
 // -----------------------------------------------------------------------------

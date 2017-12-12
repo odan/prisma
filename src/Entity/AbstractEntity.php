@@ -28,7 +28,8 @@ abstract class AbstractEntity implements EntityInterface
      * Magic method.
      *
      * @param string $name
-     * @throws Exception
+     * @param mixed $value
+     * @throws RuntimeException
      */
     public function __set($name, $value)
     {
@@ -39,7 +40,7 @@ abstract class AbstractEntity implements EntityInterface
      * Magic method.
      *
      * @param string $name
-     * @throws Exception
+     * @throws RuntimeException
      */
     public function __get($name)
     {

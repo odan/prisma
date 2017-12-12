@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
-use App\Service\Auth\Authentication;
+use App\Service\User\AuthenticationService;
+use Aura\Session\Segment;
+use Aura\Session\Session;
 use Illuminate\Database\Connection;
 use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
@@ -32,9 +34,14 @@ abstract class AbstractController
     protected $view;
 
     /**
-     * @var Authentication
+     * @var AuthenticationService
      */
-    protected $user;
+    protected $auth;
+
+    /**
+     * @var Segment
+     */
+    protected $session;
 
     /**
      * @var LoggerInterface
@@ -52,8 +59,9 @@ abstract class AbstractController
         $this->db = $container->get(Connection::class);
         $this->logger = $container->get(LoggerInterface::class);
         $this->router = $container->get('router');
-        $this->user = $container->get(Authentication::class);
+        $this->auth = $container->get(AuthenticationService::class);
         $this->view = $container->get(Twig::class);
+        $this->session = $container->get(Session::class)->getSegment('default');
     }
 
     /**

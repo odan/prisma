@@ -33,8 +33,6 @@ function app()
  * echo __('Hello');
  * echo __('There are %s users logged in.', 7);
  * </code>
- * @throws ContainerExceptionInterface
- * @throws NotFoundExceptionInterface
  */
 function __($message)
 {

@@ -23,13 +23,12 @@ class HomeController extends AbstractController
      * Constructor.
      *
      * @param Container $container
-     * @param UserRepository $userRepo
      * @throws ContainerException
      */
-    public function __construct(Container $container, UserRepository $userRepo)
+    public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->userRepo = $userRepo;
+        $this->userRepo = $container->get(UserRepository::class);
     }
 
     /**
@@ -42,9 +41,9 @@ class HomeController extends AbstractController
     public function indexAction(Request $request, Response $response): ResponseInterface
     {
         // Increment counter
-        $counter = $this->user->get('counter', 0);
+        $counter = $this->session->get('counter', 0);
         $counter++;
-        $this->user->set('counter', $counter);
+        $this->session->set('counter', $counter);
 
         $text = [
             'Loaded successfully!' => __('Loaded successfully!')
@@ -70,7 +69,7 @@ class HomeController extends AbstractController
      */
     public function loadAction(Request $request, Response $response): ResponseInterface
     {
-        $userId = $this->user->getId();
+        $userId = $this->auth->getId();
         $user = $this->userRepo->findById($userId);
 
         $result = [

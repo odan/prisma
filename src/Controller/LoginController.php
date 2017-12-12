@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Service\User\Localization;
+use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
+use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -11,6 +14,24 @@ use Slim\Http\Response;
  */
 class LoginController extends AbstractController
 {
+
+    /**
+     * @var Localization
+     */
+    protected $locale;
+
+    /**
+     * Constructor.
+     *
+     * @param Container $container
+     * @throws ContainerException
+     */
+    public function __construct(Container $container)
+    {
+        parent::__construct($container);
+        $this->locale = $container->get(Localization::class);
+    }
+
     /**
      * User login
      *
@@ -37,8 +58,13 @@ class LoginController extends AbstractController
         $username = $data['username'];
         $password = $data['password'];
 
-        $result = $this->user->login($username, $password);
-        $url = ($result) ? $this->router->pathFor('root') : $this->router->pathFor('login');
+        $authResult = $this->auth->authenticate($username, $password);
+        if ($authResult->isValid()) {
+            $this->locale->setLanguage($authResult->getIdentity()->locale);
+            $url = $this->router->pathFor('root');
+        } else {
+            $url =  $this->router->pathFor('login');
+        }
 
         return $response->withRedirect($url);
     }
@@ -52,7 +78,7 @@ class LoginController extends AbstractController
      */
     public function logoutAction(Request $request, Response $response): ResponseInterface
     {
-        $this->user->logout();
+        $this->auth->clearIdentity();
         return $response->withRedirect($this->router->pathFor('login'));
     }
 }
