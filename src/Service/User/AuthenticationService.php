@@ -141,11 +141,9 @@ class AuthenticationService
         // Check username and password
         $authResult = $this->loginUser($username, $password);
 
-        if (!$authResult->isValid()) {
+        if (!$authResult->isValid() || !$user = $authResult->getIdentity()) {
             return $authResult;
         }
-
-        $user = $authResult->getIdentity();
 
         // Clear session data
         $this->segment->clear();
