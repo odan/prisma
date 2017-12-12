@@ -4,6 +4,8 @@
  * Services and helper functions
  */
 
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\Translation\Translator;
 
 /**
@@ -25,13 +27,14 @@ function app()
  * Text translation (I18n)
  *
  * @param string $message
- * @param ...$context
  * @return string
  *
  * <code>
  * echo __('Hello');
  * echo __('There are %s users logged in.', 7);
  * </code>
+ * @throws ContainerExceptionInterface
+ * @throws NotFoundExceptionInterface
  */
 function __($message)
 {

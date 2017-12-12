@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use App\Utility\AppSettings;
 use Aura\Session\Session;
 use Aura\Session\SessionFactory;
+use Illuminate\Database\Connectors\ConnectionFactory;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Odan\Slim\Csrf\CsrfMiddleware;
@@ -28,15 +29,12 @@ $container = app()->getContainer();
 // Settings
 // -----------------------------------------------------------------------------
 
-$container['callableResolver'] = new Odan\SlimDi\DependencyResolver($container);
 
 $container['settings'] = function (Container $container) {
     return $container->get(AppSettings::class)->all();
 };
 
 $container['environment'] = function () {
-    // Fix the Slim 3 subdirectory issue (#1529)
-    // This fix makes it possible to run the app from localhost/slim_app_dir
     $scriptName = $_SERVER['SCRIPT_NAME'];
     $_SERVER['REAL_SCRIPT_NAME'] = $scriptName;
     $_SERVER['SCRIPT_NAME'] = dirname(dirname($scriptName)) . '/' . basename($scriptName);
@@ -46,15 +44,6 @@ $container['environment'] = function () {
 $container[AppSettings::class] = function () {
     $settings = new AppSettings(require __DIR__ . '/config.php');
     return $settings;
-};
-
-$container[Request::class] = function (Container $container) {
-    return $container->get('request');
-};
-
-
-$container[Response::class] = function (Container $container) {
-    return $container->get('response');
 };
 
 // -----------------------------------------------------------------------------
@@ -70,6 +59,19 @@ $container['errorHandler'] = function (Container $container) {
 
 $container['phpErrorHandler'] = function (Container $container) {
     return $container->get('errorHandler');
+};
+
+// -----------------------------------------------------------------------------
+// Alias definitions
+// -----------------------------------------------------------------------------
+
+$container[Request::class] = function (Container $container) {
+    return $container->get('request');
+};
+
+
+$container[Response::class] = function (Container $container) {
+    return $container->get('response');
 };
 
 // -----------------------------------------------------------------------------
@@ -106,11 +108,10 @@ $container[Connection::class] = function (Container $container) {
         'collation' => $settings['db']['collation'],
         'prefix'    => '',
     ];
+    $factory = new ConnectionFactory(new \Illuminate\Container\Container());
 
-    $factory = new \Illuminate\Database\Connectors\ConnectionFactory(new \Illuminate\Container\Container());
     return  $factory->make($config);
 };
-
 
 $container[Twig::class] = function (Container $container) {
     $settings = $container->get('settings');
@@ -190,6 +191,20 @@ $container[AuthenticationOptions::class] = function (Container $container) {
     return $authSettings;
 };
 
+// -----------------------------------------------------------------------------
+// Controllers
+// -----------------------------------------------------------------------------
+$container[\App\Controller\HomeController::class] = function (Container $container) {
+    return new \App\Controller\HomeController($container, $container->get(UserRepository::class));
+};
+
+$container[\App\Controller\UserController::class] = function (Container $container) {
+    return new \App\Controller\UserController($container, $container->get(UserRepository::class));
+};
+
+// -----------------------------------------------------------------------------
+// Repositories
+// -----------------------------------------------------------------------------
 $container[UserRepository::class] = function (Container $container) {
     return new UserRepository($container->get(Connection::class));
 };
