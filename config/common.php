@@ -4,8 +4,6 @@
  * Services and helper functions
  */
 
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\Translation\Translator;
 
 /**

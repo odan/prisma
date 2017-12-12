@@ -28,9 +28,9 @@ $app->add(function (Request $request, Response $response, $next) {
         $router = $this->get('router');
         $uri = $router->pathFor('login');
         return $response->withRedirect($uri);
-    } else {
-        return $next($request, $response);
     }
+
+    return $next($request, $response);
 });
 
 // Http middleware
