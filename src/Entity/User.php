@@ -20,4 +20,5 @@ class User extends AbstractEntity
     public $createdBy;
     public $updatedAt;
     public $updatedBy;
+    public $user_name;
 }
