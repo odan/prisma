@@ -17,12 +17,4 @@ interface EntityInterface
      * @return array Data
      */
     public function toArray();
-
-    /**
-     * Convert to json.
-     *
-     * @param int $options Options
-     * @return string A json string
-     */
-    public function toJson($options = 0);
 }

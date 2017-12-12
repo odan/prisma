@@ -25,6 +25,28 @@ abstract class AbstractEntity implements EntityInterface
     }
 
     /**
+     * Magic method.
+     *
+     * @param string $name
+     * @throws Exception
+     */
+    public function __set($name, $value)
+    {
+        throw new RuntimeException(sprintf("Property [%s] doesn't exist for class [%s]. Cannot set value [%s].", $name, get_class($this), $value));
+    }
+
+    /**
+     * Magic method.
+     *
+     * @param string $name
+     * @throws Exception
+     */
+    public function __get($name)
+    {
+        throw new RuntimeException(sprintf("Property [%s] doesn't exist for class [%s].", $name, get_class($this)));
+    }
+
+    /**
      * Hydrate array to object.
      *
      * @param mixed $source
@@ -61,16 +83,5 @@ abstract class AbstractEntity implements EntityInterface
             $array[$key] = $this->{$property};
         }
         return $array;
-    }
-
-    /**
-     * Convert to json.
-     *
-     * @param int $options Options
-     * @return string A json string
-     */
-    public function toJson($options = 0): string
-    {
-        return json_encode($this->toArray(), $options);
     }
 }
