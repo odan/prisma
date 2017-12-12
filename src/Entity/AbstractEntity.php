@@ -35,7 +35,7 @@ abstract class AbstractEntity implements EntityInterface
     private function hydrate($source, $destination)
     {
         if (!is_object($destination)) {
-            throw new RuntimeException('Must be an object');
+            throw new RuntimeException('The destination instance must be of type object');
         }
         $properties = get_class_vars(get_class($destination));
         foreach ($source as $name => $value) {
