@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Service\User;
+namespace App\Service\Auth;
 
 /**
  * UserRole
  */
-class UserRole
+class Role
 {
     /**
      * Admin role

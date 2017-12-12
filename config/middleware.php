@@ -1,6 +1,6 @@
 <?php
 
-use App\Service\User\Authentication;
+use App\Service\Auth\Authentication;
 use Aura\Session\Session;
 use Odan\Slim\Csrf\CsrfMiddleware;
 use Slim\Http\Request;
@@ -18,7 +18,7 @@ $app->add(function (Request $request, Response $response, $next) {
     }
     $auth = $route->getArgument('_auth', true);
 
-    /* @var \App\Service\User\Authentication $user */
+    /* @var \App\Service\Auth\Authentication $user */
     $user = $this->get(Authentication::class);
     if ($auth === true && !$user->check()) {
         // Redirect to login page

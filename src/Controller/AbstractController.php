@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\User\Authentication;
+use App\Service\Auth\Authentication;
 use Illuminate\Database\Connection;
 use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;

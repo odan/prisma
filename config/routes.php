@@ -27,7 +27,7 @@ $app->get('/logout', ['App\Controller\LoginController', 'logoutAction'])->setArg
 $app->get('/users', ['App\Controller\UserController', 'indexAction']);
 
 // This route will only match if {id} is numeric
-$app->get('/users/{id:[0-9]+}', ['App\Controller\UserController', 'editAction'])->setName('users-edit');
+$app->get('/users/{id:[0-9]+}', ['App\Controller\UserController', 'editAction'])->setName('users.edit');
 
 // Sub-Resource
 $app->get('/users/{id:[0-9]+}/reviews', ['App\Controller\UserController', 'reviewAction']);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\User;
+namespace App\Service\Auth;
 
 use App\Repository\UserRepository;
 use Aura\Session\Segment;
@@ -237,7 +237,7 @@ class Authentication
         $userRole = $this->get('user.role');
 
         // Full access for admin
-        if ($userRole === UserRole::ROLE_ADMIN) {
+        if ($userRole === Role::ROLE_ADMIN) {
             return true;
         }
         if ($role === $userRole) {

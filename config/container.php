@@ -3,8 +3,8 @@
 // Service container configuration
 
 use App\Middleware\ErrorHandlerMiddleware;
-use App\Service\User\Authentication;
-use App\Service\User\AuthenticationOptions;
+use App\Service\Auth\Authentication;
+use App\Service\Auth\AuthenticationOptions;
 use App\Repository\UserRepository;
 use App\Utility\AppSettings;
 use Aura\Session\Session;

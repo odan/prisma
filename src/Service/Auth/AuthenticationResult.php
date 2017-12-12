@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\User;
+namespace App\Service\Auth;
 
 use App\Entity\User;
 
