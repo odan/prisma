@@ -20,6 +20,11 @@ checks:
         fix_identation_4spaces: true
         fix_doc_comments: true
 
+tools:
+    external_code_coverage:
+        timeout: 600
+        runs: 1
+
 build:
     environment:
         php: 7.1.1
@@ -34,7 +39,7 @@ build:
     tests:
         override:
             -
-                command: 'vendor/bin/phpunit --coverage-clover=coverage.xml'
+                command: 'vendor/bin/phpunit --coverage-clover build/logs/clover.xml'
                 coverage:
-                    file: 'coverage.xml'
+                    file: 'build/logs/clover.xml'
                     format: 'clover'
