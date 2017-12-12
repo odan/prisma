@@ -35,5 +35,17 @@ tmp/logs/*
 tmp/assets-cache/*
 !tmp/assets-cache/empty
 
+!tmp/locale-cache/
+tmp/locale-cache/*
+!tmp/locale-cache/empty
+
+!tmp/routes-cache/
+tmp/routes-cache/*
+!tmp/routes-cache/empty
+
+!tmp/twig-cache/
+tmp/twig-cache/*
+!tmp/twig-cache/empty
+
 vendor/
 build/
