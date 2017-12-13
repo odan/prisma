@@ -4,6 +4,7 @@ namespace App\Table;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Connection;
+use Illuminate\Support\Collection;
 use stdClass;
 
 /**
@@ -75,11 +76,11 @@ abstract class AbstractTable implements TableInterface
     /**
      * Fetch all rows.
      *
-     * @return array The rows
+     * @return Collection The rows
      */
     public function fetchAll()
     {
-        return $this->newQuery()->get()->toArray();
+        return $this->newQuery()->get();
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Table\UserTable;
 use Exception;
 use Illuminate\Database\Connection;
+use Illuminate\Support\Collection;
 use RuntimeException;
 
 /**
@@ -19,7 +20,7 @@ class UserRepository extends AbstractRepository
      *
      * @var UserTable
      */
-    private $table;
+    private $userTable;
 
     /**
      * Constructor.
@@ -28,22 +29,19 @@ class UserRepository extends AbstractRepository
      */
     public function __construct(Connection $db)
     {
-        $this->table = new UserTable($db);
+        $this->userTable = new UserTable($db);
     }
 
     /**
-     * Returns an array with all entities.
+     * Returns a collection of User entities.
      *
-     * @return User[] Array with entities
+     * @return Collection|User[]
      */
-    public function findAll()
+    public function findAll(): Collection
     {
-        $users = [];
-        foreach ($this->table->fetchAll() as $row) {
-            $users[] = new User($row);
-        }
-
-        return $users;
+        return $this->userTable->fetchAll()->map(function ($row) {
+            return new User($row);
+        });
     }
 
     /**
@@ -54,7 +52,7 @@ class UserRepository extends AbstractRepository
      */
     public function findById($id)
     {
-        $row = $this->table->fetchById($id);
+        $row = $this->userTable->fetchById($id);
         if (empty($row)) {
             return null;
         }
@@ -86,7 +84,7 @@ class UserRepository extends AbstractRepository
      */
     public function findByUsername($username)
     {
-        $row = $this->table->newQuery()->where('username', '=', $username)->where('disabled', '=', 0)->first();
+        $row = $this->userTable->newQuery()->where('username', '=', $username)->where('disabled', '=', 0)->first();
 
         if (empty($row)) {
             return null;
@@ -103,7 +101,7 @@ class UserRepository extends AbstractRepository
      */
     public function insert(User $user): string
     {
-        return (string)$this->table->newQuery()->insertGetId($user->toArray());
+        return (string)$this->userTable->newQuery()->insertGetId($user->toArray());
     }
 
     /**
@@ -118,7 +116,7 @@ class UserRepository extends AbstractRepository
             throw new RuntimeException('User ID required');
         }
 
-        return $this->table->newQuery()->where('id', '=', $user->id)->update($user->toArray());
+        return $this->userTable->newQuery()->where('id', '=', $user->id)->update($user->toArray());
     }
 
     /**
@@ -129,6 +127,6 @@ class UserRepository extends AbstractRepository
      */
     public function delete(User $user): int
     {
-        return $this->table->newQuery()->delete($user->id);
+        return $this->userTable->newQuery()->delete($user->id);
     }
 }
