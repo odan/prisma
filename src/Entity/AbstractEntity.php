@@ -60,7 +60,7 @@ abstract class AbstractEntity implements EntityInterface
         if (!is_object($destination)) {
             throw new RuntimeException('The destination instance must be of type object');
         }
-        $properties = get_class_vars(get_class($destination));
+        $properties = (array)get_object_vars($destination);
         foreach ($source as $name => $value) {
             $property = Str::camel($name);
             if (array_key_exists($property, $properties)) {
@@ -78,7 +78,7 @@ abstract class AbstractEntity implements EntityInterface
     public function toArray(): array
     {
         $array = array();
-        $properties = get_class_vars(get_class($this));
+        $properties = get_object_vars($this);
         foreach ($properties as $property => $value) {
             $key = Str::snake($property);
             $array[$key] = $this->{$property};

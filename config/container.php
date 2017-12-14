@@ -5,7 +5,7 @@
 use App\Service\User\Localization;
 use App\Utility\ErrorHandler;
 use App\Service\User\AuthenticationService;
-use App\Repository\UserRepository;
+use App\Mapper\UserMapper;
 use App\Utility\AppSettings;
 use Aura\Session\Session;
 use Aura\Session\SessionFactory;
@@ -184,7 +184,7 @@ $container[Translator::class] = function (Container $container) {
 $container[AuthenticationService::class] = function (Container $container) {
     return new AuthenticationService(
         $container->get(Session::class),
-        $container->get(UserRepository::class),
+        $container->get(UserMapper::class),
         $container->get('settings')['app']['secret']
     );
 };
@@ -192,8 +192,8 @@ $container[AuthenticationService::class] = function (Container $container) {
 // -----------------------------------------------------------------------------
 // Repositories
 // -----------------------------------------------------------------------------
-$container[UserRepository::class] = function (Container $container) {
-    return new UserRepository($container->get(Connection::class));
+$container[UserMapper::class] = function (Container $container) {
+    return new UserMapper($container->get(Connection::class));
 };
 
 return $container;

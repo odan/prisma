@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\UserRepository;
+use App\Mapper\UserMapper;
 use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
@@ -15,9 +15,9 @@ use Slim\Http\Response;
 class HomeController extends AbstractController
 {
     /**
-     * @var UserRepository
+     * @var UserMapper
      */
-    protected $userRepo;
+    protected $userMapper;
 
     /**
      * Constructor.
@@ -28,7 +28,7 @@ class HomeController extends AbstractController
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->userRepo = $container->get(UserRepository::class);
+        $this->userMapper = $container->get(UserMapper::class);
     }
 
     /**
@@ -70,7 +70,7 @@ class HomeController extends AbstractController
     public function loadAction(Request $request, Response $response): ResponseInterface
     {
         $userId = $this->auth->getId();
-        $user = $this->userRepo->findById($userId);
+        $user = $this->userMapper->getById($userId);
 
         $result = [
             'message' => __('Loaded successfully!'),

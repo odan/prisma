@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Repository\UserRepository;
+use App\Entity\UserEntity;
+use App\Mapper\UserMapper;
 use Exception;
 use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
@@ -17,9 +17,9 @@ use Slim\Http\Response;
 class UserController extends AbstractController
 {
     /**
-     * @var UserRepository
+     * @var UserMapper
      */
-    protected $userRepository;
+    protected $userMapper;
 
     /**
      * Constructor.
@@ -30,7 +30,7 @@ class UserController extends AbstractController
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->userRepository = $container->get(UserRepository::class);
+        $this->userMapper = $container->get(UserMapper::class);
     }
 
     /**
@@ -42,7 +42,7 @@ class UserController extends AbstractController
      */
     public function indexAction(Request $request, Response $response): ResponseInterface
     {
-        $users = $this->userRepository->findAll();
+        $users = $this->userMapper->findAll();
 
         $viewData = $this->getViewData([
             'users' => $users
@@ -71,22 +71,22 @@ class UserController extends AbstractController
         //$post = $request->getParsedBody();
 
         // Repository example
-        $user = $this->userRepository->getById($id);
+        $user = $this->userMapper->getById($id);
 
         // Insert a new user
-        $newUser = new User();
+        $newUser = new UserEntity();
         $newUser->username = 'admin-' . uuid();
         $newUser->disabled = 0;
-        $newUserId = $this->userRepository->insert($newUser);
+        $newUserId = $this->userMapper->insertUser($newUser);
 
         // Get new new user
-        $newUser = $this->userRepository->getById($newUserId);
+        $newUser = $this->userMapper->getById($newUserId);
 
         // Delete a user
-        $this->userRepository->delete($newUser);
+        $this->userMapper->deleteUser($newUser);
 
         // Get all users
-        $users = $this->userRepository->findAll();
+        $users = $this->userMapper->findAll();
 
         // Session example
         // Increment counter

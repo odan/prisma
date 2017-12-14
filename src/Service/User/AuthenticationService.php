@@ -2,8 +2,8 @@
 
 namespace App\Service\User;
 
-use App\Entity\User;
-use App\Repository\UserRepository;
+use App\Entity\UserEntity;
+use App\Mapper\UserMapper;
 use Aura\Session\Segment;
 use Aura\Session\Session;
 use RuntimeException;
@@ -39,22 +39,22 @@ class AuthenticationService
     private $secret;
 
     /**
-     * @var UserRepository
+     * @var UserMapper
      */
-    private $userRepository;
+    private $userMapper;
 
     /**
      * UserSession constructor.
      *
      * @param Session $session Storage
-     * @param UserRepository $userRepository The User repository
+     * @param UserMapper $userMapper The User mapper
      * @param string $secret
      */
-    public function __construct(Session $session, UserRepository $userRepository, string $secret)
+    public function __construct(Session $session, UserMapper $userMapper, string $secret)
     {
         $this->session = $session;
         $this->segment = $this->session->getSegment('auth');
-        $this->userRepository = $userRepository;
+        $this->userMapper = $userMapper;
         $this->secret = $secret;
         $this->token = $this->createToken($secret);
     }
@@ -72,10 +72,10 @@ class AuthenticationService
     /**
      * Set the identity into storage or null if no identity is available
      *
-     * @param User $user
+     * @param UserEntity $user
      * @return void
      */
-    public function setIdentity(User $user)
+    public function setIdentity(UserEntity $user)
     {
         $this->segment->set('user', $user);
     }
@@ -83,7 +83,7 @@ class AuthenticationService
     /**
      * Returns the identity from storage or null if no identity is available
      *
-     * @return User
+     * @return UserEntity
      */
     public function getIdentity()
     {
@@ -173,7 +173,7 @@ class AuthenticationService
      */
     private function loginUser(string $username, string $password): AuthenticationResult
     {
-        $user = $this->userRepository->findByUsername($username);
+        $user = $this->userMapper->findByUsername($username);
 
         if (empty($user)) {
             return new AuthenticationResult(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND);

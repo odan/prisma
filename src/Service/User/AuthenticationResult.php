@@ -2,7 +2,7 @@
 
 namespace App\Service\User;
 
-use App\Entity\User;
+use App\Entity\UserEntity;
 
 /**
  * Class AuthenticationResult
@@ -26,7 +26,7 @@ class AuthenticationResult
     /**
      * Identity
      *
-     * @var User|null
+     * @var UserEntity|null
      */
     private $identity;
 
@@ -41,10 +41,10 @@ class AuthenticationResult
      * Constructor.
      *
      * @param int $code Code
-     * @param User $identity User
+     * @param UserEntity $identity User
      * @param array $messages Messages
      */
-    public function __construct($code, User $identity = null, $messages = [])
+    public function __construct($code, UserEntity $identity = null, $messages = [])
     {
         $this->code = $code;
         $this->identity = $identity;
@@ -81,7 +81,7 @@ class AuthenticationResult
     /**
      * Returns the identity of the authentication attempt.
      *
-     * @return User|null User
+     * @return UserEntity|null User
      */
     public function getIdentity()
     {

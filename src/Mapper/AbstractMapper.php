@@ -1,22 +1,20 @@
 <?php
 
-namespace App\Table;
+namespace App\Mapper;
 
+use App\Mapper\MapperInterface;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Connection;
 use Illuminate\Support\Collection;
 use stdClass;
 
 /**
- * Table Gateways
+ * Data Mapper
  *
- * The Table Gateway subcomponent provides an object-oriented representation of a database table;
- * its methods mirror the most common table operations.
- *
- * Out of the box, this implementation makes no assumptions about table structure or metadata,
- * and when newQuery() is executed, a simple Builder object will be returned.
+ * A layer of Mappers that moves data between objects and a database
+ * while keeping them independent of each other and the mapper itself.
  */
-abstract class AbstractTable implements TableInterface
+abstract class AbstractMapper implements MapperInterface
 {
     /**
      * Database connection
@@ -68,7 +66,7 @@ abstract class AbstractTable implements TableInterface
      * @param int|string $id The ID
      * @return stdClass|null The row
      */
-    public function fetchById($id)
+    protected function fetchById($id)
     {
         return $this->newQuery()->where('id', '=', $id)->first();
     }
@@ -78,7 +76,7 @@ abstract class AbstractTable implements TableInterface
      *
      * @return Collection The rows
      */
-    public function fetchAll()
+    protected function fetchAll()
     {
         return $this->newQuery()->get();
     }
