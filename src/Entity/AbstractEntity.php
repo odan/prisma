@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Illuminate\Support\Str;
 use RuntimeException;
+use stdClass;
 
 /**
  * Base Entity
@@ -20,7 +21,7 @@ abstract class AbstractEntity implements EntityInterface
     public function __construct($values = null)
     {
         if ($values) {
-            $this->hydrate((object)$values, $this);
+            $this->fromObject((object)$values, $this);
         }
     }
 
@@ -50,23 +51,21 @@ abstract class AbstractEntity implements EntityInterface
     /**
      * Hydrate array to object.
      *
-     * @param mixed $source
-     * @param mixed $destination
-     * @return mixed $destination
-     * @throws RuntimeException
+     * @param stdClass|mixed $source
+     * @param stdClass|mixed $destination
+     * @return stdClass|mixed $destination
      */
-    private function hydrate($source, $destination)
+    private function fromObject($source, $destination)
     {
-        if (!is_object($destination)) {
-            throw new RuntimeException('The destination instance must be of type object');
-        }
-        $properties = (array)get_object_vars($destination);
+        $properties = array_fill_keys(array_keys((array)get_object_vars($destination)), 1);
+
         foreach ($source as $name => $value) {
             $property = Str::camel($name);
-            if (array_key_exists($property, $properties)) {
+            if (isset($properties[$property])) {
                 $destination->{$property} = $value;
             }
         }
+
         return $destination;
     }
 
@@ -77,12 +76,13 @@ abstract class AbstractEntity implements EntityInterface
      */
     public function toArray(): array
     {
-        $array = array();
+        $array = [];
         $properties = get_object_vars($this);
+
         foreach ($properties as $property => $value) {
-            $key = Str::snake($property);
-            $array[$key] = $this->{$property};
+            $array[Str::snake($property)] = $this->{$property};
         }
+
         return $array;
     }
 }
