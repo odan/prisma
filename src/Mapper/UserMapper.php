@@ -22,13 +22,16 @@ class UserMapper extends AbstractMapper
     /**
      * Returns a collection of User entities.
      *
-     * @return Collection|UserEntity[]
+     * @return UserEntity[]
      */
-    public function findAll(): Collection
+    public function findAll(): array
     {
-        return $this->fetchAll()->map(function ($row) {
-            return new UserEntity($row);
-        });
+        $result = [];
+        foreach ($this->fetchAll() as $row) {
+            $result[] = new UserEntity($row);
+        }
+
+        return $result;
     }
 
     /**
@@ -114,7 +117,7 @@ class UserMapper extends AbstractMapper
      */
     public function saveUser(UserEntity $user)
     {
-        if($user->id) {
+        if ($user->id) {
             return $this->updateUser($user);
         } else {
             $this->insertUser($user);

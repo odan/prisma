@@ -16,5 +16,5 @@ interface EntityInterface
      *
      * @return array Data
      */
-    public function toArray();
+    public function toArray(): array;
 }
