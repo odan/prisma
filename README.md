@@ -69,9 +69,10 @@ php cli.php install
 | src | | PHP source code (The App namespace) |
 | | Controller | Controllers and actions |
 | | Entity | Entities (Represents a row and the columns) |
-| | Repository | Repositories (Communication with the database, Query methods) |
+| | Mapper | Data Mapper.  A layer of Mappers that moves data between objects and a database while keeping them independent of each other and the mapper itself. (Communication with the database, Query methods) |
 | | Service | Business logic |
-| | Table | Table Data Gateway. Represents a table. Insert, Update, Delete. |
+| | Middleware | HTTP middleware |
+| | Type | Types, Enum Constants |
 | | Utility | Helper classes |
 | templates | | Twig and Mustache templates + JS and CSS
 | tests | | Test code |
