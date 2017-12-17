@@ -69,7 +69,7 @@ php cli.php install
 | src | | PHP source code (The App namespace) |
 | | Controller | Controllers and actions |
 | | Entity | Entities (Represents a row and the columns) |
-| | Mapper | Data Mapper.  A layer of Mappers that moves data between objects and a database while keeping them independent of each other and the mapper itself. (Communication with the database, Query methods) |
+| | Mapper | The Data Mapper decouples the domain objects completely from the persistent storage. (Communication with the database, Query methods) |
 | | Service | Business logic |
 | | Middleware | HTTP middleware |
 | | Type | Types, Enum Constants |
