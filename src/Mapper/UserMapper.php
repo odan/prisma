@@ -3,7 +3,6 @@
 namespace App\Mapper;
 
 use App\DataRow\UserRow;
-use Exception;
 use RuntimeException;
 
 /**

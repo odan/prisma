@@ -2,7 +2,6 @@
 
 namespace App\Mapper;
 
-use App\Mapper\MapperInterface;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Connection;
 use Illuminate\Support\Collection;
