@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\DataRow;
 
 /**
  * While a Repository represent and provide access to a collection of objects,
@@ -8,7 +8,7 @@ namespace App\Entity;
  *
  * Entities are just value objects which contains no methods to manipulate the database.
  */
-interface EntityInterface
+interface DataRowInterface
 {
 
     /**

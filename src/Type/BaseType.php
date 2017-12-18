@@ -4,6 +4,7 @@ namespace App\Type;
 
 use Exception;
 use ReflectionClass;
+use RuntimeException;
 
 /**
  * BaseType
@@ -34,9 +35,11 @@ class BaseType
     {
         $class = new ReflectionClass(static::class);
         $constants = array_flip($class->getConstants());
+
         if (!array_key_exists($typeValue, $constants)) {
-            throw new Exception(__('Invalid type ID: %s', $typeValue));
+            throw new RuntimeException(__('Invalid type ID: %s', $typeValue));
         }
+
         return $constants[$typeValue];
     }
 }

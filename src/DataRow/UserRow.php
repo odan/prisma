@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace App\DataRow;
 
 /**
  * User
  */
-class UserEntity extends AbstractEntity
+class UserRow extends AbstractDataRow
 {
     public $id;
     public $username;

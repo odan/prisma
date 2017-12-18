@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\UserEntity;
+use App\DataRow\UserRow;
 use App\Mapper\UserMapper;
 use Exception;
 use Interop\Container\Exception\ContainerException;
@@ -74,7 +74,7 @@ class UserController extends AbstractController
         $user = $this->userMapper->getById($id);
 
         // Insert a new user
-        $newUser = new UserEntity();
+        $newUser = new UserRow();
         $newUser->username = 'admin-' . uuid();
         $newUser->disabled = 0;
         $newUserId = $this->userMapper->insertUser($newUser);

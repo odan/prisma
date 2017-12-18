@@ -2,7 +2,7 @@
 
 namespace App\Service\User;
 
-use App\Entity\UserEntity;
+use App\DataRow\UserRow;
 use App\Mapper\UserMapper;
 use Aura\Session\Segment;
 use Aura\Session\Session;
@@ -72,10 +72,10 @@ class AuthenticationService
     /**
      * Set the identity into storage or null if no identity is available
      *
-     * @param UserEntity $user
+     * @param UserRow $user
      * @return void
      */
-    public function setIdentity(UserEntity $user)
+    public function setIdentity(UserRow $user)
     {
         $this->segment->set('user', $user);
     }
@@ -83,7 +83,7 @@ class AuthenticationService
     /**
      * Returns the identity from storage or null if no identity is available
      *
-     * @return UserEntity
+     * @return UserRow
      */
     public function getIdentity()
     {
@@ -126,7 +126,13 @@ class AuthenticationService
      */
     public function getId(): string
     {
-        return (string)$this->getIdentity()->id;
+        $result = (string)$this->getIdentity()->id;
+
+        if (empty($result)) {
+            throw new RuntimeException(__('Invalid or empty User-ID'));
+        }
+
+        return $result;
     }
 
     /**
