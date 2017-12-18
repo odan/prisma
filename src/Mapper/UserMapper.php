@@ -117,10 +117,10 @@ class UserMapper extends AbstractMapper
     {
         if ($user->id) {
             return $this->updateUser($user);
-        } else {
-            $this->insertUser($user);
-            return 1;
         }
+        $this->insertUser($user);
+
+        return 1;
     }
 
     /**
