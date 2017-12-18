@@ -83,7 +83,7 @@ class UserController extends AbstractController
         $newUser = $this->userMapper->getById($newUserId);
 
         // Delete a user
-        $this->userMapper->deleteUser($newUser);
+        $this->userMapper->deleteUser($newUser->id);
 
         // Get all users
         $users = $this->userMapper->findAll();

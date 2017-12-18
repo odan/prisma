@@ -55,7 +55,7 @@ abstract class AbstractMapper implements MapperInterface
      *
      * @return Builder The Query Builder
      */
-    public function newQuery(): Builder
+    protected function newQuery(): Builder
     {
         return $this->db->table($this->table);
     }

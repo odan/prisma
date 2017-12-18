@@ -57,7 +57,7 @@ class UserMapper extends AbstractMapper
      * @return UserEntity A row
      * @throws Exception On error
      */
-    public function getById($id)
+    public function getById(string $id): UserEntity
     {
         if (!$user = $this->findById($id)) {
             throw new Exception(__('User not found: %s', $id));
@@ -128,11 +128,11 @@ class UserMapper extends AbstractMapper
     /**
      * Delete user.
      *
-     * @param UserEntity $user The user
+     * @param string $userId The user ID
      * @return int Number of affected rows
      */
-    public function deleteUser(UserEntity $user): int
+    public function deleteUser(string $userId): int
     {
-        return $this->newQuery()->delete($user->id);
+        return $this->newQuery()->delete($userId);
     }
 }
