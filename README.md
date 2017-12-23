@@ -114,11 +114,11 @@ For more details how to create and manage migrations read the [Phinx](http://doc
 
 ## Environment configuration
 
-You can keep sensitive information's out of version control with a separate ´env.php´ for each environment.
+You can keep sensitive information's out of version control with a separate `env.php` for each environment.
 
-You should store all sensitive information in 'env.php' and add the file to your .gitignore, so that you don't accidentally commit to source control.
+You should store all sensitive information in `env. php` and add the file to your `. gitignore`, so that you do not accidentally commit it to the source control.
 
-Just rename the file 'env.example.php' to 'env.php'
+Just rename the file `env.example.php` to `env.php`.
 
 ## Deployment
 
