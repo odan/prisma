@@ -81,12 +81,11 @@ $app->add(function (Request $request, Response $response, $next) {
     }
 
     $csrf = $this->get(CsrfMiddleware::class);
-    //$csrf->setToken($csrfValue);
 
     return $csrf->__invoke($request, $response, $next);
 });
 
-// CORS middleware
+// CORS preflight middleware
 $app->add(function (Request $request, Response $response, $next) {
     if($request->getMethod() !== 'OPTIONS') {
         return $next($request, $response);

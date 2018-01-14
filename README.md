@@ -17,7 +17,7 @@ Logging and Unit testing.
 * Router, Middleware, PSR-7 HTTP messages - [slimphp/slim](https://github.com/slimphp/Slim)
 * Template Engine - [slim/twig-view](https://github.com/slimphp/Twig-View)
 * Assets Cache - [odan/twig-assets](https://github.com/odan/twig-assets)
-* Sessions - [aura/session](https://github.com/auraphp/Aura.Session)
+* Sessions - [odan/slim-session](https://github.com/odan/slim-session)
 * Database Query Builder - [illuminate/database](https://github.com/illuminate/database)
 * Migrations - [cakephp/phinx](https://github.com/cakephp/phinx)
 * Migrations Generator - [odan/phinx-migrations-generator](https://github.com/odan/phinx-migrations-generator)
