@@ -1,7 +1,7 @@
 <?php
 
 use App\Service\User\AuthenticationService;
-use Aura\Session\Session;
+use Odan\Slim\Session\Session;
 use Odan\Slim\Csrf\CsrfMiddleware;
 use Slim\Container;
 use Slim\Http\Request;
@@ -67,18 +67,44 @@ $app->add(function (Request $request, Response $response, $next) {
 // Csrf protection middleware
 $app->add(function (Request $request, Response $response, $next) {
     /* @var Container $this */
-    $session = $this->get(Session::class);
-    $csrfValue = $session->getCsrfToken()->getValue();
+
+    /* @var \Slim\Route $route */
+    $route = $request->getAttribute('route');
+
+    if (!$route) {
+        return $next($request, $response);
+    }
+    $isProtected = $route->getArgument('_csrf', true);
+
+    if(!$isProtected) {
+        return $next($request, $response);
+    }
+
     $csrf = $this->get(CsrfMiddleware::class);
-    $csrf->setToken($csrfValue);
+    //$csrf->setToken($csrfValue);
 
     return $csrf->__invoke($request, $response, $next);
 });
 
+// CORS middleware
+$app->add(function (Request $request, Response $response, $next) {
+    if($request->getMethod() !== 'OPTIONS') {
+        return $next($request, $response);
+    }
+
+    $response = $response->withHeader('Access-Control-Allow-Origin', '*');
+    $response = $response->withHeader('Access-Control-Allow-Methods', $request->getHeaderLine('Access-Control-Request-Method'));
+    $response = $response->withHeader('Access-Control-Allow-Headers', $request->getHeaderLine('Access-Control-Request-Headers'));
+
+    return $next($request, $response);
+});
+
 // Session middleware
 $app->add(function (Request $request, Response $response, $next) {
+    /* @var Container $this */
     $session = $this->get(Session::class);
+    $session->start();
     $response = $next($request, $response);
-    $session->commit();
+    $session->save();
     return $response;
 });

@@ -2,7 +2,7 @@
 
 namespace App\Service\User;
 
-use Aura\Session\Segment;
+use Odan\Slim\Session\Session;
 use Symfony\Component\Translation\Translator;
 
 /**
@@ -11,7 +11,7 @@ use Symfony\Component\Translation\Translator;
 class Localization
 {
     /**
-     * @var Segment
+     * @var Session
      */
     private $session;
 
@@ -31,10 +31,10 @@ class Localization
      * Constructor.
      *
      * @param Translator $translator
-     * @param Segment $session
+     * @param Session $session
      * @param string $localePath
      */
-    public function __construct(Translator $translator, Segment $session, string $localePath)
+    public function __construct(Translator $translator, Session $session, string $localePath)
     {
         $this->translator = $translator;
         $this->session = $session;

@@ -15,6 +15,8 @@ $app->get('/', 'App\Controller\HomeController:indexAction')->setName('root');
 // Json request
 $app->post('/index/load', 'App\Controller\HomeController:loadAction');
 
+$app->any('/ping', 'App\Controller\HomeController:pingAction')->setArgument('_auth', false)->setArgument('_csrf', false);
+
 // Login
 // No auth check for this actions
 // Option: _auth = false (no authentication and authorization)

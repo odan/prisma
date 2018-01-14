@@ -85,6 +85,19 @@ class HomeController extends AbstractController
     }
 
     /**
+     * Action (Json)
+     *
+     * @param Request $request
+     * @param Response $response
+     * @return ResponseInterface Json response
+     */
+    public function pingAction(Request $request, Response $response): ResponseInterface
+    {
+        $data = $request->getParsedBody();
+        return $response->withJson($data);
+    }
+
+    /**
      * Returns default text.
      *
      * @return array Array with translated text

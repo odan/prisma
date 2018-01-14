@@ -4,21 +4,26 @@
  * Services and helper functions
  */
 
+use Slim\App;
 use Symfony\Component\Translation\Translator;
 
 /**
  * App instance.
  *
- * @return \Slim\App
+ *
+ * @param App|null $app
+ * @return App
  */
-function app()
+function app(App $app = null)
 {
-    static $app = null;
-    if ($app === null) {
-        $settings = read(__DIR__ . '/config.php');
-        $app = new \Slim\App(["settings" => $settings]);
+    static $instance = null;
+    if ($app !== null) {
+        $instance = $app;
     }
-    return $app;
+    if($instance === null) {
+        throw new RuntimeException('App not defined');
+    }
+    return $instance;
 }
 
 /**

@@ -23,7 +23,6 @@ $config = [
 $config['root'] = dirname(__DIR__);
 $config['temp'] = $config['root'] . '/tmp';
 $config['public'] = $config['root'] . '/public';
-$config['routerCacheFile'] = $config['temp'] . '/routes-cache/routes.cache.php';
 
 // Application settings
 $config['app'] = [
@@ -34,14 +33,14 @@ $config['app'] = [
 $config['logger'] = [
     'name' => 'app',
     'file' => $config['temp'] . '/logs/app.log',
-    'level' => \Monolog\Logger::ERROR
+    'level' => \Monolog\Logger::ERROR,
 ];
 
 // View settings
 $config['twig'] = [
     'path' => $config['root'] . '/templates',
     'cache_enabled' => true,
-    'cache_path' => $config['temp'] . '/twig-cache'
+    'cache_path' => $config['temp'] . '/twig-cache',
 ];
 
 // Assets
@@ -53,13 +52,13 @@ $config['assets'] = [
     'cache_path' => $config['temp'],
     'cache_name' => 'assets-cache',
     // Enable JavaScript and CSS compression
-    'minify' => 1
+    'minify' => 1,
 ];
 
 // Session
 $config['session'] = [
     'name' => 'webapp',
-    'cache_expire' => 0
+    'cache_expire' => 0,
 ];
 
 // Locale settings
@@ -72,7 +71,7 @@ $config['locale'] = [
 
 // Database migration settings
 $config['migration'] = [
-    'path' => $config['root'] . '/resources/migrations'
+    'path' => $config['root'] . '/resources/migrations',
 ];
 
 // Database settings

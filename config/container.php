@@ -2,17 +2,18 @@
 
 // Service container configuration
 
-use App\Service\User\Localization;
-use App\Utility\ErrorHandler;
-use App\Service\User\AuthenticationService;
 use App\Mapper\UserMapper;
+use App\Service\User\AuthenticationService;
+use App\Service\User\Localization;
 use App\Utility\AppSettings;
-use Aura\Session\Session;
-use Aura\Session\SessionFactory;
+use App\Utility\ErrorHandler;
+use Illuminate\Database\Connection;
 use Illuminate\Database\Connectors\ConnectionFactory;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Odan\Slim\Csrf\CsrfMiddleware;
+use Odan\Slim\Session\Adapter\PhpSessionAdapter;
+use Odan\Slim\Session\Session;
 use Psr\Container\ContainerInterface as Container;
 use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
@@ -21,7 +22,6 @@ use Slim\Views\Twig;
 use Symfony\Component\Translation\Loader\MoFileLoader;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator;
-use Illuminate\Database\Connection;
 
 $container = app()->getContainer();
 
@@ -94,19 +94,19 @@ $container[Connection::class] = function (Container $container) {
     $settings = $container->get('settings');
 
     $config = [
-        'driver'    => 'mysql',
-        'host'      => $settings['db']['host'],
-        'database'  => $settings['db']['database'],
-        'username'  => $settings['db']['username'],
-        'password'  => $settings['db']['password'],
-        'charset'   => $settings['db']['charset'],
+        'driver' => 'mysql',
+        'host' => $settings['db']['host'],
+        'database' => $settings['db']['database'],
+        'username' => $settings['db']['username'],
+        'password' => $settings['db']['password'],
+        'charset' => $settings['db']['charset'],
         'collation' => $settings['db']['collation'],
-        'prefix'    => '',
+        'prefix' => '',
     ];
 
     $factory = new ConnectionFactory(new \Illuminate\Container\Container());
 
-    return  $factory->make($config);
+    return $factory->make($config);
 };
 
 $container[PDO::class] = function (Container $container) {
@@ -139,30 +139,25 @@ $container[Twig::class] = function (Container $container) {
 
 $container[Session::class] = function (Container $container) {
     $settings = $container->get('settings');
-    $sessionFactory = new SessionFactory();
-    $cookieParams = $container->get(Request::class)->getCookieParams();
-    $session = $sessionFactory->newInstance($cookieParams);
-    $session->setName($settings['session']['name']);
-    $session->setCacheExpire($settings['session']['cache_expire']);
+    $session = new Session(new PhpSessionAdapter());
+    $session->setConfig($settings['session']);
 
     return $session;
 };
 
 $container[Localization::class] = function (Container $container) {
     $translator = $container->get(Translator::class);
-    $segment = $container->get(Session::class)->getSegment('localization');
+    $session = $container->get(Session::class);
     $localPath = $container->get('settings')['locale']['path'];
-    $localization = new Localization($translator, $segment, $localPath);
+    $localization = new Localization($translator, $session, $localPath);
 
     return $localization;
 };
 
 $container[CsrfMiddleware::class] = function (Container $container) {
     $session = $container->get(Session::class);
-    $csrfValue = $session->getCsrfToken()->getValue();
     $sessionId = $session->getId();
     $csrf = new CsrfMiddleware($sessionId);
-    $csrf->setToken($csrfValue);
 
     // optional settings
     $csrf->setSalt('secret');

@@ -2,13 +2,19 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-// Instantiate the slim application
-app();
+// Instantiate the app
+$app = new \Slim\App(['settings' => read(__DIR__ . '/../config/config.php')]);
 
-require_once  __DIR__ . '/container.php';
+// Set instance
+app($app);
+
+// Set up dependencies
+require  __DIR__ . '/container.php';
 
 // Register middleware
-require_once __DIR__ . '/middleware.php';
+require __DIR__ . '/middleware.php';
 
 // Register routes
-require_once __DIR__ . '/routes.php';
+require __DIR__ . '/routes.php';
+
+return $app;

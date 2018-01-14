@@ -22,4 +22,7 @@
             </exclude>
         </whitelist>
     </filter>
+    <php>
+        <const name="APP_ENV" value="testing"/>
+    </php>
 </phpunit>

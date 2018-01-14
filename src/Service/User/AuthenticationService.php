@@ -4,9 +4,8 @@ namespace App\Service\User;
 
 use App\DataRow\UserRow;
 use App\Mapper\UserMapper;
-use Aura\Session\Segment;
-use Aura\Session\Session;
 use RuntimeException;
+use Odan\Slim\Session\Session;
 
 /**
  * Authentication
@@ -53,7 +52,6 @@ class AuthenticationService
     public function __construct(Session $session, UserMapper $userMapper, string $secret)
     {
         $this->session = $session;
-        $this->segment = $this->session->getSegment('auth');
         $this->userMapper = $userMapper;
         $this->secret = $secret;
         $this->token = $this->createToken($secret);
@@ -66,7 +64,7 @@ class AuthenticationService
      */
     public function hasIdentity()
     {
-        return !empty($this->segment->get('user'));
+        return !empty($this->session->get('user'));
     }
 
     /**
@@ -77,7 +75,7 @@ class AuthenticationService
      */
     public function setIdentity(UserRow $user)
     {
-        $this->segment->set('user', $user);
+        $this->session->set('user', $user);
     }
 
     /**
@@ -87,7 +85,7 @@ class AuthenticationService
      */
     public function getIdentity()
     {
-        $user = $this->segment->get('user');
+        $user = $this->session->get('user');
         if (!$user) {
             throw new RuntimeException('No identity available');
         }
@@ -102,10 +100,13 @@ class AuthenticationService
      */
     public function clearIdentity()
     {
-        $this->segment->set('user', null);
+        $this->session->remove('user');
 
         // Clears all session data and regenerates session ID
-        $this->session->destroy();
+        if($this->session->isStarted()) {
+            //$this->session->regenerateId();
+            $this->session->destroy();
+        }
     }
 
     /**
@@ -152,13 +153,10 @@ class AuthenticationService
         }
 
         // Clear session data
-        $this->segment->clear();
-        $this->segment->clearFlash();
-        $this->segment->clearFlashNow();
+        $this->session->destroy();
+        $this->session->start();
 
         // Create new session id
-        $this->session->clear();
-        $this->session->start();
         $this->session->regenerateId();
 
         // Create new token
