@@ -4,8 +4,8 @@ namespace App\Service\User;
 
 use App\DataRow\UserRow;
 use App\Mapper\UserMapper;
-use RuntimeException;
 use Odan\Slim\Session\Session;
+use RuntimeException;
 
 /**
  * Authentication
@@ -96,7 +96,7 @@ class AuthenticationService
         $this->session->remove('user');
 
         // Clears all session data and regenerates session ID
-        if($this->session->isStarted()) {
+        if ($this->session->isStarted()) {
             //$this->session->regenerateId();
             $this->session->destroy();
         }
