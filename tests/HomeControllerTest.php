@@ -22,6 +22,9 @@ class HomeControllerTest extends ApiTestCase
     }
 
     /**
+     * Test
+     *
+     * @coversNothing
      */
     public function testPageNotFound()
     {

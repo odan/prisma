@@ -84,7 +84,7 @@ class ApiTestCase extends BaseTestCase
         unset($values[$key]);
         $property->setValue($container, $values);
 
-        $container->offsetSet($key, $value);
+        $container[$key] = $value;
     }
 
     /**
@@ -113,7 +113,7 @@ class ApiTestCase extends BaseTestCase
      *
      * @param Request $request
      * @param array $data
-     * @return Request|static
+     * @return Request
      */
     protected function withPost(Request $request, array $data)
     {
@@ -129,7 +129,7 @@ class ApiTestCase extends BaseTestCase
      *
      * @param Request $request
      * @param array $data
-     * @return Request|static
+     * @return Request
      */
     protected function withJson(Request $request, array $data)
     {
