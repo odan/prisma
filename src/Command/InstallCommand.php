@@ -83,7 +83,10 @@ class InstallCommand extends AbstractCommand
         }
         try {
             $output->writeln('Create database: ' . $mySqlDatabase);
-            $pdo = new PDO("mysql:host=$mySqlHost;charset=utf8", $mySqlUsername, $mySqlPassword,
+            $pdo = new PDO(
+                "mysql:host=$mySqlHost;charset=utf8",
+                $mySqlUsername,
+                $mySqlPassword,
                 array(
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                     PDO::ATTR_PERSISTENT => false,

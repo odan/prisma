@@ -103,7 +103,7 @@
 
     <target name="fix-style" description="Code style fixer">
         <mkdir dir="${basedir}/build"/>
-        <get src="https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v2.0.0/php-cs-fixer.phar"
+        <get src="https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v2.10.0/php-cs-fixer.phar"
              dest="${basedir}/build/php-cs-fixer.phar" skipexisting="true"/>
         <exec executable="php" searchpath="true" resolveexecutable="true">
             <arg value="${basedir}/build/php-cs-fixer.phar"/>

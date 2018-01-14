@@ -158,5 +158,4 @@ class ApiTestCase extends BaseTestCase
 
         return $response;
     }
-
 }
