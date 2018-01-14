@@ -13,12 +13,12 @@ use Slim\Http\RequestBody;
 use Slim\Http\Response;
 use Slim\Http\UploadedFile;
 use Slim\Http\Uri;
-use Slim\Container;
+use Psr\Container\ContainerInterface as Container;
 
 class ApiTestCase extends BaseTestCase
 {
     /**
-     * @var App
+     * @var App|null
      */
     protected $app;
 
@@ -63,10 +63,10 @@ class ApiTestCase extends BaseTestCase
 
     /**
      * @param Container $container
-     * @param $key
-     * @param $value
+     * @param string $key
+     * @param mixed $value
      */
-    protected function setContainer(Container $container, $key, $value)
+    protected function setContainer(Container $container, string $key, $value)
     {
         $class = new ReflectionClass(\Pimple\Container::class);
 

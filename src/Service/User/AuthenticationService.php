@@ -21,13 +21,6 @@ class AuthenticationService
     private $session;
 
     /**
-     * Session segment
-     *
-     * @var Segment
-     */
-    private $segment;
-
-    /**
      * @var Token
      */
     private $token;
