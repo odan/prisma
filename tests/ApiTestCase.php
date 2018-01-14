@@ -4,6 +4,7 @@ namespace App\Test;
 
 use Odan\Slim\Session\Adapter\MemorySessionAdapter;
 use Odan\Slim\Session\Session;
+use Psr\Container\ContainerInterface as Container;
 use ReflectionClass;
 use Slim\App;
 use Slim\Http\Environment;
@@ -13,7 +14,6 @@ use Slim\Http\RequestBody;
 use Slim\Http\Response;
 use Slim\Http\UploadedFile;
 use Slim\Http\Uri;
-use Psr\Container\ContainerInterface as Container;
 
 class ApiTestCase extends BaseTestCase
 {
@@ -42,6 +42,11 @@ class ApiTestCase extends BaseTestCase
         session_destroy();
     }
 
+    /**
+     * Get container.
+     *
+     * @return Container
+     */
     public function getContainer()
     {
         $container = $this->app->getContainer();
@@ -62,6 +67,8 @@ class ApiTestCase extends BaseTestCase
     }
 
     /**
+     * Set container entry.
+     *
      * @param Container $container
      * @param string $key
      * @param mixed $value
@@ -80,6 +87,13 @@ class ApiTestCase extends BaseTestCase
         $container->offsetSet($key, $value);
     }
 
+    /**
+     * Create request.
+     *
+     * @param string $method
+     * @param string $url
+     * @return Request
+     */
     protected function createRequest(string $method, string $url)
     {
         $env = Environment::mock();
@@ -94,6 +108,13 @@ class ApiTestCase extends BaseTestCase
         return $request;
     }
 
+    /**
+     * Add post data.
+     *
+     * @param Request $request
+     * @param array $data
+     * @return Request|static
+     */
     protected function withPost(Request $request, array $data)
     {
         $request->getBody()->write(http_build_query($data));
@@ -103,6 +124,13 @@ class ApiTestCase extends BaseTestCase
         return $request;
     }
 
+    /**
+     * Add Json data.
+     *
+     * @param Request $request
+     * @param array $data
+     * @return Request|static
+     */
     protected function withJson(Request $request, array $data)
     {
         $request->getBody()->write(json_encode($data));
@@ -112,6 +140,15 @@ class ApiTestCase extends BaseTestCase
         return $request;
     }
 
+    /**
+     * Make request.
+     *
+     * @param Request $request
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws \Exception
+     * @throws \Slim\Exception\MethodNotAllowedException
+     * @throws \Slim\Exception\NotFoundException
+     */
     protected function request(Request $request)
     {
         $container = $this->getContainer();

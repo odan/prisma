@@ -20,7 +20,7 @@ function app(App $app = null)
     if ($app !== null) {
         $instance = $app;
     }
-    if($instance === null) {
+    if ($instance === null) {
         throw new RuntimeException('App not defined');
     }
     return $instance;

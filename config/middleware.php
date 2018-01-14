@@ -1,8 +1,8 @@
 <?php
 
 use App\Service\User\AuthenticationService;
-use Odan\Slim\Session\Session;
 use Odan\Slim\Csrf\CsrfMiddleware;
+use Odan\Slim\Session\Session;
 use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -76,7 +76,7 @@ $app->add(function (Request $request, Response $response, $next) {
     }
     $isProtected = $route->getArgument('_csrf', true);
 
-    if(!$isProtected) {
+    if (!$isProtected) {
         return $next($request, $response);
     }
 
@@ -87,7 +87,7 @@ $app->add(function (Request $request, Response $response, $next) {
 
 // CORS preflight middleware
 $app->add(function (Request $request, Response $response, $next) {
-    if($request->getMethod() !== 'OPTIONS') {
+    if ($request->getMethod() !== 'OPTIONS') {
         return $next($request, $response);
     }
 
