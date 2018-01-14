@@ -23,6 +23,6 @@
         </whitelist>
     </filter>
     <php>
-        <const name="APP_ENV" value="testing"/>
+        <const name="APP_ENV" value="integration"/>
     </php>
 </phpunit>

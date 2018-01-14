@@ -31,6 +31,9 @@ build:
         memcached: false
         neo4j: false
         rabbitmq: false
+    dependencies:
+            before:
+                 - php cli.php install --environment travis
     tests:
         override:
             -
