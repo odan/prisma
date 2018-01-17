@@ -117,7 +117,7 @@ class ApiTestCase extends BaseTestCase
      */
     protected function withFormData(Request $request, array $data)
     {
-        if(!empty($data)) {
+        if (!empty($data)) {
             $request = $request->withParsedBody($data);
         }
 
