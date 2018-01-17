@@ -115,10 +115,12 @@ class ApiTestCase extends BaseTestCase
      * @param array $data
      * @return Request
      */
-    protected function withPost(Request $request, array $data)
+    protected function withFormData(Request $request, array $data)
     {
-        $request->getBody()->write(http_build_query($data));
-        $request->getBody()->rewind();
+        if(!empty($data)) {
+            $request = $request->withParsedBody($data);
+        }
+
         $request = $request->withHeader('Content-Type', 'application/x-www-form-urlencoded');
 
         return $request;
@@ -134,7 +136,6 @@ class ApiTestCase extends BaseTestCase
     protected function withJson(Request $request, array $data)
     {
         $request->getBody()->write(json_encode($data));
-        $request->getBody()->rewind();
         $request = $request->withHeader('Content-Type', 'application/json');
 
         return $request;

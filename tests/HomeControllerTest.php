@@ -45,7 +45,7 @@ class HomeControllerTest extends ApiTestCase
     public function testPing()
     {
         $request = $this->createRequest('POST', '/ping');
-        $request = $this->withPost($request, ['username' => 'user', 'password' => 'user']);
+        $request = $this->withFormData($request, ['username' => 'user', 'password' => 'user']);
         $response = $this->request($request);
 
         //$html = (string)$response->getBody();
