@@ -4,9 +4,10 @@ if (PHP_SAPI !== 'cli') {
     exit (1);
 }
 
-require_once __DIR__ . '/config/bootstrap.php';
+/* @var \Slim\App $app */
+$app = require __DIR__ . '/config/bootstrap.php';
 
-$container = app()->getContainer();
+$container = $app->getContainer();
 $commands = $container->get('settings')['commands'];
 
 $application = new \Symfony\Component\Console\Application();

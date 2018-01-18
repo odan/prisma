@@ -8,28 +8,9 @@ use Slim\App;
 use Symfony\Component\Translation\Translator;
 
 /**
- * App instance.
- *
- *
- * @param App|null $app
- * @return App
- */
-function app(App $app = null)
-{
-    static $instance = null;
-    if ($app !== null) {
-        $instance = $app;
-    }
-    if ($instance === null) {
-        throw new RuntimeException('App not defined');
-    }
-    return $instance;
-}
-
-/**
  * Text translation (I18n)
  *
- * @param string $message
+ * @param mixed $message
  * @return string
  *
  * <code>
@@ -39,8 +20,13 @@ function app(App $app = null)
  */
 function __($message)
 {
-    /* @var $translator Translator */
-    $translator = app()->getContainer()->get(Translator::class);
+    /* @var Translator $translator */
+    static $translator = null;
+    if ($message instanceof Translator) {
+        $translator = $message;
+        return '';
+    }
+
     $translated = $translator->trans($message);
     $context = array_slice(func_get_args(), 1);
     if (!empty($context)) {

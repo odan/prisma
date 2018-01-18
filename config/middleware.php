@@ -7,8 +7,6 @@ use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-$app = app();
-
 // Authentication middleware
 $app->add(function (Request $request, Response $response, $next) {
     /* @var \Slim\Route $route */
