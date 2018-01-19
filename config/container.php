@@ -23,7 +23,8 @@ use Symfony\Component\Translation\Loader\MoFileLoader;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator;
 
-$container = app()->getContainer();
+/* @var \Slim\App $app */
+$container = $app->getContainer();
 
 // -----------------------------------------------------------------------------
 // Settings

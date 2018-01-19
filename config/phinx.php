@@ -1,9 +1,11 @@
 <?php
 
-require_once __DIR__ . '/bootstrap.php';
+$app = require __DIR__ . '/bootstrap.php';
 
-/* @var $pdo PDO */
-$container = app()->getContainer();
+/* @var \Slim\App $app */
+$container = $app->getContainer();
+
+/* @var PDO $pdo */
 $pdo = $container->get('PDO');
 
 return array(

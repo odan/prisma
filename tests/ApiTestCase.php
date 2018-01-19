@@ -2,11 +2,15 @@
 
 namespace App\Test;
 
+use Exception;
 use Odan\Slim\Session\Adapter\MemorySessionAdapter;
 use Odan\Slim\Session\Session;
 use Psr\Container\ContainerInterface as Container;
+use Psr\Http\Message\ResponseInterface;
 use ReflectionClass;
 use Slim\App;
+use Slim\Exception\MethodNotAllowedException;
+use Slim\Exception\NotFoundException;
 use Slim\Http\Environment;
 use Slim\Http\Headers;
 use Slim\Http\Request;
@@ -32,14 +36,6 @@ class ApiTestCase extends BaseTestCase
     protected function tearDown()
     {
         $this->app = null;
-
-        // Delete old session
-        if (session_status() != PHP_SESSION_ACTIVE) {
-            session_start();
-        }
-
-        $_SESSION = [];
-        session_destroy();
     }
 
     /**
@@ -47,7 +43,7 @@ class ApiTestCase extends BaseTestCase
      *
      * @return Container
      */
-    public function getContainer()
+    public function getContainer(): Container
     {
         $container = $this->app->getContainer();
 
@@ -72,8 +68,9 @@ class ApiTestCase extends BaseTestCase
      * @param Container $container
      * @param string $key
      * @param mixed $value
+     * @return void
      */
-    protected function setContainer(Container $container, string $key, $value)
+    protected function setContainer(Container $container, string $key, $value): void
     {
         $class = new ReflectionClass(\Pimple\Container::class);
 
@@ -94,7 +91,7 @@ class ApiTestCase extends BaseTestCase
      * @param string $url
      * @return Request
      */
-    protected function createRequest(string $method, string $url)
+    protected function createRequest(string $method, string $url): Request
     {
         $env = Environment::mock();
         $uri = Uri::createFromString($url);
@@ -115,10 +112,12 @@ class ApiTestCase extends BaseTestCase
      * @param array $data
      * @return Request
      */
-    protected function withPost(Request $request, array $data)
+    protected function withFormData(Request $request, array $data): Request
     {
-        $request->getBody()->write(http_build_query($data));
-        $request->getBody()->rewind();
+        if (!empty($data)) {
+            $request = $request->withParsedBody($data);
+        }
+
         $request = $request->withHeader('Content-Type', 'application/x-www-form-urlencoded');
 
         return $request;
@@ -131,10 +130,9 @@ class ApiTestCase extends BaseTestCase
      * @param array $data
      * @return Request
      */
-    protected function withJson(Request $request, array $data)
+    protected function withJson(Request $request, array $data): Request
     {
         $request->getBody()->write(json_encode($data));
-        $request->getBody()->rewind();
         $request = $request->withHeader('Content-Type', 'application/json');
 
         return $request;
@@ -144,12 +142,12 @@ class ApiTestCase extends BaseTestCase
      * Make request.
      *
      * @param Request $request
-     * @return \Psr\Http\Message\ResponseInterface
-     * @throws \Exception
-     * @throws \Slim\Exception\MethodNotAllowedException
-     * @throws \Slim\Exception\NotFoundException
+     * @return ResponseInterface
+     * @throws Exception
+     * @throws MethodNotAllowedException
+     * @throws NotFoundException
      */
-    protected function request(Request $request)
+    protected function request(Request $request): ResponseInterface
     {
         $container = $this->getContainer();
         $this->setContainer($container, 'request', $request);

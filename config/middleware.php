@@ -7,7 +7,6 @@ use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-$app = app();
 $container = $app->getContainer();
 
 // Authentication middleware

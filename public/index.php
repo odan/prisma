@@ -6,6 +6,7 @@ if (PHP_SAPI === 'cli-server' && $_SERVER['SCRIPT_FILENAME'] !== __FILE__) {
     return false;
 }
 
-require_once __DIR__ . '/../config/bootstrap.php';
+/* @var \Slim\App $app */
+$app = require __DIR__ . '/../config/bootstrap.php';
 
-app()->run();
+$app->run();
