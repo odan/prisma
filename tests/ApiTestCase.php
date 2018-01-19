@@ -49,7 +49,7 @@ class ApiTestCase extends BaseTestCase
 
         $this->setContainer($container, Session::class, call_user_func(function () {
             $session = new Session(new MemorySessionAdapter());
-            $session->setConfig([
+            $session->setOptions([
                 'cache_expire' => 60,
                 'name' => 'app',
                 'use_cookies' => false,
@@ -69,6 +69,7 @@ class ApiTestCase extends BaseTestCase
      * @param string $key
      * @param mixed $value
      * @return void
+     * @throws \ReflectionException
      */
     protected function setContainer(Container $container, string $key, $value): void
     {
