@@ -2,7 +2,7 @@
 
 use App\Service\User\AuthenticationService;
 use Odan\Slim\Csrf\CsrfMiddleware;
-use Odan\Slim\Session\SessionMiddleware;
+use Odan\Slim\Session\Session;
 use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -99,5 +99,12 @@ $app->add(function (Request $request, Response $response, $next) {
 });
 
 // Session middleware
-$app->add($container->get(SessionMiddleware::class));
+$app->add(function (Request $request, Response $response, $next) {
+    /* @var Container $this */
+    $session = $this->get(Session::class);
+    $session->start();
+    $response = $next($request, $response);
+    $session->save();
+    return $response;
+});
 
