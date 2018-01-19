@@ -12,6 +12,8 @@ use Illuminate\Database\Connectors\ConnectionFactory;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Odan\Slim\Csrf\CsrfMiddleware;
+use Odan\Slim\Session\Adapter\MemorySessionAdapter;
+use Odan\Slim\Session\Adapter\PhpSessionAdapter;
 use Odan\Slim\Session\SessionMiddleware;
 use Odan\Slim\Session\Session;
 use Psr\Container\ContainerInterface as Container;
@@ -138,9 +140,16 @@ $container[Twig::class] = function (Container $container) {
     return $twig;
 };
 
-$container[SessionMiddleware::class] = function (Container $container) {
+$container[Session::class] = function (Container $container) {
     $settings = $container->get('settings');
-    return new \Odan\Slim\Session\SessionMiddleware($settings['session']);
+    $adapter = php_sapi_name() === 'cli' ? new MemorySessionAdapter() : new PhpSessionAdapter();
+    $session = new Session($adapter);
+    $session->setOptions($settings['session']);
+    return $session;
+};
+
+$container[SessionMiddleware::class] = function (Container $container) {
+    return new SessionMiddleware($container->get(Session::class));
 };
 
 $container[Localization::class] = function (Container $container) {
