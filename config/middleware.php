@@ -107,4 +107,3 @@ $app->add(function (Request $request, Response $response, $next) {
     $session->save();
     return $response;
 });
-

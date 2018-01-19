@@ -4,7 +4,6 @@
  * Services and helper functions
  */
 
-use Slim\App;
 use Symfony\Component\Translation\Translator;
 
 /**
