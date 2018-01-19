@@ -12,7 +12,7 @@ use Illuminate\Database\Connectors\ConnectionFactory;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Odan\Slim\Csrf\CsrfMiddleware;
-use Odan\Slim\Session\Adapter\PhpSessionAdapter;
+use Odan\Slim\Session\SessionMiddleware;
 use Odan\Slim\Session\Session;
 use Psr\Container\ContainerInterface as Container;
 use Psr\Log\LoggerInterface;
@@ -137,12 +137,9 @@ $container[Twig::class] = function (Container $container) {
     return $twig;
 };
 
-$container[Session::class] = function (Container $container) {
+$container[SessionMiddleware::class] = function (Container $container) {
     $settings = $container->get('settings');
-    $session = new Session(new PhpSessionAdapter());
-    $session->setConfig($settings['session']);
-
-    return $session;
+    return new \Odan\Slim\Session\SessionMiddleware($settings['session']);
 };
 
 $container[Localization::class] = function (Container $container) {
