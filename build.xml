@@ -128,20 +128,13 @@
         </exec>
     </target>
 
-    <target name="check-docblock" description="Docblock check">
-        <exec executable="${basedir}/vendor/bin/phpdoccheck${ext}" searchpath="true" resolveexecutable="true"
-              failonerror="true">
-            <arg line="-d ${basedir}/src"/>
-        </exec>
-    </target>
-
     <target name="parse-twig" description="Parse all Twig templates">
         <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
             <arg line="${basedir}/bin/cli.php parse-twig"/>
         </exec>
     </target>
 
-    <target name="check-all" depends="lint,phpstan,check-docblock,phpunit"/>
+    <target name="check-all" depends="lint,phpstan,phpunit"/>
 
     <target name="build" depends="lint,phpunit">
         <!-- Load properties -->
