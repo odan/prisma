@@ -69,7 +69,7 @@ php cli.php install
 | src | | PHP source code (The App namespace) |
 | | Controller | Controllers and actions |
 | | DataRow | Represents a row of data |
-| | Mapper | The Data Mapper decouples the domain objects completely from the persistent storage. (Communication with the database, Query methods) |
+| | Model | The table models. This Data Mapper decouples the domain objects completely from the persistent storage. (Communication with the database, Query methods) |
 | | Service | Business logic |
 | | Middleware | HTTP middleware |
 | | Type | Types, Enum Constants |
