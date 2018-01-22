@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Mapper\UserMapper;
+use App\Model\UserModel;
 use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
@@ -15,9 +15,9 @@ use Slim\Http\Response;
 class HomeController extends AbstractController
 {
     /**
-     * @var UserMapper
+     * @var UserModel
      */
-    protected $userMapper;
+    protected $userModel;
 
     /**
      * Constructor.
@@ -28,7 +28,7 @@ class HomeController extends AbstractController
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->userMapper = $container->get(UserMapper::class);
+        $this->userModel = $container->get(UserModel::class);
     }
 
     /**
@@ -70,7 +70,7 @@ class HomeController extends AbstractController
     public function loadAction(Request $request, Response $response): ResponseInterface
     {
         $userId = $this->auth->getId();
-        $user = $this->userMapper->getById($userId);
+        $user = $this->userModel->getById($userId);
 
         $result = [
             'message' => __('Loaded successfully!'),

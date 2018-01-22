@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Mapper;
+namespace App\Model;
 
 use App\DataRow\UserRow;
 use RuntimeException;
 
 /**
- * Class UserMapper
+ * Class UserModel
  */
-class UserMapper extends AbstractMapper
+class UserModel extends AbstractModel
 {
     /**
      * Table

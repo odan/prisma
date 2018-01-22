@@ -3,7 +3,7 @@
 namespace App\Service\User;
 
 use App\DataRow\UserRow;
-use App\Mapper\UserMapper;
+use App\Model\UserModel;
 use Odan\Slim\Session\Session;
 use RuntimeException;
 
@@ -31,21 +31,21 @@ class AuthenticationService
     private $secret;
 
     /**
-     * @var UserMapper
+     * @var UserModel
      */
-    private $userMapper;
+    private $userModel;
 
     /**
      * UserSession constructor.
      *
      * @param Session $session Storage
-     * @param UserMapper $userMapper The User mapper
+     * @param UserModel $userModel The User model
      * @param string $secret
      */
-    public function __construct(Session $session, UserMapper $userMapper, string $secret)
+    public function __construct(Session $session, UserModel $userModel, string $secret)
     {
         $this->session = $session;
-        $this->userMapper = $userMapper;
+        $this->userModel = $userModel;
         $this->secret = $secret;
         $this->token = $this->createToken($secret);
     }
@@ -170,7 +170,7 @@ class AuthenticationService
      */
     private function loginUser(string $username, string $password): AuthenticationResult
     {
-        $user = $this->userMapper->findByUsername($username);
+        $user = $this->userModel->findByUsername($username);
 
         if (empty($user)) {
             return new AuthenticationResult(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND);

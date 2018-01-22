@@ -2,7 +2,7 @@
 
 // Service container configuration
 
-use App\Mapper\UserMapper;
+use App\Model\UserModel;
 use App\Service\User\AuthenticationService;
 use App\Service\User\Localization;
 use App\Utility\AppSettings;
@@ -184,18 +184,15 @@ $container[Translator::class] = function (Container $container) {
 };
 
 $container[AuthenticationService::class] = function (Container $container) {
-    return new AuthenticationService(
-        $container->get(Session::class),
-        $container->get(UserMapper::class),
-        $container->get('settings')['app']['secret']
-    );
+    return new AuthenticationService($container->get(Session::class), $container->get(UserModel::class),
+        $container->get('settings')['app']['secret']);
 };
 
 // -----------------------------------------------------------------------------
-// Repositories
+// Services, Models, Repositories
 // -----------------------------------------------------------------------------
-$container[UserMapper::class] = function (Container $container) {
-    return new UserMapper($container->get(Connection::class));
+$container[UserModel::class] = function (Container $container) {
+    return new UserModel($container->get(Connection::class));
 };
 
 return $container;
