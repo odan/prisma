@@ -17,6 +17,7 @@ $config = [
     'determineRouteBeforeAppMiddleware' => true,
     'displayErrorDetails' => false,
     'addContentLengthHeader' => true,
+    'routerCacheFile' => false,
 ];
 
 // Path settings

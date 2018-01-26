@@ -11,7 +11,6 @@ ini_set('display_errors', '1');
 $config['displayErrorDetails'] = true;
 
 $config['db']['database'] = '{{db_database}}';
-$config['routerCacheFile'] = null;
 $config['logger']['level'] = \Monolog\Logger::DEBUG;
 $config['assets']['minify'] = 0;
 $config['locale']['cache'] = null;
