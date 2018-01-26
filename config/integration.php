@@ -14,7 +14,6 @@ $config['db']['database'] = 'test';
 $config['db']['username'] = 'root';
 $config['db']['password'] = '';
 
-$config['routerCacheFile'] = null;
 $config['logger']['level'] = \Monolog\Logger::DEBUG;
 $config['assets']['minify'] = 0;
 $config['locale']['cache'] = null;

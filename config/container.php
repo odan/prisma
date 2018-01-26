@@ -5,7 +5,6 @@
 use App\Model\UserModel;
 use App\Service\User\AuthenticationService;
 use App\Service\User\Localization;
-use App\Utility\AppSettings;
 use App\Utility\ErrorHandler;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Connectors\ConnectionFactory;
@@ -32,20 +31,11 @@ $container = $app->getContainer();
 // Settings
 // -----------------------------------------------------------------------------
 
-$container['settings'] = function (Container $container) {
-    return $container->get(AppSettings::class)->all();
-};
-
 $container['environment'] = function () {
     $scriptName = $_SERVER['SCRIPT_NAME'];
     $_SERVER['REAL_SCRIPT_NAME'] = $scriptName;
     $_SERVER['SCRIPT_NAME'] = dirname(dirname($scriptName)) . '/' . basename($scriptName);
     return new Slim\Http\Environment($_SERVER);
-};
-
-$container[AppSettings::class] = function () {
-    $settings = new AppSettings(require __DIR__ . '/config.php');
-    return $settings;
 };
 
 // -----------------------------------------------------------------------------
