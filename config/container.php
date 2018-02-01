@@ -54,18 +54,6 @@ $container['phpErrorHandler'] = function (Container $container) {
 };
 
 // -----------------------------------------------------------------------------
-// Alias definitions
-// -----------------------------------------------------------------------------
-
-$container[Request::class] = function (Container $container) {
-    return $container->get('request');
-};
-
-$container[Response::class] = function (Container $container) {
-    return $container->get('response');
-};
-
-// -----------------------------------------------------------------------------
 // Custom definitions
 // -----------------------------------------------------------------------------
 $container[LoggerInterface::class] = function (Container $container) {
