@@ -106,10 +106,11 @@ $container[Twig::class] = function (Container $container) {
     $loader = $twig->getLoader();
     $loader->addPath($settings['public'], 'public');
 
+    // Add CSRF token as global template variable
     $csrfToken = $container->get(CsrfMiddleware::class)->getToken();
     $twig->getEnvironment()->addGlobal('csrf_token', $csrfToken);
 
-    // Instantiate and add Slim specific extension
+    // Add Slim specific extensions
     $basePath = rtrim(str_ireplace('index.php', '', $container->get('request')->getUri()->getBasePath()), '/');
     $twig->addExtension(new Slim\Views\TwigExtension($container->get('router'), $basePath));
     $twig->addExtension(new \Odan\Twig\TwigAssetsExtension($twig->getEnvironment(), $settings['assets']));
