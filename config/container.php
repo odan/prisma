@@ -87,7 +87,12 @@ $container[Connection::class] = function (Container $container) {
 
     $factory = new ConnectionFactory(new \Illuminate\Container\Container());
 
-    return $factory->make($config);
+    $connection = $factory->make($config);
+
+    // Disable the query log to prevent memory issues
+    $connection->disableQueryLog();
+
+    return $connection;
 };
 
 $container[PDO::class] = function (Container $container) {
