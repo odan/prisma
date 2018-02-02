@@ -9,7 +9,7 @@ use Symfony\Component\Translation\Translator;
 /**
  * Text translation (I18n)
  *
- * @param mixed $message
+ * @param mixed|Translator $message
  * @return string
  *
  * <code>
