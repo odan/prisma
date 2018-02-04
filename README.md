@@ -68,7 +68,7 @@ php cli.php install
 | | migrations | Database migration files (Phinx) |
 | src | | PHP source code (The App namespace) |
 | | Controller | Controllers and actions |
-| | DataMapper | The table models. This Data Mapper decouples the domain objects completely from the persistent storage. (Communication with the database, Query methods) |
+| | DataMapper | Represents the tables. The Data Mapper decouples the domain objects completely from the persistent storage. (Communication with the database, Query methods) |
 | | DataRow | Represents a row of data |
 | | Middleware | HTTP middleware |
 | | Service | Business logic |
