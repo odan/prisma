@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\DataRow\UserRow;
-use App\Model\UserModel;
+use App\DataMapper\UserMapper;
 use Exception;
 use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
@@ -17,7 +17,7 @@ use Slim\Http\Response;
 class UserController extends AbstractController
 {
     /**
-     * @var UserModel
+     * @var UserMapper
      */
     protected $userMapper;
 
@@ -30,7 +30,7 @@ class UserController extends AbstractController
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->userMapper = $container->get(UserModel::class);
+        $this->userMapper = $container->get(UserMapper::class);
     }
 
     /**

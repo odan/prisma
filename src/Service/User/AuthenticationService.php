@@ -3,7 +3,7 @@
 namespace App\Service\User;
 
 use App\DataRow\UserRow;
-use App\Model\UserModel;
+use App\DataMapper\UserMapper;
 use Odan\Slim\Session\Session;
 use RuntimeException;
 
@@ -31,7 +31,7 @@ class AuthenticationService
     private $secret;
 
     /**
-     * @var UserModel
+     * @var UserMapper
      */
     private $userModel;
 
@@ -39,10 +39,10 @@ class AuthenticationService
      * UserSession constructor.
      *
      * @param Session $session Storage
-     * @param UserModel $userModel The User model
+     * @param UserMapper $userModel The User model
      * @param string $secret
      */
-    public function __construct(Session $session, UserModel $userModel, string $secret)
+    public function __construct(Session $session, UserMapper $userModel, string $secret)
     {
         $this->session = $session;
         $this->userModel = $userModel;

@@ -4,6 +4,7 @@ namespace App\Type;
 
 use Exception;
 use ReflectionClass;
+use ReflectionException;
 use RuntimeException;
 
 /**
@@ -17,6 +18,7 @@ class BaseType
      *
      * @param mixed $typeValue Value
      * @return bool True if code exists
+     * @throws ReflectionException
      */
     public static function exists($typeValue): bool
     {

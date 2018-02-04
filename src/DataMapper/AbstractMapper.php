@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model;
+namespace App\DataMapper;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Connection;
@@ -8,12 +8,12 @@ use Illuminate\Support\Collection;
 use stdClass;
 
 /**
- * Model Data Mapper
+ * Table Data Mapper
  *
  * A layer of Mappers that moves data between objects and a database
  * while keeping them independent of each other and the mapper itself.
  */
-abstract class AbstractModel implements ModelInterface
+abstract class AbstractMapper implements MapperInterface
 {
     /**
      * Database connection

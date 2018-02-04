@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Model\UserModel;
+use App\DataMapper\UserMapper;
 use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
@@ -15,7 +15,7 @@ use Slim\Http\Response;
 class HomeController extends AbstractController
 {
     /**
-     * @var UserModel
+     * @var UserMapper
      */
     protected $userModel;
 
@@ -28,7 +28,7 @@ class HomeController extends AbstractController
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->userModel = $container->get(UserModel::class);
+        $this->userModel = $container->get(UserMapper::class);
     }
 
     /**
