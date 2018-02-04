@@ -17,8 +17,6 @@ use Odan\Slim\Session\SessionMiddleware;
 use Odan\Slim\Session\Session;
 use Psr\Container\ContainerInterface as Container;
 use Psr\Log\LoggerInterface;
-use Slim\Http\Request;
-use Slim\Http\Response;
 use Slim\Views\Twig;
 use Symfony\Component\Translation\Loader\MoFileLoader;
 use Symfony\Component\Translation\MessageSelector;
@@ -87,7 +85,12 @@ $container[Connection::class] = function (Container $container) {
 
     $factory = new ConnectionFactory(new \Illuminate\Container\Container());
 
-    return $factory->make($config);
+    $connection = $factory->make($config);
+
+    // Disable the query log to prevent memory issues
+    $connection->disableQueryLog();
+
+    return $connection;
 };
 
 $container[PDO::class] = function (Container $container) {
@@ -113,7 +116,7 @@ $container[Twig::class] = function (Container $container) {
     // Add Slim specific extensions
     $basePath = rtrim(str_ireplace('index.php', '', $container->get('request')->getUri()->getBasePath()), '/');
     $twig->addExtension(new Slim\Views\TwigExtension($container->get('router'), $basePath));
-    $twig->addExtension(new \Odan\Twig\TwigAssetsExtension($twig->getEnvironment(), $settings['assets']));
+    $twig->addExtension(new \Odan\Twig\TwigAssetsExtension($twig->getEnvironment(), (array)$settings['assets']));
     $twig->addExtension(new \Odan\Twig\TwigTranslationExtension());
 
     return $twig;
@@ -123,7 +126,7 @@ $container[Session::class] = function (Container $container) {
     $settings = $container->get('settings');
     $adapter = php_sapi_name() === 'cli' ? new MemorySessionAdapter() : new PhpSessionAdapter();
     $session = new Session($adapter);
-    $session->setOptions($settings['session']);
+    $session->setOptions((array)$settings['session']);
     return $session;
 };
 
