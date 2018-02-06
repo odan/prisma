@@ -8,7 +8,7 @@ use Symfony\Component\Translation\Translator;
 /**
  * Localization
  */
-class Localization
+class Locale
 {
     /**
      * @var Session

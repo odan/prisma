@@ -4,7 +4,7 @@
 
 use App\DataMapper\UserMapper;
 use App\Service\User\AuthenticationService;
-use App\Service\User\Localization;
+use App\Service\User\Locale;
 use App\Utility\ErrorHandler;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Connectors\ConnectionFactory;
@@ -134,11 +134,11 @@ $container[SessionMiddleware::class] = function (Container $container) {
     return new SessionMiddleware($container->get(Session::class));
 };
 
-$container[Localization::class] = function (Container $container) {
+$container[Locale::class] = function (Container $container) {
     $translator = $container->get(Translator::class);
     $session = $container->get(Session::class);
     $localPath = $container->get('settings')['locale']['path'];
-    $localization = new Localization($translator, $session, $localPath);
+    $localization = new Locale($translator, $session, $localPath);
 
     return $localization;
 };

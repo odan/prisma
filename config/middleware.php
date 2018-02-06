@@ -46,11 +46,11 @@ $app->add(function (Request $request, Response $response, $next) {
 // Language middleware
 $app->add(function (Request $request, Response $response, $next) {
     /* @var Container $this */
-    $localization = $this->get(\App\Service\User\Localization::class);
+    $locale = $this->get(\App\Service\User\Locale::class);
 
     // Get user language
-    $locale = $localization->getLocale();
-    $domain = $localization->getDomain();
+    $locale = $locale->getLocale();
+    $domain = $locale->getDomain();
 
     // Default language
     if (empty($locale)) {
@@ -59,7 +59,7 @@ $app->add(function (Request $request, Response $response, $next) {
     }
 
     // Set language
-    $localization->setLanguage($locale, $domain);
+    $locale->setLanguage($locale, $domain);
 
     return $next($request, $response);
 });

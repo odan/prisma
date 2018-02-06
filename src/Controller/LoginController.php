@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\User\Localization;
+use App\Service\User\Locale;
 use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
@@ -16,7 +16,7 @@ class LoginController extends AbstractController
 {
 
     /**
-     * @var Localization
+     * @var Locale
      */
     protected $locale;
 
@@ -29,7 +29,7 @@ class LoginController extends AbstractController
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->locale = $container->get(Localization::class);
+        $this->locale = $container->get(Locale::class);
     }
 
     /**
