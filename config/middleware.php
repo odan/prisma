@@ -46,11 +46,11 @@ $app->add(function (Request $request, Response $response, $next) {
 // Language middleware
 $app->add(function (Request $request, Response $response, $next) {
     /* @var Container $this */
-    $locale = $this->get(\App\Service\User\Locale::class);
+    $localisation = $this->get(\App\Service\User\Locale::class);
 
     // Get user language
-    $locale = $locale->getLocale();
-    $domain = $locale->getDomain();
+    $locale = $localisation->getLocale();
+    $domain = $localisation->getDomain();
 
     // Default language
     if (empty($locale)) {
@@ -59,13 +59,17 @@ $app->add(function (Request $request, Response $response, $next) {
     }
 
     // Set language
-    $locale->setLanguage($locale, $domain);
+    $localisation->setLanguage($locale, $domain);
 
     return $next($request, $response);
 });
 
 // Csrf protection middleware
 $app->add(function (Request $request, Response $response, $next) {
+    if (php_sapi_name() === 'cli') {
+        return $next($request, $response);
+    }
+
     /* @var Container $this */
 
     /* @var \Slim\Route $route */
@@ -87,7 +91,7 @@ $app->add(function (Request $request, Response $response, $next) {
 
 // CORS preflight middleware
 $app->add(function (Request $request, Response $response, $next) {
-    if ($request->getMethod() !== 'OPTIONS') {
+    if ($request->getMethod() !== 'OPTIONS' || php_sapi_name() === 'cli') {
         return $next($request, $response);
     }
 

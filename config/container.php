@@ -144,8 +144,12 @@ $container[Locale::class] = function (Container $container) {
 };
 
 $container[CsrfMiddleware::class] = function (Container $container) {
-    $session = $container->get(Session::class);
-    $sessionId = $session->getId();
+    if (php_sapi_name() === 'cli') {
+        $sessionId = 'cli';
+    } else {
+        $session = $container->get(Session::class);
+        $sessionId = $session->getId();
+    }
     $csrf = new CsrfMiddleware($sessionId);
 
     // optional settings
@@ -166,8 +170,11 @@ $container[Translator::class] = function (Container $container) {
 };
 
 $container[AuthenticationService::class] = function (Container $container) {
-    return new AuthenticationService($container->get(Session::class), $container->get(UserMapper::class),
-        $container->get('settings')['app']['secret']);
+    return new AuthenticationService(
+        $container->get(Session::class),
+        $container->get(UserMapper::class),
+        $container->get('settings')['app']['secret']
+    );
 };
 
 // -----------------------------------------------------------------------------

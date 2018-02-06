@@ -10,6 +10,11 @@
                         <li><a href="{{ path_for('users.edit', {id: user.id}) }}">{{ user.username }} {{ user.firstName }}</a></li>
                     {% endfor %}
                 </ul>
+                {% if users|length > 1 %}
+                    {{ users|length }} {{ __('Users') }}
+                {% else %}
+                    {{ users|length }} {{ __('User') }}
+                {% endif %}
             </div>
         </div>
     </div>

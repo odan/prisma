@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Demo\n"
-"POT-Creation-Date: 2017-12-05 20:01+0100\n"
-"PO-Revision-Date: 2017-12-05 20:01+0100\n"
+"POT-Creation-Date: 2018-02-06 23:10+0100\n"
+"PO-Revision-Date: 2018-02-06 23:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -10,148 +10,160 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.7\n"
-"X-Poedit-KeywordsList: __;gettext\n"
+"X-Poedit-KeywordsList: __\n"
 "X-Poedit-Basepath: C:\\xampp\\htdocs\\prisma\\src\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\\tmp\\twig-cache\n"
 
-#: Controller/AbstractController.php:60
+#: Controller/AbstractController.php:74
 msgid "Ok"
 msgstr "Ok"
 
-#: Controller/AbstractController.php:61
+#: Controller/AbstractController.php:75
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: Controller/AbstractController.php:62 Controller/HomeController.php:50
+#: Controller/AbstractController.php:76 Controller/HomeController.php:56
 msgid "Yes"
 msgstr "Ja"
 
-#: Controller/AbstractController.php:63 Controller/HomeController.php:50
+#: Controller/AbstractController.php:77 Controller/HomeController.php:56
 msgid "No"
 msgstr "Nein"
 
-#: Controller/HomeController.php:43 Controller/HomeController.php:70
+#: Controller/HomeController.php:49 Controller/HomeController.php:76
 msgid "Loaded successfully!"
 msgstr "Erfolgreich gestartet!"
 
-#: Controller/HomeController.php:90
+#: Controller/HomeController.php:109
 msgid "Current user"
 msgstr "Aktueller Benutzer"
 
-#: Controller/HomeController.php:91
+#: Controller/HomeController.php:110
 msgid "User-ID"
 msgstr "Benutzer-ID"
 
-#: Controller/HomeController.php:92
-#: ..\tmp\twig-cache/39/39c41c2ece3d667c72ce2f55623ae5db4665cef8627a6f4082f7d9c70c21adb8.php:53
+#: Controller/HomeController.php:111
+#: ..\tmp\twig-cache/f1/f1fe4318589a0201e6c429fd4e53ef5e24ed23e04ad730af23ebdf41f4e5ed5e.php:53
 msgid "Username"
 msgstr "Benutzername"
 
-#: Controller/HomeController.php:93
+#: Controller/HomeController.php:112
 msgid "It's"
 msgstr "Es ist"
 
-#: Service/User/UserRepository.php:75
+#: DataMapper/UserMapper.php:61
 #, php-format
 msgid "User not found: %s"
 msgstr "Benutzer nicht gefunden: %s"
 
-#: Type/BaseType.php:38
+#: Service/User/AuthenticationService.php:126
+msgid "Invalid or empty User-ID"
+msgstr "Ungültige oder leere User-ID"
+
+#: Type/BaseType.php:42
 #, php-format
 msgid "Invalid type ID: %s"
 msgstr "Ungültige Type-ID: %s"
 
-#: ..\tmp\twig-cache/39/39c41c2ece3d667c72ce2f55623ae5db4665cef8627a6f4082f7d9c70c21adb8.php:33
-#: ..\tmp\twig-cache/39/39c41c2ece3d667c72ce2f55623ae5db4665cef8627a6f4082f7d9c70c21adb8.php:64
-msgid "Sign in"
-msgstr "Einloggen"
-
-#: ..\tmp\twig-cache/39/39c41c2ece3d667c72ce2f55623ae5db4665cef8627a6f4082f7d9c70c21adb8.php:49
-msgid "Please sign in"
-msgstr "Bitte einloggen"
-
-#: ..\tmp\twig-cache/39/39c41c2ece3d667c72ce2f55623ae5db4665cef8627a6f4082f7d9c70c21adb8.php:57
-msgid "Password"
-msgstr "Kennwort"
-
-#: ..\tmp\twig-cache/5c/5ca54cbc4a72179b3612efc5fee5830a60bdb9f90a170d56b64112aacb8cb999.php:52
-msgid "Hello World"
-msgstr "Hallo Welt"
-
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:24
+#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:24
 msgid "en"
 msgstr "de"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:39
+#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:43
 msgid "Demo"
 msgstr "Demo"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:80
+#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:84
 msgid "Toggle navigation"
 msgstr "Navigation umschalten"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:88
+#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:92
 msgid "Project name"
 msgstr "Projektname"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:95
+#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:99
 msgid "Home"
 msgstr "Home"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:99
+#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:103
 msgid "About"
 msgstr "Über"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:103
+#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:107
 msgid "Contact"
 msgstr "Kontakt"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:109
+#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:113
 msgid "Dropdown"
 msgstr "Dropdown"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:114
+#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:118
 msgid "Action"
 msgstr "Aktion"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:118
+#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:122
 msgid "Another action"
 msgstr "Weitere Aktion"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:122
+#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:126
 msgid "Something else here"
 msgstr "Etwas anderes"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:127
+#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:131
 msgid "Nav header"
 msgstr "Navigation Header"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:131
+#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:135
 msgid "Separated link"
 msgstr "Seperater link"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:135
+#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:139
 msgid "One more separated link"
 msgstr "Noch ein seperater Link"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:143
+#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:147
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: ..\tmp\twig-cache/be/be35ebaae7d3b2880e20ceb9dace5f943b06e923d85020ad9fd493caee78aca2.php:147
+#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:151
 msgid "Logout"
 msgstr "Logout"
 
-#: ..\tmp\twig-cache/c2/c2e80dbdc0ae816340c79d5094a44b8c1ad8bec98317bbbea203c512ef3d877a.php:36
+#: ..\tmp\twig-cache/33/3358e82582a2ec08f516ea63c566b4d8c932ec7a2bccd31c512a3c22fe67775f.php:52
+msgid "Hello World"
+msgstr "Hallo Welt"
+
+#: ..\tmp\twig-cache/51/514e7e7eccb61a7325aeb3906dc57ff4d5458ee24a6538fc37428ecb511fc74c.php:36
 msgid "Users index"
 msgstr "Benutzer Index"
 
-#: ..\tmp\twig-cache/c2/c2fe27cf0419406ad15d300001f6efe2b30957e0732c7385b038da40cd4cf68f.php:36
+#: ..\tmp\twig-cache/51/514e7e7eccb61a7325aeb3906dc57ff4d5458ee24a6538fc37428ecb511fc74c.php:66
+msgid "Users"
+msgstr "Benutzer"
+
+#: ..\tmp\twig-cache/51/514e7e7eccb61a7325aeb3906dc57ff4d5458ee24a6538fc37428ecb511fc74c.php:74
+msgid "User"
+msgstr "Benutzer"
+
+#: ..\tmp\twig-cache/5b/5b08fd5019f040c73ce73a77d008659533b66602a4ee4b8665b2cd08b3927d1b.php:36
 #, php-format
 msgid "Edit user: %s"
 msgstr "Benutzer bearbeiten: %s"
+
+#: ..\tmp\twig-cache/f1/f1fe4318589a0201e6c429fd4e53ef5e24ed23e04ad730af23ebdf41f4e5ed5e.php:33
+#: ..\tmp\twig-cache/f1/f1fe4318589a0201e6c429fd4e53ef5e24ed23e04ad730af23ebdf41f4e5ed5e.php:64
+msgid "Sign in"
+msgstr "Einloggen"
+
+#: ..\tmp\twig-cache/f1/f1fe4318589a0201e6c429fd4e53ef5e24ed23e04ad730af23ebdf41f4e5ed5e.php:49
+msgid "Please sign in"
+msgstr "Bitte einloggen"
+
+#: ..\tmp\twig-cache/f1/f1fe4318589a0201e6c429fd4e53ef5e24ed23e04ad730af23ebdf41f4e5ed5e.php:57
+msgid "Password"
+msgstr "Kennwort"
 
 #~ msgid "ID"
 #~ msgstr "ID"
