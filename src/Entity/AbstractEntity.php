@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataRow;
+namespace App\Entity;
 
 use Illuminate\Support\Str;
 use RuntimeException;
@@ -9,7 +9,7 @@ use stdClass;
 /**
  * Base DataSet Row
  */
-abstract class AbstractDataRow implements DataRowInterface
+abstract class AbstractEntity implements EntityInterface
 {
 
     /**

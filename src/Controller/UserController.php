@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\DataRow\UserRow;
-use App\DataMapper\UserMapper;
+use App\Entity\UserEntity;
+use App\Table\UserTable;
 use Exception;
 use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
@@ -17,7 +17,7 @@ use Slim\Http\Response;
 class UserController extends AbstractController
 {
     /**
-     * @var UserMapper
+     * @var UserTable
      */
     protected $userMapper;
 
@@ -30,7 +30,7 @@ class UserController extends AbstractController
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->userMapper = $container->get(UserMapper::class);
+        $this->userMapper = $container->get(UserTable::class);
     }
 
     /**
@@ -74,9 +74,9 @@ class UserController extends AbstractController
         $user = $this->userMapper->getById($id);
 
         // Insert a new user
-        $newUser = new UserRow();
+        $newUser = new UserEntity();
         $newUser->username = 'admin-' . uuid();
-        $newUser->disabled = 0;
+        $newUser->disabled  =false;
         $newUserId = $this->userMapper->insertUser($newUser);
 
         // Get new new user

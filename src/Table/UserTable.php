@@ -1,14 +1,14 @@
 <?php
 
-namespace App\DataMapper;
+namespace App\Table;
 
-use App\DataRow\UserRow;
+use App\Entity\UserEntity;
 use RuntimeException;
 
 /**
  * UserMapper
  */
-class UserMapper extends AbstractMapper
+class UserTable extends AbstractTable
 {
     /**
      * Table
@@ -20,13 +20,13 @@ class UserMapper extends AbstractMapper
     /**
      * Returns a collection of User entities.
      *
-     * @return UserRow[]
+     * @return UserEntity[]
      */
     public function findAll(): array
     {
         $result = [];
         foreach ($this->fetchAll() as $row) {
-            $result[] = new UserRow($row);
+            $result[] = new UserEntity($row);
         }
 
         return $result;
@@ -36,7 +36,7 @@ class UserMapper extends AbstractMapper
      * Find entity by id.
      *
      * @param int|string $id The ID
-     * @return UserRow|null The entity
+     * @return UserEntity|null The entity
      */
     public function findById($id)
     {
@@ -45,17 +45,17 @@ class UserMapper extends AbstractMapper
             return null;
         }
 
-        return new UserRow($row);
+        return new UserEntity($row);
     }
 
     /**
      * Get user by id
      *
      * @param string $id User id
-     * @return UserRow A row
+     * @return UserEntity A row
      * @throws RuntimeException On error
      */
-    public function getById(string $id): UserRow
+    public function getById(string $id): UserEntity
     {
         if (!$user = $this->findById($id)) {
             throw new RuntimeException(__('User not found: %s', $id));
@@ -68,7 +68,7 @@ class UserMapper extends AbstractMapper
      * Find user by username.
      *
      * @param string $username Username
-     * @return UserRow|null User
+     * @return UserEntity|null User
      */
     public function findByUsername($username)
     {
@@ -78,16 +78,16 @@ class UserMapper extends AbstractMapper
             return null;
         }
 
-        return new UserRow($row);
+        return new UserEntity($row);
     }
 
     /**
      * Insert new user.
      *
-     * @param UserRow $user The user
+     * @param UserEntity $user The user
      * @return string The new ID
      */
-    public function insertUser(UserRow $user): string
+    public function insertUser(UserEntity $user): string
     {
         return (string)$this->newQuery()->insertGetId($user->toArray());
     }
@@ -95,10 +95,10 @@ class UserMapper extends AbstractMapper
     /**
      * Update user.
      *
-     * @param UserRow $user The user
+     * @param UserEntity $user The user
      * @return int Number of affected rows
      */
-    public function updateUser(UserRow $user): int
+    public function updateUser(UserEntity $user): int
     {
         if (empty($user->id)) {
             throw new RuntimeException('User ID required');
@@ -110,10 +110,10 @@ class UserMapper extends AbstractMapper
     /**
      * Insert or update user.
      *
-     * @param UserRow $user
+     * @param UserEntity $user
      * @return int
      */
-    public function saveUser(UserRow $user)
+    public function saveUser(UserEntity $user)
     {
         if ($user->id) {
             return $this->updateUser($user);
@@ -126,10 +126,10 @@ class UserMapper extends AbstractMapper
     /**
      * Delete user.
      *
-     * @param string $userId The user ID
+     * @param int $userId The user ID
      * @return int Number of affected rows
      */
-    public function deleteUser(string $userId): int
+    public function deleteUser(int $userId): int
     {
         return $this->newQuery()->delete($userId);
     }

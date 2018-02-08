@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataMapper;
+namespace App\Table;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Connection;
@@ -13,7 +13,7 @@ use stdClass;
  * A layer of Mappers that moves data between objects and a database
  * while keeping them independent of each other and the mapper itself.
  */
-abstract class AbstractMapper implements MapperInterface
+abstract class AbstractTable implements MapperInterface
 {
     /**
      * Database connection

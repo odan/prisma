@@ -2,7 +2,7 @@
 
 // Service container configuration
 
-use App\DataMapper\UserMapper;
+use App\Table\UserTable;
 use App\Service\User\AuthenticationService;
 use App\Service\User\Locale;
 use App\Utility\ErrorHandler;
@@ -172,7 +172,7 @@ $container[Translator::class] = function (Container $container) {
 $container[AuthenticationService::class] = function (Container $container) {
     return new AuthenticationService(
         $container->get(Session::class),
-        $container->get(UserMapper::class),
+        $container->get(UserTable::class),
         $container->get('settings')['app']['secret']
     );
 };
@@ -180,8 +180,8 @@ $container[AuthenticationService::class] = function (Container $container) {
 // -----------------------------------------------------------------------------
 // Services, Models, Repositories
 // -----------------------------------------------------------------------------
-$container[UserMapper::class] = function (Container $container) {
-    return new UserMapper($container->get(Connection::class));
+$container[UserTable::class] = function (Container $container) {
+    return new UserTable($container->get(Connection::class));
 };
 
 return $container;
