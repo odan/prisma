@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 /**
- * UserEntity
+ * User entity
  */
 class UserEntity extends AbstractEntity
 {
