@@ -76,7 +76,7 @@ class UserController extends AbstractController
         // Insert a new user
         $newUser = new UserEntity();
         $newUser->username = 'admin-' . uuid();
-        $newUser->disabled  =false;
+        $newUser->disabled = false;
         $newUserId = $this->userMapper->insertUser($newUser);
 
         // Get new new user
