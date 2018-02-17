@@ -2,9 +2,9 @@
 
 // Service container configuration
 
-use App\Table\UserTable;
 use App\Service\User\Auth;
 use App\Service\User\Locale;
+use App\Table\UserTable;
 use App\Utility\ErrorHandler;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Connectors\ConnectionFactory;
@@ -13,8 +13,8 @@ use Monolog\Logger;
 use Odan\Slim\Csrf\CsrfMiddleware;
 use Odan\Slim\Session\Adapter\MemorySessionAdapter;
 use Odan\Slim\Session\Adapter\PhpSessionAdapter;
-use Odan\Slim\Session\SessionMiddleware;
 use Odan\Slim\Session\Session;
+use Odan\Slim\Session\SessionMiddleware;
 use Psr\Container\ContainerInterface as Container;
 use Psr\Log\LoggerInterface;
 use Slim\Views\Twig;
@@ -170,11 +170,7 @@ $container[Translator::class] = function (Container $container) {
 };
 
 $container[Auth::class] = function (Container $container) {
-    return new Auth(
-        $container->get(Session::class),
-        $container->get(UserTable::class),
-        $container->get('settings')['app']['secret']
-    );
+    return new Auth($container->get(Session::class), $container->get(UserTable::class));
 };
 
 // -----------------------------------------------------------------------------

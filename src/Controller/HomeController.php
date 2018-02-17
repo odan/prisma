@@ -17,7 +17,7 @@ class HomeController extends AbstractController
     /**
      * @var UserTable
      */
-    protected $userModel;
+    protected $userTable;
 
     /**
      * Constructor.
@@ -28,7 +28,7 @@ class HomeController extends AbstractController
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->userModel = $container->get(UserTable::class);
+        $this->userTable = $container->get(UserTable::class);
     }
 
     /**
@@ -70,7 +70,7 @@ class HomeController extends AbstractController
     public function loadAction(Request $request, Response $response): ResponseInterface
     {
         $userId = $this->auth->getId();
-        $user = $this->userModel->getById($userId);
+        $user = $this->userTable->getById($userId);
 
         $result = [
             'message' => __('Loaded successfully!'),

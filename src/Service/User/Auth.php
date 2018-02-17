@@ -23,18 +23,18 @@ class Auth
     /**
      * @var UserTable
      */
-    private $userModel;
+    private $userTable;
 
     /**
      * UserSession constructor.
      *
      * @param Session $session Storage
-     * @param UserTable $userModel The User model
+     * @param UserTable $userTable The User model
      */
-    public function __construct(Session $session, UserTable $userModel)
+    public function __construct(Session $session, UserTable $userTable)
     {
         $this->session = $session;
-        $this->userModel = $userModel;
+        $this->userTable = $userTable;
     }
 
     /**
@@ -115,15 +115,15 @@ class Auth
     public function authenticate($username, $password)
     {
         // Check username and password
-        $user = $this->userModel->findByUsername($username);
+        $user = $this->userTable->findByUsername($username);
 
+        // User not found
         if (empty($user)) {
-            // User not found
             return null;
         }
 
+        // Credentials not valid
         if (!$this->verifyPassword($password, $user->password)) {
-            // Credentials invalid
             return null;
         }
 
