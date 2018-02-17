@@ -8,9 +8,9 @@ use Odan\Slim\Session\Session;
 use RuntimeException;
 
 /**
- * Authentication
+ * Authentication and authorisation
  */
-class AuthenticationService
+class Auth
 {
 
     /**
@@ -19,16 +19,6 @@ class AuthenticationService
      * @var Session
      */
     private $session;
-
-    /**
-     * @var Token
-     */
-    private $token;
-
-    /**
-     * @var string
-     */
-    private $secret;
 
     /**
      * @var UserTable
@@ -40,14 +30,11 @@ class AuthenticationService
      *
      * @param Session $session Storage
      * @param UserTable $userModel The User model
-     * @param string $secret
      */
-    public function __construct(Session $session, UserTable $userModel, string $secret)
+    public function __construct(Session $session, UserTable $userModel)
     {
         $this->session = $session;
         $this->userModel = $userModel;
-        $this->secret = $secret;
-        $this->token = $this->createToken($secret);
     }
 
     /**
@@ -103,17 +90,6 @@ class AuthenticationService
     }
 
     /**
-     * Create token object.
-     *
-     * @param string $secret
-     * @return Token
-     */
-    private function createToken($secret): Token
-    {
-        return new Token($this->session->getId() . $secret);
-    }
-
-    /**
      * Get user Id.
      *
      * @return string User Id
@@ -134,15 +110,21 @@ class AuthenticationService
      *
      * @param string $username
      * @param string $password
-     * @return AuthenticationResult
+     * @return UserEntity|null
      */
-    public function authenticate($username, $password): AuthenticationResult
+    public function authenticate($username, $password)
     {
         // Check username and password
-        $authResult = $this->loginUser($username, $password);
+        $user = $this->userModel->findByUsername($username);
 
-        if (!$authResult->isValid() || !$user = $authResult->getIdentity()) {
-            return $authResult;
+        if (empty($user)) {
+            // User not found
+            return null;
+        }
+
+        if (!$this->verifyPassword($password, $user->password)) {
+            // Credentials invalid
+            return null;
         }
 
         // Clear session data
@@ -152,35 +134,33 @@ class AuthenticationService
         // Create new session id
         $this->session->regenerateId();
 
-        // Create new token
-        $this->token = $this->createToken($this->secret);
-
         // Store user settings in session
         $this->setIdentity($user);
 
-        return $authResult;
+        return $user;
     }
 
     /**
-     * Login user with username and password
+     * Returns secure password hash
      *
-     * @param string $username Username
-     * @param string $password Password
-     * @return AuthenticationResult Status
+     * @param string $password
+     * @return string
      */
-    private function loginUser(string $username, string $password): AuthenticationResult
+    public function createPassword($password): string
     {
-        $user = $this->userModel->findByUsername($username);
+        return password_hash($password, 1);
+    }
 
-        if (empty($user)) {
-            return new AuthenticationResult(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND);
-        }
-
-        if (!$this->token->verify($password, $user->password)) {
-            return new AuthenticationResult(AuthenticationResult::FAILURE_CREDENTIAL_INVALID);
-        }
-
-        return new AuthenticationResult(AuthenticationResult::SUCCESS, $user);
+    /**
+     * Returns true if password and hash is valid
+     *
+     * @param string $password
+     * @param string $hash
+     * @return bool
+     */
+    public function verifyPassword($password, $hash): bool
+    {
+        return password_verify($password, $hash);
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\User\AuthenticationService;
+use App\Service\User\Auth;
 use Illuminate\Database\Connection;
 use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
@@ -33,7 +33,7 @@ abstract class AbstractController
     protected $view;
 
     /**
-     * @var AuthenticationService
+     * @var Auth
      */
     protected $auth;
 
@@ -58,7 +58,7 @@ abstract class AbstractController
         $this->db = $container->get(Connection::class);
         $this->logger = $container->get(LoggerInterface::class);
         $this->router = $container->get('router');
-        $this->auth = $container->get(AuthenticationService::class);
+        $this->auth = $container->get(Auth::class);
         $this->view = $container->get(Twig::class);
         $this->session = $container->get(Session::class);
     }

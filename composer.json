@@ -19,7 +19,7 @@
     "odan/slim-csrf": "^0.1.0",
     "odan/slim-session": "0.4.0",
     "odan/twig-assets": "^0.2.2",
-    "odan/twig-translation": "^0.2.4",
+    "odan/twig-translation": "^0.3.0",
     "odan/util": "^0.4.0",
     "slim/slim": "^3.9",
     "slim/twig-view": "^2.3",

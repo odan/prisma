@@ -58,9 +58,9 @@ class LoginController extends AbstractController
         $username = $data['username'];
         $password = $data['password'];
 
-        $authResult = $this->auth->authenticate($username, $password);
-        if ($authResult->isValid()) {
-            $this->locale->setLanguage($authResult->getIdentity()->locale);
+        $user = $this->auth->authenticate($username, $password);
+        if (!empty($user)) {
+            $this->locale->setLanguage($user->locale);
             $url = $this->router->pathFor('root');
         } else {
             $url =  $this->router->pathFor('login');

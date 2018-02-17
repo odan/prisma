@@ -3,7 +3,7 @@
 // Service container configuration
 
 use App\Table\UserTable;
-use App\Service\User\AuthenticationService;
+use App\Service\User\Auth;
 use App\Service\User\Locale;
 use App\Utility\ErrorHandler;
 use Illuminate\Database\Connection;
@@ -169,8 +169,8 @@ $container[Translator::class] = function (Container $container) {
     return $translator;
 };
 
-$container[AuthenticationService::class] = function (Container $container) {
-    return new AuthenticationService(
+$container[Auth::class] = function (Container $container) {
+    return new Auth(
         $container->get(Session::class),
         $container->get(UserTable::class),
         $container->get('settings')['app']['secret']

@@ -1,6 +1,6 @@
 <?php
 
-use App\Service\User\AuthenticationService;
+use App\Service\User\Auth;
 use Odan\Slim\Csrf\CsrfMiddleware;
 use Odan\Slim\Session\Session;
 use Slim\Container;
@@ -19,8 +19,8 @@ $app->add(function (Request $request, Response $response, $next) {
     }
     $auth = $route->getArgument('_auth', true);
 
-    /* @var \App\Service\User\AuthenticationService $user */
-    $user = $this->get(AuthenticationService::class);
+    /* @var \App\Service\User\Auth $user */
+    $user = $this->get(Auth::class);
     if ($auth === true && !$user->hasIdentity()) {
         // Redirect to login page
 
