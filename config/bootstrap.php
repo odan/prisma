@@ -5,7 +5,7 @@ use Symfony\Component\Translation\Translator;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 // Instantiate the app
-$app = new \Slim\App(['settings' => read(__DIR__ . '/../config/config.php')]);
+$app = new \Slim\App(['settings' => read(__DIR__ . '/../config/settings.php')]);
 
 // Set up dependencies
 require  __DIR__ . '/container.php';
