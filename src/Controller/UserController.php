@@ -19,7 +19,7 @@ class UserController extends AbstractController
     /**
      * @var UserTable
      */
-    protected $userMapper;
+    protected $userTable;
 
     /**
      * Constructor.
@@ -30,7 +30,7 @@ class UserController extends AbstractController
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->userMapper = $container->get(UserTable::class);
+        $this->userTable = $container->get(UserTable::class);
     }
 
     /**
@@ -42,7 +42,7 @@ class UserController extends AbstractController
      */
     public function indexAction(Request $request, Response $response): ResponseInterface
     {
-        $users = $this->userMapper->findAll();
+        $users = $this->userTable->findAll();
 
         $viewData = $this->getViewData([
             'users' => $users
@@ -71,22 +71,22 @@ class UserController extends AbstractController
         //$post = $request->getParsedBody();
 
         // Repository example
-        $user = $this->userMapper->getById($id);
+        $user = $this->userTable->getById($id);
 
         // Insert a new user
         $newUser = new UserEntity();
         $newUser->username = 'admin-' . uuid();
         $newUser->disabled = false;
-        $newUserId = $this->userMapper->insertUser($newUser);
+        $newUserId = $this->userTable->insertUser($newUser);
 
         // Get new new user
-        $newUser = $this->userMapper->getById($newUserId);
+        $newUser = $this->userTable->getById($newUserId);
 
         // Delete a user
-        $this->userMapper->deleteUser($newUser->id);
+        $this->userTable->deleteUser($newUser->id);
 
         // Get all users
-        $users = $this->userMapper->findAll();
+        $users = $this->userTable->findAll();
 
         // Session example
         // Increment counter

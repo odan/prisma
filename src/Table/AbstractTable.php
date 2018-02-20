@@ -13,7 +13,7 @@ use stdClass;
  * A layer of Mappers that moves data between objects and a database
  * while keeping them independent of each other and the mapper itself.
  */
-abstract class AbstractTable implements MapperInterface
+abstract class AbstractTable implements TableInterface
 {
     /**
      * Database connection
