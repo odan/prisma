@@ -49,17 +49,36 @@ class InstallCommand extends AbstractCommand
         $root = $settings['root'];
         $configPath = $root . '/config';
 
-        $output->writeln('Create env.php');
-        copy($configPath . '/env.example.php', $configPath . '/env.php');
-
-        $output->writeln('Generate random app secret');
-        file_put_contents($configPath . '/default.php', str_replace('{{app_secret}}', bin2hex(random_bytes(20)), file_get_contents($configPath . '/default.php')));
+        $this->createEnvFile($output, $configPath);
+        $this->generateRandomSecret($output, $configPath);
 
         $env = '';
         if ($input->hasOption('environment')) {
             $env = $input->getOption('environment');
         };
 
+        try {
+            $this->createNewDatabase($io, $output, $configPath, $root, $env);
+        } catch (Exception $exception) {
+            $output->writeln(sprintf('<error>Unknown error: %s</error> ', $exception->getMessage()));
+            return 1;
+        }
+    }
+
+    protected function createEnvFile(OutputInterface $output, $configPath)
+    {
+        $output->writeln('Create env.php');
+        copy($configPath . '/env.example.php', $configPath . '/env.php');
+    }
+
+    protected function generateRandomSecret(OutputInterface $output, $configPath)
+    {
+        $output->writeln('Generate random app secret');
+        file_put_contents($configPath . '/default.php', str_replace('{{app_secret}}', bin2hex(random_bytes(20)), file_get_contents($configPath . '/default.php')));
+    }
+
+    protected function createNewDatabase(SymfonyStyle $io, OutputInterface $output, string $configPath, string $root, string $env = null)
+    {
         if ($env == 'travis') {
             $mySqlHost = '127.0.0.1';
             $mySqlDatabase = 'test';
@@ -81,42 +100,60 @@ class InstallCommand extends AbstractCommand
                 return $string ? $string : '';
             });
         }
+
         try {
             $output->writeln('Create database: ' . $mySqlDatabase);
-            $pdo = new PDO(
-                "mysql:host=$mySqlHost;charset=utf8",
-                $mySqlUsername,
-                $mySqlPassword,
-                array(
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_PERSISTENT => false,
-                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8 COLLATE utf8_unicode_ci"
-                )
-            );
 
-            $mySqlDatabaseQuoted = "`" . str_replace("`", "``", $mySqlDatabase) . "`";
-            $pdo->exec("CREATE DATABASE IF NOT EXISTS $mySqlDatabaseQuoted;");
-
-            $output->writeln('Update development configuration');
-            file_put_contents($configPath . '/development.php', str_replace('{{db_database}}', $mySqlDatabase, file_get_contents($configPath . '/development.php')));
-            file_put_contents($configPath . '/env.php', str_replace('{{db_username}}', $mySqlUsername, file_get_contents($configPath . '/env.php')));
-            file_put_contents($configPath . '/env.php', str_replace('{{db_password}}', $mySqlPassword, file_get_contents($configPath . '/env.php')));
-
-            $output->writeln('Install database tables');
-
-            $pdo->exec("USE $mySqlDatabaseQuoted;");
-
-            chdir($root);
-            system('php cli.php phinx migrate');
+            $pdo = $this->getPdo($mySqlHost, $mySqlUsername, $mySqlPassword);
+            $this->createDatabase($pdo, $mySqlDatabase);
+            $this->updateDevelopmentSettings($output, $mySqlDatabase, $mySqlUsername, $mySqlPassword, $configPath);
+            $this->installDatabaseTables($output, $pdo, $mySqlDatabase, $root);
 
             $output->writeln('<info>Setup successfully<info>');
+
             return 0;
         } catch (PDOException $ex) {
             $output->writeln(sprintf('<error>Database error: %s</error> ', $ex->getMessage()));
             return 1;
-        } catch (Exception $exception) {
-            $output->writeln(sprintf('<error>Unknown error: %s</error> ', $exception->getMessage()));
-            return 1;
         }
+    }
+
+    protected function getPdo($host, $username, $passoword)
+    {
+        $pdo = new PDO(
+            "mysql:host=$host;charset=utf8",
+            $username,
+            $passoword,
+            array(
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_PERSISTENT => false,
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8 COLLATE utf8_unicode_ci"
+            )
+        );
+
+        return $pdo;
+    }
+
+    protected function installDatabaseTables(OutputInterface $output, PDO $pdo, $dbNameQuoted, $root)
+    {
+        $output->writeln('Install database tables');
+        $pdo->exec("USE $dbNameQuoted;");
+
+        chdir($root);
+        system('php cli.php phinx migrate');
+    }
+
+    protected function updateDevelopmentSettings(OutputInterface $output, $dbName, $username, $password, $configPath)
+    {
+        $output->writeln('Update development configuration');
+        file_put_contents($configPath . '/development.php', str_replace('{{db_database}}', $dbName, file_get_contents($configPath . '/development.php')));
+        file_put_contents($configPath . '/env.php', str_replace('{{db_username}}', $username, file_get_contents($configPath . '/env.php')));
+        file_put_contents($configPath . '/env.php', str_replace('{{db_password}}', $password, file_get_contents($configPath . '/env.php')));
+    }
+
+    protected function createDatabase(PDO $pdo, string $dbName)
+    {
+        $dbNameQuoted = "`" . str_replace("`", "``", $dbName) . "`";
+        $pdo->exec("CREATE DATABASE IF NOT EXISTS $dbNameQuoted;");
     }
 }
