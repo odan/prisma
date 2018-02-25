@@ -29,6 +29,16 @@ class ValidationContext
     }
 
     /**
+     * Get message.
+     *
+     * @return null|string Message
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
      * Set message.
      *
      * @param string $message Main Message
@@ -37,16 +47,6 @@ class ValidationContext
     public function setMessage(string $message): void
     {
         $this->message = $message;
-    }
-
-    /**
-     * Get message.
-     *
-     * @return null|string Message
-     */
-    public function getMessage()
-    {
-        return $this->message;
     }
 
     /**

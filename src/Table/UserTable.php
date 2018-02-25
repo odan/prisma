@@ -33,22 +33,6 @@ class UserTable extends AbstractTable
     }
 
     /**
-     * Find entity by id.
-     *
-     * @param int|string $id The ID
-     * @return UserEntity|null The entity
-     */
-    public function findById($id)
-    {
-        $row = $this->fetchById($id);
-        if (empty($row)) {
-            return null;
-        }
-
-        return new UserEntity($row);
-    }
-
-    /**
      * Get user by id
      *
      * @param string $id User id
@@ -62,6 +46,22 @@ class UserTable extends AbstractTable
         }
 
         return $user;
+    }
+
+    /**
+     * Find entity by id.
+     *
+     * @param int|string $id The ID
+     * @return UserEntity|null The entity
+     */
+    public function findById($id)
+    {
+        $row = $this->fetchById($id);
+        if (empty($row)) {
+            return null;
+        }
+
+        return new UserEntity($row);
     }
 
     /**
@@ -82,14 +82,19 @@ class UserTable extends AbstractTable
     }
 
     /**
-     * Insert new user.
+     * Insert or update user.
      *
-     * @param UserEntity $user The user
-     * @return string The new ID
+     * @param UserEntity $user
+     * @return int
      */
-    public function insertUser(UserEntity $user): string
+    public function saveUser(UserEntity $user)
     {
-        return (string)$this->newQuery()->insertGetId($user->toArray());
+        if ($user->id) {
+            return $this->updateUser($user);
+        }
+        $this->insertUser($user);
+
+        return 1;
     }
 
     /**
@@ -108,19 +113,14 @@ class UserTable extends AbstractTable
     }
 
     /**
-     * Insert or update user.
+     * Insert new user.
      *
-     * @param UserEntity $user
-     * @return int
+     * @param UserEntity $user The user
+     * @return string The new ID
      */
-    public function saveUser(UserEntity $user)
+    public function insertUser(UserEntity $user): string
     {
-        if ($user->id) {
-            return $this->updateUser($user);
-        }
-        $this->insertUser($user);
-
-        return 1;
+        return (string)$this->newQuery()->insertGetId($user->toArray());
     }
 
     /**

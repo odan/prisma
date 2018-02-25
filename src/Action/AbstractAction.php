@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Controller;
+namespace App\Action;
 
 use App\Service\User\Auth;
 use Illuminate\Database\Connection;
 use Interop\Container\Exception\ContainerException;
+use Odan\Slim\Session\Session;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Slim\Container;
 use Slim\Router;
 use Slim\Views\Twig;
-use Odan\Slim\Session\Session;
 
 /**
- * AbstractController (Base class)
+ * AbstractAction (Base class)
  */
-abstract class AbstractController
+abstract class AbstractAction
 {
     /**
      * @var Router
@@ -64,22 +64,6 @@ abstract class AbstractController
     }
 
     /**
-     * Returns default text.
-     *
-     * @return array Array with translated text
-     */
-    protected function getText(): array
-    {
-        $text = [];
-        $text['Ok'] = __('Ok');
-        $text['Cancel'] = __('Cancel');
-        $text['Yes'] = __('Yes');
-        $text['No'] = __('No');
-
-        return $text;
-    }
-
-    /**
      * Get view data.
      *
      * @param array $viewData
@@ -96,6 +80,22 @@ abstract class AbstractController
         }
 
         return $result;
+    }
+
+    /**
+     * Returns default text.
+     *
+     * @return array Array with translated text
+     */
+    protected function getText(): array
+    {
+        $text = [];
+        $text['Ok'] = __('Ok');
+        $text['Cancel'] = __('Cancel');
+        $text['Yes'] = __('Yes');
+        $text['No'] = __('No');
+
+        return $text;
     }
 
     /**

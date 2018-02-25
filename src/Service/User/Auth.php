@@ -48,32 +48,6 @@ class Auth
     }
 
     /**
-     * Set the identity into storage or null if no identity is available
-     *
-     * @param UserEntity $user
-     * @return void
-     */
-    public function setIdentity(UserEntity $user)
-    {
-        $this->session->set('user', $user);
-    }
-
-    /**
-     * Returns the identity from storage or null if no identity is available
-     *
-     * @return UserEntity
-     */
-    public function getIdentity()
-    {
-        $user = $this->session->get('user');
-        if (!$user) {
-            throw new RuntimeException('No identity available');
-        }
-
-        return $user;
-    }
-
-    /**
      * Clears the identity from persistent storage
      *
      * @return void
@@ -103,6 +77,21 @@ class Auth
         }
 
         return $result;
+    }
+
+    /**
+     * Returns the identity from storage or null if no identity is available
+     *
+     * @return UserEntity
+     */
+    public function getIdentity()
+    {
+        $user = $this->session->get('user');
+        if (!$user) {
+            throw new RuntimeException('No identity available');
+        }
+
+        return $user;
     }
 
     /**
@@ -141,17 +130,6 @@ class Auth
     }
 
     /**
-     * Returns secure password hash
-     *
-     * @param string $password
-     * @return string
-     */
-    public function createPassword($password): string
-    {
-        return password_hash($password, 1);
-    }
-
-    /**
      * Returns true if password and hash is valid
      *
      * @param string $password
@@ -161,6 +139,28 @@ class Auth
     public function verifyPassword($password, $hash): bool
     {
         return password_verify($password, $hash);
+    }
+
+    /**
+     * Set the identity into storage or null if no identity is available
+     *
+     * @param UserEntity $user
+     * @return void
+     */
+    public function setIdentity(UserEntity $user)
+    {
+        $this->session->set('user', $user);
+    }
+
+    /**
+     * Returns secure password hash
+     *
+     * @param string $password
+     * @return string
+     */
+    public function createPassword($password): string
+    {
+        return password_hash($password, 1);
     }
 
     /**

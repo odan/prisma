@@ -11,15 +11,13 @@ use Symfony\Component\Translation\Translator;
 class Locale
 {
     /**
-     * @var Session
-     */
-    private $session;
-
-    /**
      * @var string Locale path
      */
     public $localePath;
-
+    /**
+     * @var Session
+     */
+    private $session;
     /**
      * Translator
      *
@@ -42,17 +40,6 @@ class Locale
     }
 
     /**
-     * Set locale
-     *
-     * @param string $locale
-     * @return void
-     */
-    private function setLocale(string $locale):void
-    {
-        $this->session->set('locale', $locale);
-    }
-
-    /**
      * Get local
      *
      * @return string|null
@@ -60,17 +47,6 @@ class Locale
     public function getLocale()
     {
         return $this->session->get('locale');
-    }
-
-    /**
-     * Set text domain.
-     *
-     * @param string $domain
-     * @return void
-     */
-    private function setDomain(string $domain):void
-    {
-        $this->session->set('domain', $domain);
     }
 
     /**
@@ -97,6 +73,28 @@ class Locale
         $this->setTranslatorLocale($locale, $domain);
 
         return true;
+    }
+
+    /**
+     * Set locale
+     *
+     * @param string $locale
+     * @return void
+     */
+    private function setLocale(string $locale): void
+    {
+        $this->session->set('locale', $locale);
+    }
+
+    /**
+     * Set text domain.
+     *
+     * @param string $domain
+     * @return void
+     */
+    private function setDomain(string $domain): void
+    {
+        $this->session->set('domain', $domain);
     }
 
     /**

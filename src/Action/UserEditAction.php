@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Action;
 
 use App\Entity\UserEntity;
 use App\Table\UserTable;
@@ -12,9 +12,9 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * UserController
+ * UserEditAction
  */
-class UserController extends AbstractController
+class UserEditAction extends AbstractAction
 {
     /**
      * @var UserTable
@@ -34,24 +34,6 @@ class UserController extends AbstractController
     }
 
     /**
-     * Index
-     *
-     * @param Request $request
-     * @param Response $response
-     * @return ResponseInterface The new response
-     */
-    public function indexAction(Request $request, Response $response): ResponseInterface
-    {
-        $users = $this->userTable->findAll();
-
-        $viewData = $this->getViewData([
-            'users' => $users
-        ]);
-
-        return $this->render($response, 'User/user-index.twig', $viewData);
-    }
-
-    /**
      * Edit page
      *
      * @param Request $request
@@ -60,7 +42,7 @@ class UserController extends AbstractController
      * @return ResponseInterface The new response
      * @throws Exception
      */
-    public function editAction(Request $request, Response $response, $args): ResponseInterface
+    public function __invoke(Request $request, Response $response, $args): ResponseInterface
     {
         $id = $args['id'];
 
@@ -107,21 +89,5 @@ class UserController extends AbstractController
 
         // Render template
         return $this->render($response, 'User/user-edit.twig', $viewData);
-    }
-
-    /**
-     * User review page.
-     *
-     * @param Request $request
-     * @param Response $response
-     * @param array $args
-     * @return ResponseInterface Response
-     */
-    public function reviewAction(Request $request, Response $response, $args): ResponseInterface
-    {
-        $id = $args['id'];
-
-        $response->getBody()->write("Action: Show all reviews of user: $id<br>");
-        return $response;
     }
 }

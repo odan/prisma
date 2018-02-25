@@ -39,53 +39,6 @@ class ApiTestCase extends BaseTestCase
     }
 
     /**
-     * Get container.
-     *
-     * @return Container
-     */
-    public function getContainer(): Container
-    {
-        $container = $this->app->getContainer();
-
-        $this->setContainer($container, Session::class, call_user_func(function () {
-            $session = new Session(new MemorySessionAdapter());
-            $session->setOptions([
-                'cache_expire' => 60,
-                'name' => 'app',
-                'use_cookies' => false,
-                'cookie_httponly' => false,
-            ]);
-
-            return $session;
-        }));
-
-        return $container;
-    }
-
-    /**
-     * Set container entry.
-     *
-     * @param Container $container
-     * @param string $key
-     * @param mixed $value
-     * @return void
-     * @throws \ReflectionException
-     */
-    protected function setContainer(Container $container, string $key, $value): void
-    {
-        $class = new ReflectionClass(\Pimple\Container::class);
-
-        $property = $class->getProperty('frozen');
-        $property->setAccessible(true);
-
-        $values = $property->getValue($container);
-        unset($values[$key]);
-        $property->setValue($container, $values);
-
-        $container[$key] = $value;
-    }
-
-    /**
      * Create request.
      *
      * @param string $method
@@ -156,5 +109,53 @@ class ApiTestCase extends BaseTestCase
         $response = $this->app->run(true);
 
         return $response;
+    }
+
+    /**
+     * Get container.
+     *
+     * @return Container
+     * @throws \ReflectionException
+     */
+    public function getContainer(): Container
+    {
+        $container = $this->app->getContainer();
+
+        $this->setContainer($container, Session::class, call_user_func(function () {
+            $session = new Session(new MemorySessionAdapter());
+            $session->setOptions([
+                'cache_expire' => 60,
+                'name' => 'app',
+                'use_cookies' => false,
+                'cookie_httponly' => false,
+            ]);
+
+            return $session;
+        }));
+
+        return $container;
+    }
+
+    /**
+     * Set container entry.
+     *
+     * @param Container $container
+     * @param string $key
+     * @param mixed $value
+     * @return void
+     * @throws \ReflectionException
+     */
+    protected function setContainer(Container $container, string $key, $value): void
+    {
+        $class = new ReflectionClass(\Pimple\Container::class);
+
+        $property = $class->getProperty('frozen');
+        $property->setAccessible(true);
+
+        $values = $property->getValue($container);
+        unset($values[$key]);
+        $property->setValue($container, $values);
+
+        $container[$key] = $value;
     }
 }

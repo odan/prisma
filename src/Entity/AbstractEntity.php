@@ -26,29 +26,6 @@ abstract class AbstractEntity implements EntityInterface
     }
 
     /**
-     * Magic method.
-     *
-     * @param string $name
-     * @param mixed $value
-     * @throws RuntimeException
-     */
-    public function __set($name, $value)
-    {
-        throw new RuntimeException(sprintf("Property [%s] doesn't exist for class [%s]. Cannot set value [%s].", $name, get_class($this), $value));
-    }
-
-    /**
-     * Magic method.
-     *
-     * @param string $name
-     * @throws RuntimeException
-     */
-    public function __get($name)
-    {
-        throw new RuntimeException(sprintf("Property [%s] doesn't exist for class [%s].", $name, get_class($this)));
-    }
-
-    /**
      * Hydrate array to object.
      *
      * @param stdClass|mixed $source
@@ -67,6 +44,29 @@ abstract class AbstractEntity implements EntityInterface
         }
 
         return $destination;
+    }
+
+    /**
+     * Magic method.
+     *
+     * @param string $name
+     * @throws RuntimeException
+     */
+    public function __get($name)
+    {
+        throw new RuntimeException(sprintf("Property [%s] doesn't exist for class [%s].", $name, get_class($this)));
+    }
+
+    /**
+     * Magic method.
+     *
+     * @param string $name
+     * @param mixed $value
+     * @throws RuntimeException
+     */
+    public function __set($name, $value)
+    {
+        throw new RuntimeException(sprintf("Property [%s] doesn't exist for class [%s]. Cannot set value [%s].", $name, get_class($this), $value));
     }
 
     /**

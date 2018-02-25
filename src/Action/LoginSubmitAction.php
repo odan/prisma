@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Action;
 
 use App\Service\User\Locale;
 use Interop\Container\Exception\ContainerException;
@@ -10,9 +10,9 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * LoginController.
+ * LoginSubmitAction.
  */
-class LoginController extends AbstractController
+class LoginSubmitAction extends AbstractAction
 {
 
     /**
@@ -33,26 +33,13 @@ class LoginController extends AbstractController
     }
 
     /**
-     * User login
-     *
-     * @param Request $request
-     * @param Response $response
-     * @return ResponseInterface
-     */
-    public function loginAction(Request $request, Response $response): ResponseInterface
-    {
-        $viewData = $this->getViewData();
-        return $this->render($response, 'Login/login.twig', $viewData);
-    }
-
-    /**
      * User login submit
      *
      * @param Request $request
      * @param Response $response
      * @return ResponseInterface
      */
-    public function loginSubmitAction(Request $request, Response $response): ResponseInterface
+    public function __invoke(Request $request, Response $response): ResponseInterface
     {
         $data = $request->getParsedBody();
         $username = $data['username'];
@@ -63,22 +50,9 @@ class LoginController extends AbstractController
             $this->locale->setLanguage($user->locale);
             $url = $this->router->pathFor('root');
         } else {
-            $url =  $this->router->pathFor('login');
+            $url = $this->router->pathFor('login');
         }
 
         return $response->withRedirect($url);
-    }
-
-    /**
-     * User logout
-     *
-     * @param Request $request
-     * @param Response $response
-     * @return ResponseInterface Redirect response
-     */
-    public function logoutAction(Request $request, Response $response): ResponseInterface
-    {
-        $this->auth->clearIdentity();
-        return $response->withRedirect($this->router->pathFor('login'));
     }
 }

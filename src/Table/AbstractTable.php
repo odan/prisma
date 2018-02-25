@@ -2,8 +2,8 @@
 
 namespace App\Table;
 
-use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Connection;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use stdClass;
 
@@ -50,13 +50,13 @@ abstract class AbstractTable implements TableInterface
     }
 
     /**
-     * Return a new Query Builder instance.
+     * Returns the ID of the last inserted row or sequence value
      *
-     * @return Builder The Query Builder
+     * @return string The row ID of the last row that was inserted into the database.
      */
-    protected function newQuery(): Builder
+    public function lastInsertId(): string
     {
-        return $this->db->table($this->table);
+        return $this->db->getPdo()->lastInsertId();
     }
 
     /**
@@ -71,6 +71,16 @@ abstract class AbstractTable implements TableInterface
     }
 
     /**
+     * Return a new Query Builder instance.
+     *
+     * @return Builder The Query Builder
+     */
+    protected function newQuery(): Builder
+    {
+        return $this->db->table($this->table);
+    }
+
+    /**
      * Fetch all rows.
      *
      * @return Collection The rows
@@ -78,15 +88,5 @@ abstract class AbstractTable implements TableInterface
     protected function fetchAll()
     {
         return $this->newQuery()->get();
-    }
-
-    /**
-     * Returns the ID of the last inserted row or sequence value
-     *
-     * @return string The row ID of the last row that was inserted into the database.
-     */
-    public function lastInsertId(): string
-    {
-        return $this->db->getPdo()->lastInsertId();
     }
 }

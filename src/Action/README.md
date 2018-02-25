@@ -1,4 +1,4 @@
-#### Controller
+#### Controller actions
 
 The Controller's job is to translate incoming requests into outgoing responses. 
 In order to do this, the controller must take request data and pass it into the Service layer.

@@ -78,7 +78,7 @@ class InstallCommand extends AbstractCommand
 
             $mySqlUsername = $io->ask('Enter MySQL username:', 'root');
             $mySqlPassword = $io->ask('Enter MySQL password:', '', function ($string) {
-                return $string ? $string: '';
+                return $string ? $string : '';
             });
         }
         try {
