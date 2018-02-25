@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * ValidationContext tests
  *
- * @coversDefaultClass App\Utility\ValidationContext
+ * @coversDefaultClass \App\Utility\ValidationContext
  */
 class ValidationContextTest extends TestCase
 {
