@@ -11,8 +11,8 @@ class HomePingActionTest extends ApiTestCase
     /**
      * Test create object.
      *
-     * @covers ::pingAction
      * @covers ::__construct
+     * @covers ::__invoke
      * @return void
      * @throws \Exception
      * @throws \Slim\Exception\MethodNotAllowedException

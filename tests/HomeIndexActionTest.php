@@ -10,6 +10,8 @@ class HomeIndexActionTest extends ApiTestCase
     /**
      * Test create object.
      *
+     * @covers ::__construct
+     * @covers ::__invoke
      * @return void
      * @throws \Exception
      * @throws \Slim\Exception\MethodNotAllowedException
