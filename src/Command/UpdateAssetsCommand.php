@@ -36,7 +36,7 @@ class UpdateAssetsCommand extends AbstractCommand
         $output->writeln('Updating assets...');
 
         $settings = $this->container->get('settings');
-        $public = $cachePath = $settings['public'];
+        $public = $settings['public'];
 
         $files = [];
 

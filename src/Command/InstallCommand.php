@@ -58,7 +58,7 @@ class InstallCommand extends AbstractCommand
         };
 
         try {
-            $this->createNewDatabase($io, $output, $configPath, $root, $env);
+            return $this->createNewDatabase($io, $output, $configPath, $root, $env);
         } catch (Exception $exception) {
             $output->writeln(sprintf('<error>Unknown error: %s</error> ', $exception->getMessage()));
             return 1;
@@ -118,12 +118,12 @@ class InstallCommand extends AbstractCommand
         }
     }
 
-    protected function getPdo($host, $username, $passoword)
+    protected function getPdo($host, $username, $password)
     {
         $pdo = new PDO(
             "mysql:host=$host;charset=utf8",
             $username,
-            $passoword,
+            $password,
             array(
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_PERSISTENT => false,
@@ -134,9 +134,11 @@ class InstallCommand extends AbstractCommand
         return $pdo;
     }
 
-    protected function installDatabaseTables(OutputInterface $output, PDO $pdo, $dbNameQuoted, $root)
+    protected function installDatabaseTables(OutputInterface $output, PDO $pdo, $dbName, $root)
     {
         $output->writeln('Install database tables');
+
+        $dbNameQuoted = $this->quoteName($dbName);
         $pdo->exec("USE $dbNameQuoted;");
 
         chdir($root);
@@ -153,7 +155,12 @@ class InstallCommand extends AbstractCommand
 
     protected function createDatabase(PDO $pdo, string $dbName)
     {
-        $dbNameQuoted = "`" . str_replace("`", "``", $dbName) . "`";
+        $dbNameQuoted = $this->quoteName($dbName);
         $pdo->exec("CREATE DATABASE IF NOT EXISTS $dbNameQuoted;");
+    }
+
+    protected function quoteName($name)
+    {
+        return "`" . str_replace("`", "``", $name) . "`";
     }
 }
