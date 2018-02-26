@@ -95,11 +95,13 @@ $app->add(function (Request $request, Response $response, $next) {
         return $next($request, $response);
     }
 
+    $response = $next($request, $response);
+
     $response = $response->withHeader('Access-Control-Allow-Origin', '*');
     $response = $response->withHeader('Access-Control-Allow-Methods', $request->getHeaderLine('Access-Control-Request-Method'));
     $response = $response->withHeader('Access-Control-Allow-Headers', $request->getHeaderLine('Access-Control-Request-Headers'));
 
-    return $next($request, $response);
+    return $response;
 });
 
 // Session middleware
