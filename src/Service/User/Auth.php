@@ -103,19 +103,27 @@ class Auth
      */
     public function authenticate($username, $password)
     {
-        // Check username and password
-        $user = $this->userTable->findByUsername($username);
-
-        // User not found
-        if (empty($user)) {
+        if (!$user = $this->userTable->findByUsername($username)) {
             return null;
         }
 
-        // Credentials not valid
         if (!$this->verifyPassword($password, $user->password)) {
             return null;
         }
 
+        $this->startUserSession($user);
+
+        return $user;
+    }
+
+    /**
+     * Init user session.
+     *
+     * @param UserEntity $user
+     * @return void
+     */
+    protected function startUserSession(UserEntity $user)
+    {
         // Clear session data
         $this->session->destroy();
         $this->session->start();
@@ -125,8 +133,6 @@ class Auth
 
         // Store user settings in session
         $this->setIdentity($user);
-
-        return $user;
     }
 
     /**
