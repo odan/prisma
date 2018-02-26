@@ -7,7 +7,10 @@
                 <h1>{{ __('Users index') }}</h1>
                 <ul>
                     {% for user in users %}
-                        <li><a href="{{ path_for('users.edit', {id: user.id}) }}">{{ user.username }} {{ user.firstName }}</a></li>
+                        <li>
+                            <i class="fas fa-user"></i>
+                            <a href="{{ path_for('users.edit', {id: user.id}) }}">{{ user.username }} {{ user.firstName }}</a>
+                        </li>
                     {% endfor %}
                 </ul>
                 {% if users|length > 1 %}
