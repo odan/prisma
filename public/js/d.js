@@ -1105,8 +1105,8 @@ $d.window = function (config) {
 
     if (config.title !== false) {
         html += '<div class="modal-header">\n';
-        html += '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n';
         html += '<h4 class="modal-title">{title}&nbsp;</h4>\n';
+        html += '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n';
         html += '</div>\n';
     }
 
