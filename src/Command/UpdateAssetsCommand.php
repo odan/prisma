@@ -41,10 +41,10 @@ class UpdateAssetsCommand extends AbstractCommand
         $files = [];
 
         // Bootstrap
-        $files[] = [$public . '/css/bootstrap.css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css'];
-        $files[] = [$public . '/css/bootstrap.min.css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'];
-        $files[] = [$public . '/js/bootstrap.js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js'];
-        $files[] = [$public . '/js/bootstrap.min.js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'];
+        $files[] = [$public . '/css/bootstrap.css', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css'];
+        $files[] = [$public . '/css/bootstrap.min.css', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'];
+        $files[] = [$public . '/js/bootstrap.js', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.js'];
+        $files[] = [$public . '/js/bootstrap.min.js', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'];
 
         // jQuery
         $files[] = [$public . '/js/jquery.js', 'https://code.jquery.com/jquery-3.2.1.js'];
