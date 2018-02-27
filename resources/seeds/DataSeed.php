@@ -2,7 +2,7 @@
 
 use Phinx\Seed\AbstractSeed;
 
-class InitSeed extends AbstractSeed
+class DataSeed extends AbstractSeed
 {
     /**
      * Run Method.

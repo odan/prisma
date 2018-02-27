@@ -152,6 +152,12 @@
         </exec>
     </target>
 
+    <target name="refresh-database" description="Run all migrations">
+        <antcall target="reset-database"></antcall>
+        <antcall target="migrate-database"></antcall>
+        <antcall target="seed-database"></antcall>
+    </target>
+
     <target name="check-all" depends="lint,phpstan,phpunit"/>
 
     <target name="build" depends="lint,phpunit">

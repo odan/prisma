@@ -27,6 +27,7 @@
   * Entities
   * Types and Enums
   * Migrations
+  * [Data Seeding](#data-seeding)
 * Security
   * Authentication
   * Authorization
@@ -36,3 +37,26 @@
   * HTTP Tests
   * Database Testing
   * Mocking
+  
+  
+##  Database
+
+### Data Seeding
+
+To populate the database with data for testing and experimenting with the code. Run:
+
+```
+ant reset-database
+ant migrate-database
+ant seed-database
+```
+
+To edit how the data is seeded check the file: `resources\seeds\DataSeed`.
+
+The command `ant refresh-database` will rollback all migrations, migrate the database and seed the data. 
+
+Note: all data will be lost from the database.
+
+```
+ant refresh-database
+```
