@@ -8,9 +8,10 @@ cache.properties
 .vscode
 
 .env
+public/.env
+
 env.php
 config/env.php
-public/env.php
 
 !public/assets/
 public/assets/*
