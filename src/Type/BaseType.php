@@ -23,6 +23,7 @@ class BaseType
     public static function exists($typeValue): bool
     {
         $class = new ReflectionClass(static::class);
+
         return in_array($typeValue, $class->getConstants());
     }
 

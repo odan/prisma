@@ -33,7 +33,7 @@ class MigrateDatabaseCommand extends AbstractCommand
     {
         system('php vendor/robmorgan/phinx/bin/phinx migrate', $errorLevel);
 
-        if($errorLevel) {
+        if ($errorLevel) {
             $output->writeln(sprintf('<error>The command failed</error>'));
         }
 

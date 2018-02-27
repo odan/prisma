@@ -51,7 +51,7 @@ php cli.php seed-database
 
 To edit how the data is seeded check the file: `resources\seeds\DataSeed`.
 
-The command `ant refresh-database` will rollback all migrations, migrate the database and seed the data. 
+The command `refresh-database` will rollback all migrations, migrate the database and seed the data. 
 
 Note: all data will be lost from the database.
 

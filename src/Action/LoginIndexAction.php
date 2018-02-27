@@ -22,6 +22,7 @@ class LoginIndexAction extends AbstractAction
     public function __invoke(Request $request, Response $response): ResponseInterface
     {
         $viewData = $this->getViewData();
+
         return $this->render($response, 'Login/login.twig', $viewData);
     }
 }

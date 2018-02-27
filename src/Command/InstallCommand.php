@@ -61,6 +61,7 @@ class InstallCommand extends AbstractCommand
             return $this->createNewDatabase($io, $output, $configPath, $root, $env);
         } catch (Exception $exception) {
             $output->writeln(sprintf('<error>Unknown error: %s</error> ', $exception->getMessage()));
+
             return 1;
         }
     }
@@ -88,10 +89,12 @@ class InstallCommand extends AbstractCommand
             // MySQL setup
             if (!$mySqlHost = $io->ask('Enter MySQL host', '127.0.0.1')) {
                 $output->writeln('Aborted');
+
                 return 1;
             }
             if (!$mySqlDatabase = $io->ask('Enter MySQL database name', 'prisma')) {
                 $output->writeln('Aborted');
+
                 return 1;
             }
 
@@ -115,6 +118,7 @@ class InstallCommand extends AbstractCommand
             return 0;
         } catch (PDOException $ex) {
             $output->writeln(sprintf('<error>Database error: %s</error> ', $ex->getMessage()));
+
             return 1;
         }
     }
@@ -133,6 +137,25 @@ class InstallCommand extends AbstractCommand
         );
 
         return $pdo;
+    }
+
+    protected function createDatabase(PDO $pdo, string $dbName)
+    {
+        $dbNameQuoted = $this->quoteName($dbName);
+        $pdo->exec("CREATE DATABASE IF NOT EXISTS $dbNameQuoted;");
+    }
+
+    protected function quoteName($name)
+    {
+        return "`" . str_replace("`", "``", $name) . "`";
+    }
+
+    protected function updateDevelopmentSettings(OutputInterface $output, $dbName, $username, $password, $configPath)
+    {
+        $output->writeln('Update development configuration');
+        file_put_contents($configPath . '/development.php', str_replace('{{db_database}}', $dbName, file_get_contents($configPath . '/development.php')));
+        file_put_contents($configPath . '/env.php', str_replace('{{db_username}}', $username, file_get_contents($configPath . '/env.php')));
+        file_put_contents($configPath . '/env.php', str_replace('{{db_password}}', $password, file_get_contents($configPath . '/env.php')));
     }
 
     protected function installDatabaseTables(OutputInterface $output, PDO $pdo, $dbName, $root)
@@ -155,24 +178,5 @@ class InstallCommand extends AbstractCommand
 
         chdir($root);
         system('php vendor/robmorgan/phinx/bin/phinx seed:run');
-    }
-
-    protected function updateDevelopmentSettings(OutputInterface $output, $dbName, $username, $password, $configPath)
-    {
-        $output->writeln('Update development configuration');
-        file_put_contents($configPath . '/development.php', str_replace('{{db_database}}', $dbName, file_get_contents($configPath . '/development.php')));
-        file_put_contents($configPath . '/env.php', str_replace('{{db_username}}', $username, file_get_contents($configPath . '/env.php')));
-        file_put_contents($configPath . '/env.php', str_replace('{{db_password}}', $password, file_get_contents($configPath . '/env.php')));
-    }
-
-    protected function createDatabase(PDO $pdo, string $dbName)
-    {
-        $dbNameQuoted = $this->quoteName($dbName);
-        $pdo->exec("CREATE DATABASE IF NOT EXISTS $dbNameQuoted;");
-    }
-
-    protected function quoteName($name)
-    {
-        return "`" . str_replace("`", "``", $name) . "`";
     }
 }

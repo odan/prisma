@@ -117,6 +117,18 @@ class Auth
     }
 
     /**
+     * Returns true if password and hash is valid
+     *
+     * @param string $password
+     * @param string $hash
+     * @return bool
+     */
+    public function verifyPassword($password, $hash): bool
+    {
+        return password_verify($password, $hash);
+    }
+
+    /**
      * Init user session.
      *
      * @param UserEntity $user
@@ -133,18 +145,6 @@ class Auth
 
         // Store user settings in session
         $this->setIdentity($user);
-    }
-
-    /**
-     * Returns true if password and hash is valid
-     *
-     * @param string $password
-     * @param string $hash
-     * @return bool
-     */
-    public function verifyPassword($password, $hash): bool
-    {
-        return password_verify($password, $hash);
     }
 
     /**

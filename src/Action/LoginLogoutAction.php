@@ -22,6 +22,7 @@ class LoginLogoutAction extends AbstractAction
     public function __invoke(Request $request, Response $response): ResponseInterface
     {
         $this->auth->clearIdentity();
+
         return $response->withRedirect($this->router->pathFor('login'));
     }
 }

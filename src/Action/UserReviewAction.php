@@ -25,6 +25,7 @@ class UserReviewAction extends AbstractAction
         $id = $args['id'];
 
         $response->getBody()->write("Action: Show all reviews of user: $id<br>");
+
         return $response;
     }
 }
