@@ -85,10 +85,10 @@ php cli.php install
 │   └── twig-cache          # Internal twig cache
 ├── vendor                  # Reserved for composer
 ├── build.xml               # Ant build tasks
-├── composer.json
-├── cli.ph                  # Command line tool (php cli.php)
-├── LICENSE
-└── README.md
+├── composer.json           # Project dependencies
+├── cli.php                 # Command line tool (php cli.php)
+├── LICENSE                 # The license
+└── README.md               # This file
 ```
 
 ## Routing
