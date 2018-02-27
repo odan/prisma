@@ -110,13 +110,13 @@ This skeleton project provides console access for **[Phinx](https://phinx.org/)*
 To create a new migration manually:
 
 ```bash
-$ php cli.php phinx create MyNewMigration
+$ php vendor/robmorgan/phinx/bin/phinx create NewMigration
 ```
 
 To generate a new migration automatically:
 
 ```bash
-$ php cli.php phinx generate
+$ php cli.php generate-migration
 ```
 
 For more details how to create and manage migrations read the [Phinx](http://docs.phinx.org/en/latest/) documentation.
