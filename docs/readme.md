@@ -58,3 +58,19 @@ Note: all data will be lost from the database.
 ```
 php cli.php refresh-database
 ```
+
+## Deployment
+
+### Continuous Delivery
+
+You can build artifact's (ZIP files) which are tested and ready for deployment.
+
+``` bash
+$ ant build
+```
+
+Upload to production:
+
+``` bash
+$ ant deploy
+```
