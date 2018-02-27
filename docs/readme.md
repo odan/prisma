@@ -46,8 +46,6 @@
 To populate the database with data for testing and experimenting with the code. Run:
 
 ```
-ant reset-database
-ant migrate-database
 ant seed-database
 ```
 
