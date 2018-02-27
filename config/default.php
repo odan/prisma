@@ -70,9 +70,17 @@ $config['locale'] = [
     'domain' => 'messages',
 ];
 
-// Database migration settings
-$config['migration'] = [
-    'path' => $config['root'] . '/resources/migrations',
+// Phinx settings
+$config['phinx'] = [
+    'paths' => [
+        'migrations' => $config['root'] . '/resources/migrations',
+        'seeds' => $config['root'] . '/resources/seeds',
+    ],
+    'environments' => [
+        'default_migration_table' => "phinxlog",
+        'default_database' => "local",
+        'local' => [],
+    ]
 ];
 
 // Database settings
@@ -105,7 +113,7 @@ $config['smtp'] = [
 $config['commands'] = [
     \App\Command\ExampleCommand::class,
     \App\Command\InstallCommand::class,
-    \App\Command\PhinxCommand::class,
+    \App\Command\ResetDatabaseCommand::class,
     \App\Command\ParseTwigCommand::class,
     \App\Command\UpdateAssetsCommand::class,
 ];

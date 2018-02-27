@@ -108,6 +108,7 @@ class InstallCommand extends AbstractCommand
             $this->createDatabase($pdo, $mySqlDatabase);
             $this->updateDevelopmentSettings($output, $mySqlDatabase, $mySqlUsername, $mySqlPassword, $configPath);
             $this->installDatabaseTables($output, $pdo, $mySqlDatabase, $root);
+            $this->seedDatabaseTables($output, $pdo, $mySqlDatabase, $root);
 
             $output->writeln('<info>Setup successfully<info>');
 
@@ -142,7 +143,18 @@ class InstallCommand extends AbstractCommand
         $pdo->exec("USE $dbNameQuoted;");
 
         chdir($root);
-        system('php cli.php phinx migrate');
+        system('php vendor/robmorgan/phinx/bin/phinx migrate');
+    }
+
+    protected function seedDatabaseTables(OutputInterface $output, PDO $pdo, $dbName, $root)
+    {
+        $output->writeln('Seed database tables');
+
+        $dbNameQuoted = $this->quoteName($dbName);
+        $pdo->exec("USE $dbNameQuoted;");
+
+        chdir($root);
+        system('php vendor/robmorgan/phinx/bin/phinx seed:run');
     }
 
     protected function updateDevelopmentSettings(OutputInterface $output, $dbName, $username, $password, $configPath)

@@ -8,18 +8,16 @@ use Phinx\Migration\AbstractMigration;
 class Init extends AbstractMigration
 {
     /**
-     * Migrate Up.
+     * Change method.
      */
-    public function up()
+    public function change()
     {
-        // http://docs.phinx.org/en/latest/migrations.html#creating-a-table
-
         $table = $this->table('users', [
             'engine' => 'InnoDB',
             'collation' => 'utf8_unicode_ci',
             'comment' => '',
-                //'id' => false,
-                //'primary_key' => 'id',
+            //'id' => false,
+            //'primary_key' => 'id',
         ]);
 
         // Phinx automatically creates an auto-incrementing primary key
@@ -32,34 +30,21 @@ class Init extends AbstractMigration
         //
         // Add columns
         $table->addColumn('username', 'string', ['limit' => 255, 'null' => true, 'comment' => 'aaa'])
-                ->addColumn('password', 'string', ['limit' => 255, 'null' => true, 'comment' => ''])
-                ->addColumn('email', 'string', ['limit' => 255, 'null' => true, 'comment' => ''])
-                ->addColumn('first_name', 'string', ['limit' => 255, 'null' => true, 'comment' => ''])
-                ->addColumn('last_name', 'string', ['limit' => 255, 'null' => true, 'comment' => ''])
-                ->addColumn('role', 'string', ['limit' => 255, 'null' => true, 'comment' => ''])
-                ->addColumn('locale', 'string', ['limit' => 255, 'null' => true, 'comment' => ''])
-                ->addColumn('disabled', 'boolean', ['null' => false, 'default' => 0, 'comment' => ''])
-                ->addColumn('created_at', 'datetime', ['null' => true, 'comment' => ''])
+            ->addColumn('password', 'string', ['limit' => 255, 'null' => true, 'comment' => ''])
+            ->addColumn('email', 'string', ['limit' => 255, 'null' => true, 'comment' => ''])
+            ->addColumn('first_name', 'string', ['limit' => 255, 'null' => true, 'comment' => ''])
+            ->addColumn('last_name', 'string', ['limit' => 255, 'null' => true, 'comment' => ''])
+            ->addColumn('role', 'string', ['limit' => 255, 'null' => true, 'comment' => ''])
+            ->addColumn('locale', 'string', ['limit' => 255, 'null' => true, 'comment' => ''])
+            ->addColumn('disabled', 'boolean', ['null' => false, 'default' => 0, 'comment' => ''])
+            ->addColumn('created_at', 'datetime', ['null' => true, 'comment' => ''])
             ->addColumn('created_by', 'integer', ['null' => true, 'comment' => ''])
-                ->addColumn('updated_at', 'datetime', ['null' => true, 'comment' => ''])
+            ->addColumn('updated_at', 'datetime', ['null' => true, 'comment' => ''])
             ->addColumn('updated_by', 'integer', ['null' => true, 'comment' => ''])
-                ->addIndex(['username'], ['unique' => true])
-                ->addIndex(['created_by'])
-                ->addIndex(['updated_by'])
-                ->save();
-
-        // Insert records
-        $this->execute("insert into `users` (`id`, `username`, `password`, `disabled`, `role`, `locale`)
-            values('1','admin','$2y$10$8SCHkI4JUKJ2NA353BTHW.Kgi33HI.2C35xd/j5YUzBx05F1O4lJO','0','ROLE_ADMIN','en_US');");
-
-        $this->execute("insert into `users` (`id`, `username`, `password`, `disabled`, `role`, `locale`)
-        values('2', 'user', '$1\$X64.UA0.\$kCSxRsj3GKk7Bwy3P6xn1.', '0', 'ROLE_USER', 'de_DE');");
+            ->addIndex(['username'], ['unique' => true])
+            ->addIndex(['created_by'])
+            ->addIndex(['updated_by'])
+            ->save();
     }
 
-    /**
-     * Migrate Down.
-     */
-    public function down()
-    {
-    }
 }

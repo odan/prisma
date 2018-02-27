@@ -134,6 +134,24 @@
         </exec>
     </target>
 
+    <target name="reset-database" description="Drop all tables. (Note: all data will be lost from the database)">
+        <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
+            <arg line="${basedir}/cli.php reset-database"/>
+        </exec>
+    </target>
+
+    <target name="migrate-database" description="Run all migrations">
+        <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
+            <arg line="${basedir}/vendor/robmorgan/phinx/bin/phinx migrate"/>
+        </exec>
+    </target>
+
+    <target name="seed-database" description="Seed the data">
+        <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
+            <arg line="${basedir}/vendor/robmorgan/phinx/bin/phinx seed:run"/>
+        </exec>
+    </target>
+
     <target name="check-all" depends="lint,phpstan,phpunit"/>
 
     <target name="build" depends="lint,phpunit">
