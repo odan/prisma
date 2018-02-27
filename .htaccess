@@ -1,3 +1,9 @@
 RewriteEngine on
 RewriteRule ^$ public/ [L]
 RewriteRule (.*) public/$1 [L]
+
+# Deny access to .env (Never use .env files!)
+<Files .env>
+Order allow,deny
+Deny from all
+</Files>
