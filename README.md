@@ -31,7 +31,7 @@ Logging and Unit testing.
 * PHP 7.0+
 * Apache
 * MySQL
-* [Apache Ant](http://ant.apache.org/)
+* [Apache Ant](http://ant.apache.org/) (recommended)
 
 ## Installation
 
