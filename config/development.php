@@ -10,7 +10,7 @@ ini_set('display_errors', '1');
 // Display all errors
 $config['displayErrorDetails'] = true;
 
-$config['db']['database'] = 'prisma';
+$config['db']['database'] = '{{db_database}}';
 $config['logger']['level'] = \Monolog\Logger::DEBUG;
 $config['assets']['minify'] = 0;
 $config['locale']['cache'] = null;
