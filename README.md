@@ -56,31 +56,40 @@ php cli.php install
 
 ## Directory structure
 
-| Root-Directory | Sub-Directory | Content |
-|----------|----------|-------------|
-| build | | Artifact files |
-| config | | Configuration files |
-| docs | | Documentation and examples |
-| public | | Web server files |
-| resources | | Other resource files |
-| | assets | Raw, un-compiled assets such as LESS, SASS and JavaScript |
-| | locale | Language files (translations) |
-| | migrations | Database migration files (Phinx) |
-| src | | PHP source code (The App namespace) |
-| | Controller | Controllers and actions |
-| | Table | Table specific data mapper. Decouples the domain objects completely from the persistent storage. (Communication with the database, query methods) |
-| | Entity | Represents a row of data |
-| | Middleware | HTTP middleware |
-| | Service | Business logic |
-| | Type | Types, Enum Constants |
-| | Utility | Helper classes |
-| templates | | Twig and Mustache templates + JS and CSS
-| tests | | Test code |
-| tmp | | Temporary files |
-| | logs | Log files |
-| | twig-cache | Internal twig cache |
-| | assets-cache | Internal assets cache |
-| vendor | | Reserved for composer |
+```
+.
+├── build                   # Compiled files (artifacts)
+├── config                  # Configuration files
+├── docs                    # Documentation files
+├── public                  # Web server files
+├── resources               # Other resource files
+│   ├── assets              # Raw, un-compiled assets such as LESS, SASS and JavaScript
+│   ├── locale              # Language files (translations)
+│   ├── migrations          # Database migration files (Phinx)
+│   └── seeds               # Data seeds
+├── src                     # PHP source code (The App namespace)
+│   ├── Action              # Controller actions
+│   ├── Command             # Console commands for cli.php
+│   ├── Entity              # Represents a row of data
+│   ├── Service             # Business logic
+│   ├── Table               # Table specific data mapper. Communication with the database.
+│   ├── Type                # Types, Enum Constants
+│   └── Utility             # Helper classes
+├── templates               # Twig and Mustache templates + JS and CSS
+├── tests                   # Automated tests
+├── tmp                     # Temporary files
+│   ├── assets-cache        # Internal assets cache
+│   ├── locale-cache        # Locale cache
+│   ├── logs                # Log files
+│   ├── routes-cache        # Slim router cache files
+│   └── twig-cache          # Internal twig cache
+├── vendor                  # Reserved for composer
+├── build.xml               # Ant build tasks
+├── composer.json
+├── cli.ph                  # Command line tool (php cli.php)
+├── LICENSE
+└── README.md
+```
 
 ## Routing
 
