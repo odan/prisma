@@ -224,22 +224,6 @@
              todir="${build.ftp.username}:${build.ftp.password}@${build.ftp.host}:${build.ftp.path}"
              trust="true"/>
 
-        <!-- Execute deploy.php on the server -->
-        <!-- sshexec requires JSch
-          Download: https://netcologne.dl.sourceforge.net/project/jsch/jsch.jar/0.1.54/jsch-0.1.54.jar
-          Copy jsch-0.1.54.jar to c:\xampp\ant\lib
-
-          Run: sudo visudo
-          Add this line at the end (change “username” to your username):
-          username ALL=(ALL) NOPASSWD: ALL
-        -->
-        <sshexec host="${build.ftp.host}"
-                 username="${build.ftp.username}"
-                 password="${build.ftp.password}"
-                 command="cd ${build.ftp.path};php deploy.php ${build.filename}"
-                 trust="true"
-        />
-
         <!-- Delete build/master -->
         <!--<delete dir="${basedir}/build/master"/>-->
 
