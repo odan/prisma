@@ -118,6 +118,7 @@ $config['commands'] = [
     \App\Command\RefreshDatabaseCommand::class,
     \App\Command\GenerateMigrationCommand::class,
     \App\Command\SeedDatabaseCommand::class,
+    \App\Command\CreateMigrationCommand::class,
     \App\Command\ParseTwigCommand::class,
     \App\Command\UpdateAssetsCommand::class,
 ];
