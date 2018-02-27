@@ -129,22 +129,6 @@ You should store all sensitive information in `env.php` and add the file to your
 
 Just rename the file `env.example.php` to `env.php`.
 
-## Deployment
-
-### Continuous Delivery
-
-You can build artifact's (ZIP files) which are tested and ready for deployment.
-
-``` bash
-$ ant build
-```
-
-### Continuous Deployment
-
-``` bash
-$ ant deploy
-```
-
 ## Testing
 
 ``` bash
