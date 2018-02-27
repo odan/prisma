@@ -55,12 +55,6 @@
         </apply>
     </target>
 
-    <target name="start" description="Start PHP server">
-        <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
-            <arg line="-S 0.0.0.0:8080 -t public public/index.php"/>
-        </exec>
-    </target>
-
     <target name="phpunit" description="Run unit tests with PHPUnit">
         <exec executable="${basedir}/vendor/bin/phpunit${ext}" searchpath="true" resolveexecutable="true"
               failonerror="true" taskname="phpunit">
@@ -126,36 +120,6 @@
             <arg value="--rules=@PSR2"/>
             <arg value="--using-cache=no"/>
         </exec>
-    </target>
-
-    <target name="parse-twig" description="Parse all Twig templates">
-        <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
-            <arg line="${basedir}/bin/cli.php parse-twig"/>
-        </exec>
-    </target>
-
-    <target name="reset-database" description="Drop all tables. (Note: all data will be lost from the database)">
-        <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
-            <arg line="${basedir}/cli.php reset-database"/>
-        </exec>
-    </target>
-
-    <target name="migrate-database" description="Run all migrations">
-        <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
-            <arg line="${basedir}/vendor/robmorgan/phinx/bin/phinx migrate"/>
-        </exec>
-    </target>
-
-    <target name="seed-database" description="Seed the data">
-        <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
-            <arg line="${basedir}/vendor/robmorgan/phinx/bin/phinx seed:run"/>
-        </exec>
-    </target>
-
-    <target name="refresh-database" description="Run all migrations">
-        <antcall target="reset-database"></antcall>
-        <antcall target="migrate-database"></antcall>
-        <antcall target="seed-database"></antcall>
     </target>
 
     <target name="check-all" depends="lint,phpstan,phpunit"/>

@@ -114,6 +114,10 @@ $config['commands'] = [
     \App\Command\ExampleCommand::class,
     \App\Command\InstallCommand::class,
     \App\Command\ResetDatabaseCommand::class,
+    \App\Command\MigrateDatabaseCommand::class,
+    \App\Command\RefreshDatabaseCommand::class,
+    \App\Command\GenerateMigrationCommand::class,
+    \App\Command\SeedDatabaseCommand::class,
     \App\Command\ParseTwigCommand::class,
     \App\Command\UpdateAssetsCommand::class,
 ];
