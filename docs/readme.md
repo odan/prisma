@@ -46,7 +46,7 @@
 To populate the database with data for testing and experimenting with the code. Run:
 
 ```
-ant seed-database
+php cli.php seed-database
 ```
 
 To edit how the data is seeded check the file: `resources\seeds\DataSeed`.
@@ -56,5 +56,5 @@ The command `ant refresh-database` will rollback all migrations, migrate the dat
 Note: all data will be lost from the database.
 
 ```
-ant refresh-database
+php cli.php refresh-database
 ```
