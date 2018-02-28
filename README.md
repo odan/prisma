@@ -70,7 +70,7 @@ php cli.php install
 ├── src                     # PHP source code (The App namespace)
 │   ├── Action              # Controller actions
 │   ├── Command             # Console commands for cli.php
-│   ├── Entity              # Represents a row of data
+│   ├── Entity              # Represents individual rows or domain objects in your application
 │   ├── Service             # Business logic
 │   ├── Table               # Table specific data mapper. Communication with the database.
 │   ├── Type                # Types, Enum Constants
