@@ -13,7 +13,7 @@
   "license": "MIT",
   "require": {
     "php": "^7.1.1",
-    "illuminate/database": "^5.6",
+    "illuminate/database": "^5.5",
     "monolog/monolog": "^1.18.0",
     "odan/phinx-migrations-generator": "^2.5.0",
     "odan/slim-csrf": "^1.0.0",
