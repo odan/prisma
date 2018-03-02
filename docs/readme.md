@@ -38,7 +38,6 @@
   * Database Testing
   * Mocking
   
-  
 ##  Database
 
 ### Data Seeding
