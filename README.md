@@ -12,20 +12,6 @@ Logging and Unit testing.
 [![Total Downloads](https://img.shields.io/packagist/dt/odan/prisma.svg)](https://packagist.org/packages/odan/prisma)
 
 
-## Main packages
-
-* [slimphp/slim](https://github.com/slimphp/Slim)
-* [slim/twig-view](https://github.com/slimphp/Twig-View)
-* [odan/twig-assets](https://github.com/odan/twig-assets)
-* [odan/slim-session](https://github.com/odan/slim-session)
-* [illuminate/database](https://github.com/illuminate/database)
-* [cakephp/phinx](https://github.com/cakephp/phinx)
-* [odan/phinx-migrations-generator](https://github.com/odan/phinx-migrations-generator)
-* [symfony/translation](https://github.com/symfony/Translation)
-* [odan/twig-translation](https://github.com/odan/twig-translation)
-* [monolog/monolog](https://github.com/Seldaek/monolog)
-* [phpunit/phpunit](https://github.com/sebastianbergmann/phpunit)
-
 ## Requirements
 
 * PHP 7.0+
