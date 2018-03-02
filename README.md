@@ -14,17 +14,17 @@ Logging and Unit testing.
 
 ## Main packages
 
-* Router, Middleware, PSR-7 HTTP messages - [slimphp/slim](https://github.com/slimphp/Slim)
-* Template Engine - [slim/twig-view](https://github.com/slimphp/Twig-View)
-* Assets Cache - [odan/twig-assets](https://github.com/odan/twig-assets)
-* Sessions - [odan/slim-session](https://github.com/odan/slim-session)
-* Database Query Builder - [illuminate/database](https://github.com/illuminate/database)
-* Migrations - [cakephp/phinx](https://github.com/cakephp/phinx)
-* Migrations Generator - [odan/phinx-migrations-generator](https://github.com/odan/phinx-migrations-generator)
-* Translations - [symfony/translation](https://github.com/symfony/Translation), [odan/twig-translation](https://github.com/odan/twig-translation)
-* Logging - [monolog/monolog](https://github.com/Seldaek/monolog) 
-* Unit tests - [phpunit/phpunit](https://github.com/sebastianbergmann/phpunit)
-* Directory structure - [php-pds/skeleton](https://github.com/php-pds/skeleton)
+* [slimphp/slim](https://github.com/slimphp/Slim)
+* [slim/twig-view](https://github.com/slimphp/Twig-View)
+* [odan/twig-assets](https://github.com/odan/twig-assets)
+* [odan/slim-session](https://github.com/odan/slim-session)
+* [illuminate/database](https://github.com/illuminate/database)
+* [cakephp/phinx](https://github.com/cakephp/phinx)
+* [odan/phinx-migrations-generator](https://github.com/odan/phinx-migrations-generator)
+* [symfony/translation](https://github.com/symfony/Translation)
+* [odan/twig-translation](https://github.com/odan/twig-translation)
+* [monolog/monolog](https://github.com/Seldaek/monolog)
+* [phpunit/phpunit](https://github.com/sebastianbergmann/phpunit)
 
 ## Requirements
 
