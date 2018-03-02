@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use Illuminate\Support\Str;
 use RuntimeException;
-use stdClass;
 
 /**
  * Base DataSet Row
@@ -21,29 +20,28 @@ abstract class AbstractEntity implements EntityInterface
     public function __construct($values = null)
     {
         if ($values) {
-            $this->fromObject((object)$values, $this);
+            $this->fromArray((array)$values);
         }
     }
 
     /**
      * Hydrate array to object.
      *
-     * @param stdClass|mixed $source
-     * @param stdClass|mixed $destination
-     * @return stdClass|mixed $destination
+     * @param array $source
+     * @return self $destination
      */
-    private function fromObject($source, $destination)
+    private function fromArray(array $source)
     {
-        $properties = array_fill_keys(array_keys((array)get_object_vars($destination)), 1);
+        $properties = array_fill_keys(array_keys((array)get_object_vars($this)), 1);
 
         foreach ($source as $name => $value) {
             $property = Str::camel($name);
             if (isset($properties[$property])) {
-                $destination->{$property} = $value;
+                $this->{$property} = $value;
             }
         }
 
-        return $destination;
+        return $this;
     }
 
     /**

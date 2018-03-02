@@ -27,6 +27,7 @@ $app->add(function (Request $request, Response $response, $next) {
         /* @var \Slim\Router $router */
         $router = $this->get('router');
         $uri = $router->pathFor('login');
+
         return $response->withRedirect($uri);
     }
 
@@ -111,5 +112,6 @@ $app->add(function (Request $request, Response $response, $next) {
     $session->start();
     $response = $next($request, $response);
     $session->save();
+
     return $response;
 });
