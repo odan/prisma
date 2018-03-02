@@ -33,9 +33,9 @@ Run the installer script and follow the instructions:
 php cli.php install
 ```
 
-**Step 3:** Run it<br>
+**Step 3:** Run it
 
-* You don't have to start the PHP built-in web server. Just open the local url e.g. http://localhost and navigate to the page.
+* Open `http://localhost/my-app`
 * Login with username / password: `admin / admin` or `user / user`
 
 ## Documentation
