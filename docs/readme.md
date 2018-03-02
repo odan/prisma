@@ -32,8 +32,8 @@
   * Authentication
   * Authorization
   * CSRF Protection
-* Testing
-  * [Unit tests](#Testing)
+* [Testing](#testing)
+  * [Unit tests](#unit-testing)
   * HTTP Tests
   * [Database Testing](#database-testing)
   * Mocking
