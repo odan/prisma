@@ -208,8 +208,10 @@ class ParseTextCommand extends AbstractCommand
     /**
      * Get the format based in the extension.
      *
+     * @param string $prefix
      * @param string $file
-     *
+     * @param string $suffix
+     * @param int $key
      * @return string|null
      */
     private function getFunctionName($prefix, $file, $suffix, $key = 0)
@@ -222,12 +224,13 @@ class ParseTextCommand extends AbstractCommand
 
             return sprintf('%s%s%s', $prefix, $format, $suffix);
         }
+
+        return null;
     }
 
     /**
      * Returns the regular expression to detect the file format.
      *
-     * @param string
      * @return string
      */
     private function getRegex()
@@ -273,4 +276,3 @@ class ParseTextCommand extends AbstractCommand
         return $this;
     }
 }
-
