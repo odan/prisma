@@ -135,15 +135,21 @@ class ParseTextCommand extends AbstractCommand
     {
         $this->output->write('Scanning text...', true);
 
-        $this->extract(__DIR__ . '/../../tmp/twig-cache', '/.*\.php/')
-            ->extract(__DIR__ . '/../../templates/', '/.*\.js/')
-            ->extract(__DIR__ . '/../../public/js/', '/.*\.js/')//directory + regex
-            ->extract(__DIR__ . '/../../templates/', '/.*\.js/')//directory + regex
-            ->generate(__DIR__ . '/../../resources/locale/de_DE_messages.po')
-            ->generate(__DIR__ . '/../../resources/locale/de_DE_messages.mo')
+        $currentDir = getcwd();
+        chdir(__DIR__ . '/../..');
+
+        $this->extract('src')
+            ->extract('tmp/twig-cache')
+            ->extract('templates/', '/.*\.js/')
+            ->extract('public/js/', '/.*\.js/')
+            ->extract('templates/', '/.*\.js/')
+            ->generate('resources/locale/de_DE_messages.po')
+            ->generate('resources/locale/de_DE_messages.mo')
             ->process();
 
         $this->output->write('Done', true);
+
+        chdir($currentDir);
 
         return 0;
     }
