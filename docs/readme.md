@@ -18,6 +18,7 @@
 * Frontend
   * Twig Templates
   * Mustache Templates
+  * [Internationalization](#internationalization)
   * Localization
   * Compiling Assets
 * Database
@@ -79,6 +80,16 @@
 ## Routing
 
 You can define custom routes in [config/routes.php](config/routes.php). 
+
+## Internationalization
+
+To parse all the text run:
+
+```bash
+$ php cli.php parse-text
+```
+
+This command will scan your twig templates, javascripts and PHP classes for the `__()` function call and stores all text entries into the po file. You can find all po file here: `resources/locale`. Use [PoEdit](https://poedit.net/) to open and translate the po files.
 
 ## Environment configuration
 
