@@ -7,249 +7,155 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2018-03-04T19:17:05+01:00\n"
-"PO-Revision-Date: 2018-03-04T19:17:05+01:00\n"
+"POT-Creation-Date: 2018-03-04T20:10:23+01:00\n"
+"PO-Revision-Date: 2018-03-04 20:14+0100\n"
 "Language: de_DE\n"
 "X-Generator: Poedit 1.5.7\n"
 "X-Poedit-KeywordsList: __\n"
-"X-Poedit-Basepath: C:\xampp\htdocs\prisma\src\n"
+"X-Poedit-Basepath: C:\\xampp\\htdocs\\prisma\\src\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPath-1: ..	mp	wig-cache: msgid "ID"msgstr "ID"msgid "E-Mail"msgstr "E-Mail"msgid "Hello, %s"msgstr "Hallo, %s"msgid "There are %s %s users"msgstr "Es sind %s %s Benutzer"msgid "World"msgstr "Welt"msgid "Text"msgstr "Text"msgid "Admin"msgstr "Admin"msgid "Welcome"msgstr "Willkommen"msgid "WebApp"msgstr "WebApp"msgid "DEMO"msgstr "DEMO"msgid "Demo Web-App"msgstr "Demo Web-App"\n"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../templates\Home\home-index.js:49
-#: Controller/HomeController.php:109
 msgid "Current user"
 msgstr "Aktueller Benutzer"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../templates\Home\home-index.js:50
-#: Controller/HomeController.php:110
 msgid "User-ID"
 msgstr "Benutzer-ID"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../templates\Home\home-index.js:51
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\f1\f1fe4318589a0201e6c429fd4e53ef5e24ed23e04ad730af23ebdf41f4e5ed5e.php:53
-#: Controller/HomeController.php:111
-#: ..\tmp\twig-cache/f1/f1fe4318589a0201e6c429fd4e53ef5e24ed23e04ad730af23ebdf41f4e5ed5e.php:53
 msgid "Username"
 msgstr "Benutzername"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../templates\Home\home-index.js:52
 msgid "Its"
 msgstr ""
 
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.datatable.js:220
 msgid "Page {page} / {pages}"
 msgstr ""
 
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.datatable.js:224
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.datatable.js:468
 msgid "{start} - {end} of {count} items"
 msgstr ""
 
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.datatable.js:245
 msgid "Please enter the page number"
 msgstr ""
 
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.datatable.js:466
 msgid "Search"
 msgstr ""
 
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.datatable.js:467
 msgid "per Page"
 msgstr ""
 
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.js:1235
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.js:1293
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.js:1386
 msgid "OK"
 msgstr ""
 
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.js:1300
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.js:1396
-#: Controller/AbstractController.php:75
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.js:1841
 msgid "missing"
 msgstr ""
 
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.js:1859
 msgid "invalid"
 msgstr ""
 
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.upload.js:188
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.upload.js:246
 msgid "The filetype is invalid"
 msgstr ""
 
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.upload.js:193
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.upload.js:251
 msgid "The file size exceeds the limit allowed"
 msgstr ""
 
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.upload.js:198
-#: C:\xampp\htdocs\prisma\src\Command/../../public/js\d.upload.js:256
 msgid "The file could not be opened."
 msgstr ""
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\04\044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:24
-#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:24
 msgid "en"
 msgstr "de"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\04\044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:43
-#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:43
 msgid "Demo"
 msgstr "Demo"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\04\044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:84
-#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:84
 msgid "Toggle navigation"
 msgstr "Navigation umschalten"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\04\044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:92
-#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:92
 msgid "Project name"
 msgstr "Projektname"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\04\044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:99
-#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:99
 msgid "Home"
 msgstr "Home"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\04\044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:103
-#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:103
 msgid "About"
 msgstr "Über"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\04\044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:107
-#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:107
 msgid "Contact"
 msgstr "Kontakt"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\04\044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:113
-#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:113
 msgid "Dropdown"
 msgstr "Dropdown"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\04\044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:118
-#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:118
 msgid "Action"
 msgstr "Aktion"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\04\044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:122
-#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:122
 msgid "Another action"
 msgstr "Weitere Aktion"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\04\044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:126
-#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:126
 msgid "Something else here"
 msgstr "Etwas anderes"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\04\044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:131
-#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:131
 msgid "Nav header"
 msgstr "Navigation Header"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\04\044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:135
-#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:135
 msgid "Separated link"
 msgstr "Seperater link"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\04\044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:139
-#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:139
 msgid "One more separated link"
 msgstr "Noch ein seperater Link"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\04\044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:147
-#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:147
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\04\044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:151
-#: ..\tmp\twig-cache/04/044abdaccc88ebee909004e73aa7c4d8f29dccb0c7082322495d53eee9260fa0.php:151
 msgid "Logout"
 msgstr "Logout"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\33\3358e82582a2ec08f516ea63c566b4d8c932ec7a2bccd31c512a3c22fe67775f.php:52
-#: ..\tmp\twig-cache/33/3358e82582a2ec08f516ea63c566b4d8c932ec7a2bccd31c512a3c22fe67775f.php:52
 msgid "Hello World"
 msgstr "Hallo Welt"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\51\514e7e7eccb61a7325aeb3906dc57ff4d5458ee24a6538fc37428ecb511fc74c.php:36
-#: ..\tmp\twig-cache/51/514e7e7eccb61a7325aeb3906dc57ff4d5458ee24a6538fc37428ecb511fc74c.php:36
 msgid "Users index"
 msgstr "Benutzer Index"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\51\514e7e7eccb61a7325aeb3906dc57ff4d5458ee24a6538fc37428ecb511fc74c.php:66
-#: ..\tmp\twig-cache/51/514e7e7eccb61a7325aeb3906dc57ff4d5458ee24a6538fc37428ecb511fc74c.php:66
 msgid "Users"
 msgstr "Benutzer"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\51\514e7e7eccb61a7325aeb3906dc57ff4d5458ee24a6538fc37428ecb511fc74c.php:74
-#: ..\tmp\twig-cache/51/514e7e7eccb61a7325aeb3906dc57ff4d5458ee24a6538fc37428ecb511fc74c.php:74
 msgid "User"
 msgstr "Benutzer"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\5b\5b08fd5019f040c73ce73a77d008659533b66602a4ee4b8665b2cd08b3927d1b.php:36
-#: ..\tmp\twig-cache/5b/5b08fd5019f040c73ce73a77d008659533b66602a4ee4b8665b2cd08b3927d1b.php:36
-#, php-format
 msgid "Edit user: %s"
 msgstr "Benutzer bearbeiten: %s"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\f1\f1fe4318589a0201e6c429fd4e53ef5e24ed23e04ad730af23ebdf41f4e5ed5e.php:33
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\f1\f1fe4318589a0201e6c429fd4e53ef5e24ed23e04ad730af23ebdf41f4e5ed5e.php:64
-#: ..\tmp\twig-cache/f1/f1fe4318589a0201e6c429fd4e53ef5e24ed23e04ad730af23ebdf41f4e5ed5e.php:33
-#: ..\tmp\twig-cache/f1/f1fe4318589a0201e6c429fd4e53ef5e24ed23e04ad730af23ebdf41f4e5ed5e.php:64
 msgid "Sign in"
 msgstr "Einloggen"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\f1\f1fe4318589a0201e6c429fd4e53ef5e24ed23e04ad730af23ebdf41f4e5ed5e.php:49
-#: ..\tmp\twig-cache/f1/f1fe4318589a0201e6c429fd4e53ef5e24ed23e04ad730af23ebdf41f4e5ed5e.php:49
 msgid "Please sign in"
 msgstr "Bitte einloggen"
 
-#: C:\xampp\htdocs\prisma\src\Command/../../tmp/twig-cache\f1\f1fe4318589a0201e6c429fd4e53ef5e24ed23e04ad730af23ebdf41f4e5ed5e.php:57
-#: ..\tmp\twig-cache/f1/f1fe4318589a0201e6c429fd4e53ef5e24ed23e04ad730af23ebdf41f4e5ed5e.php:57
 msgid "Password"
 msgstr "Kennwort"
 
-#: Controller/AbstractController.php:74
 msgid "Ok"
 msgstr "Ok"
 
-#: Controller/AbstractController.php:76
-#: Controller/HomeController.php:56
 msgid "Yes"
 msgstr "Ja"
 
-#: Controller/AbstractController.php:77
-#: Controller/HomeController.php:56
 msgid "No"
 msgstr "Nein"
 
-#: Controller/HomeController.php:49
-#: Controller/HomeController.php:76
 msgid "Loaded successfully!"
 msgstr "Erfolgreich gestartet!"
 
-#: Controller/HomeController.php:112
 msgid "It's"
 msgstr "Es ist"
 
-#: DataMapper/UserMapper.php:61
-#, php-format
 msgid "User not found: %s"
 msgstr "Benutzer nicht gefunden: %s"
 
-#: Service/User/AuthenticationService.php:126
 msgid "Invalid or empty User-ID"
 msgstr "Ungültige oder leere User-ID"
 
-#: Type/BaseType.php:42
-#, php-format
 msgid "Invalid type ID: %s"
 msgstr "Ungültige Type-ID: %s"
