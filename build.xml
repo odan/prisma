@@ -10,7 +10,6 @@
         <format property="now_file" pattern="yyyy-MM-dd_HHmmss" locale="en,UK"/>
     </tstamp>
 
-    <!-- By default, we assume all tools to be on the $PATH -->
     <condition property="ext" value=".bat" else="">
         <os family="windows"/>
     </condition>

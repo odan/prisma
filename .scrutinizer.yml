@@ -1,18 +1,30 @@
 filter:
-    excluded_paths:
-        - "tests/"
-        - "resources/"
-        - "vendor/"
-        - "public/"
+    paths: ["src/*"]
+    excluded_paths: ["vendor/*", "tests/*", "resources/", "public/"]
+
+checks:
+    php:
+        code_rating: true
+        duplication: true
 
 tools:
     external_code_coverage:
         timeout: 600
         runs: 1
+    php_mess_detector: true
+    php_code_sniffer: true
+    sensiolabs_security_checker: true
+    php_pdepend: true
+    php_loc:
+        enabled: true
+        excluded_dirs: ["vendor/", "tests/"]
 
 build:
+    tests:
+        override:
+            command: "php -v"
     environment:
-        php: 7.1.3
+        php: 7.2
         mysql: true
         node: false
         postgresql: false
