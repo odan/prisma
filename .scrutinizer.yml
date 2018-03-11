@@ -14,6 +14,7 @@ build:
     environment:
         php: 7.1.3
         mysql: true
+        node: false,
         postgresql: false
         mongodb: false
         elasticsearch: false
