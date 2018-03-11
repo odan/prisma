@@ -8,17 +8,18 @@ use ReflectionException;
 use RuntimeException;
 
 /**
- * BaseType
+ * BaseType.
  */
 class BaseType
 {
-
     /**
      * Check if code is valid.
      *
      * @param mixed $typeValue Value
-     * @return bool True if code exists
+     *
      * @throws ReflectionException
+     *
+     * @return bool True if code exists
      */
     public static function exists($typeValue): bool
     {
@@ -31,8 +32,10 @@ class BaseType
      * Get name of constant by value.
      *
      * @param mixed $typeValue Value
-     * @return string Name
+     *
      * @throws Exception
+     *
+     * @return string Name
      */
     public static function getName($typeValue): string
     {

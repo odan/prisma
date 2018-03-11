@@ -5,7 +5,7 @@ namespace App\Test;
 use PHPUnit\Framework\TestCase;
 
 /**
- * ExampleTest
+ * ExampleTest.
  */
 class ExampleTest extends TestCase
 {

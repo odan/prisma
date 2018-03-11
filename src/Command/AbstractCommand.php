@@ -6,11 +6,10 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Command\Command;
 
 /**
- * Command
+ * Command.
  */
 abstract class AbstractCommand extends Command
 {
-
     /**
      * @var ContainerInterface
      */
@@ -20,6 +19,7 @@ abstract class AbstractCommand extends Command
      * Set container.
      *
      * @param ContainerInterface $container
+     *
      * @return void
      */
     public function setContainer(ContainerInterface $container)

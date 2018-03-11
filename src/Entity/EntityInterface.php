@@ -3,11 +3,10 @@
 namespace App\Entity;
 
 /**
- * EntityInterface
+ * EntityInterface.
  */
 interface EntityInterface
 {
-
     /**
      * Convert to array.
      *

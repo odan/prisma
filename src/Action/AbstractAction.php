@@ -13,7 +13,7 @@ use Slim\Router;
 use Slim\Views\Twig;
 
 /**
- * AbstractAction (Base class)
+ * AbstractAction (Base class).
  */
 abstract class AbstractAction
 {
@@ -51,6 +51,7 @@ abstract class AbstractAction
      * Constructor.
      *
      * @param Container $container
+     *
      * @throws ContainerException
      */
     public function __construct(Container $container)
@@ -67,13 +68,14 @@ abstract class AbstractAction
      * Get view data.
      *
      * @param array $viewData
+     *
      * @return array View data
      */
     protected function getViewData(array $viewData = []): array
     {
         $result = [
             'baseUrl' => $this->router->pathFor('root'),
-            'text' => $this->getText()
+            'text' => $this->getText(),
         ];
         if (!empty($viewData)) {
             $result = array_replace_recursive($result, $viewData);
@@ -104,6 +106,7 @@ abstract class AbstractAction
      * @param ResponseInterface $response
      * @param string $name Template file
      * @param array $viewData View data
+     *
      * @return ResponseInterface
      */
     protected function render(ResponseInterface $response, $name, array $viewData = []): ResponseInterface

@@ -7,17 +7,17 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * UserReviewAction
+ * UserReviewAction.
  */
 class UserReviewAction extends AbstractAction
 {
-
     /**
      * User review page.
      *
      * @param Request $request
      * @param Response $response
      * @param array $args
+     *
      * @return ResponseInterface Response
      */
     public function __invoke(Request $request, Response $response, $args): ResponseInterface

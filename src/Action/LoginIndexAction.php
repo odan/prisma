@@ -11,12 +11,12 @@ use Slim\Http\Response;
  */
 class LoginIndexAction extends AbstractAction
 {
-
     /**
-     * User login
+     * User login.
      *
      * @param Request $request
      * @param Response $response
+     *
      * @return ResponseInterface
      */
     public function __invoke(Request $request, Response $response): ResponseInterface

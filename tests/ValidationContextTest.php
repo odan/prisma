@@ -6,7 +6,7 @@ use App\Utility\ValidationContext;
 use PHPUnit\Framework\TestCase;
 
 /**
- * ValidationContext tests
+ * ValidationContext tests.
  *
  * @coversDefaultClass \App\Utility\ValidationContext
  */
@@ -26,14 +26,15 @@ class ValidationContextTest extends TestCase
      *
      * @covers ::setMessage
      * @covers ::getMessage
+     *
      * @return void
      */
     public function testValidationContext()
     {
         $val = new ValidationContext();
-        $val->setMessage("test");
+        $val->setMessage('test');
         $resultText = $val->getMessage();
-        $this->assertSame("test", $resultText);
+        $this->assertSame('test', $resultText);
     }
 
     /**
@@ -42,12 +43,13 @@ class ValidationContextTest extends TestCase
      *
      * @covers ::addError
      * @covers ::failed
+     *
      * @return void
      */
     public function testValidationContextErrors()
     {
         $val = new ValidationContext();
-        $val->addError("error1", "failed");
+        $val->addError('error1', 'failed');
         $result = $val->failed();
         $this->assertTrue($result);
     }
@@ -58,12 +60,13 @@ class ValidationContextTest extends TestCase
      *
      * @covers ::addError
      * @covers ::failed
+     *
      * @return void
      */
     public function testValidationContextErrorsEmptyFieldOne()
     {
         $val = new ValidationContext();
-        $val->addError("", "failed");
+        $val->addError('', 'failed');
         $result = $val->failed();
         $this->assertTrue($result);
     }
@@ -74,12 +77,13 @@ class ValidationContextTest extends TestCase
      *
      * @covers ::addError
      * @covers ::failed
+     *
      * @return void
      */
     public function testValidationContextErrorsEmptyFieldTwo()
     {
         $val = new ValidationContext();
-        $val->addError("error1", "");
+        $val->addError('error1', '');
         $result = $val->failed();
         $this->assertTrue($result);
     }
@@ -90,12 +94,13 @@ class ValidationContextTest extends TestCase
      *
      * @covers ::addError
      * @covers ::failed
+     *
      * @return void
      */
     public function testValidationContextErrorsEmptyBoth()
     {
         $val = new ValidationContext();
-        $val->addError("", "");
+        $val->addError('', '');
         $result = $val->failed();
         $this->assertTrue($result);
     }
@@ -106,12 +111,13 @@ class ValidationContextTest extends TestCase
      *
      * @covers ::addError
      * @covers ::failed
+     *
      * @return void
      */
     public function testValidationContextErrorsNullOne()
     {
         $val = new ValidationContext();
-        $val->addError(null, "failed");
+        $val->addError(null, 'failed');
         $result = $val->failed();
         $this->assertTrue($result);
     }
@@ -122,12 +128,13 @@ class ValidationContextTest extends TestCase
      *
      * @covers ::addError
      * @covers ::failed
+     *
      * @return void
      */
     public function testValidationContextErrorsNullTwo()
     {
         $val = new ValidationContext();
-        $val->addError("failed", null);
+        $val->addError('failed', null);
         $result = $val->failed();
         $this->assertTrue($result);
     }
@@ -137,6 +144,7 @@ class ValidationContextTest extends TestCase
      * Tests for no errors.
      *
      * @covers ::failed
+     *
      * @return void
      */
     public function testValidationContextNoErrors()
@@ -151,13 +159,14 @@ class ValidationContextTest extends TestCase
      *
      * @covers ::__construct
      * @covers ::getMessage
+     *
      * @return void
      */
     public function testValidationContextConstructor()
     {
-        $val = new ValidationContext("Error");
+        $val = new ValidationContext('Error');
         $result = $val->getMessage();
-        $this->assertSame($result, "Error");
+        $this->assertSame($result, 'Error');
     }
 
     /**
@@ -167,12 +176,13 @@ class ValidationContextTest extends TestCase
      * @covers ::failed
      * @covers ::clear
      * @covers ::__construct
+     *
      * @return void
      */
     public function testValidationContextClear()
     {
-        $val = new ValidationContext("Error");
-        $val->addError("error", "error");
+        $val = new ValidationContext('Error');
+        $val->addError('error', 'error');
         $val->clear();
         $result = $val->failed();
         $this->assertFalse($result);
@@ -182,13 +192,14 @@ class ValidationContextTest extends TestCase
      * Tests getErrors function.
      *
      * @covers ::getErrors
+     *
      * @return void
      */
     public function testValidationContextGetErrors()
     {
         $val = new ValidationContext();
-        $errorFieldName = "ERROR";
-        $errorMessage = "This is an error!";
+        $errorFieldName = 'ERROR';
+        $errorMessage = 'This is an error!';
         $val->addError($errorFieldName, $errorMessage);
         $result = $val->getErrors();
         $this->assertSame($result[0]['field'], $errorFieldName);
@@ -201,18 +212,19 @@ class ValidationContextTest extends TestCase
      * @covers ::toArray
      * @covers ::addError
      * @covers ::__construct
+     *
      * @return void
      */
     public function testValidationContextToArray()
     {
-        $val = new ValidationContext("Errors");
-        $val->addError("error1", "error");
-        $val->addError("error2", "error");
+        $val = new ValidationContext('Errors');
+        $val->addError('error1', 'error');
+        $val->addError('error2', 'error');
         $result = $val->toArray();
-        $this->assertSame($result['message'], "Errors");
-        $this->assertSame($result['errors'][0]['field'], "error1");
-        $this->assertSame($result['errors'][0]['message'], "error");
-        $this->assertSame($result['errors'][1]['field'], "error2");
-        $this->assertSame($result['errors'][1]['message'], "error");
+        $this->assertSame($result['message'], 'Errors');
+        $this->assertSame($result['errors'][0]['field'], 'error1');
+        $this->assertSame($result['errors'][0]['message'], 'error');
+        $this->assertSame($result['errors'][1]['field'], 'error2');
+        $this->assertSame($result['errors'][1]['message'], 'error');
     }
 }

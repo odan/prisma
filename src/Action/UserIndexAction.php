@@ -10,7 +10,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * UserIndexAction
+ * UserIndexAction.
  */
 class UserIndexAction extends AbstractAction
 {
@@ -23,6 +23,7 @@ class UserIndexAction extends AbstractAction
      * Constructor.
      *
      * @param Container $container
+     *
      * @throws ContainerException
      */
     public function __construct(Container $container)
@@ -32,10 +33,11 @@ class UserIndexAction extends AbstractAction
     }
 
     /**
-     * Index
+     * Index.
      *
      * @param Request $request
      * @param Response $response
+     *
      * @return ResponseInterface The new response
      */
     public function __invoke(Request $request, Response $response): ResponseInterface
@@ -43,7 +45,7 @@ class UserIndexAction extends AbstractAction
         $users = $this->userTable->findAll();
 
         $viewData = $this->getViewData([
-            'users' => $users
+            'users' => $users,
         ]);
 
         return $this->render($response, 'User/user-index.twig', $viewData);

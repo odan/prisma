@@ -14,7 +14,6 @@ use Slim\Http\Response;
  */
 class LoginSubmitAction extends AbstractAction
 {
-
     /**
      * @var Locale
      */
@@ -24,6 +23,7 @@ class LoginSubmitAction extends AbstractAction
      * Constructor.
      *
      * @param Container $container
+     *
      * @throws ContainerException
      */
     public function __construct(Container $container)
@@ -33,10 +33,11 @@ class LoginSubmitAction extends AbstractAction
     }
 
     /**
-     * User login submit
+     * User login submit.
      *
      * @param Request $request
      * @param Response $response
+     *
      * @return ResponseInterface
      */
     public function __invoke(Request $request, Response $response): ResponseInterface

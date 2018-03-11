@@ -3,11 +3,10 @@
 namespace App\Utility;
 
 /**
- * Class ValidationContext
+ * Class ValidationContext.
  */
 class ValidationContext
 {
-
     /**
      * @var null|string
      */
@@ -42,6 +41,7 @@ class ValidationContext
      * Set message.
      *
      * @param string $message Main Message
+     *
      * @return void
      */
     public function setMessage(string $message): void
@@ -54,13 +54,14 @@ class ValidationContext
      *
      * @param string|int $field Error field name
      * @param string|null $message Error message for $field
+     *
      * @return void
      */
     public function addError($field, $message): void
     {
         $this->errors[] = [
             'field' => $field,
-            'message' => $message
+            'message' => $message,
         ];
     }
 
@@ -105,7 +106,7 @@ class ValidationContext
     {
         return [
             'message' => $this->message,
-            'errors' => $this->errors
+            'errors' => $this->errors,
         ];
     }
 }

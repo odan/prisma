@@ -3,7 +3,7 @@
 namespace App\Service;
 
 /**
- * Application service
+ * Application service.
  *
  * This layer provides cohesive, high-level logic for related
  * parts of an application. This layer is invoked directly by

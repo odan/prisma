@@ -6,7 +6,7 @@ use Odan\Slim\Session\Session;
 use Symfony\Component\Translation\Translator;
 
 /**
- * Localization
+ * Localization.
  */
 class Locale
 {
@@ -19,7 +19,7 @@ class Locale
      */
     private $session;
     /**
-     * Translator
+     * Translator.
      *
      * @var Translator
      */
@@ -40,7 +40,7 @@ class Locale
     }
 
     /**
-     * Get local
+     * Get local.
      *
      * @return string|null
      */
@@ -60,10 +60,11 @@ class Locale
     }
 
     /**
-     * Change user session locale
+     * Change user session locale.
      *
      * @param string $locale e.g. en_US
      * @param string $domain e.g. messages
+     *
      * @return bool Status
      */
     public function setLanguage($locale, $domain = 'messages'): bool
@@ -76,9 +77,10 @@ class Locale
     }
 
     /**
-     * Set locale
+     * Set locale.
      *
      * @param string $locale
+     *
      * @return void
      */
     private function setLocale(string $locale): void
@@ -90,6 +92,7 @@ class Locale
      * Set text domain.
      *
      * @param string $domain
+     *
      * @return void
      */
     private function setDomain(string $domain): void
@@ -98,10 +101,11 @@ class Locale
     }
 
     /**
-     * Set locale
+     * Set locale.
      *
      * @param string $locale
      * @param string $domain
+     *
      * @return void
      */
     private function setTranslatorLocale(string $locale, string $domain = 'messages'): void

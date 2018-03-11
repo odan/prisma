@@ -3,7 +3,7 @@
 namespace App\Type;
 
 /**
- * YesNoType
+ * YesNoType.
  */
 class YesNoType extends BaseType
 {

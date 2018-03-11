@@ -6,21 +6,21 @@ use Illuminate\Support\Str;
 use RuntimeException;
 
 /**
- * Base DataSet Row
+ * Base DataSet Row.
  */
 abstract class AbstractEntity implements EntityInterface
 {
-
     /**
      * Constructor.
      *
      * BaseEntity constructor.
+     *
      * @param mixed $values
      */
     public function __construct($values = null)
     {
         if ($values) {
-            $this->fromArray((array)$values);
+            $this->fromArray((array) $values);
         }
     }
 
@@ -28,11 +28,12 @@ abstract class AbstractEntity implements EntityInterface
      * Hydrate array to object.
      *
      * @param array $source
+     *
      * @return self $destination
      */
     private function fromArray(array $source)
     {
-        $properties = array_fill_keys(array_keys((array)get_object_vars($this)), 1);
+        $properties = array_fill_keys(array_keys((array) get_object_vars($this)), 1);
 
         foreach ($source as $name => $value) {
             $property = Str::camel($name);
@@ -48,6 +49,7 @@ abstract class AbstractEntity implements EntityInterface
      * Magic method.
      *
      * @param string $name
+     *
      * @throws RuntimeException
      */
     public function __get($name)
@@ -60,6 +62,7 @@ abstract class AbstractEntity implements EntityInterface
      *
      * @param string $name
      * @param mixed $value
+     *
      * @throws RuntimeException
      */
     public function __set($name, $value)

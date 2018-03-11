@@ -95,32 +95,23 @@
 
     <target name="fix-style" description="Code style fixer">
         <mkdir dir="${basedir}/build"/>
-        <get src="https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v2.10.0/php-cs-fixer.phar"
-             dest="${basedir}/build/php-cs-fixer.phar" skipexisting="true"/>
-        <exec executable="php" searchpath="true" resolveexecutable="true">
+        <get src="https://cs.sensiolabs.org/download/php-cs-fixer-v2.phar" dest="${basedir}/build/php-cs-fixer.phar" skipexisting="true"/>
+        <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
             <arg value="${basedir}/build/php-cs-fixer.phar"/>
-            <arg value="fix"/>
-            <arg value="${basedir}/src/"/>
-            <arg value="--rules=@PSR2"/>
-            <arg value="--using-cache=no"/>
-        </exec>
-        <exec executable="php" searchpath="true" resolveexecutable="true">
-            <arg value="${basedir}/build/php-cs-fixer.phar"/>
-            <arg value="fix"/>
-            <arg value="${basedir}/tests/"/>
-            <arg value="--rules=@PSR2"/>
-            <arg value="--using-cache=no"/>
-        </exec>
-        <exec executable="php" searchpath="true" resolveexecutable="true">
-            <arg value="${basedir}/build/php-cs-fixer.phar"/>
-            <arg value="fix"/>
-            <arg value="${basedir}/config/"/>
-            <arg value="--rules=@PSR2"/>
-            <arg value="--using-cache=no"/>
+            <arg line="fix --config=.cs.php"/>
         </exec>
     </target>
 
-    <target name="check-all" depends="lint,phpstan,phpunit-coverage"/>
+    <target name="check-style" description="Code style checker">
+        <mkdir dir="${basedir}/build"/>
+        <get src="https://cs.sensiolabs.org/download/php-cs-fixer-v2.phar" dest="${basedir}/build/php-cs-fixer.phar" skipexisting="true"/>
+        <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
+            <arg value="${basedir}/build/php-cs-fixer.phar"/>
+            <arg line="fix --dry-run --format=txt --verbose --diff --diff-format=udiff --config=.cs.php"/>
+        </exec>
+    </target>
+
+    <target name="check-all" depends="lint,check-style,phpstan,phpunit-coverage"/>
 
     <target name="build" depends="lint,phpunit">
         <!-- Load properties -->

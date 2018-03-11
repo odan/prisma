@@ -10,7 +10,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * HomeLoadAction
+ * HomeLoadAction.
  */
 class HomeLoadAction extends AbstractAction
 {
@@ -23,6 +23,7 @@ class HomeLoadAction extends AbstractAction
      * Constructor.
      *
      * @param Container $container
+     *
      * @throws ContainerException
      */
     public function __construct(Container $container)
@@ -32,10 +33,11 @@ class HomeLoadAction extends AbstractAction
     }
 
     /**
-     * Action (Json)
+     * Action (Json).
      *
      * @param Request $request
      * @param Response $response
+     *
      * @return ResponseInterface Json response
      */
     public function __invoke(Request $request, Response $response): ResponseInterface
@@ -48,8 +50,8 @@ class HomeLoadAction extends AbstractAction
             'now' => now(),
             'user' => [
                 'id' => $user->id,
-                'username' => $user->username
-            ]
+                'username' => $user->username,
+            ],
         ];
 
         return $response->withJson($result);

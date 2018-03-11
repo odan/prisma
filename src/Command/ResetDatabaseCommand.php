@@ -7,13 +7,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Command
+ * Command.
  */
 class ResetDatabaseCommand extends AbstractCommand
 {
-
     /**
-     * Configure
+     * Configure.
      */
     protected function configure()
     {
@@ -28,9 +27,11 @@ class ResetDatabaseCommand extends AbstractCommand
      *
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return int integer 0 on success, or an error code.
+     *
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
+     *
+     * @return int integer 0 on success, or an error code
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

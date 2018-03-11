@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 use stdClass;
 
 /**
- * Table Data Mapper
+ * Table Data Mapper.
  *
  * A layer of Mappers that moves data between objects and a database
  * while keeping them independent of each other and the mapper itself.
@@ -16,21 +16,21 @@ use stdClass;
 abstract class AbstractTable implements TableInterface
 {
     /**
-     * Database connection
+     * Database connection.
      *
      * @var Connection
      */
     protected $db;
 
     /**
-     * Table name
+     * Table name.
      *
      * @var string|null
      */
     protected $table = null;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param Connection $db
      */
@@ -50,9 +50,9 @@ abstract class AbstractTable implements TableInterface
     }
 
     /**
-     * Returns the ID of the last inserted row or sequence value
+     * Returns the ID of the last inserted row or sequence value.
      *
-     * @return string The row ID of the last row that was inserted into the database.
+     * @return string the row ID of the last row that was inserted into the database
      */
     public function lastInsertId(): string
     {
@@ -63,6 +63,7 @@ abstract class AbstractTable implements TableInterface
      * Fetch row by id.
      *
      * @param int|string $id The ID
+     *
      * @return stdClass|null The row
      */
     protected function fetchById($id)

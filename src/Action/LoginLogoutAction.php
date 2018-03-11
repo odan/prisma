@@ -11,12 +11,12 @@ use Slim\Http\Response;
  */
 class LoginLogoutAction extends AbstractAction
 {
-
     /**
-     * User logout
+     * User logout.
      *
      * @param Request $request
      * @param Response $response
+     *
      * @return ResponseInterface Redirect response
      */
     public function __invoke(Request $request, Response $response): ResponseInterface

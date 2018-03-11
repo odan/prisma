@@ -7,16 +7,16 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * HomeIndexAction
+ * HomeIndexAction.
  */
 class HomeIndexAction extends AbstractAction
 {
-
     /**
-     * Index action
+     * Index action.
      *
      * @param Request $request
      * @param Response $response
+     *
      * @return ResponseInterface
      */
     public function __invoke(Request $request, Response $response): ResponseInterface
@@ -27,7 +27,7 @@ class HomeIndexAction extends AbstractAction
         $this->session->set('counter', $counter);
 
         $text = [
-            'Loaded successfully!' => __('Loaded successfully!')
+            'Loaded successfully!' => __('Loaded successfully!'),
         ];
 
         $viewData = $this->getViewData([

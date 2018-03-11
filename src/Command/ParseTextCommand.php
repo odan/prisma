@@ -17,7 +17,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Command
+ * Command.
  */
 class ParseTextCommand extends AbstractCommand
 {
@@ -55,7 +55,7 @@ class ParseTextCommand extends AbstractCommand
     }
 
     /**
-     * Configure
+     * Configure.
      */
     protected function configure()
     {
@@ -70,10 +70,12 @@ class ParseTextCommand extends AbstractCommand
      *
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return int integer 0 on success, or an error code.
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * @throws Exception
+     *
+     * @return int integer 0 on success, or an error code
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -82,12 +84,12 @@ class ParseTextCommand extends AbstractCommand
         $result = $this->compileTwig();
         if ($result) {
             return $result;
-        };
+        }
 
         $result = $this->scanText();
         if ($result) {
             return $result;
-        };
+        }
 
         return 0;
     }
@@ -95,10 +97,11 @@ class ParseTextCommand extends AbstractCommand
     /**
      * Execute command.
      *
-     * @return int integer 0 on success, or an error code.
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * @throws Exception
+     *
+     * @return int integer 0 on success, or an error code
      */
     protected function compileTwig()
     {
@@ -126,10 +129,11 @@ class ParseTextCommand extends AbstractCommand
     /**
      * Execute command.
      *
-     * @return int integer 0 on success, or an error code.
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * @throws Exception
+     *
+     * @return int integer 0 on success, or an error code
      */
     protected function scanText()
     {
@@ -212,6 +216,7 @@ class ParseTextCommand extends AbstractCommand
      * @param string $file
      * @param string $suffix
      * @param int $key
+     *
      * @return string|null
      */
     private function getFunctionName($prefix, $file, $suffix, $key = 0)

@@ -9,7 +9,7 @@ use Slim\Handlers\PhpError;
 use Throwable;
 
 /**
- * Application Error handler
+ * Application Error handler.
  */
 final class ErrorHandler extends PhpError
 {
@@ -19,7 +19,7 @@ final class ErrorHandler extends PhpError
     private $logger;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param bool $displayErrorDetails Set to true to display full details
      * @param Logger $logger The logger
@@ -31,11 +31,12 @@ final class ErrorHandler extends PhpError
     }
 
     /**
-     * Invoke
+     * Invoke.
      *
      * @param Request $request
      * @param Response $response
      * @param Throwable $exception
+     *
      * @return Response
      */
     public function __invoke(Request $request, Response $response, Throwable $exception): Response
@@ -51,6 +52,7 @@ final class ErrorHandler extends PhpError
      * Render error as Text.
      *
      * @param Throwable $error
+     *
      * @return array
      */
     protected function renderArrayError(Throwable $error): array
@@ -61,7 +63,7 @@ final class ErrorHandler extends PhpError
             'message' => $error->getMessage(),
             'file' => $error->getFile(),
             'line' => $error->getLine(),
-            'trace' => $error->getTraceAsString()
+            'trace' => $error->getTraceAsString(),
         ];
     }
 }

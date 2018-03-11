@@ -10,12 +10,13 @@ class HomeIndexActionTest extends ApiTestCase
     /**
      * Test create object.
      *
-     * @return void
-     * @covers ::__construct
-     * @covers ::__invoke
      * @throws \Exception
      * @throws \Slim\Exception\MethodNotAllowedException
      * @throws \Slim\Exception\NotFoundException
+     *
+     * @return void
+     * @covers ::__construct
+     * @covers ::__invoke
      */
     public function testIndexAction()
     {
@@ -27,7 +28,7 @@ class HomeIndexActionTest extends ApiTestCase
     }
 
     /**
-     * Test
+     * Test.
      *
      * @coversNothing
      */
@@ -36,7 +37,7 @@ class HomeIndexActionTest extends ApiTestCase
         $request = $this->createRequest('GET', '/not-existing-page');
         $response = $this->request($request);
 
-        $this->assertContains('<h1>Page Not Found</h1>', (string)$response->getBody());
+        $this->assertContains('<h1>Page Not Found</h1>', (string) $response->getBody());
         $this->assertSame(404, $response->getStatusCode());
     }
 }

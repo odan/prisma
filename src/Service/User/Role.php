@@ -3,17 +3,17 @@
 namespace App\Service\User;
 
 /**
- * UserRole
+ * UserRole.
  */
 class Role
 {
     /**
-     * Admin role
+     * Admin role.
      */
     const ROLE_ADMIN = 'ROLE_ADMIN';
 
     /**
-     * User role
+     * User role.
      */
     const ROLE_USER = 'ROLE_USER';
 }

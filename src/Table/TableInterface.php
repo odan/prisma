@@ -3,7 +3,7 @@
 namespace App\Table;
 
 /**
- * Interface
+ * Interface.
  */
 interface TableInterface
 {

@@ -7,15 +7,16 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * HomePingAction
+ * HomePingAction.
  */
 class HomePingAction extends AbstractAction
 {
     /**
-     * Action (Json)
+     * Action (Json).
      *
      * @param Request $request
      * @param Response $response
+     *
      * @return ResponseInterface Json response
      */
     public function __invoke(Request $request, Response $response): ResponseInterface

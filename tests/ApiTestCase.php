@@ -43,6 +43,7 @@ class ApiTestCase extends BaseTestCase
      *
      * @param string $method
      * @param string $url
+     *
      * @return Request
      */
     protected function createRequest(string $method, string $url): Request
@@ -64,6 +65,7 @@ class ApiTestCase extends BaseTestCase
      *
      * @param Request $request
      * @param array $data
+     *
      * @return Request
      */
     protected function withFormData(Request $request, array $data): Request
@@ -82,6 +84,7 @@ class ApiTestCase extends BaseTestCase
      *
      * @param Request $request
      * @param array $data
+     *
      * @return Request
      */
     protected function withJson(Request $request, array $data): Request
@@ -96,10 +99,12 @@ class ApiTestCase extends BaseTestCase
      * Make request.
      *
      * @param Request $request
-     * @return ResponseInterface
+     *
      * @throws Exception
      * @throws MethodNotAllowedException
      * @throws NotFoundException
+     *
+     * @return ResponseInterface
      */
     protected function request(Request $request): ResponseInterface
     {
@@ -114,8 +119,9 @@ class ApiTestCase extends BaseTestCase
     /**
      * Get container.
      *
-     * @return Container
      * @throws \ReflectionException
+     *
+     * @return Container
      */
     public function getContainer(): Container
     {
@@ -142,8 +148,10 @@ class ApiTestCase extends BaseTestCase
      * @param Container $container
      * @param string $key
      * @param mixed $value
-     * @return void
+     *
      * @throws \ReflectionException
+     *
+     * @return void
      */
     protected function setContainer(Container $container, string $key, $value): void
     {

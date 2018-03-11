@@ -8,13 +8,12 @@ use Odan\Slim\Session\Session;
 use RuntimeException;
 
 /**
- * Authentication and authorisation
+ * Authentication and authorisation.
  */
 class Auth
 {
-
     /**
-     * Session
+     * Session.
      *
      * @var Session
      */
@@ -38,7 +37,7 @@ class Auth
     }
 
     /**
-     * Returns true if and only if an identity is available from storage
+     * Returns true if and only if an identity is available from storage.
      *
      * @return bool
      */
@@ -48,7 +47,7 @@ class Auth
     }
 
     /**
-     * Clears the identity from persistent storage
+     * Clears the identity from persistent storage.
      *
      * @return void
      */
@@ -70,7 +69,7 @@ class Auth
      */
     public function getId(): string
     {
-        $result = (string)$this->getIdentity()->id;
+        $result = (string) $this->getIdentity()->id;
 
         if (empty($result)) {
             throw new RuntimeException(__('Invalid or empty User-ID'));
@@ -80,7 +79,7 @@ class Auth
     }
 
     /**
-     * Returns the identity from storage or null if no identity is available
+     * Returns the identity from storage or null if no identity is available.
      *
      * @return UserEntity
      */
@@ -99,6 +98,7 @@ class Auth
      *
      * @param string $username
      * @param string $password
+     *
      * @return UserEntity|null
      */
     public function authenticate($username, $password)
@@ -117,10 +117,11 @@ class Auth
     }
 
     /**
-     * Returns true if password and hash is valid
+     * Returns true if password and hash is valid.
      *
      * @param string $password
      * @param string $hash
+     *
      * @return bool
      */
     public function verifyPassword($password, $hash): bool
@@ -132,6 +133,7 @@ class Auth
      * Init user session.
      *
      * @param UserEntity $user
+     *
      * @return void
      */
     protected function startUserSession(UserEntity $user)
@@ -148,9 +150,10 @@ class Auth
     }
 
     /**
-     * Set the identity into storage or null if no identity is available
+     * Set the identity into storage or null if no identity is available.
      *
      * @param UserEntity $user
+     *
      * @return void
      */
     public function setIdentity(UserEntity $user)
@@ -159,9 +162,10 @@ class Auth
     }
 
     /**
-     * Returns secure password hash
+     * Returns secure password hash.
      *
      * @param string $password
+     *
      * @return string
      */
     public function createPassword($password): string
@@ -174,6 +178,7 @@ class Auth
      *
      * @param string|array $role (e.g. 'ROLE_ADMIN' or 'ROLE_USER')
      * or array('ROLE_ADMIN', 'ROLE_USER')
+     *
      * @return bool Status
      */
     public function hasRole($role): bool

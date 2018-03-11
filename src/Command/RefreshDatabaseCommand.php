@@ -6,13 +6,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Command
+ * Command.
  */
 class RefreshDatabaseCommand extends AbstractCommand
 {
-
     /**
-     * Configure
+     * Configure.
      */
     protected function configure()
     {
@@ -27,7 +26,8 @@ class RefreshDatabaseCommand extends AbstractCommand
      *
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return int integer 0 on success, or an error code.
+     *
+     * @return int integer 0 on success, or an error code
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -49,6 +49,6 @@ class RefreshDatabaseCommand extends AbstractCommand
             $output->writeln(sprintf('<error>The command failed</error>'));
         }
 
-        return (int)$errorLevel;
+        return (int) $errorLevel;
     }
 }

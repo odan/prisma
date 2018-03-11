@@ -7,16 +7,16 @@ namespace App\Test;
  */
 class HomePingActionTest extends ApiTestCase
 {
-
     /**
      * Test create object.
+     *
+     * @throws \Exception
+     * @throws \Slim\Exception\MethodNotAllowedException
+     * @throws \Slim\Exception\NotFoundException
      *
      * @return void
      * @covers ::__construct
      * @covers ::__invoke
-     * @throws \Exception
-     * @throws \Slim\Exception\MethodNotAllowedException
-     * @throws \Slim\Exception\NotFoundException
      */
     public function testPing()
     {

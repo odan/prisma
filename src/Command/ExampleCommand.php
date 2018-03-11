@@ -7,13 +7,12 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Command
+ * Command.
  */
 class ExampleCommand extends AbstractCommand
 {
-
     /**
-     * Configure
+     * Configure.
      */
     protected function configure()
     {
@@ -30,9 +29,11 @@ class ExampleCommand extends AbstractCommand
      *
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return int integer 0 on success, or an error code.
+     *
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
+     *
+     * @return int integer 0 on success, or an error code
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

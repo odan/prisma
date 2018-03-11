@@ -12,7 +12,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * UserEditAction
+ * UserEditAction.
  */
 class UserEditAction extends AbstractAction
 {
@@ -25,6 +25,7 @@ class UserEditAction extends AbstractAction
      * Constructor.
      *
      * @param Container $container
+     *
      * @throws ContainerException
      */
     public function __construct(Container $container)
@@ -34,13 +35,15 @@ class UserEditAction extends AbstractAction
     }
 
     /**
-     * Edit page
+     * Edit page.
      *
      * @param Request $request
      * @param Response $response
      * @param array $args
-     * @return ResponseInterface The new response
+     *
      * @throws Exception
+     *
+     * @return ResponseInterface The new response
      */
     public function __invoke(Request $request, Response $response, $args): ResponseInterface
     {
@@ -84,7 +87,7 @@ class UserEditAction extends AbstractAction
             'id' => $user->id,
             'username' => $user->username,
             'counter' => $counter,
-            'users' => $users
+            'users' => $users,
         ]);
 
         // Render template

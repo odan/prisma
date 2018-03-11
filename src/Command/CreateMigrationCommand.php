@@ -7,13 +7,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
- * Command
+ * Command.
  */
 class CreateMigrationCommand extends AbstractCommand
 {
-
     /**
-     * Configure
+     * Configure.
      */
     protected function configure()
     {
@@ -28,7 +27,8 @@ class CreateMigrationCommand extends AbstractCommand
      *
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return int integer 0 on success, or an error code.
+     *
+     * @return int integer 0 on success, or an error code
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -46,6 +46,6 @@ class CreateMigrationCommand extends AbstractCommand
             $output->writeln(sprintf('<error>The command failed</error>'));
         }
 
-        return (int)$errorLevel;
+        return (int) $errorLevel;
     }
 }

@@ -13,13 +13,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
- * Command
+ * Command.
  */
 class InstallCommand extends AbstractCommand
 {
-
     /**
-     * Configure
+     * Configure.
      */
     protected function configure()
     {
@@ -36,10 +35,12 @@ class InstallCommand extends AbstractCommand
      *
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return int integer 0 on success, or an error code.
+     *
      * @throws Exception
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
+     *
+     * @return int integer 0 on success, or an error code
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -55,7 +56,7 @@ class InstallCommand extends AbstractCommand
         $env = '';
         if ($input->hasOption('environment')) {
             $env = $input->getOption('environment');
-        };
+        }
 
         try {
             return $this->createNewDatabase($io, $output, $configPath, $root, $env);
@@ -129,11 +130,11 @@ class InstallCommand extends AbstractCommand
             "mysql:host=$host;charset=utf8",
             $username,
             $password,
-            array(
+            [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_PERSISTENT => false,
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8 COLLATE utf8_unicode_ci"
-            )
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8 COLLATE utf8_unicode_ci',
+            ]
         );
 
         return $pdo;
@@ -147,7 +148,7 @@ class InstallCommand extends AbstractCommand
 
     protected function quoteName($name)
     {
-        return "`" . str_replace("`", "``", $name) . "`";
+        return '`' . str_replace('`', '``', $name) . '`';
     }
 
     protected function updateDevelopmentSettings(OutputInterface $output, $dbName, $username, $password, $configPath)

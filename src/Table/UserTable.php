@@ -6,12 +6,12 @@ use App\Entity\UserEntity;
 use RuntimeException;
 
 /**
- * Users table data mapper
+ * Users table data mapper.
  */
 class UserTable extends AbstractTable
 {
     /**
-     * Table
+     * Table.
      *
      * @var string
      */
@@ -33,11 +33,13 @@ class UserTable extends AbstractTable
     }
 
     /**
-     * Get user by id
+     * Get user by id.
      *
      * @param string $id User id
-     * @return UserEntity A row
+     *
      * @throws RuntimeException On error
+     *
+     * @return UserEntity A row
      */
     public function getById(string $id): UserEntity
     {
@@ -52,6 +54,7 @@ class UserTable extends AbstractTable
      * Find entity by id.
      *
      * @param int|string $id The ID
+     *
      * @return UserEntity|null The entity
      */
     public function findById($id)
@@ -68,6 +71,7 @@ class UserTable extends AbstractTable
      * Find user by username.
      *
      * @param string $username Username
+     *
      * @return UserEntity|null User
      */
     public function findByUsername($username)
@@ -85,6 +89,7 @@ class UserTable extends AbstractTable
      * Insert or update user.
      *
      * @param UserEntity $user
+     *
      * @return int
      */
     public function saveUser(UserEntity $user)
@@ -101,6 +106,7 @@ class UserTable extends AbstractTable
      * Update user.
      *
      * @param UserEntity $user The user
+     *
      * @return int Number of affected rows
      */
     public function updateUser(UserEntity $user): int
@@ -116,17 +122,19 @@ class UserTable extends AbstractTable
      * Insert new user.
      *
      * @param UserEntity $user The user
+     *
      * @return string The new ID
      */
     public function insertUser(UserEntity $user): string
     {
-        return (string)$this->newQuery()->insertGetId($user->toArray());
+        return (string) $this->newQuery()->insertGetId($user->toArray());
     }
 
     /**
      * Delete user.
      *
      * @param int $userId The user ID
+     *
      * @return int Number of affected rows
      */
     public function deleteUser(int $userId): int
