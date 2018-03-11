@@ -68,6 +68,7 @@
         <mkdir dir="${basedir}/build/coverage"/>
         <exec executable="${basedir}/vendor/bin/phpunit${ext}" searchpath="true" resolveexecutable="true"
               failonerror="true" taskname="phpunit-coverage">
+            <arg value="--coverage-text"/>
             <arg value="--configuration"/>
             <arg path="${basedir}/phpunit.xml"/>
             <arg value="--coverage-clover"/>
