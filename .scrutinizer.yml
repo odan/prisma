@@ -3,6 +3,7 @@ filter:
         - "tests/"
         - "resources/"
         - "vendor/"
+        - "public/"
 
 tools:
     external_code_coverage:
