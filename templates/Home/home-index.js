@@ -29,7 +29,7 @@ var HomeIndex = function () {
         };
 
         $.ajax({
-            url: $d.getBaseUrl("index/load"),
+            url: $d.getBaseUrl("home/load"),
             type: "POST",
             cache: false,
             contentType: 'application/json',

@@ -8,7 +8,7 @@
 $app->get('/', \App\Action\HomeIndexAction::class)->setName('root');
 
 // Json request
-$app->post('/index/load', \App\Action\HomeLoadAction::class);
+$app->post('/home/load', \App\Action\HomeLoadAction::class);
 
 $app->any('/ping', \App\Action\HomePingAction::class)->setArgument('_auth', false)->setArgument('_csrf', false);
 
