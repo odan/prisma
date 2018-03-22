@@ -10,6 +10,7 @@ ini_set('display_errors', '1');
 // Display all errors
 $config['displayErrorDetails'] = true;
 
+$config['db']['host'] = '{{db_host}}';
 $config['db']['database'] = '{{db_database}}';
 $config['logger']['level'] = \Monolog\Logger::DEBUG;
 $config['assets']['minify'] = 0;

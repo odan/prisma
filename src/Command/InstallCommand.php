@@ -88,7 +88,7 @@ class InstallCommand extends AbstractCommand
             $mySqlPassword = '';
         } else {
             // MySQL setup
-            if (!$mySqlHost = $io->ask('Enter MySQL host', '127.0.0.1')) {
+            if (!$mySqlHost = $io->ask('Enter MySQL host', 'localhost')) {
                 $output->writeln('Aborted');
 
                 return 1;
@@ -110,7 +110,7 @@ class InstallCommand extends AbstractCommand
 
             $pdo = $this->getPdo($mySqlHost, $mySqlUsername, $mySqlPassword);
             $this->createDatabase($pdo, $mySqlDatabase);
-            $this->updateDevelopmentSettings($output, $mySqlDatabase, $mySqlUsername, $mySqlPassword, $configPath);
+            $this->updateDevelopmentSettings($output, $mySqlHost, $mySqlDatabase, $mySqlUsername, $mySqlPassword, $configPath);
             $this->installDatabaseTables($output, $pdo, $mySqlDatabase, $root);
             $this->seedDatabaseTables($output, $pdo, $mySqlDatabase, $root);
 
@@ -151,9 +151,10 @@ class InstallCommand extends AbstractCommand
         return '`' . str_replace('`', '``', $name) . '`';
     }
 
-    protected function updateDevelopmentSettings(OutputInterface $output, $dbName, $username, $password, $configPath)
+    protected function updateDevelopmentSettings(OutputInterface $output, $dbHost, $dbName, $username, $password, $configPath)
     {
         $output->writeln('Update development configuration');
+        file_put_contents($configPath . '/development.php', str_replace('{{db_host}}', $dbHost, file_get_contents($configPath . '/development.php')));
         file_put_contents($configPath . '/development.php', str_replace('{{db_database}}', $dbName, file_get_contents($configPath . '/development.php')));
         file_put_contents($configPath . '/env.php', str_replace('{{db_username}}', $username, file_get_contents($configPath . '/env.php')));
         file_put_contents($configPath . '/env.php', str_replace('{{db_password}}', $password, file_get_contents($configPath . '/env.php')));

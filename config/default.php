@@ -86,7 +86,7 @@ $config['phinx'] = [
 // Database settings
 $config['db'] = [
     'driver' => 'mysql',
-    'host' => '127.0.0.1',
+    'host' => 'localhost',
     'charset' => 'utf8',
     'collation' => 'utf8_unicode_ci',
     'flags' => [
