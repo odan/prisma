@@ -55,7 +55,7 @@ NOTE: Debian/Ubuntu use `www-data`, while CentOS uses `apache` and OSX `_www`.
 Run the installer script and follow the instructions:
 
 ```shell
-php cli.php install
+sudo php cli.php install
 ```
 
 **Step 4:** Run it
