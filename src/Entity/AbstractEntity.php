@@ -13,31 +13,27 @@ abstract class AbstractEntity implements EntityInterface
     /**
      * Constructor.
      *
-     * BaseEntity constructor.
-     *
-     * @param mixed $values
+     * @param mixed $data Data
      */
-    public function __construct($values = null)
+    public function __construct($data = null)
     {
-        if ($values) {
-            $this->fromArray((array) $values);
+        if ($data) {
+            $this->fromArray((array) $data);
         }
     }
 
     /**
      * Hydrate array to object.
      *
-     * @param array $source
+     * @param array $data Data
      *
-     * @return self $destination
+     * @return self
      */
-    private function fromArray(array $source)
+    protected function fromArray(array $data)
     {
-        $properties = array_fill_keys(array_keys((array) get_object_vars($this)), 1);
-
-        foreach ($source as $name => $value) {
+        foreach ($data as $name => $value) {
             $property = Str::camel($name);
-            if (isset($properties[$property])) {
+            if (property_exists($this, $property)) {
                 $this->{$property} = $value;
             }
         }
