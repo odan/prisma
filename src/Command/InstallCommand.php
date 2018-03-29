@@ -72,6 +72,7 @@ class InstallCommand extends AbstractCommand
      *
      * @param OutputInterface $output
      * @param string $configPath
+     *
      * @return void
      */
     protected function createEnvFile(OutputInterface $output, string $configPath): void
@@ -85,7 +86,9 @@ class InstallCommand extends AbstractCommand
      *
      * @param OutputInterface $output
      * @param string $configPath
+     *
      * @throws Exception
+     *
      * @return void
      */
     protected function generateRandomSecret(OutputInterface $output, string $configPath): void
@@ -102,6 +105,7 @@ class InstallCommand extends AbstractCommand
      * @param string $configPath
      * @param string $root
      * @param string|null $env
+     *
      * @return int
      */
     protected function createNewDatabase(SymfonyStyle $io, OutputInterface $output, string $configPath, string $root, string $env = null): int
@@ -155,6 +159,7 @@ class InstallCommand extends AbstractCommand
      * @param string $host
      * @param string $username
      * @param string $password
+     *
      * @return PDO
      */
     protected function createPdo(string $host, string $username, string $password): PDO
@@ -178,6 +183,7 @@ class InstallCommand extends AbstractCommand
      *
      * @param PDO $pdo
      * @param string $dbName
+     *
      * @return void
      */
     protected function createDatabase(PDO $pdo, string $dbName): void
@@ -190,6 +196,7 @@ class InstallCommand extends AbstractCommand
      * Quote name.
      *
      * @param string $name
+     *
      * @return string
      */
     protected function quoteName(string $name): string
@@ -206,6 +213,7 @@ class InstallCommand extends AbstractCommand
      * @param string $username
      * @param string $password
      * @param string $configPath
+     *
      * @return void
      */
     protected function updateDevelopmentSettings(OutputInterface $output, string $dbHost, string $dbName, string $username, string $password, string $configPath): void
@@ -224,6 +232,7 @@ class InstallCommand extends AbstractCommand
      * @param PDO $pdo
      * @param string $dbName
      * @param string $root
+     *
      * @return void
      */
     protected function installDatabaseTables(OutputInterface $output, PDO $pdo, string $dbName, string $root): void
@@ -244,6 +253,7 @@ class InstallCommand extends AbstractCommand
      * @param PDO $pdo
      * @param string $dbName
      * @param string $root
+     *
      * @return void
      */
     protected function seedDatabaseTables(OutputInterface $output, PDO $pdo, string $dbName, string $root): void
