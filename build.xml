@@ -35,7 +35,7 @@
         <chmod file="${basedir}/tmp/logs" perm="775"/>
 
         <delete includeemptydirs="true">
-            <fileset dir="${basedir}/public/assets">
+            <fileset dir="${basedir}/public/cache">
                 <include name="**/*"/>
                 <exclude name=".htaccess"/>
             </fileset>
