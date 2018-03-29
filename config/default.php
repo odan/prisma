@@ -47,7 +47,7 @@ $config['twig'] = [
 // Assets
 $config['assets'] = [
     // Public assets cache directory
-    'path' => $config['public'] . '/assets',
+    'path' => $config['public'] . '/cache',
     // Cache settings
     'cache_enabled' => true,
     'cache_path' => $config['temp'],
