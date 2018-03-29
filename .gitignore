@@ -1,5 +1,5 @@
-nbproject/
 .idea/
+nbproject/
 composer.phar
 composer.lock
 .DS_STORE
@@ -13,9 +13,8 @@ public/.env
 env.php
 config/env.php
 
-!public/assets/
-public/assets/*
-!public/assets/.htaccess
+vendor/
+build/
 
 !public/cache/
 public/cache/*
@@ -49,5 +48,4 @@ tmp/routes-cache/*
 tmp/twig-cache/*
 !tmp/twig-cache/empty
 
-vendor/
-build/
+
