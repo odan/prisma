@@ -35,17 +35,17 @@ cd my-app
 
 ```bash
 sudo chown -R www-data tmp/
-sudo chown -R www-data public/assets/
+sudo chown -R www-data public/cache/
 ```
 
 *Optional*
 
 NOTE: The app will have ability to create subfolders 
-in `tmp/` and `public/assets/` which means it will need 760.
+in `tmp/` and `public/cache/` which means it will need 760.
 
 ```bash
 sudo chmod -R 760 tmp/
-sudo chmod -R 760 public/assets/
+sudo chmod -R 760 public/cache/
 ```
 
 NOTE: Debian/Ubuntu use `www-data`, while CentOS uses `apache` and OSX `_www`.
