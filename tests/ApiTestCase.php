@@ -21,7 +21,7 @@ use Slim\Http\UploadedFile;
 use Slim\Http\Uri;
 
 /**
- * Class ApiTestCase
+ * Class ApiTestCase.
  */
 class ApiTestCase extends BaseTestCase
 {

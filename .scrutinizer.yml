@@ -26,7 +26,7 @@ build:
             before:
                  - php cli.php install --environment travis
     tests:
-        override:
+        before:
             -
                 command: 'vendor/bin/phpunit --coverage-clover build/logs/clover.xml'
                 coverage:
