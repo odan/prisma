@@ -24,16 +24,26 @@ class ValidationContextTest extends TestCase
     /**
      * Tests getMessage and setMessage functions.
      *
-     * @covers ::setMessage
-     * @covers ::getMessage
+     * @return void
+     */
+    public function testSetSuccessMessage()
+    {
+        $val = new ValidationContext();
+        $val->setSuccessMessage('test');
+        $resultText = $val->getSuccessMessage();
+        $this->assertSame('test', $resultText);
+    }
+
+    /**
+     * Tests getMessage and setMessage functions.
      *
      * @return void
      */
-    public function testValidationContext()
+    public function testSetErrorMessage()
     {
         $val = new ValidationContext();
-        $val->setMessage('test');
-        $resultText = $val->getMessage();
+        $val->setErrorMessage('test');
+        $resultText = $val->getErrorMessage();
         $this->assertSame('test', $resultText);
     }
 
@@ -41,12 +51,9 @@ class ValidationContextTest extends TestCase
      * Tests addError and success functions.
      * Tests addError function with two strings.
      *
-     * @covers ::addError
-     * @covers ::failed
-     *
      * @return void
      */
-    public function testValidationContextErrors()
+    public function testErrors()
     {
         $val = new ValidationContext();
         $val->addError('error1', 'failed');
@@ -58,12 +65,9 @@ class ValidationContextTest extends TestCase
      * Tests addError and success functions.
      * Tests addError function with an empty string for the first parameter.
      *
-     * @covers ::addError
-     * @covers ::failed
-     *
      * @return void
      */
-    public function testValidationContextErrorsEmptyFieldOne()
+    public function testErrorsEmptyFieldOne()
     {
         $val = new ValidationContext();
         $val->addError('', 'failed');
@@ -75,12 +79,9 @@ class ValidationContextTest extends TestCase
      * Tests addError and success functions.
      * Tests addError function with an empty string for the second parameter.
      *
-     * @covers ::addError
-     * @covers ::failed
-     *
      * @return void
      */
-    public function testValidationContextErrorsEmptyFieldTwo()
+    public function testErrorsEmptyFieldTwo()
     {
         $val = new ValidationContext();
         $val->addError('error1', '');
@@ -92,12 +93,9 @@ class ValidationContextTest extends TestCase
      * Tests addError and success functions.
      * Tests addError function with two empty strings.
      *
-     * @covers ::addError
-     * @covers ::failed
-     *
      * @return void
      */
-    public function testValidationContextErrorsEmptyBoth()
+    public function testErrorsEmptyBoth()
     {
         $val = new ValidationContext();
         $val->addError('', '');
@@ -107,47 +105,26 @@ class ValidationContextTest extends TestCase
 
     /**
      * Tests addError and success functions.
-     * Tests addError function with null for the first parameter.
-     *
-     * @covers ::addError
-     * @covers ::failed
-     *
-     * @return void
-     */
-    public function testValidationContextErrorsNullOne()
-    {
-        $val = new ValidationContext();
-        $val->addError(null, 'failed');
-        $result = $val->failed();
-        $this->assertTrue($result);
-    }
-
-    /**
-     * Tests addError and success functions.
      * Tests addError function with null for the second parameter.
      *
-     * @covers ::addError
-     * @covers ::failed
-     *
      * @return void
      */
-    public function testValidationContextErrorsNullTwo()
+    public function testErrorsWithMessage()
     {
         $val = new ValidationContext();
-        $val->addError('failed', null);
+        $val->addError('email', 'required');
         $result = $val->failed();
         $this->assertTrue($result);
+        $this->assertEquals(['field' => 'email', 'message' => 'required'], $val->getError());
     }
 
     /**
      * Tests success function.
      * Tests for no errors.
      *
-     * @covers ::failed
-     *
      * @return void
      */
-    public function testValidationContextNoErrors()
+    public function testNoErrors()
     {
         $val = new ValidationContext();
         $result = $val->failed();
@@ -157,31 +134,28 @@ class ValidationContextTest extends TestCase
     /**
      * Tests __construct function.
      *
-     * @covers ::__construct
-     * @covers ::getMessage
-     *
      * @return void
      */
-    public function testValidationContextConstructor()
+    public function testGetMessage()
     {
-        $val = new ValidationContext('Error');
-        $result = $val->getMessage();
-        $this->assertSame($result, 'Error');
+        $val = new ValidationContext();
+        $val->setErrorMessage('Check your input');
+        $val->setSuccessMessage('Successfully');
+        $this->assertSame('Successfully', $val->getMessage());
+
+        $val->addError('field', 'error message');
+        $this->assertSame('Check your input', $val->getMessage());
     }
 
     /**
      * Tests clear function.
      *
-     * @covers ::addError
-     * @covers ::failed
-     * @covers ::clear
-     * @covers ::__construct
-     *
      * @return void
      */
-    public function testValidationContextClear()
+    public function testClear()
     {
-        $val = new ValidationContext('Error');
+        $val = new ValidationContext();
+        $val->setErrorMessage('Errors');
         $val->addError('error', 'error');
         $val->clear();
         $result = $val->failed();
@@ -191,11 +165,9 @@ class ValidationContextTest extends TestCase
     /**
      * Tests getErrors function.
      *
-     * @covers ::getErrors
-     *
      * @return void
      */
-    public function testValidationContextGetErrors()
+    public function testGetErrors()
     {
         $val = new ValidationContext();
         $errorFieldName = 'ERROR';
@@ -209,15 +181,12 @@ class ValidationContextTest extends TestCase
     /**
      * Tests toArray function.
      *
-     * @covers ::toArray
-     * @covers ::addError
-     * @covers ::__construct
-     *
      * @return void
      */
-    public function testValidationContextToArray()
+    public function testToArray()
     {
-        $val = new ValidationContext('Errors');
+        $val = new ValidationContext();
+        $val->setErrorMessage('Errors');
         $val->addError('error1', 'error');
         $val->addError('error2', 'error');
         $result = $val->toArray();

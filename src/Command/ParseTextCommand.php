@@ -24,15 +24,24 @@ class ParseTextCommand extends AbstractCommand
     /**
      * @var OutputInterface
      */
-    private $output;
+    protected $output;
 
-    private $iterator;
+    /**
+     * @var MultipleIterator
+     */
+    protected $iterator;
 
-    private $targets = [];
+    /**
+     * @var array
+     */
+    protected $targets = [];
 
-    private $regex;
+    /**
+     * @var string
+     */
+    protected $regex;
 
-    private $suffixes = [
+    protected $suffixes = [
         '.blade.php' => 'Blade',
         '.csv' => 'Csv',
         '.jed.json' => 'Jed',
@@ -194,7 +203,7 @@ class ParseTextCommand extends AbstractCommand
      *
      * @param Translations $translations
      */
-    private function scan(Translations $translations)
+    protected function scan(Translations $translations)
     {
         foreach ($this->iterator as $each) {
             foreach ($each as $file) {
@@ -219,7 +228,7 @@ class ParseTextCommand extends AbstractCommand
      *
      * @return string|null
      */
-    private function getFunctionName($prefix, $file, $suffix, $key = 0)
+    protected function getFunctionName($prefix, $file, $suffix, $key = 0)
     {
         if (preg_match($this->getRegex(), strtolower($file), $matches)) {
             $format = $this->suffixes[$matches[1]];
@@ -238,7 +247,7 @@ class ParseTextCommand extends AbstractCommand
      *
      * @return string
      */
-    private function getRegex()
+    protected function getRegex()
     {
         if ($this->regex === null) {
             $this->regex = '/(' . str_replace('.', '\\.', implode('|', array_keys($this->suffixes))) . ')$/';

@@ -8,6 +8,7 @@ use Odan\Slim\Session\Session;
 use Psr\Container\ContainerInterface as Container;
 use Psr\Http\Message\ResponseInterface;
 use ReflectionClass;
+use RuntimeException;
 use Slim\App;
 use Slim\Exception\MethodNotAllowedException;
 use Slim\Exception\NotFoundException;
@@ -54,7 +55,7 @@ class ApiTestCase extends BaseTestCase
         $cookies = [];
         $serverParams = $env->all();
         $body = new RequestBody();
-        $uploadedFiles = UploadedFile::createFromEnvironment($env);
+        $uploadedFiles = (array) UploadedFile::createFromEnvironment($env);
         $request = new Request($method, $uri, $headers, $cookies, $serverParams, $body, $uploadedFiles);
 
         return $request;
@@ -111,6 +112,11 @@ class ApiTestCase extends BaseTestCase
         $container = $this->getContainer();
         $this->setContainer($container, 'request', $request);
         $this->setContainer($container, 'response', new Response());
+
+        if ($this->app === null) {
+            throw new RuntimeException('App must be initialized');
+        }
+
         $response = $this->app->run(true);
 
         return $response;
@@ -125,6 +131,10 @@ class ApiTestCase extends BaseTestCase
      */
     public function getContainer(): Container
     {
+        if ($this->app === null) {
+            throw new RuntimeException('App must be initialized');
+        }
+
         $container = $this->app->getContainer();
 
         $this->setContainer($container, Session::class, call_user_func(function () {

@@ -25,9 +25,9 @@ abstract class AbstractTable implements TableInterface
     /**
      * Table name.
      *
-     * @var string|null
+     * @var string
      */
-    protected $table = null;
+    protected $table = '';
 
     /**
      * Constructor.
