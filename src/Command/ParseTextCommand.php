@@ -41,6 +41,9 @@ class ParseTextCommand extends AbstractCommand
      */
     protected $regex;
 
+    /**
+     * @var array
+     */
     protected $suffixes = [
         '.blade.php' => 'Blade',
         '.csv' => 'Csv',
@@ -56,7 +59,12 @@ class ParseTextCommand extends AbstractCommand
         '.yaml' => 'Yaml',
     ];
 
-    public function __construct($name = null)
+    /**
+     * Constructor.
+     *
+     * @param string|null $name
+     */
+    public function __construct(string $name = null)
     {
         parent::__construct($name);
 
@@ -274,7 +282,7 @@ class ParseTextCommand extends AbstractCommand
      * Add a new source folder.
      *
      * @param string $path
-     * @param null|string $regex
+     * @param string|null $regex
      *
      * @return $this
      */

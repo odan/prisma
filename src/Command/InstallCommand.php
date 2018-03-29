@@ -67,19 +67,44 @@ class InstallCommand extends AbstractCommand
         }
     }
 
-    protected function createEnvFile(OutputInterface $output, $configPath)
+    /**
+     * Create envp.php file.
+     *
+     * @param OutputInterface $output
+     * @param string $configPath
+     * @return void
+     */
+    protected function createEnvFile(OutputInterface $output, string $configPath): void
     {
         $output->writeln('Create env.php');
         copy($configPath . '/env.example.php', $configPath . '/env.php');
     }
 
-    protected function generateRandomSecret(OutputInterface $output, $configPath)
+    /**
+     * Generate a random secret.
+     *
+     * @param OutputInterface $output
+     * @param string $configPath
+     * @throws Exception
+     * @return void
+     */
+    protected function generateRandomSecret(OutputInterface $output, string $configPath): void
     {
         $output->writeln('Generate random app secret');
         file_put_contents($configPath . '/default.php', str_replace('{{app_secret}}', bin2hex(random_bytes(20)), file_get_contents($configPath . '/default.php')));
     }
 
-    protected function createNewDatabase(SymfonyStyle $io, OutputInterface $output, string $configPath, string $root, string $env = null)
+    /**
+     * Create a new database.
+     *
+     * @param SymfonyStyle $io
+     * @param OutputInterface $output
+     * @param string $configPath
+     * @param string $root
+     * @param string|null $env
+     * @return int
+     */
+    protected function createNewDatabase(SymfonyStyle $io, OutputInterface $output, string $configPath, string $root, string $env = null): int
     {
         if ($env == 'travis') {
             $mySqlHost = '127.0.0.1';
@@ -108,7 +133,7 @@ class InstallCommand extends AbstractCommand
         try {
             $output->writeln('Create database: ' . $mySqlDatabase);
 
-            $pdo = $this->getPdo($mySqlHost, $mySqlUsername, $mySqlPassword);
+            $pdo = $this->createPdo($mySqlHost, $mySqlUsername, $mySqlPassword);
             $this->createDatabase($pdo, $mySqlDatabase);
             $this->updateDevelopmentSettings($output, $mySqlHost, $mySqlDatabase, $mySqlUsername, $mySqlPassword, $configPath);
             $this->installDatabaseTables($output, $pdo, $mySqlDatabase, $root);
@@ -124,7 +149,15 @@ class InstallCommand extends AbstractCommand
         }
     }
 
-    protected function getPdo($host, $username, $password)
+    /**
+     * Create a PDO object.
+     *
+     * @param string $host
+     * @param string $username
+     * @param string $password
+     * @return PDO
+     */
+    protected function createPdo(string $host, string $username, string $password): PDO
     {
         $pdo = new PDO(
             "mysql:host=$host;charset=utf8",
@@ -140,18 +173,42 @@ class InstallCommand extends AbstractCommand
         return $pdo;
     }
 
-    protected function createDatabase(PDO $pdo, string $dbName)
+    /**
+     * Create database.
+     *
+     * @param PDO $pdo
+     * @param string $dbName
+     * @return void
+     */
+    protected function createDatabase(PDO $pdo, string $dbName): void
     {
         $dbNameQuoted = $this->quoteName($dbName);
         $pdo->exec("CREATE DATABASE IF NOT EXISTS $dbNameQuoted;");
     }
 
-    protected function quoteName($name)
+    /**
+     * Quote name.
+     *
+     * @param string $name
+     * @return string
+     */
+    protected function quoteName(string $name): string
     {
         return '`' . str_replace('`', '``', $name) . '`';
     }
 
-    protected function updateDevelopmentSettings(OutputInterface $output, $dbHost, $dbName, $username, $password, $configPath)
+    /**
+     * Update dev settings.
+     *
+     * @param OutputInterface $output
+     * @param string $dbHost
+     * @param string $dbName
+     * @param string $username
+     * @param string $password
+     * @param string $configPath
+     * @return void
+     */
+    protected function updateDevelopmentSettings(OutputInterface $output, string $dbHost, string $dbName, string $username, string $password, string $configPath): void
     {
         $output->writeln('Update development configuration');
         file_put_contents($configPath . '/development.php', str_replace('{{db_host}}', $dbHost, file_get_contents($configPath . '/development.php')));
@@ -160,7 +217,16 @@ class InstallCommand extends AbstractCommand
         file_put_contents($configPath . '/env.php', str_replace('{{db_password}}', $password, file_get_contents($configPath . '/env.php')));
     }
 
-    protected function installDatabaseTables(OutputInterface $output, PDO $pdo, $dbName, $root)
+    /**
+     * Install database.
+     *
+     * @param OutputInterface $output
+     * @param PDO $pdo
+     * @param string $dbName
+     * @param string $root
+     * @return void
+     */
+    protected function installDatabaseTables(OutputInterface $output, PDO $pdo, string $dbName, string $root): void
     {
         $output->writeln('Install database tables');
 
@@ -171,7 +237,16 @@ class InstallCommand extends AbstractCommand
         system('php vendor/robmorgan/phinx/bin/phinx migrate');
     }
 
-    protected function seedDatabaseTables(OutputInterface $output, PDO $pdo, $dbName, $root)
+    /**
+     * Seed database tables.
+     *
+     * @param OutputInterface $output
+     * @param PDO $pdo
+     * @param string $dbName
+     * @param string $root
+     * @return void
+     */
+    protected function seedDatabaseTables(OutputInterface $output, PDO $pdo, string $dbName, string $root): void
     {
         $output->writeln('Seed database tables');
 

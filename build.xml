@@ -111,6 +111,19 @@
         </exec>
     </target>
 
+    <target name="check-docblock" description="DocBlock checker">
+        <exec executable="${basedir}/vendor/bin/docblock-checker${ext}" searchpath="true" resolveexecutable="true"
+              failonerror="true" taskname="docblock-checker">
+            <arg value="--directory"/>
+            <arg path="${basedir}/tests/"/>
+        </exec>
+        <exec executable="${basedir}/vendor/bin/docblock-checker${ext}" searchpath="true" resolveexecutable="true"
+              failonerror="true" taskname="docblock-checker">
+            <arg value="--directory"/>
+            <arg path="${basedir}/src/"/>
+        </exec>
+    </target>
+
     <target name="check-all" depends="lint,check-style,phpstan,phpunit-coverage"/>
 
     <target name="build" depends="lint,phpunit">

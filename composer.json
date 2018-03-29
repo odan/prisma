@@ -29,6 +29,7 @@
   },
   "require-dev": {
     "gettext/gettext": "^4.4",
+    "odan/docblock-checker": "^0.2.5|^1.0",
     "phpunit/phpunit": "^6.0"
   },
   "scripts": {
