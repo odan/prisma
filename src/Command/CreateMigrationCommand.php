@@ -46,6 +46,6 @@ class CreateMigrationCommand extends AbstractCommand
             $output->writeln(sprintf('<error>The command failed</error>'));
         }
 
-        return (int) $errorLevel;
+        return (int)$errorLevel;
     }
 }

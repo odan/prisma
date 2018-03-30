@@ -69,7 +69,7 @@ class Auth
      */
     public function getId(): string
     {
-        $result = (string) $this->getIdentity()->id;
+        $result = (string)$this->getIdentity()->id;
 
         if (empty($result)) {
             throw new RuntimeException(__('Invalid or empty User-ID'));

@@ -37,7 +37,7 @@ class HomeIndexActionTest extends ApiTestCase
         $request = $this->createRequest('GET', '/not-existing-page');
         $response = $this->request($request);
 
-        $this->assertContains('<h1>Page Not Found</h1>', (string) $response->getBody());
+        $this->assertContains('<h1>Page Not Found</h1>', (string)$response->getBody());
         $this->assertSame(404, $response->getStatusCode());
     }
 }

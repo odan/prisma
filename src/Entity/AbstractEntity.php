@@ -18,7 +18,7 @@ abstract class AbstractEntity implements EntityInterface
     public function __construct($data = null)
     {
         if ($data) {
-            $this->fromArray((array) $data);
+            $this->fromArray((array)$data);
         }
     }
 

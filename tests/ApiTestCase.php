@@ -58,7 +58,7 @@ class ApiTestCase extends BaseTestCase
         $cookies = [];
         $serverParams = $env->all();
         $body = new RequestBody();
-        $uploadedFiles = (array) UploadedFile::createFromEnvironment($env);
+        $uploadedFiles = (array)UploadedFile::createFromEnvironment($env);
         $request = new Request($method, $uri, $headers, $cookies, $serverParams, $body, $uploadedFiles);
 
         return $request;

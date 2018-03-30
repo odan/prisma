@@ -127,7 +127,7 @@ class UserTable extends AbstractTable
      */
     public function insertUser(UserEntity $user): string
     {
-        return (string) $this->newQuery()->insertGetId($user->toArray());
+        return (string)$this->newQuery()->insertGetId($user->toArray());
     }
 
     /**
