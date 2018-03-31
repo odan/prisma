@@ -1,18 +1,19 @@
 <?php
+
 //
 // Start with: sudo php deploy.php file_to_deploy.zip
 //
 $version = substr(sha1_file(__FILE__), 0, 7);
-echo "Deployment script version: " . $version . "\n";
+echo 'Deployment script version: ' . $version . "\n";
 if (posix_getuid() == 0) {
     echo "Check if root: OK\n";
 } else {
-    echo "Check if root: ERROR - Run: sudo php " . basename(__FILE__) . " file.zip\n";
+    echo 'Check if root: ERROR - Run: sudo php ' . basename(__FILE__) . " file.zip\n";
     exit;
 }
 if (empty($argv[1])) {
     echo "Parameter required\n";
-    echo "Run: sudo php " . basename(__FILE__) . " file.zip\n";
+    echo 'Run: sudo php ' . basename(__FILE__) . " file.zip\n";
     exit;
 }
 

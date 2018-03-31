@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Services and helper functions
+ * Services and helper functions.
  */
-
 use Symfony\Component\Translation\Translator;
 
 /**
- * Text translation (I18n)
+ * Text translation (I18n).
  *
  * @param mixed|Translator $message
+ *
  * @return string
  *
  * <code>
@@ -19,10 +19,11 @@ use Symfony\Component\Translation\Translator;
  */
 function __($message)
 {
-    /* @var Translator $translator */
-    static $translator = null;
+    /** @var Translator $translator */
+    static $translator;
     if ($message instanceof Translator) {
         $translator = $message;
+
         return '';
     }
 
@@ -31,5 +32,6 @@ function __($message)
     if (!empty($context)) {
         $translated = vsprintf($translated, $context);
     }
+
     return $translated;
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Define the Slim application routes
+ * Define the Slim application routes.
  */
 
 // Default page

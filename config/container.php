@@ -14,15 +14,15 @@ use Odan\Slim\Csrf\CsrfMiddleware;
 use Odan\Slim\Session\Adapter\MemorySessionAdapter;
 use Odan\Slim\Session\Adapter\PhpSessionAdapter;
 use Odan\Slim\Session\Session;
-use Odan\Slim\Session\SessionMiddleware;
 use Psr\Container\ContainerInterface as Container;
 use Psr\Log\LoggerInterface;
 use Slim\Views\Twig;
+use Symfony\Component\Translation\Formatter\MessageFormatter;
 use Symfony\Component\Translation\Loader\MoFileLoader;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator;
 
-/* @var \Slim\App $app */
+/** @var \Slim\App $app */
 $container = $app->getContainer();
 
 // -----------------------------------------------------------------------------
@@ -33,6 +33,7 @@ $container['environment'] = function () {
     $scriptName = $_SERVER['SCRIPT_NAME'];
     $_SERVER['REAL_SCRIPT_NAME'] = $scriptName;
     $_SERVER['SCRIPT_NAME'] = dirname(dirname($scriptName)) . '/' . basename($scriptName);
+
     return new Slim\Http\Environment($_SERVER);
 };
 
@@ -44,6 +45,7 @@ $container['environment'] = function () {
 $container['errorHandler'] = function (Container $container) {
     $displayErrorDetails = $container->get('settings')['displayErrorDetails'];
     $logger = $container->get(LoggerInterface::class);
+
     return new ErrorHandler((bool)$displayErrorDetails, $logger);
 };
 
@@ -102,12 +104,14 @@ $container[Twig::class] = function (Container $container) {
     $viewPath = $settings['twig']['path'];
 
     $twig = new Twig($viewPath, [
-        'cache' => $settings['twig']['cache_enabled'] ? $settings['twig']['cache_path'] : false
+        'cache' => $settings['twig']['cache_enabled'] ? $settings['twig']['cache_path'] : false,
     ]);
 
-    /* @var Twig_Loader_Filesystem $loader */
+    /** @var Twig_Loader_Filesystem $loader */
     $loader = $twig->getLoader();
-    $loader->addPath($settings['public'], 'public');
+    if ($loader instanceof Twig_Loader_Filesystem) {
+        $loader->addPath($settings['public'], 'public');
+    }
 
     // Add CSRF token as global template variable
     $csrfToken = $container->get(CsrfMiddleware::class)->getToken();
@@ -127,11 +131,8 @@ $container[Session::class] = function (Container $container) {
     $adapter = php_sapi_name() === 'cli' ? new MemorySessionAdapter() : new PhpSessionAdapter();
     $session = new Session($adapter);
     $session->setOptions((array)$settings['session']);
-    return $session;
-};
 
-$container[SessionMiddleware::class] = function (Container $container) {
-    return new SessionMiddleware($container->get(Session::class));
+    return $session;
 };
 
 $container[Locale::class] = function (Container $container) {
@@ -163,7 +164,7 @@ $container[CsrfMiddleware::class] = function (Container $container) {
 
 $container[Translator::class] = function (Container $container) {
     $settings = $container->get('settings')['locale'];
-    $translator = new Translator($settings['locale'], new MessageSelector(), $settings['cache']);
+    $translator = new Translator($settings['locale'], new MessageFormatter(new MessageSelector()), $settings['cache']);
     $translator->addLoader('mo', new MoFileLoader());
 
     return $translator;

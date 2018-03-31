@@ -1,4 +1,5 @@
 <?php
+
 //
 // Configure defaults for the whole application.
 //
@@ -27,7 +28,7 @@ $config['public'] = $config['root'] . '/public';
 
 // Application settings
 $config['app'] = [
-    'secret' => '{{app_secret}}'
+    'secret' => '{{app_secret}}',
 ];
 
 // Logger settings
@@ -77,10 +78,10 @@ $config['phinx'] = [
         'seeds' => $config['root'] . '/resources/seeds',
     ],
     'environments' => [
-        'default_migration_table' => "phinxlog",
-        'default_database' => "local",
+        'default_migration_table' => 'phinxlog',
+        'default_database' => 'local',
         'local' => [],
-    ]
+    ],
 ];
 
 // Database settings
@@ -95,7 +96,7 @@ $config['db'] = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         // Set default fetch mode
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    ]
+    ],
 ];
 
 // E-Mail settings
