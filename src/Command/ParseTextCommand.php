@@ -4,6 +4,7 @@ namespace App\Command;
 
 use Exception;
 use FilesystemIterator;
+use Gettext\Merge;
 use Gettext\Translations;
 use MultipleIterator;
 use Odan\Twig\TwigCompiler;
@@ -184,10 +185,12 @@ class ParseTextCommand extends AbstractCommand
             $target = $targets[0];
             $translations = new Translations();
             $this->scan($translations);
+
             if (is_file($target)) {
                 $fn = $this->getFunctionName('from', $target, 'File', 1);
-                $translations->mergeWith(Translations::$fn($target));
+                $translations = $translations->mergeWith(Translations::$fn($target), Merge::TRANSLATION_OVERRIDE | Merge::HEADERS_OVERRIDE | Merge::COMMENTS_THEIRS);
             }
+
             foreach ($targets as $target) {
                 $fn = $this->getFunctionName('to', $target, 'File', 1);
                 $dir = dirname($target);
