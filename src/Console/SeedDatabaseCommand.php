@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Command;
+namespace App\Console;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Command.
  */
-class CreateMigrationCommand extends AbstractCommand
+class SeedDatabaseCommand extends AbstractCommand
 {
     /**
      * Configure.
@@ -18,8 +17,8 @@ class CreateMigrationCommand extends AbstractCommand
     {
         parent::configure();
 
-        $this->setName('create-migration');
-        $this->setDescription('Create a new phinx migration');
+        $this->setName('seed-database');
+        $this->setDescription('Data seeding');
     }
 
     /**
@@ -32,15 +31,7 @@ class CreateMigrationCommand extends AbstractCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $io = new SymfonyStyle($input, $output);
-
-        if (!$name = $io->ask('Enter the name of the migration:')) {
-            $output->writeln('Aborted');
-
-            return 1;
-        }
-
-        system(sprintf('php vendor/robmorgan/phinx/bin/phinx create %s', $name), $errorLevel);
+        system('php vendor/robmorgan/phinx/bin/phinx seed:run', $errorLevel);
 
         if ($errorLevel) {
             $output->writeln(sprintf('<error>The command failed</error>'));

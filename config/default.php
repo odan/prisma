@@ -112,16 +112,16 @@ $config['smtp'] = [
 
 // Cli commands
 $config['commands'] = [
-    \App\Command\ExampleCommand::class,
-    \App\Command\InstallCommand::class,
-    \App\Command\ResetDatabaseCommand::class,
-    \App\Command\MigrateDatabaseCommand::class,
-    \App\Command\RefreshDatabaseCommand::class,
-    \App\Command\GenerateMigrationCommand::class,
-    \App\Command\SeedDatabaseCommand::class,
-    \App\Command\CreateMigrationCommand::class,
-    \App\Command\ParseTextCommand::class,
-    \App\Command\UpdateAssetsCommand::class,
+    \App\Console\ExampleCommand::class,
+    \App\Console\InstallCommand::class,
+    \App\Console\ResetDatabaseCommand::class,
+    \App\Console\MigrateDatabaseCommand::class,
+    \App\Console\RefreshDatabaseCommand::class,
+    \App\Console\GenerateMigrationCommand::class,
+    \App\Console\SeedDatabaseCommand::class,
+    \App\Console\CreateMigrationCommand::class,
+    \App\Console\ParseTextCommand::class,
+    \App\Console\UpdateAssetsCommand::class,
 ];
 
 return $config;

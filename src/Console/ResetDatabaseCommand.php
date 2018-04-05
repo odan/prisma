@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command;
+namespace App\Console;
 
 use PDO;
 use Symfony\Component\Console\Input\InputInterface;

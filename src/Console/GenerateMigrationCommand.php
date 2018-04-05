@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command;
+namespace App\Console;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Command.
  */
-class SeedDatabaseCommand extends AbstractCommand
+class GenerateMigrationCommand extends AbstractCommand
 {
     /**
      * Configure.
@@ -17,8 +17,8 @@ class SeedDatabaseCommand extends AbstractCommand
     {
         parent::configure();
 
-        $this->setName('seed-database');
-        $this->setDescription('Data seeding');
+        $this->setName('generate-migration');
+        $this->setDescription('Generate database migration');
     }
 
     /**
@@ -31,7 +31,7 @@ class SeedDatabaseCommand extends AbstractCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        system('php vendor/robmorgan/phinx/bin/phinx seed:run', $errorLevel);
+        system('php vendor/odan/phinx-migrations-generator/bin/phinx-migrations generate', $errorLevel);
 
         if ($errorLevel) {
             $output->writeln(sprintf('<error>The command failed</error>'));

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command;
+namespace App\Console;
 
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Command\Command;

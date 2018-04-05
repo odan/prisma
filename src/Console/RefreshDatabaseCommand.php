@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command;
+namespace App\Console;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Command.
  */
-class GenerateMigrationCommand extends AbstractCommand
+class RefreshDatabaseCommand extends AbstractCommand
 {
     /**
      * Configure.
@@ -17,8 +17,8 @@ class GenerateMigrationCommand extends AbstractCommand
     {
         parent::configure();
 
-        $this->setName('generate-migration');
-        $this->setDescription('Generate database migration');
+        $this->setName('refresh-database');
+        $this->setDescription('Reset, migrate and seed database');
     }
 
     /**
@@ -31,7 +31,19 @@ class GenerateMigrationCommand extends AbstractCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        system('php vendor/odan/phinx-migrations-generator/bin/phinx-migrations generate', $errorLevel);
+        system('php cli.php reset-database', $errorLevel);
+
+        if ($errorLevel) {
+            $output->writeln(sprintf('<error>The command failed</error>'));
+        }
+
+        system('php cli.php migrate-database', $errorLevel);
+
+        if ($errorLevel) {
+            $output->writeln(sprintf('<error>The command failed</error>'));
+        }
+
+        system('php cli.php seed-database', $errorLevel);
 
         if ($errorLevel) {
             $output->writeln(sprintf('<error>The command failed</error>'));

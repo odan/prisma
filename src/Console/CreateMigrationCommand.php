@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Command;
+namespace App\Console;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Command.
  */
-class RefreshDatabaseCommand extends AbstractCommand
+class CreateMigrationCommand extends AbstractCommand
 {
     /**
      * Configure.
@@ -17,8 +18,8 @@ class RefreshDatabaseCommand extends AbstractCommand
     {
         parent::configure();
 
-        $this->setName('refresh-database');
-        $this->setDescription('Reset, migrate and seed database');
+        $this->setName('create-migration');
+        $this->setDescription('Create a new phinx migration');
     }
 
     /**
@@ -31,19 +32,15 @@ class RefreshDatabaseCommand extends AbstractCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        system('php cli.php reset-database', $errorLevel);
+        $io = new SymfonyStyle($input, $output);
 
-        if ($errorLevel) {
-            $output->writeln(sprintf('<error>The command failed</error>'));
+        if (!$name = $io->ask('Enter the name of the migration:')) {
+            $output->writeln('Aborted');
+
+            return 1;
         }
 
-        system('php cli.php migrate-database', $errorLevel);
-
-        if ($errorLevel) {
-            $output->writeln(sprintf('<error>The command failed</error>'));
-        }
-
-        system('php cli.php seed-database', $errorLevel);
+        system(sprintf('php vendor/robmorgan/phinx/bin/phinx create %s', $name), $errorLevel);
 
         if ($errorLevel) {
             $output->writeln(sprintf('<error>The command failed</error>'));
