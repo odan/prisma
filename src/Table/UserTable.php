@@ -6,9 +6,9 @@ use App\Entity\UserEntity;
 use RuntimeException;
 
 /**
- * Users table data mapper.
+ * Users table.
  */
-class UserTable extends AbstractTable
+final class UserTable extends AbstractTable
 {
     /**
      * Table.
