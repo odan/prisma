@@ -16,6 +16,7 @@ use Odan\Slim\Session\Adapter\PhpSessionAdapter;
 use Odan\Slim\Session\Session;
 use Psr\Container\ContainerInterface as Container;
 use Psr\Log\LoggerInterface;
+use Slim\Handlers\NotFound;
 use Slim\Views\Twig;
 use Symfony\Component\Translation\Formatter\MessageFormatter;
 use Symfony\Component\Translation\Loader\MoFileLoader;
@@ -51,6 +52,13 @@ $container['errorHandler'] = function (Container $container) {
 
 $container['phpErrorHandler'] = function (Container $container) {
     return $container->get('errorHandler');
+};
+
+$container['notFoundHandler'] = function (Container $container) {
+    $logger = $container->get(LoggerInterface::class);
+    $logger->error('Error 404: Not found.', ['url' => $_SERVER['REQUEST_URI'], 'method' => $_SERVER['REQUEST_METHOD']]);
+
+    return new NotFound();
 };
 
 // -----------------------------------------------------------------------------
