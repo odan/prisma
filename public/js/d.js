@@ -1748,7 +1748,7 @@ $d.resetValidation = function (element) {
         $(this).find(":input").not(":button, :submit, :reset, :hidden").each(function () {
             // remove tooltip
             $(this).parent().find('.tooltip').remove();
-            $(this).tooltip('destroy');
+            $(this).tooltip('dispose'); // v4
 
             // default border
             $(this).css('border-color', '');
@@ -1779,15 +1779,21 @@ $d.setValidation = function (selector, style, msg, type) {
         });
     }
 
-    $(obj).removeClass('has-error has-warning has-success');
-
-    if (!empty(style)) {
-        $(obj).addClass('has-' + style);
+    if(style === 'error') {
+        $(selector).addClass('is-invalid');
+    } else {
+        $(selector).removeClass('is-invalid');
     }
 
-    var help = $(obj).find('.help-block');
+    var help = $(obj).find('.invalid-feedback');
     if (help.length) {
         $(help).text(msg);
+
+        if(style === 'error') {
+            help.show();
+        } else {
+            help.hide();
+        }
     }
 };
 
@@ -1820,7 +1826,7 @@ $d.showValidation = function (form, errors) {
  */
 $d.validateRequiredFields = function (form) {
     var boolValid = true;
-    $(form).find("[required='required']").each(function () {
+    $(form).find("[required]").each(function () {
         var elField = $(this);
         var v = '';
         var type = elField[0].type;
@@ -1839,7 +1845,7 @@ $d.validateRequiredFields = function (form) {
                 $(elField).focus();
             }
             boolValid = false;
-            $d.setValidation(elField, 'error', __('missing'));
+            $d.setValidation(elField, 'error', __('required'));
         }
     });
     return boolValid;

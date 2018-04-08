@@ -41,7 +41,7 @@
       "App\\": "src"
     },
     "files": [
-      "config/common.php"
+      "src/Utility/common.php"
     ]
   },
   "autoload-dev": {
