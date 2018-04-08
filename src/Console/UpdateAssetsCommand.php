@@ -47,6 +47,12 @@ class UpdateAssetsCommand extends AbstractCommand
         $files[] = [$public . '/js/bootstrap.js', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.js'];
         $files[] = [$public . '/js/bootstrap.min.js', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'];
 
+        // Bootstrap dependencies
+        $files[] = [$public . '/js/popper.js', 'https://unpkg.com/popper.js'];
+        $files[] = [$public . '/js/popper.min.js', 'https://unpkg.com/popper.js/dist/umd/popper.min.js'];
+        $files[] = [$public . '/js/tooltip.js', 'https://unpkg.com/tooltip.js'];
+        $files[] = [$public . '/js/tooltip.min.js', 'https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'];
+
         // jQuery
         $files[] = [$public . '/js/jquery.js', 'https://code.jquery.com/jquery-3.2.1.js'];
         $files[] = [$public . '/js/jquery.min.js', 'https://code.jquery.com/jquery-3.2.1.min.js'];
