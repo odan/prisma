@@ -3,7 +3,7 @@
 //
 // Staging environment
 //
-// Database
+$settings['env'] = 'staging';
 
 // Database
 $settings['db']['database'] = 'staging_dbname';

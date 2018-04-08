@@ -3,6 +3,8 @@
 //
 // Travis CI environment
 //
+$settings['env'] = 'integration';
+
 // Error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', '1');

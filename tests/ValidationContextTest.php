@@ -29,21 +29,8 @@ class ValidationContextTest extends TestCase
     public function testSetSuccessMessage()
     {
         $val = new ValidationContext();
-        $val->setSuccessMessage('test');
-        $resultText = $val->getSuccessMessage();
-        $this->assertSame('test', $resultText);
-    }
-
-    /**
-     * Tests getMessage and setMessage functions.
-     *
-     * @return void
-     */
-    public function testSetErrorMessage()
-    {
-        $val = new ValidationContext();
-        $val->setErrorMessage('test');
-        $resultText = $val->getErrorMessage();
+        $val->setMessage('test');
+        $resultText = $val->getMessage();
         $this->assertSame('test', $resultText);
     }
 
@@ -139,9 +126,8 @@ class ValidationContextTest extends TestCase
     public function testGetMessage()
     {
         $val = new ValidationContext();
-        $val->setErrorMessage('Check your input');
-        $val->setSuccessMessage('Successfully');
-        $this->assertSame('Successfully', $val->getMessage());
+        $val->setMessage('Check your input');
+        $this->assertSame('Check your input', $val->getMessage());
 
         $val->addError('field', 'error message');
         $this->assertSame('Check your input', $val->getMessage());
@@ -155,7 +141,7 @@ class ValidationContextTest extends TestCase
     public function testClear()
     {
         $val = new ValidationContext();
-        $val->setErrorMessage('Errors');
+        $val->setMessage('Errors');
         $val->addError('error', 'error');
         $val->clear();
         $result = $val->failed();
@@ -186,7 +172,7 @@ class ValidationContextTest extends TestCase
     public function testToArray()
     {
         $val = new ValidationContext();
-        $val->setErrorMessage('Errors');
+        $val->setMessage('Errors');
         $val->addError('error1', 'error');
         $val->addError('error2', 'error');
         $result = $val->toArray();

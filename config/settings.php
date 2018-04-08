@@ -1,7 +1,7 @@
 <?php
 
 // Defaults
-require __DIR__ . '/default.php';
+require __DIR__ . '/defaults.php';
 
 // Load environment configuration
 if (file_exists(__DIR__ . '/../../env.php')) {
@@ -11,12 +11,7 @@ if (file_exists(__DIR__ . '/../../env.php')) {
 }
 
 if (defined('APP_ENV')) {
-    // integration
-    $settings['env'] = APP_ENV;
-}
-
-if (isset($settings['env'])) {
-    require __DIR__ . '/' . $settings['env'] . '.php';
+    require __DIR__ . '/' . APP_ENV . '.php';
 }
 
 return $settings;

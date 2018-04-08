@@ -56,7 +56,7 @@ $container['phpErrorHandler'] = function (Container $container) {
 
 $container['notFoundHandler'] = function (Container $container) {
     $logger = $container->get(LoggerInterface::class);
-    $logger->error('Error 404: Not found.', ['url' => $_SERVER['REQUEST_URI'], 'method' => $_SERVER['REQUEST_METHOD']]);
+    $logger->error('Error 404: Not found.', ['server' => $_SERVER]);
 
     return new NotFound();
 };
