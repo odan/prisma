@@ -21,17 +21,13 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-$config = [];
-
 // Environment (development, testing, staging, production)
-$config['env'] = 'development';
+$settings['env'] = 'development';
 
 // Database
-$config['db']['username'] = '{{db_username}}';
-$config['db']['password'] = '{{db_password}}';
+$settings['db']['username'] = '{{db_username}}';
+$settings['db']['password'] = '{{db_password}}';
 
 // SMTP
-$config['smtp']['username'] = 'user@example.com';
-$config['smtp']['password'] = '';
-
-return $config;
+$settings['smtp']['username'] = 'user@example.com';
+$settings['smtp']['password'] = '';

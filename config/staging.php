@@ -6,6 +6,4 @@
 // Database
 
 // Database
-$config['db']['database'] = 'staging_dbname';
-
-return $config;
+$settings['db']['database'] = 'staging_dbname';

@@ -7,16 +7,14 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-$config['displayErrorDetails'] = true;
+$settings['displayErrorDetails'] = true;
 
 // Database
-$config['db']['database'] = 'test';
-$config['db']['username'] = 'root';
-$config['db']['password'] = '';
+$settings['db']['database'] = 'test';
+$settings['db']['username'] = 'root';
+$settings['db']['password'] = '';
 
-$config['logger']['level'] = \Monolog\Logger::DEBUG;
-$config['assets']['minify'] = 0;
-$config['locale']['cache'] = null;
-$config['twig']['cache_enabled'] = false;
-
-return $config;
+$settings['logger']['level'] = \Monolog\Logger::DEBUG;
+$settings['assets']['minify'] = 0;
+$settings['locale']['cache'] = null;
+$settings['twig']['cache_enabled'] = false;

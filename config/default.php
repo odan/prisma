@@ -11,7 +11,7 @@ ini_set('display_errors', '0');
 date_default_timezone_set('Europe/Berlin');
 
 // Slim settings
-$config = [
+$settings = [
     'httpVersion' => '1.1',
     'responseChunkSize' => 4096,
     'outputBuffering' => 'append',
@@ -22,60 +22,60 @@ $config = [
 ];
 
 // Path settings
-$config['root'] = dirname(__DIR__);
-$config['temp'] = $config['root'] . '/tmp';
-$config['public'] = $config['root'] . '/public';
+$settings['root'] = dirname(__DIR__);
+$settings['temp'] = $settings['root'] . '/tmp';
+$settings['public'] = $settings['root'] . '/public';
 
 // Application settings
-$config['app'] = [
+$settings['app'] = [
     'secret' => '{{app_secret}}',
 ];
 
 // Logger settings
-$config['logger'] = [
+$settings['logger'] = [
     'name' => 'app',
-    'file' => $config['temp'] . '/logs/app.log',
+    'file' => $settings['temp'] . '/logs/app.log',
     'level' => \Monolog\Logger::ERROR,
 ];
 
 // View settings
-$config['twig'] = [
-    'path' => $config['root'] . '/templates',
+$settings['twig'] = [
+    'path' => $settings['root'] . '/templates',
     'cache_enabled' => true,
-    'cache_path' => $config['temp'] . '/twig-cache',
+    'cache_path' => $settings['temp'] . '/twig-cache',
 ];
 
 // Assets
-$config['assets'] = [
+$settings['assets'] = [
     // Public assets cache directory
-    'path' => $config['public'] . '/cache',
+    'path' => $settings['public'] . '/cache',
     // Cache settings
     'cache_enabled' => true,
-    'cache_path' => $config['temp'],
+    'cache_path' => $settings['temp'],
     'cache_name' => 'assets-cache',
     // Enable JavaScript and CSS compression
     'minify' => 1,
 ];
 
 // Session
-$config['session'] = [
+$settings['session'] = [
     'name' => 'webapp',
     'cache_expire' => 0,
 ];
 
 // Locale settings
-$config['locale'] = [
-    'path' => $config['root'] . '/resources/locale',
-    'cache' => $config['temp'] . '/locale-cache',
+$settings['locale'] = [
+    'path' => $settings['root'] . '/resources/locale',
+    'cache' => $settings['temp'] . '/locale-cache',
     'locale' => 'en_US',
     'domain' => 'messages',
 ];
 
 // Phinx settings
-$config['phinx'] = [
+$settings['phinx'] = [
     'paths' => [
-        'migrations' => $config['root'] . '/resources/migrations',
-        'seeds' => $config['root'] . '/resources/seeds',
+        'migrations' => $settings['root'] . '/resources/migrations',
+        'seeds' => $settings['root'] . '/resources/seeds',
     ],
     'environments' => [
         'default_migration_table' => 'phinxlog',
@@ -85,7 +85,7 @@ $config['phinx'] = [
 ];
 
 // Database settings
-$config['db'] = [
+$settings['db'] = [
     'driver' => 'mysql',
     'host' => 'localhost',
     'charset' => 'utf8',
@@ -100,7 +100,7 @@ $config['db'] = [
 ];
 
 // E-Mail settings
-$config['smtp'] = [
+$settings['smtp'] = [
     'type' => 'smtp',
     'host' => '127.0.0.1',
     'port' => '25',
@@ -111,7 +111,7 @@ $config['smtp'] = [
 ];
 
 // Cli commands
-$config['commands'] = [
+$settings['commands'] = [
     \App\Console\ExampleCommand::class,
     \App\Console\InstallCommand::class,
     \App\Console\ResetDatabaseCommand::class,
@@ -123,5 +123,3 @@ $config['commands'] = [
     \App\Console\ParseTextCommand::class,
     \App\Console\UpdateAssetsCommand::class,
 ];
-
-return $config;

@@ -8,13 +8,13 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 // Display all errors
-$config['displayErrorDetails'] = true;
+$settings['displayErrorDetails'] = true;
 
-$config['db']['host'] = '{{db_host}}';
-$config['db']['database'] = '{{db_database}}';
-$config['logger']['level'] = \Monolog\Logger::DEBUG;
-$config['assets']['minify'] = 0;
-$config['locale']['cache'] = null;
-$config['twig']['cache_enabled'] = false;
-
-return $config;
+$settings['db']['host'] = '{{db_host}}';
+$settings['db']['database'] = '{{db_database}}';
+$settings['db']['host'] = '127.0.0.1';
+$settings['db']['database'] = 'prisma';
+$settings['logger']['level'] = \Monolog\Logger::DEBUG;
+$settings['assets']['minify'] = 0;
+$settings['locale']['cache'] = null;
+$settings['twig']['cache_enabled'] = false;
