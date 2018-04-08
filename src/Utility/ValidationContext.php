@@ -17,12 +17,7 @@ class ValidationContext
     /**
      * @var string|null
      */
-    protected $successMessage = null;
-
-    /**
-     * @var string|null
-     */
-    protected $errorMessage = null;
+    protected $message = null;
 
     /**
      * Get all errors.
@@ -51,55 +46,21 @@ class ValidationContext
      */
     public function getMessage()
     {
-        return $this->success() ? $this->getSuccessMessage() : $this->getErrorMessage();
-    }
-
-    /**
-     * Get message.
-     *
-     * @return string|null
-     */
-    public function getSuccessMessage()
-    {
-        return $this->successMessage;
+        return $this->message;
     }
 
     /**
      * Set the default success message.
      *
-     * @param string $successMessage The default success message
+     * @param string $message The default success message
      *
      * @return self self
      */
-    public function setSuccessMessage(string $successMessage)
+    public function setMessage(string $message)
     {
-        $this->successMessage = $successMessage;
+        $this->message = $message;
 
         return $this;
-    }
-
-    /**
-     * Set the default error message.
-     *
-     * @param string $errorMessage The error message
-     *
-     * @return self self
-     */
-    public function setErrorMessage(string $errorMessage)
-    {
-        $this->errorMessage = $errorMessage;
-
-        return $this;
-    }
-
-    /**
-     * Get message.
-     *
-     * @return string|null
-     */
-    public function getErrorMessage()
-    {
-        return $this->errorMessage;
     }
 
     /**
@@ -129,7 +90,7 @@ class ValidationContext
      */
     public function clear()
     {
-        $this->successMessage = null;
+        $this->message = null;
         $this->errors = [];
 
         return $this;
