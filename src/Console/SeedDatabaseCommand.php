@@ -31,7 +31,9 @@ class SeedDatabaseCommand extends AbstractCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        system('php vendor/robmorgan/phinx/bin/phinx seed:run', $errorLevel);
+        $configFile = __DIR__ . '/../../phinx.php';
+        $command = sprintf('php vendor/robmorgan/phinx/bin/phinx seed:run -c %s', $configFile);
+        system($command, $errorLevel);
 
         if ($errorLevel) {
             $output->writeln(sprintf('<error>The command failed</error>'));

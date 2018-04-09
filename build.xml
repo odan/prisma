@@ -126,7 +126,7 @@
 
     <target name="check-all" depends="lint,check-style,phpstan,phpunit-coverage"/>
 
-    <target name="build" depends="lint,phpunit">
+    <target name="build">
         <!-- Load properties -->
         <property file="${basedir}/config/ant.properties"/>
 

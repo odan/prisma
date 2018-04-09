@@ -1,6 +1,7 @@
 <?php
 
-if (PHP_SAPI !== 'cli') {
+if (isset($_SERVER['REQUEST_METHOD'])) {
+    echo "Only CLI allowed. Script stopped.\n";
     exit (1);
 }
 

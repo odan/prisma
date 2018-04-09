@@ -51,11 +51,13 @@ if (file_exists($releaseDir)) {
 
 echo "Set permissions...\n";
 system('sudo chmod -R 775 htdocs/tmp/');
+system('sudo chmod -R 775 htdocs/public/cache/');
+
 //system('chown -R www-data:www-data htdocs/ .');
 
 echo "Run migrations...\n";
-system('cd htdocs/bin/');
-system('php phinx.php migrate');
+system('cd htdocs/');
+system('sudo php cli.php migrate-database');
 system('cd ../../');
 
 echo "Deployment finished\n";
