@@ -18,9 +18,6 @@
  */
 require __DIR__ . '/development.php';
 
-// Environment (development, testing, staging, production)
-$settings['env'] = 'development';
-
 // Database
 $settings['db']['username'] = '{{db_username}}';
 $settings['db']['password'] = '{{db_password}}';
