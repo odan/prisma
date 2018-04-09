@@ -177,6 +177,11 @@
                 <include name="**/phpstan.neon"/>
                 <include name="**/appveyor.yml"/>
                 <include name="**/build.xml"/>
+                <include name="**/.eslintrc.json"/>
+                <include name="**/.gitignore"/>
+                <include name="**/.gitattributes"/>
+                <include name="**/.cs.php"/>
+                <include name="**/.phpstorm.meta.php"/>
                 <include name="**/CHANGELOG.md"/>
                 <include name="**/CONDUCT.md"/>
                 <include name="**/LICENSE*"/>
