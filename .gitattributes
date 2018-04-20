@@ -12,6 +12,8 @@ docs/* linguist-documentation
 # Define binary file attributes.
 # - Do not treat them as text.
 # - Include binary diff in patches instead of "binary files differ."
+*.pdf binary
+*.mo binary
 *.gif binary
 *.ico binary
 *.jpg binary
