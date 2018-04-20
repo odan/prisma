@@ -3,19 +3,20 @@
 //
 // Development environment
 //
-$settings['env'] = 'development';
-
 // Error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 // Display all errors
-$settings['displayErrorDetails'] = true;
+$config['displayErrorDetails'] = true;
 
-$settings['db']['host'] = '{{db_host}}';
-$settings['db']['database'] = '{{db_database}}';
+$config['db']['host'] = 'localhost';
+$config['db']['host'] = 'localhost';
+$config['db']['database'] = 'prisma';
+$config['db']['database'] = 'prisma';
+$config['logger']['level'] = \Monolog\Logger::DEBUG;
+$config['assets']['minify'] = 0;
+$config['locale']['cache'] = null;
+$config['twig']['cache_enabled'] = false;
 
-$settings['logger']['level'] = \Monolog\Logger::DEBUG;
-$settings['assets']['minify'] = 0;
-$settings['locale']['cache'] = null;
-$settings['twig']['cache_enabled'] = false;
+return $config;

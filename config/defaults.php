@@ -3,7 +3,6 @@
 //
 // Configure defaults for the whole application.
 //
-
 // Error reporting
 error_reporting(0);
 ini_set('display_errors', '0');
@@ -12,7 +11,7 @@ ini_set('display_errors', '0');
 date_default_timezone_set('Europe/Berlin');
 
 // Slim settings
-$settings = [
+$config = [
     'httpVersion' => '1.1',
     'responseChunkSize' => 4096,
     'outputBuffering' => 'append',
@@ -23,60 +22,60 @@ $settings = [
 ];
 
 // Path settings
-$settings['root'] = dirname(__DIR__);
-$settings['temp'] = $settings['root'] . '/tmp';
-$settings['public'] = $settings['root'] . '/public';
+$config['root'] = dirname(__DIR__);
+$config['temp'] = $config['root'] . '/tmp';
+$config['public'] = $config['root'] . '/public';
 
 // Application settings
-$settings['app'] = [
-    'secret' => '{{app_secret}}',
+$config['app'] = [
+    'secret' => '44573dbff77082506fe5a6b51105e0f17a10c53c',
 ];
 
 // Logger settings
-$settings['logger'] = [
+$config['logger'] = [
     'name' => 'app',
-    'file' => $settings['temp'] . '/logs/app.log',
+    'file' => $config['temp'] . '/logs/app.log',
     'level' => \Monolog\Logger::ERROR,
 ];
 
 // View settings
-$settings['twig'] = [
-    'path' => $settings['root'] . '/templates',
+$config['twig'] = [
+    'path' => $config['root'] . '/templates',
     'cache_enabled' => true,
-    'cache_path' => $settings['temp'] . '/twig-cache',
+    'cache_path' => $config['temp'] . '/twig-cache',
 ];
 
 // Assets
-$settings['assets'] = [
+$config['assets'] = [
     // Public assets cache directory
-    'path' => $settings['public'] . '/cache',
+    'path' => $config['public'] . '/cache',
     // Cache settings
     'cache_enabled' => true,
-    'cache_path' => $settings['temp'],
+    'cache_path' => $config['temp'],
     'cache_name' => 'assets-cache',
     // Enable JavaScript and CSS compression
     'minify' => 1,
 ];
 
 // Session
-$settings['session'] = [
+$config['session'] = [
     'name' => 'webapp',
     'cache_expire' => 0,
 ];
 
 // Locale settings
-$settings['locale'] = [
-    'path' => $settings['root'] . '/resources/locale',
-    'cache' => $settings['temp'] . '/locale-cache',
+$config['locale'] = [
+    'path' => $config['root'] . '/resources/locale',
+    'cache' => $config['temp'] . '/locale-cache',
     'locale' => 'en_US',
     'domain' => 'messages',
 ];
 
 // Phinx settings
-$settings['phinx'] = [
+$config['phinx'] = [
     'paths' => [
-        'migrations' => $settings['root'] . '/resources/migrations',
-        'seeds' => $settings['root'] . '/resources/seeds',
+        'migrations' => $config['root'] . '/resources/migrations',
+        'seeds' => $config['root'] . '/resources/seeds',
     ],
     'environments' => [
         'default_migration_table' => 'phinxlog',
@@ -86,7 +85,7 @@ $settings['phinx'] = [
 ];
 
 // Database settings
-$settings['db'] = [
+$config['db'] = [
     'driver' => 'mysql',
     'host' => 'localhost',
     'charset' => 'utf8',
@@ -101,7 +100,7 @@ $settings['db'] = [
 ];
 
 // E-Mail settings
-$settings['smtp'] = [
+$config['smtp'] = [
     'type' => 'smtp',
     'host' => '127.0.0.1',
     'port' => '25',
@@ -112,7 +111,7 @@ $settings['smtp'] = [
 ];
 
 // Cli commands
-$settings['commands'] = [
+$config['commands'] = [
     \App\Console\ExampleCommand::class,
     \App\Console\InstallCommand::class,
     \App\Console\ResetDatabaseCommand::class,
@@ -124,3 +123,5 @@ $settings['commands'] = [
     \App\Console\ParseTextCommand::class,
     \App\Console\UpdateAssetsCommand::class,
 ];
+
+return $config;
