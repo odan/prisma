@@ -1,4 +1,4 @@
-/* @version: 2015.05.10 */
+/* @version: 2018.04.17 */
 
 /* prevent background scrollbar (for modal) */
 .modal {
@@ -14,12 +14,12 @@
     padding-bottom: 8px;
     background-color: #ececec;
     background-repeat: repeat-x;
-    background-image: -moz-linear-gradient(top,#f5f5f5 0,#ececec 100%);
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#f5f5f5),color-stop(100%,#ececec));
-    background-image: -webkit-linear-gradient(top,#f5f5f5 0,#ececec 100%);
-    background-image: -ms-linear-gradient(top,#f5f5f5 0,#ececec 100%);
-    background-image: -o-linear-gradient(top,#f5f5f5 0,#ececec 100%);
-    background-image: linear-gradient(top,#f5f5f5 0,#ececec 100%);
+    background-image: -moz-linear-gradient(top, #f5f5f5 0, #ececec 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f5f5f5), color-stop(100%, #ececec));
+    background-image: -webkit-linear-gradient(top, #f5f5f5 0, #ececec 100%);
+    background-image: -ms-linear-gradient(top, #f5f5f5 0, #ececec 100%);
+    background-image: -o-linear-gradient(top, #f5f5f5 0, #ececec 100%);
+    background-image: linear-gradient(top, #f5f5f5 0, #ececec 100%);
     border-bottom: 1px solid #ddd;
     -webkit-border-radius: 6px 6px 0 0;
     -moz-border-radius: 6px 6px 0 0;
@@ -33,18 +33,8 @@
     padding: 12px 20px 12px;
 }
 
-/* workaround for bootstrap cosmo and modal windows */
-.modal-backdrop {
-  z-index: -1;
-}
-
-.modal-backdrop, .modal-backdrop.fade.in {
-    opacity: 0.5; /* default is 0.8 */
-}
-
 /* make bootstrap modal animation faster */
 .fade {
-    opacity: 0.5;
     -webkit-transition: opacity 0.05s linear;
     -moz-transition: opacity 0.05s linear;
     -ms-transition: opacity 0.05s linear;
@@ -52,23 +42,22 @@
     transition: opacity 0.05s linear;
 }
 
-.d-overlay  
-{  
-    position:fixed;  
-    top:0;  
-    right:0;  
-    bottom:0;  
-    left:0;  
-    height:100%;  
-    width:100%;  
-    margin:0;  
-    padding:0;  
-    background:#000;  
-    opacity:.0;  /* 0.75 */
-    filter: alpha(opacity=0);     /* 75 */
-    -moz-opacity: 0.0;  /* 0.75 */
-    z-index:5000;  
-}  
+.d-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #000;
+    opacity: .0; /* 0.75 */
+    filter: alpha(opacity=0); /* 75 */
+    -moz-opacity: 0.0; /* 0.75 */
+    z-index: 5000;
+}
 
 #d_csspinner {
     width: 200px;
@@ -82,13 +71,74 @@
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    background-color: rgba(0,0,0,0.6);
-    z-index:5001;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 5001;
 }
 
 /* http://jh3y.github.io/-cs-spinner/ */
 /*.csspinner{position:relative} */
-.csspinner:before{content:"";z-index:1;position:absolute;top:0;right:0;bottom:0;left:0;background-color:#999;opacity:.6}
-.csspinner:after{z-index:2;content:"";height:40px;width:40px;position:absolute;top:50%;left:50%;margin:-20px 0 0 -20px;-webkit-transition:all .75s ease 0s;transition:all .75s ease 0s;border-radius:100%;border-top:4px solid #555;-webkit-animation:standard .75s infinite linear;animation:standard .75s infinite linear;-webkit-transform-origin:center;-ms-transform-origin:center;transform-origin:center}
-.csspinner.no-overlay:before{content:none;display:none}@-webkit-keyframes standard{from{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes standard{from{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
-.csspinner.traditional:after{border-right:4px solid #777;border-top:4px solid #777;border-left:4px solid #999;border-bottom:4px solid #bbb}
+.csspinner:before {
+    content: "";
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #999;
+    opacity: .6
+}
+
+.csspinner:after {
+    z-index: 2;
+    content: "";
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -20px 0 0 -20px;
+    -webkit-transition: all .75s ease 0s;
+    transition: all .75s ease 0s;
+    border-radius: 100%;
+    border-top: 4px solid #555;
+    -webkit-animation: standard .75s infinite linear;
+    animation: standard .75s infinite linear;
+    -webkit-transform-origin: center;
+    -ms-transform-origin: center;
+    transform-origin: center
+}
+
+.csspinner.no-overlay:before {
+    content: none;
+    display: none
+}
+
+@-webkit-keyframes standard {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
+
+@keyframes standard {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
+
+.csspinner.traditional:after {
+    border-right: 4px solid #777;
+    border-top: 4px solid #777;
+    border-left: 4px solid #999;
+    border-bottom: 4px solid #bbb
+}
