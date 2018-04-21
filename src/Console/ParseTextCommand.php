@@ -188,7 +188,10 @@ class ParseTextCommand extends AbstractCommand
 
             if (is_file($target)) {
                 $fn = $this->getFunctionName('from', $target, 'File', 1);
-                $translations = $translations->mergeWith(Translations::$fn($target), Merge::TRANSLATION_OVERRIDE | Merge::HEADERS_OVERRIDE | Merge::COMMENTS_THEIRS);
+                $newTranslations = Translations::$fn($target);
+                $translations = $this->addFuzzyFlags($newTranslations, $translations);
+                $translations = $translations->mergeWith($newTranslations,
+                    Merge::TRANSLATION_OVERRIDE | Merge::HEADERS_OVERRIDE | Merge::COMMENTS_THEIRS | Merge::FLAGS_THEIRS);
             }
 
             foreach ($targets as $target) {
@@ -299,5 +302,24 @@ class ParseTextCommand extends AbstractCommand
         $this->iterator->attachIterator($iterator);
 
         return $this;
+    }
+
+    /**
+     * Add fuzzy flag for new translations.
+     *
+     * @param Translations $from
+     * @param Translations $to
+     *
+     * @return Translations
+     */
+    protected function addFuzzyFlags(Translations $from, Translations $to)
+    {
+        foreach ($to as $translation) {
+            if (!$from->find($translation)) {
+                $translation->addFlag('fuzzy');
+            }
+        }
+
+        return $to;
     }
 }
