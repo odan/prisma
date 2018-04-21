@@ -37,7 +37,7 @@
       "App\\": "src"
     },
     "files": [
-      "src/Utility/common.php"
+      "src/Utility/functions.php"
     ]
   },
   "autoload-dev": {
