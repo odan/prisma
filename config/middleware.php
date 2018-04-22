@@ -1,6 +1,6 @@
 <?php
 
-use App\Service\User\Auth;
+use App\Service\User\AuthService;
 use Odan\Slim\Csrf\CsrfMiddleware;
 use Odan\Slim\Session\Session;
 use Slim\Container;
@@ -13,14 +13,15 @@ $container = $app->getContainer();
 $app->add(function (Request $request, Response $response, $next) {
     /* @var \Slim\Route $route */
     $route = $request->getAttribute('route');
+    $request->getHeader('');
 
     if (!$route) {
         return $next($request, $response);
     }
     $auth = $route->getArgument('_auth', true);
 
-    /* @var \App\Service\User\Auth $user */
-    $user = $this->get(Auth::class);
+    /* @var \App\Service\User\AuthService $user */
+    $user = $this->get(AuthService::class);
     if ($auth === true && !$user->hasIdentity()) {
         // Redirect to login page
 
