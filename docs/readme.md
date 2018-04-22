@@ -55,7 +55,7 @@
 │   └── seeds               # Data seeds
 ├── src                     # PHP source code (The App namespace)
 │   ├── Action              # Controller actions
-│   ├── Command             # Console commands for cli.php
+│   ├── Console             # Console commands for cli.php
 │   ├── Entity              # Represents individual rows or domain objects in your application
 │   ├── Service             # Business logic
 │   ├── Repository          # Repositories. Communication with the database.
