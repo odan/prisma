@@ -2,7 +2,7 @@
 
 namespace App\Action;
 
-use App\Table\UserTable;
+use App\Repository\UserRepository;
 use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
@@ -15,9 +15,9 @@ use Slim\Http\Response;
 class HomeLoadAction extends AbstractAction
 {
     /**
-     * @var UserTable
+     * @var UserRepository
      */
-    protected $userTable;
+    protected $userRepository;
 
     /**
      * Constructor.
@@ -29,7 +29,7 @@ class HomeLoadAction extends AbstractAction
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->userTable = $container->get(UserTable::class);
+        $this->userRepository = $container->get(UserRepository::class);
     }
 
     /**
@@ -43,7 +43,7 @@ class HomeLoadAction extends AbstractAction
     public function __invoke(Request $request, Response $response): ResponseInterface
     {
         $userId = $this->auth->getId();
-        $user = $this->userTable->getById($userId);
+        $user = $this->userRepository->getById($userId);
 
         $result = [
             'message' => __('Loaded successfully!'),

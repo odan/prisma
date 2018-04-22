@@ -2,7 +2,7 @@
 
 namespace App\Action;
 
-use App\Table\UserTable;
+use App\Repository\UserRepository;
 use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
@@ -15,9 +15,9 @@ use Slim\Http\Response;
 class UserIndexAction extends AbstractAction
 {
     /**
-     * @var UserTable
+     * @var UserRepository
      */
-    protected $userTable;
+    protected $userRepo;
 
     /**
      * Constructor.
@@ -29,7 +29,7 @@ class UserIndexAction extends AbstractAction
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->userTable = $container->get(UserTable::class);
+        $this->userRepo = $container->get(UserRepository::class);
     }
 
     /**
@@ -42,7 +42,7 @@ class UserIndexAction extends AbstractAction
      */
     public function __invoke(Request $request, Response $response): ResponseInterface
     {
-        $users = $this->userTable->findAll();
+        $users = $this->userRepo->findAll();
 
         $viewData = $this->getViewData([
             'users' => $users,

@@ -2,9 +2,9 @@
 
 // Service container configuration
 
-use App\Service\User\Auth;
+use App\Service\User\AuthService;
 use App\Service\User\Locale;
-use App\Table\UserTable;
+use App\Repository\UserRepository;
 use App\Utility\ErrorHandler;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Connectors\ConnectionFactory;
@@ -178,15 +178,15 @@ $container[Translator::class] = function (Container $container) {
     return $translator;
 };
 
-$container[Auth::class] = function (Container $container) {
-    return new Auth($container->get(Session::class), $container->get(UserTable::class));
+$container[AuthService::class] = function (Container $container) {
+    return new AuthService($container->get(Session::class), $container->get(UserRepository::class));
 };
 
 // -----------------------------------------------------------------------------
 // Services, Models, Repositories
 // -----------------------------------------------------------------------------
-$container[UserTable::class] = function (Container $container) {
-    return new UserTable($container->get(Connection::class));
+$container[UserRepository::class] = function (Container $container) {
+    return new UserRepository($container->get(Connection::class));
 };
 
 return $container;

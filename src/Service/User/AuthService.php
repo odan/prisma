@@ -3,14 +3,15 @@
 namespace App\Service\User;
 
 use App\Entity\UserEntity;
-use App\Table\UserTable;
+use App\Repository\UserRepository;
+use App\Service\ServiceInterface;
 use Odan\Slim\Session\Session;
 use RuntimeException;
 
 /**
  * Authentication and authorisation.
  */
-class Auth
+class AuthService implements ServiceInterface
 {
     /**
      * Session.
@@ -20,20 +21,20 @@ class Auth
     private $session;
 
     /**
-     * @var UserTable
+     * @var UserRepository
      */
-    private $userTable;
+    private $userRepository;
 
     /**
      * UserSession constructor.
      *
      * @param Session $session Storage
-     * @param UserTable $userTable The User model
+     * @param UserRepository $userTable The User model
      */
-    public function __construct(Session $session, UserTable $userTable)
+    public function __construct(Session $session, UserRepository $userTable)
     {
         $this->session = $session;
-        $this->userTable = $userTable;
+        $this->userRepository = $userTable;
     }
 
     /**
@@ -103,7 +104,7 @@ class Auth
      */
     public function authenticate($username, $password)
     {
-        if (!$user = $this->userTable->findByUsername($username)) {
+        if (!$user = $this->userRepository->findByUsername($username)) {
             return null;
         }
 

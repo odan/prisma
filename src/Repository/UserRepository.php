@@ -1,21 +1,15 @@
 <?php
 
-namespace App\Table;
+namespace App\Repository;
 
 use App\Entity\UserEntity;
 use RuntimeException;
 
 /**
- * Users table.
+ * Users repository.
  */
-final class UserTable extends AbstractTable
+final class UserRepository extends ApplicationRepository
 {
-    /**
-     * Table.
-     *
-     * @var string
-     */
-    protected $table = 'users';
 
     /**
      * Returns a collection of User entities.
@@ -25,7 +19,7 @@ final class UserTable extends AbstractTable
     public function findAll(): array
     {
         $result = [];
-        foreach ($this->fetchAll() as $row) {
+        foreach ($this->newSelect('users')->get() as $row) {
             $result[] = new UserEntity($row);
         }
 
@@ -59,7 +53,7 @@ final class UserTable extends AbstractTable
      */
     public function findById($id)
     {
-        $row = $this->fetchById($id);
+        $row = $this->fetchById('users', $id);
         if (empty($row)) {
             return null;
         }
@@ -76,7 +70,10 @@ final class UserTable extends AbstractTable
      */
     public function findByUsername($username)
     {
-        $row = $this->newQuery()->where('username', '=', $username)->where('disabled', '=', 0)->first();
+        $row = $this->newSelect('users')
+            ->where('username', '=', $username)
+            ->where('disabled', '=', 0)
+            ->first();
 
         if (empty($row)) {
             return null;
@@ -115,7 +112,7 @@ final class UserTable extends AbstractTable
             throw new RuntimeException('User ID required');
         }
 
-        return $this->newQuery()->where('id', '=', $user->id)->update($user->toArray());
+        return $this->newSelect('users')->where('id', '=', $user->id)->update($user->toArray());
     }
 
     /**
@@ -127,7 +124,7 @@ final class UserTable extends AbstractTable
      */
     public function insertUser(UserEntity $user): string
     {
-        return (string)$this->newQuery()->insertGetId($user->toArray());
+        return (string)$this->db->table('users')->insertGetId($user->toArray());
     }
 
     /**
@@ -139,6 +136,6 @@ final class UserTable extends AbstractTable
      */
     public function deleteUser(int $userId): int
     {
-        return $this->newQuery()->delete($userId);
+        return $this->db->table('users')->delete($userId);
     }
 }

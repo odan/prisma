@@ -3,7 +3,7 @@
 namespace App\Action;
 
 use App\Entity\UserEntity;
-use App\Table\UserTable;
+use App\Repository\UserRepository;
 use Exception;
 use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
@@ -17,9 +17,9 @@ use Slim\Http\Response;
 class UserEditAction extends AbstractAction
 {
     /**
-     * @var UserTable
+     * @var UserRepository
      */
-    protected $userTable;
+    protected $userRepository;
 
     /**
      * Constructor.
@@ -31,7 +31,7 @@ class UserEditAction extends AbstractAction
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->userTable = $container->get(UserTable::class);
+        $this->userRepository = $container->get(UserRepository::class);
     }
 
     /**
@@ -56,22 +56,22 @@ class UserEditAction extends AbstractAction
         //$post = $request->getParsedBody();
 
         // Repository example
-        $user = $this->userTable->getById($id);
+        $user = $this->userRepository->getById($id);
 
         // Insert a new user
         $newUser = new UserEntity();
         $newUser->username = 'admin-' . uuid();
         $newUser->disabled = false;
-        $newUserId = $this->userTable->insertUser($newUser);
+        $newUserId = $this->userRepository->insertUser($newUser);
 
         // Get new new user
-        $newUser = $this->userTable->getById($newUserId);
+        $newUser = $this->userRepository->getById($newUserId);
 
         // Delete a user
-        $this->userTable->deleteUser($newUser->id);
+        $this->userRepository->deleteUser($newUser->id);
 
         // Get all users
-        $users = $this->userTable->findAll();
+        $users = $this->userRepository->findAll();
 
         // Session example
         // Increment counter
