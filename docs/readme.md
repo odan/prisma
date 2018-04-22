@@ -58,7 +58,7 @@
 │   ├── Command             # Console commands for cli.php
 │   ├── Entity              # Represents individual rows or domain objects in your application
 │   ├── Service             # Business logic
-│   ├── Table               # Table specific data mapper. Communication with the database.
+│   ├── Repository          # Repositories. Communication with the database.
 │   ├── Type                # Types, Enum Constants
 │   └── Utility             # Helper classes
 ├── templates               # Twig and Mustache templates + JS and CSS
