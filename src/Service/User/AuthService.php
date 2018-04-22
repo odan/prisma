@@ -29,12 +29,12 @@ class AuthService implements ServiceInterface
      * UserSession constructor.
      *
      * @param Session $session Storage
-     * @param UserRepository $userTable The User model
+     * @param UserRepository $userRepository The User model
      */
-    public function __construct(Session $session, UserRepository $userTable)
+    public function __construct(Session $session, UserRepository $userRepository)
     {
         $this->session = $session;
-        $this->userRepository = $userTable;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -102,7 +102,7 @@ class AuthService implements ServiceInterface
      *
      * @return UserEntity|null
      */
-    public function authenticate($username, $password)
+    public function authenticate(string $username, string $password)
     {
         if (!$user = $this->userRepository->findByUsername($username)) {
             return null;
@@ -125,7 +125,7 @@ class AuthService implements ServiceInterface
      *
      * @return bool
      */
-    public function verifyPassword($password, $hash): bool
+    public function verifyPassword(string $password, string $hash): bool
     {
         return password_verify($password, $hash);
     }

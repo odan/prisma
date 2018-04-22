@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Collection;
 use stdClass;
 
 /**
@@ -63,5 +62,4 @@ abstract class ApplicationRepository implements RepositoryInterface
     {
         return $this->db->table($table);
     }
-
 }

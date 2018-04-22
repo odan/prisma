@@ -10,7 +10,6 @@ use RuntimeException;
  */
 final class UserRepository extends ApplicationRepository
 {
-
     /**
      * Returns a collection of User entities.
      *
