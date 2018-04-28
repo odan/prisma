@@ -14,7 +14,7 @@ Logging and Unit testing.
 
 ## Requirements
 
-* PHP 7.0+, Apache, MySQL
+* PHP 7.1+, Apache, MySQL
 * [Apache Ant](http://ant.apache.org/) (recommended)
 
 ## Installation
