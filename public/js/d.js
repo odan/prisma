@@ -273,7 +273,7 @@ $d.handleResponse = function (response) {
         $d.hideLoad();
     }
 
-    if (response.error) {
+    if (response.error && ('data' in response.error) === false) {
         result = false;
         if ($d.alert) {
             $d.alert(response.error.message);
@@ -1779,7 +1779,7 @@ $d.setValidation = function (selector, style, msg, type) {
         });
     }
 
-    if(style === 'error') {
+    if (style === 'error') {
         $(selector).addClass('is-invalid');
     } else {
         $(selector).removeClass('is-invalid');
@@ -1789,7 +1789,7 @@ $d.setValidation = function (selector, style, msg, type) {
     if (help.length) {
         $(help).text(msg);
 
-        if(style === 'error') {
+        if (style === 'error') {
             help.show();
         } else {
             help.hide();
