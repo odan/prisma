@@ -34,7 +34,7 @@ class UpdateAssetsCommand extends AbstractCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('Updating assets...');
+        $output->writeln('Updating JavaScript packages and assets');
 
         $settings = $this->container->get('settings');
         $public = $settings['public'];
@@ -42,14 +42,14 @@ class UpdateAssetsCommand extends AbstractCommand
         $files = [];
 
         // Bootstrap
-        $files[] = [$public . '/css/bootstrap.css', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css'];
-        $files[] = [$public . '/css/bootstrap.min.css', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'];
-        $files[] = [$public . '/js/bootstrap.js', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.js'];
-        $files[] = [$public . '/js/bootstrap.min.js', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'];
+        $files[] = [$public . '/css/bootstrap.css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.css'];
+        $files[] = [$public . '/css/bootstrap.min.css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css'];
+        $files[] = [$public . '/js/bootstrap.js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.js'];
+        $files[] = [$public . '/js/bootstrap.min.js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js'];
 
         // Bootstrap dependencies
-        $files[] = [$public . '/js/popper.js', 'https://unpkg.com/popper.js'];
-        $files[] = [$public . '/js/popper.min.js', 'https://unpkg.com/popper.js/dist/umd/popper.min.js'];
+        $files[] = [$public . '/js/popper.js', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.js'];
+        $files[] = [$public . '/js/popper.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'];
         $files[] = [$public . '/js/tooltip.js', 'https://unpkg.com/tooltip.js'];
         $files[] = [$public . '/js/tooltip.min.js', 'https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'];
 
@@ -66,7 +66,7 @@ class UpdateAssetsCommand extends AbstractCommand
         //$files[] = [$public . '/js/sprintf.min.js', 'https://raw.githubusercontent.com/alexei/sprintf.js/master/dist/sprintf.min.js'];
 
         foreach ($files as $file) {
-            $output->writeln(basename($file[1]));
+            //$output->writeln(basename($file[1]));
             file_put_contents($file[0], file_get_contents($file[1]));
         }
 
