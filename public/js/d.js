@@ -273,7 +273,7 @@ $d.handleResponse = function (response) {
         $d.hideLoad();
     }
 
-    if (response.error && ('data' in response.error) === false) {
+    if (response.error && ('errors' in response.error) === false) {
         result = false;
         if ($d.alert) {
             $d.alert(response.error.message);
