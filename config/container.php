@@ -126,8 +126,9 @@ $container[Twig::class] = function (Container $container) {
     $twig->getEnvironment()->addGlobal('csrf_token', $csrfToken);
 
     // Add Slim specific extensions
-    $basePath = rtrim(str_ireplace('index.php', '', $container->get('request')->getUri()->getBasePath()), '/');
-    $twig->addExtension(new Slim\Views\TwigExtension($container->get('router'), $basePath));
+    $router = $container->get('router');
+    $uri = \Slim\Http\Uri::createFromEnvironment($container->get('environment'));
+    $twig->addExtension(new \Slim\Views\TwigExtension($router, $uri));
     $twig->addExtension(new \Odan\Twig\TwigAssetsExtension($twig->getEnvironment(), (array)$settings['assets']));
     $twig->addExtension(new \Odan\Twig\TwigTranslationExtension());
 
