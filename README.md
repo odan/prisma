@@ -65,7 +65,7 @@ sudo php cli.php install
 
 ## Documentation
 
-This package is documented [here](./docs/readme.md).
+This package is documented [here](https://odan.github.io/prisma/).
 
 ## License
 
