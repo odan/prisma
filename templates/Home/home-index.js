@@ -28,40 +28,41 @@ var HomeIndex = function () {
             email: "max@example.com"
         };
 
-        $.ajax({
-            url: $d.getBaseUrl("home/load"),
-            type: "POST",
-            cache: false,
-            contentType: 'application/json',
-            dataType: 'json',
-            data: JSON.stringify(params)
-        }).done(function (data) {
+        ajax.post($d.getBaseUrl("home/load"), params).done(function (response) {
             $d.hideLoad();
-            $d.log(data);
+            $d.log(response);
             $d.notify({
-                msg: "<b>Ok</b> " + data.message,
+                msg: "<b>Ok</b> " + response.message,
                 type: "success",
                 position: "center"
             });
 
             // Translations
-            data.text = {
+            response.text = {
                 'current_user': __('Current user'),
                 'user_id': __('User-ID'),
-                'username' : __('Username'),
+                'username': __('Username'),
                 'its': __('Its'),
             };
 
             var template = $('#user-template').html();
             //Mustache.parse(template);
-            var output = Mustache.render(template, data);
+            var output = Mustache.render(template, response);
 
             $('#content').append(output);
 
-        }).fail(function (xhr) {
-            $d.hideLoad();
-            var message = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : "Server error";
-            $d.alert(message);
+        }).fail(function (error) {
+            if (error.status == 422) {
+                $d.hideLoad();
+                // Show validation errors
+                var response = error.responseJSON;
+                $d.alert(response.error.message);
+                $(response.error.errors).each(function (i, error) {
+                    console.log("Error in field [" + error.field + "]: " + error.message);
+                });
+            } else {
+                ajax.handleError(error);
+            }
         });
     };
 
