@@ -94,7 +94,7 @@ class InstallCommand extends AbstractCommand
     protected function generateRandomSecret(OutputInterface $output, string $configPath): void
     {
         $output->writeln('Generate random app secret');
-        file_put_contents($configPath . '/default.php', str_replace('{{app_secret}}', bin2hex(random_bytes(20)), file_get_contents($configPath . '/default.php')));
+        file_put_contents($configPath . '/defaults.php', str_replace('{{app_secret}}', bin2hex(random_bytes(20)), file_get_contents($configPath . '/defaults.php')));
     }
 
     /**
