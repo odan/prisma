@@ -2,12 +2,12 @@
 
 // Service container configuration
 
-use App\Service\User\AuthService;
+use App\Service\User\Auth;
 use App\Service\User\Locale;
 use App\Repository\UserRepository;
 use App\Utility\ErrorHandler;
-use Illuminate\Database\Connection;
-use Illuminate\Database\Connectors\ConnectionFactory;
+use Cake\Database\Connection;
+use Cake\Database\Driver\Mysql;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Odan\Slim\Csrf\CsrfMiddleware;
@@ -81,30 +81,17 @@ $container[LoggerInterface::class] = function (Container $container) {
 
 $container[Connection::class] = function (Container $container) {
     $settings = $container->get('settings');
+    $driver = new Mysql($settings['db']);
 
-    $config = [
-        'driver' => 'mysql',
-        'host' => $settings['db']['host'],
-        'database' => $settings['db']['database'],
-        'username' => $settings['db']['username'],
-        'password' => $settings['db']['password'],
-        'charset' => $settings['db']['charset'],
-        'collation' => $settings['db']['collation'],
-        'prefix' => '',
-    ];
-
-    $factory = new ConnectionFactory(new \Illuminate\Container\Container());
-
-    $connection = $factory->make($config);
-
-    // Disable the query log to prevent memory issues
-    $connection->disableQueryLog();
-
-    return $connection;
+    return new Connection(['driver' => $driver]);
 };
 
 $container[PDO::class] = function (Container $container) {
-    return $container->get(Connection::class)->getPdo();
+    /** @var Connection $db */
+    $db = $container->get(Connection::class);
+    $db->getDriver()->connect();
+
+    return $db->getDriver()->getConnection();
 };
 
 $container[Twig::class] = function (Container $container) {
@@ -179,15 +166,15 @@ $container[Translator::class] = function (Container $container) {
     return $translator;
 };
 
-$container[AuthService::class] = function (Container $container) {
-    return new AuthService($container->get(Session::class), $container->get(UserRepository::class));
+$container[Auth::class] = function (Container $container) {
+    return new Auth($container->get(Session::class), $container->get(PDO::class));
 };
 
 // -----------------------------------------------------------------------------
 // Services, Models, Repositories
 // -----------------------------------------------------------------------------
 $container[UserRepository::class] = function (Container $container) {
-    return new UserRepository($container->get(Connection::class));
+    return new UserRepository($container->get(Connection::class), $container->get(Auth::class));
 };
 
 return $container;

@@ -31,7 +31,7 @@ class UserEntity extends AbstractEntity
     /** @var string */
     public $locale;
 
-    /** @var bool */
+    /** @var int */
     public $disabled;
 
     /** @var string */

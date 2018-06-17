@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
-use Illuminate\Database\Connection;
-use Illuminate\Database\Query\Builder;
-use stdClass;
+use App\Service\User\Auth;
+use Cake\Database\Connection;
+use Cake\Database\Query;
+use RuntimeException;
 
 /**
  * Repository (persistence oriented).
@@ -19,47 +20,162 @@ abstract class ApplicationRepository implements RepositoryInterface
     protected $db;
 
     /**
+     * @var Auth
+     */
+    protected $auth;
+
+    /**
      * Constructor.
      *
      * @param Connection $db
+     * @param Auth $auth
      */
-    public function __construct(Connection $db)
+    public function __construct(Connection $db, Auth $auth)
     {
         $this->db = $db;
+        $this->auth = $auth;
     }
 
     /**
-     * Returns the ID of the last inserted row or sequence value.
+     * Create a new query.
      *
-     * @return string the row ID of the last row that was inserted into the database
+     * @return Query
      */
-    protected function getLastInsertId(): string
+    protected function newQuery(): Query
     {
-        return $this->db->getPdo()->lastInsertId();
+        return $this->db->newQuery();
+    }
+
+    /**
+     * Create a new select query.
+     *
+     * @param string $table The table name
+     * @param string|null $alias The table alias
+     *
+     * @return Query A select query
+     */
+    protected function newSelect(string $table, string $alias = null): Query
+    {
+        $tables = $table;
+
+        if ($alias !== null) {
+            $tables = [$alias => $table];
+        }
+
+        $query = $this->newQuery()->from($tables);
+
+        if ($query instanceof Query) {
+            return $query;
+        }
+
+        throw new RuntimeException('New select query failed');
+    }
+
+    /**
+     * Executes an UPDATE statement on the specified table.
+     *
+     * @param string $table the table to update rows from
+     * @param array $data values to be updated [optional]
+     *
+     * @return Query Query
+     */
+    protected function newUpdate(string $table, array $data = []): Query
+    {
+        if (!isset($data['updated_at'])) {
+            $data['updated_at'] = now();
+        }
+
+        if (!isset($data['updated_by'])) {
+            $data['updated_by'] = $this->auth->getId();
+        }
+
+        return $this->newQuery()->update($table)->set($data);
+    }
+
+    /**
+     * Executes an UPDATE statement on the specified table.
+     *
+     * @param string $table the table to update rows from
+     * @param array $data values to be updated
+     *
+     * @return Query Query
+     */
+    protected function newInsert(string $table, array $data): Query
+    {
+        if (!isset($data['created_at'])) {
+            $data['created_at'] = now();
+        }
+
+        if (!isset($data['created_by'])) {
+            $data['created_by'] = $this->auth->getId();
+        }
+
+        $columns = array_keys($data);
+
+        return $this->newQuery()->insert($columns)
+            ->into($table)
+            ->values($data);
+    }
+
+    /**
+     * Create a DELETE query.
+     *
+     * @param string $table the table to delete from
+     *
+     * @return Query Query
+     */
+    protected function newDelete(string $table): Query
+    {
+        return $this->newQuery()->delete($table);
     }
 
     /**
      * Fetch row by id.
      *
-     * @param string $table
-     * @param int|string $id The ID
+     * @param string $table Table name
+     * @param int|string $id ID
      *
-     * @return stdClass|null The row
+     * @return array Result set
      */
-    protected function fetchById(string $table, $id)
+    protected function fetchById(string $table, $id): array
     {
-        return $this->newSelect($table)->where('id', '=', $id)->first();
+        $result = $this->newSelect($table)->select('*')
+            ->where(['id' => $id])
+            ->execute()
+            ->fetch('assoc');
+
+        return $result ?: [];
     }
 
     /**
-     * Return a new Query Builder instance.
+     * Fetch row by id.
      *
-     * @param string $table The table name (e.g. 'users' or with alias 'users AS u')
+     * @param string $table Table name
+     * @param int|string $id ID
      *
-     * @return Builder The Query Builder
+     * @return bool True if the row exists
      */
-    protected function newSelect(string $table): Builder
+    protected function existsById(string $table, $id): bool
     {
-        return $this->db->table($table);
+        $result = $this->newSelect($table)->select('id')
+            ->andWhere(['id' => $id])
+            ->execute()
+            ->fetch('assoc');
+
+        return $result ? true : false;
+    }
+
+    /**
+     * Fetch all rows.
+     *
+     * @param string $table Table name
+     *
+     * @return array Result set
+     */
+    protected function fetchAll(string $table): array
+    {
+        $result = $this->newSelect($table)->select('*')->execute()->fetchAll('assoc');
+
+        return $result ?: [];
     }
 }

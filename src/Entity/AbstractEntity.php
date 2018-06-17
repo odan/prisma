@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use Illuminate\Support\Str;
+use Cake\Utility\Inflector;
 use RuntimeException;
 
 /**
@@ -32,7 +32,7 @@ abstract class AbstractEntity implements EntityInterface
     protected function fromArray(array $data)
     {
         foreach ($data as $name => $value) {
-            $property = Str::camel($name);
+            $property = Inflector::variable($name);
             if (property_exists($this, $property)) {
                 $this->{$property} = $value;
             }
@@ -77,7 +77,7 @@ abstract class AbstractEntity implements EntityInterface
         $properties = get_object_vars($this);
 
         foreach ($properties as $property => $value) {
-            $array[Str::snake($property)] = $this->{$property};
+            $array[Inflector::underscore($property)] = $this->{$property};
         }
 
         return $array;

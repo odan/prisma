@@ -3,15 +3,15 @@
 namespace App\Service\User;
 
 use App\Entity\UserEntity;
-use App\Repository\UserRepository;
 use App\Service\ServiceInterface;
 use Odan\Slim\Session\Session;
+use PDO;
 use RuntimeException;
 
 /**
  * Authentication and authorisation.
  */
-class AuthService implements ServiceInterface
+class Auth implements ServiceInterface
 {
     /**
      * Session.
@@ -21,20 +21,20 @@ class AuthService implements ServiceInterface
     private $session;
 
     /**
-     * @var UserRepository
+     * @var PDO
      */
-    private $userRepository;
+    private $pdo;
 
     /**
      * UserSession constructor.
      *
      * @param Session $session Storage
-     * @param UserRepository $userRepository The User model
+     * @param PDO $pdo PDO database connection
      */
-    public function __construct(Session $session, UserRepository $userRepository)
+    public function __construct(Session $session, PDO $pdo)
     {
         $this->session = $session;
-        $this->userRepository = $userRepository;
+        $this->pdo = $pdo;
     }
 
     /**
@@ -66,11 +66,11 @@ class AuthService implements ServiceInterface
     /**
      * Get user Id.
      *
-     * @return string User Id
+     * @return int User Id
      */
-    public function getId(): string
+    public function getId(): int
     {
-        $result = (string)$this->getIdentity()->id;
+        $result = $this->getIdentity()->id;
 
         if (empty($result)) {
             throw new RuntimeException(__('Invalid or empty User-ID'));
@@ -84,7 +84,7 @@ class AuthService implements ServiceInterface
      *
      * @return UserEntity
      */
-    public function getIdentity()
+    public function getIdentity(): UserEntity
     {
         $user = $this->session->get('user');
         if (!$user) {
@@ -104,9 +104,16 @@ class AuthService implements ServiceInterface
      */
     public function authenticate(string $username, string $password)
     {
-        if (!$user = $this->userRepository->findByUsername($username)) {
+        $statement = $this->pdo->prepare('SELECT * FROM users WHERE username = :username AND disabled = 0');
+        $statement->execute(['username' => $username]);
+
+        $userRow = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if (!$userRow) {
             return null;
         }
+
+        $user = new UserEntity($userRow);
 
         if (!$this->verifyPassword($password, $user->password)) {
             return null;
@@ -123,7 +130,7 @@ class AuthService implements ServiceInterface
      * @param string $password
      * @param string $hash
      *
-     * @return bool
+     * @return bool Success
      */
     public function verifyPassword(string $password, string $hash): bool
     {

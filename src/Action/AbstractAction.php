@@ -2,8 +2,8 @@
 
 namespace App\Action;
 
-use App\Service\User\AuthService;
-use Illuminate\Database\Connection;
+use App\Service\User\Auth;
+use Cake\Database\Connection;
 use Interop\Container\Exception\ContainerException;
 use Odan\Slim\Session\Session;
 use Psr\Http\Message\ResponseInterface;
@@ -33,7 +33,7 @@ abstract class AbstractAction
     protected $view;
 
     /**
-     * @var AuthService
+     * @var Auth
      */
     protected $auth;
 
@@ -59,7 +59,7 @@ abstract class AbstractAction
         $this->db = $container->get(Connection::class);
         $this->logger = $container->get(LoggerInterface::class);
         $this->router = $container->get('router');
-        $this->auth = $container->get(AuthService::class);
+        $this->auth = $container->get(Auth::class);
         $this->view = $container->get(Twig::class);
         $this->session = $container->get(Session::class);
     }

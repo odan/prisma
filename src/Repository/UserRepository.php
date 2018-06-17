@@ -3,7 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\UserEntity;
-use RuntimeException;
+use DomainException;
+use InvalidArgumentException;
 
 /**
  * Users repository.
@@ -17,8 +18,10 @@ final class UserRepository extends ApplicationRepository
      */
     public function findAll(): array
     {
+        $rows = $this->fetchAll('users');
+
         $result = [];
-        foreach ($this->newSelect('users')->get() as $row) {
+        foreach ($rows as $row) {
             $result[] = new UserEntity($row);
         }
 
@@ -28,16 +31,18 @@ final class UserRepository extends ApplicationRepository
     /**
      * Get user by id.
      *
-     * @param string $id User id
+     * @param int $id User id
      *
-     * @throws RuntimeException On error
+     * @throws DomainException On error
      *
-     * @return UserEntity A row
+     * @return UserEntity An entity
      */
-    public function getById(string $id): UserEntity
+    public function getById(int $id): UserEntity
     {
-        if (!$user = $this->findById($id)) {
-            throw new RuntimeException(__('User not found: %s', $id));
+        $user = $this->findById($id);
+
+        if (!$user) {
+            throw new DomainException(__('User not found: %s', $id));
         }
 
         return $user;
@@ -46,18 +51,15 @@ final class UserRepository extends ApplicationRepository
     /**
      * Find entity by id.
      *
-     * @param int|string $id The ID
+     * @param int $id The ID
      *
      * @return UserEntity|null The entity
      */
-    public function findById($id)
+    public function findById(int $id)
     {
         $row = $this->fetchById('users', $id);
-        if (empty($row)) {
-            return null;
-        }
 
-        return new UserEntity($row);
+        return $row ? new UserEntity($row) : null;
     }
 
     /**
@@ -67,12 +69,15 @@ final class UserRepository extends ApplicationRepository
      *
      * @return UserEntity|null User
      */
-    public function findByUsername($username)
+    public function findByUsername(string $username)
     {
-        $row = $this->newSelect('users')
-            ->where('username', '=', $username)
-            ->where('disabled', '=', 0)
-            ->first();
+        $query = $this->newSelect('users')->select('*');
+        $query->andWhere([
+            'username' => $username,
+            'disabled' => 0,
+        ]);
+
+        $row = $query->execute()->fetch('assoc');
 
         if (empty($row)) {
             return null;
@@ -86,16 +91,17 @@ final class UserRepository extends ApplicationRepository
      *
      * @param UserEntity $user
      *
-     * @return int
+     * @return int User ID
      */
-    public function saveUser(UserEntity $user)
+    public function saveUser(UserEntity $user): int
     {
         if ($user->id) {
-            return $this->updateUser($user);
-        }
-        $this->insertUser($user);
+            $this->updateUser($user);
 
-        return 1;
+            return $user->id;
+        }
+
+        return $this->insertUser($user);
     }
 
     /**
@@ -103,15 +109,17 @@ final class UserRepository extends ApplicationRepository
      *
      * @param UserEntity $user The user
      *
-     * @return int Number of affected rows
+     * @return bool Success
      */
-    public function updateUser(UserEntity $user): int
+    public function updateUser(UserEntity $user): bool
     {
         if (empty($user->id)) {
-            throw new RuntimeException('User ID required');
+            throw new InvalidArgumentException('User ID required');
         }
 
-        return $this->newSelect('users')->where('id', '=', $user->id)->update($user->toArray());
+        $this->newUpdate('users', $user->toArray())->andWhere(['id' => $user->id])->execute();
+
+        return true;
     }
 
     /**
@@ -119,11 +127,11 @@ final class UserRepository extends ApplicationRepository
      *
      * @param UserEntity $user The user
      *
-     * @return string The new ID
+     * @return int The new ID
      */
-    public function insertUser(UserEntity $user): string
+    public function insertUser(UserEntity $user): int
     {
-        return (string)$this->db->table('users')->insertGetId($user->toArray());
+        return (int)$this->newInsert('users', $user->toArray())->execute()->lastInsertId();
     }
 
     /**
@@ -131,10 +139,12 @@ final class UserRepository extends ApplicationRepository
      *
      * @param int $userId The user ID
      *
-     * @return int Number of affected rows
+     * @return bool Success
      */
-    public function deleteUser(int $userId): int
+    public function deleteUser(int $userId): bool
     {
-        return $this->db->table('users')->delete($userId);
+        $this->newDelete('users')->andWhere(['id' => $userId])->execute();
+
+        return true;
     }
 }

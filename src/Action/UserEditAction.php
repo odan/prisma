@@ -61,7 +61,7 @@ class UserEditAction extends AbstractAction
         // Insert a new user
         $newUser = new UserEntity();
         $newUser->username = 'admin-' . uuid();
-        $newUser->disabled = false;
+        $newUser->disabled = 0;
         $newUserId = $this->userRepository->insertUser($newUser);
 
         // Get new new user

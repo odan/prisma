@@ -6,7 +6,7 @@ $app = require __DIR__ . '/config/bootstrap.php';
 $container = $app->getContainer();
 
 /* @var PDO $pdo */
-$pdo = $container->get('PDO');
+$pdo = $container->get(PDO::class);
 
 $phinx = $container->get('settings')['phinx'];
 

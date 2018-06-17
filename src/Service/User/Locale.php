@@ -67,7 +67,7 @@ class Locale
      *
      * @return bool Status
      */
-    public function setLanguage($locale, $domain = 'messages'): bool
+    public function setLanguage(string $locale, string $domain = 'messages'): bool
     {
         $this->setLocale($locale);
         $this->setDomain($domain);
