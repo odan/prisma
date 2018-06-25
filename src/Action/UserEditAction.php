@@ -5,7 +5,6 @@ namespace App\Action;
 use App\Entity\UserEntity;
 use App\Repository\UserRepository;
 use Exception;
-use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;
@@ -25,8 +24,6 @@ class UserEditAction extends AbstractAction
      * Constructor.
      *
      * @param Container $container
-     *
-     * @throws ContainerException
      */
     public function __construct(Container $container)
     {

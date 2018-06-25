@@ -3,7 +3,6 @@
 namespace App\Action;
 
 use App\Repository\UserRepository;
-use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;
@@ -23,8 +22,6 @@ class UserIndexAction extends AbstractAction
      * Constructor.
      *
      * @param Container $container
-     *
-     * @throws ContainerException
      */
     public function __construct(Container $container)
     {

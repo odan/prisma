@@ -8,8 +8,6 @@ use Gettext\Merge;
 use Gettext\Translations;
 use MultipleIterator;
 use Odan\Twig\TwigCompiler;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RegexIterator;
@@ -89,8 +87,6 @@ class ParseTextCommand extends AbstractCommand
      * @param InputInterface $input
      * @param OutputInterface $output
      *
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
      * @throws Exception
      *
      * @return int integer 0 on success, or an error code
@@ -115,8 +111,6 @@ class ParseTextCommand extends AbstractCommand
     /**
      * Execute command.
      *
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
      * @throws Exception
      *
      * @return int integer 0 on success, or an error code
@@ -147,8 +141,6 @@ class ParseTextCommand extends AbstractCommand
     /**
      * Execute command.
      *
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
      * @throws Exception
      *
      * @return int integer 0 on success, or an error code
@@ -157,7 +149,7 @@ class ParseTextCommand extends AbstractCommand
     {
         $this->output->write('Scanning text...', true);
 
-        $currentDir = getcwd();
+        $currentDir = getcwd() ?: __DIR__;
         chdir(__DIR__ . '/../..');
 
         $this->extract('src')

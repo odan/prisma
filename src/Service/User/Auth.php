@@ -178,7 +178,7 @@ class Auth implements ServiceInterface
      */
     public function createPassword($password): string
     {
-        return password_hash($password, 1);
+        return password_hash($password, 1) ?: '';
     }
 
     /**

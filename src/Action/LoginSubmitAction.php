@@ -3,7 +3,6 @@
 namespace App\Action;
 
 use App\Service\User\Locale;
-use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;
@@ -23,8 +22,6 @@ class LoginSubmitAction extends AbstractAction
      * Constructor.
      *
      * @param Container $container
-     *
-     * @throws ContainerException
      */
     public function __construct(Container $container)
     {
@@ -42,7 +39,7 @@ class LoginSubmitAction extends AbstractAction
      */
     public function __invoke(Request $request, Response $response): ResponseInterface
     {
-        $data = $request->getParsedBody();
+        $data = (array)$request->getParsedBody();
         $username = $data['username'];
         $password = $data['password'];
 

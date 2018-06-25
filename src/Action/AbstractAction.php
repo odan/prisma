@@ -4,7 +4,6 @@ namespace App\Action;
 
 use App\Service\User\Auth;
 use Cake\Database\Connection;
-use Interop\Container\Exception\ContainerException;
 use Odan\Slim\Session\Session;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -51,8 +50,6 @@ abstract class AbstractAction
      * Constructor.
      *
      * @param Container $container
-     *
-     * @throws ContainerException
      */
     public function __construct(Container $container)
     {

@@ -5,8 +5,6 @@ namespace App\Console;
 use Exception;
 use PDO;
 use PDOException;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -37,8 +35,6 @@ class InstallCommand extends AbstractCommand
      * @param OutputInterface $output
      *
      * @throws Exception
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
      *
      * @return int integer 0 on success, or an error code
      */
@@ -94,7 +90,7 @@ class InstallCommand extends AbstractCommand
     protected function generateRandomSecret(OutputInterface $output, string $configPath): void
     {
         $output->writeln('Generate random app secret');
-        file_put_contents($configPath . '/defaults.php', str_replace('{{app_secret}}', bin2hex(random_bytes(20)), file_get_contents($configPath . '/defaults.php')));
+        file_put_contents($configPath . '/defaults.php', str_replace('{{app_secret}}', bin2hex(random_bytes(20)), file_get_contents($configPath . '/defaults.php') ?: ''));
     }
 
     /**
@@ -219,10 +215,10 @@ class InstallCommand extends AbstractCommand
     protected function updateDevelopmentSettings(OutputInterface $output, string $dbHost, string $dbName, string $username, string $password, string $configPath): void
     {
         $output->writeln('Update development configuration');
-        file_put_contents($configPath . '/development.php', str_replace('{{db_host}}', $dbHost, file_get_contents($configPath . '/development.php')));
-        file_put_contents($configPath . '/development.php', str_replace('{{db_database}}', $dbName, file_get_contents($configPath . '/development.php')));
-        file_put_contents($configPath . '/env.php', str_replace('{{db_username}}', $username, file_get_contents($configPath . '/env.php')));
-        file_put_contents($configPath . '/env.php', str_replace('{{db_password}}', $password, file_get_contents($configPath . '/env.php')));
+        file_put_contents($configPath . '/development.php', str_replace('{{db_host}}', $dbHost, file_get_contents($configPath . '/development.php') ?: ''));
+        file_put_contents($configPath . '/development.php', str_replace('{{db_database}}', $dbName, file_get_contents($configPath . '/development.php') ?: ''));
+        file_put_contents($configPath . '/env.php', str_replace('{{db_username}}', $username, file_get_contents($configPath . '/env.php') ?: ''));
+        file_put_contents($configPath . '/env.php', str_replace('{{db_password}}', $password, file_get_contents($configPath . '/env.php') ?: ''));
     }
 
     /**

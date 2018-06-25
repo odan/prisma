@@ -8,6 +8,7 @@ use Odan\Slim\Session\Session;
 use Psr\Container\ContainerInterface as Container;
 use Psr\Http\Message\ResponseInterface;
 use ReflectionClass;
+use ReflectionMethod;
 use RuntimeException;
 use Slim\App;
 use Slim\Exception\MethodNotAllowedException;
@@ -93,7 +94,7 @@ class ApiTestCase extends BaseTestCase
      */
     protected function withJson(Request $request, array $data): Request
     {
-        $request->getBody()->write(json_encode($data));
+        $request->getBody()->write(json_encode($data) ?: '{}');
         $request = $request->withHeader('Content-Type', 'application/json');
 
         return $request;
@@ -177,6 +178,8 @@ class ApiTestCase extends BaseTestCase
         unset($values[$key]);
         $property->setValue($container, $values);
 
-        $container[$key] = $value;
+        // The same like '$container[$key] = $value;' but compatible with phpstan
+        $method = new ReflectionMethod(\Pimple\Container::class, 'offsetSet');
+        $method->invoke($container, $key, $value);
     }
 }
