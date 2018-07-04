@@ -101,11 +101,11 @@ Just rename the file `env.example.php` to `env.php`.
 
 ### Query Builder
 
-This framework comes with [illuminate/database](https://github.com/illuminate/database) as SQL query builder.
+This framework comes with [cakephp/database](https://github.com/cakephp/database) as SQL query builder.
 
 The database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your application, and works great with MySQL and MariaDB.
 
-For more details how to build queries read the **[documentation](https://laravel.com/docs/master/queries)**.
+For more details how to build queries read the **[documentation](https://book.cakephp.org/3.0/en/orm/query-builder.html)**.
 
 ### Migrations
 
