@@ -24,7 +24,7 @@ return PhpCsFixer\Config::create()
             ],
         ],
         'increment_style' => ['style' => 'post'],
-        'list_syntax' => ['syntax' => 'short'],
+        'list_syntax' => ['syntax' => 'long'],
         'no_short_echo_tag' => true,
         'phpdoc_add_missing_param_annotation' => ['only_untyped' => false],
         'phpdoc_align' => false,
