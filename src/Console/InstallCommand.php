@@ -64,7 +64,7 @@ class InstallCommand extends AbstractCommand
     }
 
     /**
-     * Create envp.php file.
+     * Create env.php file.
      *
      * @param OutputInterface $output
      * @param string $configPath
