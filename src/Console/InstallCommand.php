@@ -5,6 +5,7 @@ namespace App\Console;
 use Exception;
 use PDO;
 use PDOException;
+use RuntimeException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -51,7 +52,11 @@ class InstallCommand extends AbstractCommand
 
         $env = '';
         if ($input->hasOption('environment')) {
-            $env = (string)$input->getOption('environment');
+            $env = $input->getOption('environment');
+
+            if (!is_string($env)) {
+                throw new RuntimeException('Invalid environment');
+            }
         }
 
         try {
