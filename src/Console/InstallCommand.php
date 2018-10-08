@@ -51,7 +51,7 @@ class InstallCommand extends AbstractCommand
 
         $env = '';
         if ($input->hasOption('environment')) {
-            $env = $input->getOption('environment');
+            $env = (string)$input->getOption('environment');
         }
 
         try {
