@@ -75,7 +75,7 @@ abstract class ApplicationRepository implements RepositoryInterface
      * Executes an UPDATE statement on the specified table.
      *
      * @param string $table the table to update rows from
-     * @param array $data values to be updated [optional]
+     * @param mixed[] $data values to be updated [optional]
      *
      * @return Query Query
      */
@@ -96,7 +96,7 @@ abstract class ApplicationRepository implements RepositoryInterface
      * Executes an UPDATE statement on the specified table.
      *
      * @param string $table the table to update rows from
-     * @param array $data values to be updated
+     * @param mixed[] $data values to be updated
      *
      * @return Query Query
      */

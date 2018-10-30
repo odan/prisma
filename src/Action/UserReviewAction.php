@@ -14,13 +14,13 @@ class UserReviewAction extends AbstractAction
     /**
      * User review page.
      *
-     * @param Request $request
-     * @param Response $response
-     * @param array $args
+     * @param Request $request The request
+     * @param Response $response The response
+     * @param array $args Arguments
      *
      * @return ResponseInterface Response
      */
-    public function __invoke(Request $request, Response $response, $args): ResponseInterface
+    public function __invoke(Request $request, Response $response, array $args): ResponseInterface
     {
         $id = $args['id'];
 

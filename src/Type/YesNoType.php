@@ -7,6 +7,6 @@ namespace App\Type;
  */
 class YesNoType extends BaseType
 {
-    const YES = 1;
-    const NO = 2;
+    public const YES = 1;
+    public const NO = 2;
 }

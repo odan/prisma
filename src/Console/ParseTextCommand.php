@@ -91,7 +91,7 @@ class ParseTextCommand extends AbstractCommand
      *
      * @return int integer 0 on success, or an error code
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->output = $output;
 
@@ -115,7 +115,7 @@ class ParseTextCommand extends AbstractCommand
      *
      * @return int integer 0 on success, or an error code
      */
-    protected function compileTwig()
+    protected function compileTwig(): int
     {
         $this->output->write('Compiling Twig templates... ');
 
@@ -145,7 +145,7 @@ class ParseTextCommand extends AbstractCommand
      *
      * @return int integer 0 on success, or an error code
      */
-    protected function scanText()
+    protected function scanText(): int
     {
         $this->output->write('Scanning text...', true);
 
@@ -171,7 +171,7 @@ class ParseTextCommand extends AbstractCommand
     /**
      * Run the task.
      */
-    protected function process()
+    protected function process(): int
     {
         foreach ($this->targets as $targets) {
             $target = $targets[0];
@@ -209,7 +209,7 @@ class ParseTextCommand extends AbstractCommand
      *
      * @param Translations $translations
      */
-    protected function scan(Translations $translations)
+    protected function scan(Translations $translations): void
     {
         foreach ($this->iterator as $each) {
             foreach ($each as $file) {
@@ -217,7 +217,7 @@ class ParseTextCommand extends AbstractCommand
                     continue;
                 }
                 $target = $file->getPathname();
-                if (($fn = $this->getFunctionName('addFrom', $target, 'File'))) {
+                if ($fn = $this->getFunctionName('addFrom', $target, 'File')) {
                     $translations->$fn($target);
                 }
             }
@@ -227,14 +227,14 @@ class ParseTextCommand extends AbstractCommand
     /**
      * Get the format based in the extension.
      *
-     * @param string $prefix
-     * @param string $file
-     * @param string $suffix
-     * @param int $key
+     * @param string $prefix Prefix
+     * @param string $file File
+     * @param string $suffix Suffix
+     * @param int $key Key
      *
      * @return string|null
      */
-    protected function getFunctionName($prefix, $file, $suffix, $key = 0)
+    protected function getFunctionName($prefix, $file, $suffix, $key = 0): ?string
     {
         if (preg_match($this->getRegex(), strtolower($file), $matches)) {
             $format = $this->suffixes[$matches[1]];
@@ -253,7 +253,7 @@ class ParseTextCommand extends AbstractCommand
      *
      * @return string
      */
-    protected function getRegex()
+    protected function getRegex(): string
     {
         if ($this->regex === null) {
             $this->regex = '/(' . str_replace('.', '\\.', implode('|', array_keys($this->suffixes))) . ')$/';
@@ -269,7 +269,7 @@ class ParseTextCommand extends AbstractCommand
      *
      * @return $this
      */
-    public function generate($path)
+    public function generate($path): self
     {
         $this->targets[] = func_get_args();
 
@@ -284,7 +284,7 @@ class ParseTextCommand extends AbstractCommand
      *
      * @return $this
      */
-    public function extract($path, $regex = null)
+    public function extract($path, $regex = null): self
     {
         $directory = new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS);
         $iterator = new RecursiveIteratorIterator($directory);
@@ -304,7 +304,7 @@ class ParseTextCommand extends AbstractCommand
      *
      * @return Translations
      */
-    protected function addFuzzyFlags(Translations $from, Translations $to)
+    protected function addFuzzyFlags(Translations $from, Translations $to): Translations
     {
         foreach ($to as $translation) {
             if (!$from->find($translation)) {

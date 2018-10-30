@@ -44,7 +44,7 @@ class Locale
      *
      * @return string|null
      */
-    public function getLocale()
+    public function getLocale(): ?string
     {
         return $this->session->get('locale');
     }
@@ -54,7 +54,7 @@ class Locale
      *
      * @return string|null
      */
-    public function getDomain()
+    public function getDomain(): ?string
     {
         return $this->session->get('domain');
     }

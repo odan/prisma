@@ -55,7 +55,7 @@ final class UserRepository extends ApplicationRepository
      *
      * @return UserEntity|null The entity
      */
-    public function findById(int $id)
+    public function findById(int $id): ?UserEntity
     {
         $row = $this->fetchById('users', $id);
 
@@ -69,7 +69,7 @@ final class UserRepository extends ApplicationRepository
      *
      * @return UserEntity|null User
      */
-    public function findByUsername(string $username)
+    public function findByUsername(string $username): ?UserEntity
     {
         $query = $this->newSelect('users')->select('*');
         $query->andWhere([

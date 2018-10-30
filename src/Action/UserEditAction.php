@@ -34,15 +34,15 @@ class UserEditAction extends AbstractAction
     /**
      * Edit page.
      *
-     * @param Request $request
-     * @param Response $response
-     * @param array $args
+     * @param Request $request The request
+     * @param Response $response The response
+     * @param array $args Arguments
      *
      * @throws Exception
      *
      * @return ResponseInterface The new response
      */
-    public function __invoke(Request $request, Response $response, $args): ResponseInterface
+    public function __invoke(Request $request, Response $response, array $args): ResponseInterface
     {
         $id = $args['id'];
 

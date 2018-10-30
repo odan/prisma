@@ -53,7 +53,7 @@ final class ErrorHandler extends PhpError
      *
      * @param Throwable $error
      *
-     * @return array
+     * @return mixed[] Error data
      */
     protected function renderArrayError(Throwable $error): array
     {

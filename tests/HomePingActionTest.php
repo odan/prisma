@@ -18,7 +18,7 @@ class HomePingActionTest extends ApiTestCase
      * @covers ::__construct
      * @covers ::__invoke
      */
-    public function testPing()
+    public function testPing(): void
     {
         $request = $this->createRequest('POST', '/ping');
         $request = $this->withFormData($request, ['username' => 'user', 'password' => 'user']);

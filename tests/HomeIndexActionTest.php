@@ -18,7 +18,7 @@ class HomeIndexActionTest extends ApiTestCase
      * @covers ::__construct
      * @covers ::__invoke
      */
-    public function testIndexAction()
+    public function testIndexAction(): void
     {
         $request = $this->createRequest('GET', '/');
         $response = $this->request($request);
@@ -32,7 +32,7 @@ class HomeIndexActionTest extends ApiTestCase
      *
      * @coversNothing
      */
-    public function testPageNotFound()
+    public function testPageNotFound(): void
     {
         $request = $this->createRequest('GET', '/not-existing-page');
         $response = $this->request($request);

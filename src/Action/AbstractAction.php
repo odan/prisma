@@ -64,7 +64,7 @@ abstract class AbstractAction
     /**
      * Get view data.
      *
-     * @param array $viewData
+     * @param array $viewData [Optional] Add this view data
      *
      * @return array View data
      */

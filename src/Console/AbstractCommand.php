@@ -22,7 +22,7 @@ abstract class AbstractCommand extends Command
      *
      * @return void
      */
-    public function setContainer(ContainerInterface $container)
+    public function setContainer(ContainerInterface $container): void
     {
         $this->container = $container;
     }

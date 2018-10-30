@@ -17,7 +17,7 @@ use Symfony\Component\Translation\Translator;
  * echo __('There are %s users logged in.', 7);
  * </code>
  */
-function __($message)
+function __($message): string
 {
     /* @var Translator $translator */
     static $translator = null;
@@ -45,7 +45,7 @@ function __($message)
  *
  * @return string ISO date time (Y-m-d H:i:s)
  */
-function now()
+function now(): string
 {
     return date('Y-m-d H:i:s');
 }
@@ -59,7 +59,7 @@ function now()
  *
  * @return string RFC 4122 UUID
  */
-function uuid()
+function uuid(): string
 {
     return sprintf(
         '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',

@@ -42,7 +42,7 @@ class Auth implements ServiceInterface
      *
      * @return bool
      */
-    public function hasIdentity()
+    public function hasIdentity(): bool
     {
         return !empty($this->session->get('user'));
     }
@@ -52,7 +52,7 @@ class Auth implements ServiceInterface
      *
      * @return void
      */
-    public function clearIdentity()
+    public function clearIdentity(): void
     {
         $this->session->remove('user');
 
@@ -102,7 +102,7 @@ class Auth implements ServiceInterface
      *
      * @return UserEntity|null
      */
-    public function authenticate(string $username, string $password)
+    public function authenticate(string $username, string $password): ?UserEntity
     {
         $statement = $this->pdo->prepare('SELECT * FROM users WHERE username = :username AND disabled = 0');
         $statement->execute(['username' => $username]);
@@ -144,7 +144,7 @@ class Auth implements ServiceInterface
      *
      * @return void
      */
-    protected function startUserSession(UserEntity $user)
+    protected function startUserSession(UserEntity $user): void
     {
         // Clear session data
         $this->session->destroy();
@@ -164,7 +164,7 @@ class Auth implements ServiceInterface
      *
      * @return void
      */
-    public function setIdentity(UserEntity $user)
+    public function setIdentity(UserEntity $user): void
     {
         $this->session->set('user', $user);
     }
@@ -176,7 +176,7 @@ class Auth implements ServiceInterface
      *
      * @return string
      */
-    public function createPassword($password): string
+    public function createPassword(string $password): string
     {
         return password_hash($password, 1) ?: '';
     }

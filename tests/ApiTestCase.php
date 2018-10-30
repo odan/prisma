@@ -68,8 +68,8 @@ class ApiTestCase extends BaseTestCase
     /**
      * Add post data.
      *
-     * @param Request $request
-     * @param array $data
+     * @param Request $request The request
+     * @param mixed[] $data The data
      *
      * @return Request
      */
@@ -87,8 +87,8 @@ class ApiTestCase extends BaseTestCase
     /**
      * Add Json data.
      *
-     * @param Request $request
-     * @param array $data
+     * @param Request $request The request
+     * @param mixed[] $data The data
      *
      * @return Request
      */
@@ -103,7 +103,7 @@ class ApiTestCase extends BaseTestCase
     /**
      * Make request.
      *
-     * @param Request $request
+     * @param Request $request The request
      *
      * @throws Exception
      * @throws MethodNotAllowedException
