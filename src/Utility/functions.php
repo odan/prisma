@@ -41,7 +41,7 @@ function __($message)
 }
 
 /**
- * Shorthand for now function
+ * Shorthand for now function.
  *
  * @return string ISO date time (Y-m-d H:i:s)
  */
@@ -54,8 +54,10 @@ function now()
  * Returns a `UUID` v4 created from a cryptographically secure random value.
  *
  * @see https://www.ietf.org/rfc/rfc4122.txt
- * @return string RFC 4122 UUID
+ *
  * @throws Exception
+ *
+ * @return string RFC 4122 UUID
  */
 function uuid()
 {
