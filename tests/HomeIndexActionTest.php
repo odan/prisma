@@ -15,8 +15,6 @@ class HomeIndexActionTest extends ApiTestCase
      * @throws \Slim\Exception\NotFoundException
      *
      * @return void
-     * @covers ::__construct
-     * @covers ::__invoke
      */
     public function testIndexAction(): void
     {
@@ -30,7 +28,10 @@ class HomeIndexActionTest extends ApiTestCase
     /**
      * Test.
      *
-     * @coversNothing
+     * @return void
+     *
+     * @throws \Slim\Exception\MethodNotAllowedException
+     * @throws \Slim\Exception\NotFoundException
      */
     public function testPageNotFound(): void
     {

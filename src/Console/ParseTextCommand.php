@@ -72,8 +72,10 @@ class ParseTextCommand extends AbstractCommand
 
     /**
      * Configure.
+     *
+     * @return void
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 
@@ -170,6 +172,8 @@ class ParseTextCommand extends AbstractCommand
 
     /**
      * Run the task.
+     *
+     * @return int
      */
     protected function process(): int
     {
@@ -208,6 +212,8 @@ class ParseTextCommand extends AbstractCommand
      * Execute the scan.
      *
      * @param Translations $translations
+     *
+     * @return void
      */
     protected function scan(Translations $translations): void
     {
@@ -234,7 +240,7 @@ class ParseTextCommand extends AbstractCommand
      *
      * @return string|null
      */
-    protected function getFunctionName($prefix, $file, $suffix, $key = 0): ?string
+    protected function getFunctionName(string $prefix, string $file, string $suffix, int $key = 0): ?string
     {
         if (preg_match($this->getRegex(), strtolower($file), $matches)) {
             $format = $this->suffixes[$matches[1]];
@@ -267,7 +273,7 @@ class ParseTextCommand extends AbstractCommand
      *
      * @param string $path
      *
-     * @return $this
+     * @return self
      */
     public function generate($path): self
     {
@@ -282,7 +288,7 @@ class ParseTextCommand extends AbstractCommand
      * @param string $path
      * @param string|null $regex
      *
-     * @return $this
+     * @return self
      */
     public function extract($path, $regex = null): self
     {
