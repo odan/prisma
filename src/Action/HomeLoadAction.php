@@ -46,8 +46,8 @@ class HomeLoadAction extends AbstractAction
             'message' => __('Loaded successfully!'),
             'now' => now(),
             'user' => [
-                'id' => $user->id,
-                'username' => $user->username,
+                'id' => $user->getId(),
+                'username' => $user->getUsername(),
             ],
         ];
 

@@ -45,7 +45,7 @@ class LoginSubmitAction extends AbstractAction
 
         $user = $this->auth->authenticate($username, $password);
         if (!empty($user)) {
-            $this->locale->setLanguage($user->locale);
+            $this->locale->setLanguage($user->getLocale());
             $url = $this->router->pathFor('root');
         } else {
             $url = $this->router->pathFor('login');

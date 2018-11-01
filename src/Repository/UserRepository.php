@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\UserEntity;
+use App\Model\UserModel;
 use DomainException;
 use InvalidArgumentException;
 
@@ -14,7 +14,7 @@ final class UserRepository extends ApplicationRepository
     /**
      * Returns a collection of User entities.
      *
-     * @return UserEntity[]
+     * @return UserModel[]
      */
     public function findAll(): array
     {
@@ -22,7 +22,7 @@ final class UserRepository extends ApplicationRepository
 
         $result = [];
         foreach ($rows as $row) {
-            $result[] = new UserEntity($row);
+            $result[] = new UserModel($row);
         }
 
         return $result;
@@ -35,9 +35,9 @@ final class UserRepository extends ApplicationRepository
      *
      * @throws DomainException On error
      *
-     * @return UserEntity An entity
+     * @return UserModel An model
      */
-    public function getById(int $id): UserEntity
+    public function getById(int $id): UserModel
     {
         $user = $this->findById($id);
 
@@ -49,17 +49,17 @@ final class UserRepository extends ApplicationRepository
     }
 
     /**
-     * Find entity by id.
+     * Find by id.
      *
      * @param int $id The ID
      *
-     * @return UserEntity|null The entity
+     * @return UserModel|null The model
      */
-    public function findById(int $id): ?UserEntity
+    public function findById(int $id): ?UserModel
     {
         $row = $this->fetchById('users', $id);
 
-        return $row ? new UserEntity($row) : null;
+        return $row ? new UserModel($row) : null;
     }
 
     /**
@@ -67,9 +67,9 @@ final class UserRepository extends ApplicationRepository
      *
      * @param string $username Username
      *
-     * @return UserEntity|null User
+     * @return UserModel|null User
      */
-    public function findByUsername(string $username): ?UserEntity
+    public function findByUsername(string $username): ?UserModel
     {
         $query = $this->newSelect('users')->select('*');
         $query->andWhere([
@@ -83,22 +83,22 @@ final class UserRepository extends ApplicationRepository
             return null;
         }
 
-        return new UserEntity($row);
+        return new UserModel($row);
     }
 
     /**
      * Insert or update user.
      *
-     * @param UserEntity $user
+     * @param UserModel $user
      *
      * @return int User ID
      */
-    public function saveUser(UserEntity $user): int
+    public function saveUser(UserModel $user): int
     {
-        if ($user->id) {
+        if ($user->getId()) {
             $this->updateUser($user);
 
-            return $user->id;
+            return $user->getId();
         }
 
         return $this->insertUser($user);
@@ -107,17 +107,17 @@ final class UserRepository extends ApplicationRepository
     /**
      * Update user.
      *
-     * @param UserEntity $user The user
+     * @param UserModel $user The user
      *
      * @return bool Success
      */
-    public function updateUser(UserEntity $user): bool
+    public function updateUser(UserModel $user): bool
     {
-        if (empty($user->id)) {
+        if (empty($user->getId())) {
             throw new InvalidArgumentException('User ID required');
         }
 
-        $this->newUpdate('users', $user->toArray())->andWhere(['id' => $user->id])->execute();
+        $this->newUpdate('users', $user->toArray())->andWhere(['id' => $user->getId()])->execute();
 
         return true;
     }
@@ -125,11 +125,11 @@ final class UserRepository extends ApplicationRepository
     /**
      * Insert new user.
      *
-     * @param UserEntity $user The user
+     * @param UserModel $user The user
      *
      * @return int The new ID
      */
-    public function insertUser(UserEntity $user): int
+    public function insertUser(UserModel $user): int
     {
         return (int)$this->newInsert('users', $user->toArray())->execute()->lastInsertId();
     }

@@ -2,7 +2,7 @@
 
 namespace App\Action;
 
-use App\Entity\UserEntity;
+use App\Model\UserModel;
 use App\Repository\UserRepository;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
@@ -56,16 +56,16 @@ class UserEditAction extends AbstractAction
         $user = $this->userRepository->getById($id);
 
         // Insert a new user
-        $newUser = new UserEntity();
-        $newUser->username = 'admin-' . uuid();
-        $newUser->disabled = 0;
+        $newUser = new UserModel();
+        $newUser->setUsername('admin-' . uuid());
+        $newUser->setDisabled(0);
         $newUserId = $this->userRepository->insertUser($newUser);
 
         // Get new new user
         $newUser = $this->userRepository->getById($newUserId);
 
         // Delete a user
-        $this->userRepository->deleteUser($newUser->id);
+        $this->userRepository->deleteUser($newUser->getId());
 
         // Get all users
         $users = $this->userRepository->findAll();
@@ -81,8 +81,8 @@ class UserEditAction extends AbstractAction
 
         // Add data to template
         $viewData = $this->getViewData([
-            'id' => $user->id,
-            'username' => $user->username,
+            'id' => $user->getId(),
+            'username' => $user->getUsername(),
             'counter' => $counter,
             'users' => $users,
         ]);

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace App\Model;
 
 /**
- * EntityInterface.
+ * Domain Model Interface.
  */
-interface EntityInterface
+interface ModelInterface
 {
     /**
      * Convert to array.

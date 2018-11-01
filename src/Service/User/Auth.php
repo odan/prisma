@@ -2,7 +2,7 @@
 
 namespace App\Service\User;
 
-use App\Entity\UserEntity;
+use App\Model\UserModel;
 use App\Service\ServiceInterface;
 use Odan\Slim\Session\Session;
 use PDO;
@@ -70,7 +70,7 @@ class Auth implements ServiceInterface
      */
     public function getId(): int
     {
-        $result = $this->getIdentity()->id;
+        $result = $this->getIdentity()->getId();
 
         if (empty($result)) {
             throw new RuntimeException(__('Invalid or empty User-ID'));
@@ -82,9 +82,9 @@ class Auth implements ServiceInterface
     /**
      * Returns the identity from storage or null if no identity is available.
      *
-     * @return UserEntity
+     * @return UserModel
      */
-    public function getIdentity(): UserEntity
+    public function getIdentity(): UserModel
     {
         $user = $this->session->get('user');
         if (!$user) {
@@ -100,9 +100,9 @@ class Auth implements ServiceInterface
      * @param string $username
      * @param string $password
      *
-     * @return UserEntity|null
+     * @return UserModel|null
      */
-    public function authenticate(string $username, string $password): ?UserEntity
+    public function authenticate(string $username, string $password): ?UserModel
     {
         $statement = $this->pdo->prepare('SELECT * FROM users WHERE username = :username AND disabled = 0');
         $statement->execute(['username' => $username]);
@@ -113,9 +113,9 @@ class Auth implements ServiceInterface
             return null;
         }
 
-        $user = new UserEntity($userRow);
+        $user = new UserModel($userRow);
 
-        if (!$this->verifyPassword($password, $user->password)) {
+        if (!$this->verifyPassword($password, $user->getPassword())) {
             return null;
         }
 
@@ -140,11 +140,11 @@ class Auth implements ServiceInterface
     /**
      * Init user session.
      *
-     * @param UserEntity $user
+     * @param UserModel $user
      *
      * @return void
      */
-    protected function startUserSession(UserEntity $user): void
+    protected function startUserSession(UserModel $user): void
     {
         // Clear session data
         $this->session->destroy();
@@ -160,11 +160,11 @@ class Auth implements ServiceInterface
     /**
      * Set the identity into storage or null if no identity is available.
      *
-     * @param UserEntity $user
+     * @param UserModel $user
      *
      * @return void
      */
-    public function setIdentity(UserEntity $user): void
+    public function setIdentity(UserModel $user): void
     {
         $this->session->set('user', $user);
     }
@@ -192,7 +192,7 @@ class Auth implements ServiceInterface
     public function hasRole($role): bool
     {
         // Current user role
-        $userRole = $this->getIdentity()->role;
+        $userRole = $this->getIdentity()->getRole();
 
         // Full access for admin
         if ($userRole === Role::ROLE_ADMIN) {
