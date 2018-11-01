@@ -53,7 +53,7 @@ sudo chmod -R 760 tmp/
 sudo chmod -R 760 public/cache/
 ```
 
-NOTE: Debian/Ubuntu use `www-data`, while CentOS uses `apache` and OSX `_www`.
+NOTE: Debian/Ubuntu uses `www-data`, while CentOS uses `apache` and OSX `_www`.
 
 **Step 3:** Setup
 
