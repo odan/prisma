@@ -60,7 +60,7 @@ NOTE: Debian/Ubuntu use `www-data`, while CentOS uses `apache` and OSX `_www`.
 Run the installer script and follow the instructions:
 
 ```shell
-sudo php cli.php install
+sudo php bin/cli.php install
 ```
 
 **Step 4:** Run it
@@ -80,5 +80,5 @@ The MIT License (MIT). Please see [License File](LICENSE) for more information.
 [PSR-1]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
 [PSR-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
 [PSR-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
-[Composer]: http://getcomposer.org/
-[PHPUnit]: http://phpunit.de/
+[Composer]: https://getcomposer.org/
+[PHPUnit]: https://phpunit.de/

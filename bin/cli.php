@@ -6,7 +6,7 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 }
 
 /* @var \Slim\App $app */
-$app = require __DIR__ . '/config/bootstrap.php';
+$app = require __DIR__ . '/../config/bootstrap.php';
 
 $container = $app->getContainer();
 $commands = $container->get('settings')['commands'];
