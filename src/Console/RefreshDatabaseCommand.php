@@ -31,19 +31,19 @@ class RefreshDatabaseCommand extends AbstractCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        system('php cli.php reset-database', $errorLevel);
+        system('php bin/cli.php reset-database', $errorLevel);
 
         if ($errorLevel) {
             $output->writeln(sprintf('<error>The command failed</error>'));
         }
 
-        system('php cli.php migrate-database', $errorLevel);
+        system('php bin/cli.php migrate-database', $errorLevel);
 
         if ($errorLevel) {
             $output->writeln(sprintf('<error>The command failed</error>'));
         }
 
-        system('php cli.php seed-database', $errorLevel);
+        system('php bin/cli.php seed-database', $errorLevel);
 
         if ($errorLevel) {
             $output->writeln(sprintf('<error>The command failed</error>'));
