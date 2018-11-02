@@ -54,7 +54,7 @@ class InstallCommand extends AbstractCommand
         if ($input->hasOption('environment')) {
             $env = $input->getOption('environment');
 
-            if (!is_string($env)) {
+            if (!is_string($env) && $env !== null) {
                 throw new RuntimeException('Invalid environment');
             }
         }
