@@ -9,7 +9,9 @@ use ReflectionException;
 use ReflectionParameter;
 
 /**
- * Data Transfer Object (DTO) without complex behavior.
+ * Data Transfer Object (DTO) / Data Model
+ *
+ * Only data without complex behavior.
  */
 abstract class Model implements ModelInterface
 {

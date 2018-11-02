@@ -3,7 +3,7 @@
 namespace App\Model;
 
 /**
- * Domain Model Interface.
+ * Data Model Interface.
  */
 interface ModelInterface
 {
