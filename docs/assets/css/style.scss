@@ -4,14 +4,26 @@
 @import "{{ site.theme }}";
 
 .page-header {
-    background-color: #4f5b93;
-    background-image: linear-gradient(120deg, #4f5b93, #8892bf);
+  background-color: #719e40;
+  background-image: linear-gradient(120deg, #719e40, #4a682a);
 }
 
-.main-content h1,.main-content h2,.main-content h3,.main-content h4,.main-content h5,.main-content h6 {
-    color: #333;
+.main-content h1, .main-content h2, .main-content h3, .main-content h4, .main-content h5, .main-content h6 {
+  color: #333;
 }
 
 a {
-    color: #4f5b93;
+  color: #719e40;
+  text-decoration: none
+}
+
+a:hover, a:focus {
+  color: #4a682a;
+  text-decoration: none
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: brandon-grotesque;
+  font-weight: 300;
+  font-style: normal;
 }
