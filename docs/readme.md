@@ -44,6 +44,8 @@
 
 ```
 .
+├── bin                     # Console applications
+│   └── cli.php             # The main command line tool (php bin/cli.php)
 ├── build                   # Compiled files (artifacts)
 ├── config                  # Configuration files
 ├── docs                    # Documentation files
@@ -56,9 +58,9 @@
 ├── src                     # PHP source code (The App namespace)
 │   ├── Action              # Controller actions
 │   ├── Console             # Console commands for cli.php
-│   ├── Entity              # Represents individual rows or domain objects in your application
+│   ├── Model               # Simple data models (DTO)
 │   ├── Service             # Business logic
-│   ├── Repository          # Repositories. Communication with the database.
+│   ├── Repository          # Data access logic. Communication with the database.
 │   ├── Type                # Types, Enum Constants
 │   └── Utility             # Helper classes
 ├── templates               # Twig and Mustache templates + JS and CSS
@@ -72,7 +74,6 @@
 ├── vendor                  # Reserved for composer
 ├── build.xml               # Ant build tasks
 ├── composer.json           # Project dependencies
-├── cli.php                 # Command line tool (php cli.php)
 ├── LICENSE                 # The license
 └── README.md               # This file
 ```
@@ -86,7 +87,7 @@ You can define custom routes in [config/routes.php](config/routes.php).
 To parse all the text run:
 
 ```bash
-$ php cli.php parse-text
+$ php bin/cli.php parse-text
 ```
 
 This command will scan your twig templates, javascripts and PHP classes for the `__()` function call and stores all text entries into the po file. You can find all po file here: `resources/locale`. Use [PoEdit](https://poedit.net/) to open and translate the po files.
@@ -114,13 +115,13 @@ This skeleton project provides console access for **[Phinx](https://phinx.org/)*
 To create a new migration manually:
 
 ```bash
-$ php cli.php create-migration
+$ php bin/cli.php create-migration
 ```
 
 To generate a new migration automatically:
 
 ```bash
-$ php cli.php generate-migration
+$ php bin/cli.php generate-migration
 ```
 
 For more details how to create and manage migrations read the [Phinx](http://docs.phinx.org/en/latest/) documentation.
@@ -130,7 +131,7 @@ For more details how to create and manage migrations read the [Phinx](http://doc
 To populate the database with data for testing and experimenting with the code. Run:
 
 ```
-php cli.php seed-database
+php bin/cli.php seed-database
 ```
 
 To edit how the data is seeded check the file: `resources\seeds\DataSeed`.
@@ -140,7 +141,7 @@ The command `refresh-database` will rollback all migrations, migrate the databas
 Note: all data will be lost from the database.
 
 ```
-php cli.php refresh-database
+php bin/cli.php refresh-database
 ```
 
 ## Deployment
