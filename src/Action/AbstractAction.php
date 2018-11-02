@@ -64,9 +64,9 @@ abstract class AbstractAction
     /**
      * Get view data.
      *
-     * @param array $viewData [Optional] Add this view data
+     * @param mixed[] $viewData [Optional] Add this view data
      *
-     * @return array View data
+     * @return mixed[] View data
      */
     protected function getViewData(array $viewData = []): array
     {
@@ -84,7 +84,7 @@ abstract class AbstractAction
     /**
      * Returns default text.
      *
-     * @return array Array with translated text
+     * @return mixed[] Array with translated text
      */
     protected function getText(): array
     {
@@ -102,11 +102,11 @@ abstract class AbstractAction
      *
      * @param ResponseInterface $response
      * @param string $name Template file
-     * @param array $viewData View data
+     * @param mixed[] $viewData View data
      *
      * @return ResponseInterface
      */
-    protected function render(ResponseInterface $response, $name, array $viewData = []): ResponseInterface
+    protected function render(ResponseInterface $response, string $name, array $viewData = []): ResponseInterface
     {
         return $this->view->render($response, $name, $viewData);
     }

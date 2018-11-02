@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Model\UserModel;
 use DomainException;
 use InvalidArgumentException;
+use Webmozart\Assert\Assert;
 
 /**
  * Users repository.
@@ -97,6 +98,7 @@ final class UserRepository extends ApplicationRepository
     {
         if ($user->getId()) {
             $this->updateUser($user);
+            Assert::notNull($user->getId());
 
             return $user->getId();
         }

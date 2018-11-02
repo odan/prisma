@@ -115,7 +115,7 @@ class Auth implements ServiceInterface
 
         $user = new UserModel($userRow);
 
-        if (!$this->verifyPassword($password, $user->getPassword())) {
+        if (!$this->verifyPassword($password, $user->getPassword() ?: '')) {
             return null;
         }
 

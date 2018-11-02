@@ -9,6 +9,7 @@ use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Webmozart\Assert\Assert;
 
 /**
  * UserEditAction.
@@ -36,7 +37,7 @@ class UserEditAction extends AbstractAction
      *
      * @param Request $request The request
      * @param Response $response The response
-     * @param array $args Arguments
+     * @param mixed[] $args Arguments
      *
      * @throws Exception
      *
@@ -65,6 +66,7 @@ class UserEditAction extends AbstractAction
         $newUser = $this->userRepository->getById($newUserId);
 
         // Delete a user
+        Assert::notNull($newUser->getId());
         $this->userRepository->deleteUser($newUser->getId());
 
         // Get all users

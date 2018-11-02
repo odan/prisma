@@ -44,7 +44,7 @@ class HomeIndexAction extends AbstractAction
     /**
      * Returns default text.
      *
-     * @return array Array with translated text
+     * @return mixed[] Array with translated text
      */
     protected function getText(): array
     {

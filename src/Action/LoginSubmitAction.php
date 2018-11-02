@@ -7,6 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Webmozart\Assert\Assert;
 
 /**
  * LoginSubmitAction.
@@ -45,6 +46,7 @@ class LoginSubmitAction extends AbstractAction
 
         $user = $this->auth->authenticate($username, $password);
         if (!empty($user)) {
+            Assert::notNull($user->getLocale());
             $this->locale->setLanguage($user->getLocale());
             $url = $this->router->pathFor('root');
         } else {

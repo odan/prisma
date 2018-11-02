@@ -10,7 +10,7 @@ interface ModelInterface
     /**
      * Convert to array.
      *
-     * @return array Data
+     * @return mixed[] Data
      */
     public function toArray(): array;
 }

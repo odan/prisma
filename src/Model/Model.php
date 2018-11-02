@@ -9,7 +9,7 @@ use ReflectionException;
 use ReflectionParameter;
 
 /**
- * Data Transfer Object (DTO) / Data Model
+ * Data Transfer Object (DTO) / Data Model.
  *
  * Only data without complex behavior.
  */
@@ -30,11 +30,11 @@ abstract class Model implements ModelInterface
     /**
      * Hydrate array to object.
      *
-     * @param array $data Data
+     * @param mixed[] $data Data
      *
      * @return self
      */
-    protected function fromArray(array $data)
+    protected function fromArray(array $data): self
     {
         $methods = array_flip(get_class_methods(get_class($this)));
         $class = get_class($this);
@@ -82,7 +82,7 @@ abstract class Model implements ModelInterface
     /**
      * Convert to array.
      *
-     * @return array Data
+     * @return mixed[] Data
      */
     public function toArray(): array
     {

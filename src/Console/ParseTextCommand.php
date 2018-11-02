@@ -271,11 +271,11 @@ class ParseTextCommand extends AbstractCommand
     /**
      * Add a new target.
      *
-     * @param string $path
+     * @param string $path The path
      *
      * @return self
      */
-    public function generate($path): self
+    public function generate(string $path): self
     {
         $this->targets[] = func_get_args();
 
@@ -285,12 +285,12 @@ class ParseTextCommand extends AbstractCommand
     /**
      * Add a new source folder.
      *
-     * @param string $path
-     * @param string|null $regex
+     * @param string $path Path
+     * @param string|null $regex Regex
      *
      * @return self
      */
-    public function extract($path, $regex = null): self
+    public function extract(string $path, string $regex = null): self
     {
         $directory = new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS);
         $iterator = new RecursiveIteratorIterator($directory);

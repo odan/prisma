@@ -1,0 +1,3 @@
+includes:
+   #- vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
+   - vendor/phpstan/phpstan-webmozart-assert/extension.neon

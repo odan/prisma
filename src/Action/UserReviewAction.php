@@ -16,7 +16,7 @@ class UserReviewAction extends AbstractAction
      *
      * @param Request $request The request
      * @param Response $response The response
-     * @param array $args Arguments
+     * @param mixed[] $args Arguments
      *
      * @return ResponseInterface Response
      */
