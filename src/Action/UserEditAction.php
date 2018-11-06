@@ -65,8 +65,7 @@ class UserEditAction extends AbstractAction
         // Get new new user
         $newUser = $this->userRepository->getById($newUserId);
 
-        // Delete a user
-        Assert::notNull($newUser->getId());
+        assert($newUser->getId() !== null);
         $this->userRepository->deleteUser($newUser->getId());
 
         // Get all users
