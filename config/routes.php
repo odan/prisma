@@ -5,7 +5,6 @@
  */
 
 // Default page
-use Slim\Http\Request;
 
 $app->get('/', \App\Action\HomeIndexAction::class)->setName('root');
 
