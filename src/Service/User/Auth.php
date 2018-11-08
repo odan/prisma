@@ -5,7 +5,6 @@ namespace App\Service\User;
 use App\Data\UserData;
 use App\Service\ServiceInterface;
 use Odan\Slim\Session\Session;
-use PDO;
 use RuntimeException;
 
 /**
@@ -21,20 +20,20 @@ class Auth implements ServiceInterface
     private $session;
 
     /**
-     * @var PDO
+     * @var AuthRepository
      */
-    private $pdo;
+    private $authRepository;
 
     /**
-     * UserSession constructor.
+     * Constructor.
      *
      * @param Session $session Storage
-     * @param PDO $pdo PDO database connection
+     * @param AuthRepository $authRepository The repository
      */
-    public function __construct(Session $session, PDO $pdo)
+    public function __construct(Session $session, AuthRepository $authRepository)
     {
         $this->session = $session;
-        $this->pdo = $pdo;
+        $this->authRepository = $authRepository;
     }
 
     /**
@@ -104,10 +103,7 @@ class Auth implements ServiceInterface
      */
     public function authenticate(string $username, string $password): ?UserData
     {
-        $statement = $this->pdo->prepare('SELECT * FROM users WHERE username = :username AND disabled = 0');
-        $statement->execute(['username' => $username]);
-
-        $userRow = $statement->fetch(PDO::FETCH_ASSOC);
+        $userRow = $this->authRepository->findUserByUsername($username);
 
         if (!$userRow) {
             return null;

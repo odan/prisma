@@ -63,30 +63,6 @@ final class UserRepository extends ApplicationRepository
     }
 
     /**
-     * Find user by username.
-     *
-     * @param string $username Username
-     *
-     * @return UserData|null User
-     */
-    public function findByUsername(string $username): ?UserData
-    {
-        $query = $this->newSelect('users')->select('*');
-        $query->andWhere([
-            'username' => $username,
-            'disabled' => 0,
-        ]);
-
-        $row = $query->execute()->fetch('assoc');
-
-        if (empty($row)) {
-            return null;
-        }
-
-        return new UserData($row);
-    }
-
-    /**
      * Insert or update user.
      *
      * @param UserData $user
