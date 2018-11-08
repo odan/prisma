@@ -2,7 +2,7 @@
 
 namespace App\Action;
 
-use App\Repository\UserRepository;
+use App\Service\User\UserService;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;
@@ -14,19 +14,19 @@ use Slim\Http\Response;
 class UserIndexAction extends AbstractAction
 {
     /**
-     * @var UserRepository
+     * @var UserService
      */
-    protected $userRepo;
+    protected $userService;
 
     /**
      * Constructor.
      *
-     * @param Container $container
+     * @param Container $container The container
      */
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->userRepo = $container->get(UserRepository::class);
+        $this->userService = $container->get(UserService::class);
     }
 
     /**
@@ -39,7 +39,7 @@ class UserIndexAction extends AbstractAction
      */
     public function __invoke(Request $request, Response $response): ResponseInterface
     {
-        $users = $this->userRepo->findAll();
+        $users = $this->userService->findAllUsers();
 
         $viewData = $this->getViewData([
             'users' => $users,

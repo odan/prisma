@@ -44,7 +44,7 @@ class UserEditAction extends AbstractAction
      */
     public function __invoke(Request $request, Response $response, array $args): ResponseInterface
     {
-        $id = $args['id'];
+        $id = (int)$args['id'];
 
         // Get all GET parameters
         //$query = $request->getQueryParams();
@@ -61,14 +61,11 @@ class UserEditAction extends AbstractAction
         $newUser->setDisabled(0);
         $newUserId = $this->userService->registerUser($newUser);
 
-        // Get new new user
+        // Get new user
         $newUser = $this->userService->getUserById($newUserId);
 
         assert($newUser->getId() !== null);
         $this->userService->unregisterUser($newUser->getId());
-
-        // Get all users
-        $users = $this->userService->findAllUsers();
 
         // Session example
         // Increment counter
@@ -84,7 +81,6 @@ class UserEditAction extends AbstractAction
             'id' => $user->getId(),
             'username' => $user->getUsername(),
             'counter' => $counter,
-            'users' => $users,
         ]);
 
         // Render template
