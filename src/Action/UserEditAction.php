@@ -2,14 +2,13 @@
 
 namespace App\Action;
 
-use App\Model\UserModel;
+use App\Data\UserData;
 use App\Repository\UserRepository;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Webmozart\Assert\Assert;
 
 /**
  * UserEditAction.
@@ -57,7 +56,7 @@ class UserEditAction extends AbstractAction
         $user = $this->userRepository->getById($id);
 
         // Insert a new user
-        $newUser = new UserModel();
+        $newUser = new UserData();
         $newUser->setUsername('admin-' . uuid());
         $newUser->setDisabled(0);
         $newUserId = $this->userRepository->insertUser($newUser);
