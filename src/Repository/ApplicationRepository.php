@@ -85,7 +85,7 @@ abstract class ApplicationRepository implements RepositoryInterface
             $data['updated_at'] = now();
         }
 
-        if (!isset($data['updated_by'])) {
+        if ($this->auth !== null && !isset($data['updated_by'])) {
             $data['updated_by'] = $this->auth->getId();
         }
 
@@ -106,7 +106,7 @@ abstract class ApplicationRepository implements RepositoryInterface
             $data['created_at'] = now();
         }
 
-        if (!isset($data['created_by'])) {
+        if ($this->auth !== null && !isset($data['created_by'])) {
             $data['created_by'] = $this->auth->getId();
         }
 

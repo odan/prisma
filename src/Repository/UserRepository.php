@@ -12,7 +12,7 @@ use InvalidArgumentException;
 final class UserRepository extends ApplicationRepository
 {
     /**
-     * Returns a collection of User entities.
+     * Find all users.
      *
      * @return UserData[]
      */

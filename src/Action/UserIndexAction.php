@@ -9,7 +9,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * UserIndexAction.
+ * Action.
  */
 class UserIndexAction extends AbstractAction
 {

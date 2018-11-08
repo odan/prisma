@@ -172,7 +172,7 @@ $container[Auth::class] = function (Container $container) {
 };
 
 // -----------------------------------------------------------------------------
-// Services, Models, Repositories
+// Repositories
 // -----------------------------------------------------------------------------
 $container[UserRepository::class] = function (Container $container) {
     return new UserRepository($container->get(Connection::class), $container->get(Auth::class));
@@ -180,6 +180,13 @@ $container[UserRepository::class] = function (Container $container) {
 
 $container[AuthRepository::class] = function (Container $container) {
     return new AuthRepository($container->get(Connection::class));
+};
+
+// -----------------------------------------------------------------------------
+// Repositories
+// -----------------------------------------------------------------------------
+$container[\App\Service\User\UserService::class] = function (Container $container) {
+    return new \App\Service\User\UserService($container->get(UserRepository::class));
 };
 
 return $container;

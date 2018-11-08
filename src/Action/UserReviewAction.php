@@ -7,7 +7,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * UserReviewAction.
+ * Action.
  */
 class UserReviewAction extends AbstractAction
 {

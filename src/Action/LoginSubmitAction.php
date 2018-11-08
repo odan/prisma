@@ -9,7 +9,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * LoginSubmitAction.
+ * Action.
  */
 class LoginSubmitAction extends AbstractAction
 {
