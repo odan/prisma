@@ -7,7 +7,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * LoginIndexAction.
+ * Action.
  */
 class LoginIndexAction extends AbstractAction
 {

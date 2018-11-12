@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model;
+namespace App\Data;
 
 use Cake\Utility\Inflector;
 use DateTime;
@@ -13,7 +13,7 @@ use ReflectionParameter;
  *
  * Only data without complex behavior.
  */
-abstract class Model implements ModelInterface
+abstract class Data implements DataInterface
 {
     /**
      * Constructor.

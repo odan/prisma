@@ -3,6 +3,7 @@
 // Service container configuration
 
 use App\Service\User\Auth;
+use App\Service\User\AuthRepository;
 use App\Service\User\Locale;
 use App\Repository\UserRepository;
 use App\Utility\ErrorHandler;
@@ -167,14 +168,25 @@ $container[Translator::class] = function (Container $container) {
 };
 
 $container[Auth::class] = function (Container $container) {
-    return new Auth($container->get(Session::class), $container->get(PDO::class));
+    return new Auth($container->get(Session::class), $container->get(AuthRepository::class));
 };
 
 // -----------------------------------------------------------------------------
-// Services, Models, Repositories
+// Repositories
 // -----------------------------------------------------------------------------
 $container[UserRepository::class] = function (Container $container) {
     return new UserRepository($container->get(Connection::class), $container->get(Auth::class));
+};
+
+$container[AuthRepository::class] = function (Container $container) {
+    return new AuthRepository($container->get(Connection::class));
+};
+
+// -----------------------------------------------------------------------------
+// Repositories
+// -----------------------------------------------------------------------------
+$container[\App\Service\User\UserService::class] = function (Container $container) {
+    return new \App\Service\User\UserService($container->get(UserRepository::class));
 };
 
 return $container;

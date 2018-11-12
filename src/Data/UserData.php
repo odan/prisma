@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Model;
+namespace App\Data;
 
 /**
  * User.
  */
-final class UserModel extends Model
+final class UserData extends Data
 {
     /** @var int|null */
     private $id;

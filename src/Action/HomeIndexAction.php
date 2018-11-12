@@ -7,7 +7,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * HomeIndexAction.
+ * Action.
  */
 class HomeIndexAction extends AbstractAction
 {

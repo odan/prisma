@@ -2,10 +2,9 @@
 
 namespace App\Service\User;
 
-use App\Model\UserModel;
+use App\Data\UserData;
 use App\Service\ServiceInterface;
 use Odan\Slim\Session\Session;
-use PDO;
 use RuntimeException;
 
 /**
@@ -21,20 +20,20 @@ class Auth implements ServiceInterface
     private $session;
 
     /**
-     * @var PDO
+     * @var AuthRepository
      */
-    private $pdo;
+    private $authRepository;
 
     /**
-     * UserSession constructor.
+     * Constructor.
      *
      * @param Session $session Storage
-     * @param PDO $pdo PDO database connection
+     * @param AuthRepository $authRepository The repository
      */
-    public function __construct(Session $session, PDO $pdo)
+    public function __construct(Session $session, AuthRepository $authRepository)
     {
         $this->session = $session;
-        $this->pdo = $pdo;
+        $this->authRepository = $authRepository;
     }
 
     /**
@@ -82,9 +81,9 @@ class Auth implements ServiceInterface
     /**
      * Returns the identity from storage or null if no identity is available.
      *
-     * @return UserModel
+     * @return UserData
      */
-    public function getIdentity(): UserModel
+    public function getIdentity(): UserData
     {
         $user = $this->session->get('user');
         if (!$user) {
@@ -100,20 +99,17 @@ class Auth implements ServiceInterface
      * @param string $username
      * @param string $password
      *
-     * @return UserModel|null
+     * @return UserData|null
      */
-    public function authenticate(string $username, string $password): ?UserModel
+    public function authenticate(string $username, string $password): ?UserData
     {
-        $statement = $this->pdo->prepare('SELECT * FROM users WHERE username = :username AND disabled = 0');
-        $statement->execute(['username' => $username]);
-
-        $userRow = $statement->fetch(PDO::FETCH_ASSOC);
+        $userRow = $this->authRepository->findUserByUsername($username);
 
         if (!$userRow) {
             return null;
         }
 
-        $user = new UserModel($userRow);
+        $user = new UserData($userRow);
 
         if (!$this->verifyPassword($password, $user->getPassword() ?: '')) {
             return null;
@@ -140,11 +136,11 @@ class Auth implements ServiceInterface
     /**
      * Init user session.
      *
-     * @param UserModel $user
+     * @param UserData $user
      *
      * @return void
      */
-    protected function startUserSession(UserModel $user): void
+    protected function startUserSession(UserData $user): void
     {
         // Clear session data
         $this->session->destroy();
@@ -160,11 +156,11 @@ class Auth implements ServiceInterface
     /**
      * Set the identity into storage or null if no identity is available.
      *
-     * @param UserModel $user
+     * @param UserData $user
      *
      * @return void
      */
-    public function setIdentity(UserModel $user): void
+    public function setIdentity(UserData $user): void
     {
         $this->session->set('user', $user);
     }

@@ -9,7 +9,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * HomeLoadAction.
+ * Action.
  */
 class HomeLoadAction extends AbstractAction
 {

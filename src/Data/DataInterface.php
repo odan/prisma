@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Model;
+namespace App\Data;
 
 /**
- * Data Model Interface.
+ * Data Transfer Object Interface.
  */
-interface ModelInterface
+interface DataInterface
 {
     /**
      * Convert to array.

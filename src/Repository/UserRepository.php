@@ -2,10 +2,9 @@
 
 namespace App\Repository;
 
-use App\Model\UserModel;
+use App\Data\UserData;
 use DomainException;
 use InvalidArgumentException;
-use Webmozart\Assert\Assert;
 
 /**
  * Users repository.
@@ -13,9 +12,9 @@ use Webmozart\Assert\Assert;
 final class UserRepository extends ApplicationRepository
 {
     /**
-     * Returns a collection of User entities.
+     * Find all users.
      *
-     * @return UserModel[]
+     * @return UserData[]
      */
     public function findAll(): array
     {
@@ -23,7 +22,7 @@ final class UserRepository extends ApplicationRepository
 
         $result = [];
         foreach ($rows as $row) {
-            $result[] = new UserModel($row);
+            $result[] = new UserData($row);
         }
 
         return $result;
@@ -36,9 +35,9 @@ final class UserRepository extends ApplicationRepository
      *
      * @throws DomainException On error
      *
-     * @return UserModel An model
+     * @return UserData An model
      */
-    public function getById(int $id): UserModel
+    public function getById(int $id): UserData
     {
         $user = $this->findById($id);
 
@@ -54,51 +53,26 @@ final class UserRepository extends ApplicationRepository
      *
      * @param int $id The ID
      *
-     * @return UserModel|null The model
+     * @return UserData|null The model
      */
-    public function findById(int $id): ?UserModel
+    public function findById(int $id): ?UserData
     {
         $row = $this->fetchById('users', $id);
 
-        return $row ? new UserModel($row) : null;
-    }
-
-    /**
-     * Find user by username.
-     *
-     * @param string $username Username
-     *
-     * @return UserModel|null User
-     */
-    public function findByUsername(string $username): ?UserModel
-    {
-        $query = $this->newSelect('users')->select('*');
-        $query->andWhere([
-            'username' => $username,
-            'disabled' => 0,
-        ]);
-
-        $row = $query->execute()->fetch('assoc');
-
-        if (empty($row)) {
-            return null;
-        }
-
-        return new UserModel($row);
+        return $row ? new UserData($row) : null;
     }
 
     /**
      * Insert or update user.
      *
-     * @param UserModel $user
+     * @param UserData $user
      *
      * @return int User ID
      */
-    public function saveUser(UserModel $user): int
+    public function saveUser(UserData $user): int
     {
-        if ($user->getId()) {
+        if ($user->getId() !== null) {
             $this->updateUser($user);
-            Assert::notNull($user->getId());
 
             return $user->getId();
         }
@@ -109,11 +83,11 @@ final class UserRepository extends ApplicationRepository
     /**
      * Update user.
      *
-     * @param UserModel $user The user
+     * @param UserData $user The user
      *
      * @return bool Success
      */
-    public function updateUser(UserModel $user): bool
+    public function updateUser(UserData $user): bool
     {
         if (empty($user->getId())) {
             throw new InvalidArgumentException('User ID required');
@@ -127,11 +101,11 @@ final class UserRepository extends ApplicationRepository
     /**
      * Insert new user.
      *
-     * @param UserModel $user The user
+     * @param UserData $user The user
      *
      * @return int The new ID
      */
-    public function insertUser(UserModel $user): int
+    public function insertUser(UserData $user): int
     {
         return (int)$this->newInsert('users', $user->toArray())->execute()->lastInsertId();
     }

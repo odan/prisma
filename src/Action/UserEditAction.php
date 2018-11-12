@@ -2,24 +2,23 @@
 
 namespace App\Action;
 
-use App\Model\UserModel;
-use App\Repository\UserRepository;
+use App\Data\UserData;
+use App\Service\User\UserService;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Webmozart\Assert\Assert;
 
 /**
- * UserEditAction.
+ * Action.
  */
 class UserEditAction extends AbstractAction
 {
     /**
-     * @var UserRepository
+     * @var UserService
      */
-    protected $userRepository;
+    protected $userService;
 
     /**
      * Constructor.
@@ -29,7 +28,7 @@ class UserEditAction extends AbstractAction
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->userRepository = $container->get(UserRepository::class);
+        $this->userService = $container->get(UserService::class);
     }
 
     /**
@@ -45,7 +44,7 @@ class UserEditAction extends AbstractAction
      */
     public function __invoke(Request $request, Response $response, array $args): ResponseInterface
     {
-        $id = $args['id'];
+        $id = (int)$args['id'];
 
         // Get all GET parameters
         //$query = $request->getQueryParams();
@@ -54,23 +53,19 @@ class UserEditAction extends AbstractAction
         //$post = $request->getParsedBody();
 
         // Repository example
-        $user = $this->userRepository->getById($id);
+        $user = $this->userService->getUserById($id);
 
         // Insert a new user
-        $newUser = new UserModel();
+        $newUser = new UserData();
         $newUser->setUsername('admin-' . uuid());
         $newUser->setDisabled(0);
-        $newUserId = $this->userRepository->insertUser($newUser);
+        $newUserId = $this->userService->registerUser($newUser);
 
-        // Get new new user
-        $newUser = $this->userRepository->getById($newUserId);
+        // Get new user
+        $newUser = $this->userService->getUserById($newUserId);
 
-        // Delete a user
-        Assert::notNull($newUser->getId());
-        $this->userRepository->deleteUser($newUser->getId());
-
-        // Get all users
-        $users = $this->userRepository->findAll();
+        assert($newUser->getId() !== null);
+        $this->userService->unregisterUser($newUser->getId());
 
         // Session example
         // Increment counter
@@ -86,7 +81,6 @@ class UserEditAction extends AbstractAction
             'id' => $user->getId(),
             'username' => $user->getUsername(),
             'counter' => $counter,
-            'users' => $users,
         ]);
 
         // Render template

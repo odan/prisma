@@ -7,7 +7,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * LoginLogoutAction.
+ * Action.
  */
 class LoginLogoutAction extends AbstractAction
 {

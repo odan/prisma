@@ -7,7 +7,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * HomePingAction.
+ * Action.
  */
 class HomePingAction extends AbstractAction
 {
