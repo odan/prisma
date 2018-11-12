@@ -4,7 +4,10 @@
 
 * Introduction
 * Getting started
- * Installation
+ * [Installation](#installation)
+   * [Manual setup](#manual-setup)
+   * [Vagrant setup](#vagrant-setup)
+   * [Docker setup](#docker-setup)
  * Configuration
  * [Directory structure](#directory-structure)
  * [Deployment](#deployment)
@@ -39,6 +42,153 @@
   * [Database Testing](#database-testing)
   * Mocking
 
+## Introduction
+
+A skeleton project for Slim 3.
+
+This is a Slim 3 skeleton project that includes Routing, Middleware, Twig templates, 
+mustache.js, Translations, Assets, Sessions, Database Queries, Migrations, 
+Console Commands, Authentication, Authorization, CSRF protection, 
+Logging and Unit testing.
+
+## Installation
+
+### Manual Setup
+
+**Step 1:** Create a new project:
+
+```shell
+composer create-project --prefer-dist odan/prisma my-app
+```
+
+**Step 2:** Set permissions
+
+*(Linux only)*
+
+```bash
+cd my-app
+```
+
+```bash
+sudo chown -R www-data tmp/
+sudo chown -R www-data public/cache/
+```
+
+*Optional*
+
+NOTE: The app will have ability to create subfolders 
+in `tmp/` and `public/cache/` which means it will need 760.
+
+```bash
+sudo chmod -R 760 tmp/
+sudo chmod -R 760 public/cache/
+```
+
+NOTE: Debian/Ubuntu uses `www-data`, while CentOS uses `apache` and OSX `_www`.
+
+**Step 3:** Setup
+
+Run the installer script and follow the instructions:
+
+```shell
+sudo php bin/cli.php install
+```
+
+**Step 4:** Run it
+
+* Open `http://localhost/my-app`
+* Login with username / password: `admin / admin` or `user / user`
+
+### Vagrant
+
+* Create a file `vagrantfile`:
+
+```vagrantfile
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/bionic64"
+  config.vm.provision :shell, path: "bootstrap.sh"
+  config.vm.network "forwarded_port", guest: 80, host: 8765
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "1024"
+    vb.customize ['modifyvm', :id, '--cableconnected1', 'on']
+  end  
+end
+```
+
+* Create a file: `bootstrap.sh`
+
+```sh
+#!/usr/bin/env bash
+
+apt-get update
+apt-get install vim -y
+
+# zip and unzip is for composer
+apt-get install zip unzip -y
+
+apt-get install apache2 -y
+
+if ! [ -L /var/www ]; then
+  rm -rf /var/www
+  ln -fs /vagrant /var/www
+fi
+
+apt-get install mysql-server mysql-client libmysqlclient-dev -y
+apt-get install libapache2-mod-php7.2 php7.2 php7.2-mysql php7.2-sqlite -y
+apt-get install php7.2-mbstring php7.2-curl php7.2-intl php7.2-gd php7.2-zip php7.2-bz2 -y
+apt-get install php7.2-dom php7.2-xml php7.2-soap -y
+
+# Enable apache mod_rewrite
+a2enmod rewrite
+a2enmod actions
+
+# Change AllowOverride from None to All (between line 170 and 174)
+sed -i '170,174 s/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
+
+# Start the webserver
+service apache2 start
+
+# Change mysql root password
+service mysql start
+mysql -u root --password="" -e "update mysql.user set authentication_string=password(''), plugin='mysql_native_password' where user='root';"
+mysql -u root --password="" -e "flush privileges;"
+
+# Install composer
+cd ~
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+php -r "unlink('composer-setup.php');"
+composer self-update
+
+# Create a new project:
+mkdir /var/www/html
+cd /var/www/html
+composer create-project --prefer-dist --no-interaction --no-progress odan/prisma .
+
+# Set permissions
+chown -R www-data tmp/
+chown -R www-data public/cache/
+
+chmod -R 760 tmp/
+chmod -R 760 public/cache/
+
+#chmod +x bin/cli.php
+php bin/cli.php install --environment travis
+
+vendor/bin/phpunit
+
+```
+
+* Run `vagrant up` and `vagrant ssh`
+* Open http://localhost:8765
+* Login: username= `user`, password = `user`
+* Login as admin: username = `admin`, password = `admin`
+
+### Docker Setup
+
+todo
 
 ## Directory structure
 
