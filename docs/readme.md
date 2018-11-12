@@ -3,12 +3,11 @@
 ## Table of contents
 
 * Introduction
-* Getting started
- * [Installation](#installation)
-   * [Manual setup](#manual-setup)
-   * [Vagrant setup](#vagrant-setup)
-   * [Docker setup](#docker-setup)
- * Configuration
+* [Installation](#installation)
+  * [Manual Setup](#manual-setup)
+  * [Vagrant Setup](#vagrant-setup)
+  * [Docker Setup](#docker-setup)
+* Configuration
  * [Directory structure](#directory-structure)
  * [Deployment](#deployment)
 * The Basics
@@ -99,7 +98,7 @@ sudo php bin/cli.php install
 * Open `http://localhost/my-app`
 * Login with username / password: `admin / admin` or `user / user`
 
-### Vagrant
+### Vagrant Setup
 
 * Create a file `vagrantfile`:
 
