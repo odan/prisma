@@ -2,15 +2,14 @@
 
 ## Table of contents
 
-* Introduction
+* [Introduction](#introduction)
 * [Installation](#installation)
   * [Manual Setup](#manual-setup)
   * [Vagrant Setup](#vagrant-setup)
   * [Docker Setup](#docker-setup)
 * Configuration
- * [Directory structure](#directory-structure)
- * [Deployment](#deployment)
 * The Basics
+  * [Directory structure](#directory-structure)
   * [Routing](#routing)
   * Middleware
   * Controllers
@@ -40,6 +39,7 @@
   * HTTP Tests
   * [Database Testing](#database-testing)
   * Mocking
+* [Deployment](#deployment)
 
 ## Introduction
 
@@ -177,10 +177,10 @@ chmod -R 760 public/cache/
 php bin/cli.php install --environment travis
 
 vendor/bin/phpunit
-
 ```
 
-* Run `vagrant up` and `vagrant ssh`
+* Run `vagrant up` 
+* Run `vagrant ssh`
 * Open http://localhost:8765
 * Login: username= `user`, password = `user`
 * Login as admin: username = `admin`, password = `admin`
@@ -207,11 +207,11 @@ todo
 ├── src                     # PHP source code (The App namespace)
 │   ├── Action              # Controller actions
 │   ├── Console             # Console commands for cli.php
-│   ├── Model               # Simple data models (DTO)
-│   ├── Service             # Business logic
+│   ├── Data                # Data transfer objects (DTO)
+│   ├── Service             # Domain, Business logic
 │   ├── Repository          # Data access logic. Communication with the database.
 │   ├── Type                # Types, Enum Constants
-│   └── Utility             # Helper classes
+│   └── Utility             # Helper classes and functions
 ├── templates               # Twig and Mustache templates + JS and CSS
 ├── tests                   # Automated tests
 ├── tmp                     # Temporary files
@@ -293,16 +293,6 @@ Note: all data will be lost from the database.
 php bin/cli.php refresh-database
 ```
 
-## Deployment
-
-### Continuous Delivery
-
-You can build artifact's (ZIP files) which are tested and ready for deployment.
-
-``` bash
-$ ant build
-```
-
 Upload to production:
 
 ``` bash
@@ -322,3 +312,13 @@ $ ant phpunit
 ##  Database
 
 ### Database configuration
+
+## Deployment
+
+### Continuous Delivery
+
+You can build artifact's (ZIP files) which are tested and ready for deployment.
+
+``` bash
+$ ant build
+```
