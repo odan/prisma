@@ -5,7 +5,7 @@ namespace App\Data;
 /**
  * Data Transfer Object Interface.
  */
-interface DataInterface
+interface DataTransferObjectInterface
 {
     /**
      * Convert to array.

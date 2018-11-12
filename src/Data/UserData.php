@@ -5,7 +5,7 @@ namespace App\Data;
 /**
  * User.
  */
-final class UserData extends Data
+final class UserData extends DataTransferObject
 {
     /** @var int|null */
     private $id;

@@ -13,7 +13,7 @@ use ReflectionParameter;
  *
  * Only data without complex behavior.
  */
-abstract class Data implements DataInterface
+abstract class DataTransferObject implements DataTransferObjectInterface
 {
     /**
      * Constructor.
