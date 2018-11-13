@@ -229,7 +229,7 @@ todo
 
 ## Routing
 
-You can define custom routes in [config/routes.php](config/routes.php). 
+You can define custom routes in [config/routes.php](https://github.com/odan/prisma/blob/master/config/routes.phpp). 
 
 ## Internationalization
 
