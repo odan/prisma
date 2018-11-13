@@ -15,7 +15,7 @@
     "php": "^7.2",
     "cakephp/database": "^3.6",
     "monolog/monolog": "^1.18.0",
-    "odan/phinx-migrations-generator": "^2.5.0",
+    "odan/phinx-migrations-generator": "^3.1.0",
     "odan/slim-csrf": "^1.0.0",
     "odan/slim-session": "1.0.0",
     "odan/twig-assets": "^1.2.0",
@@ -28,7 +28,7 @@
   },
   "require-dev": {
     "gettext/gettext": "^4.4",
-    "odan/docblock-checker": "^1.0",
+    "odan/docblock-checker": "^1.1",
     "phpunit/phpunit": "^7.0"
   },
   "autoload": {
