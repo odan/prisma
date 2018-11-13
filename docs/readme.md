@@ -208,7 +208,7 @@ todo
 │   ├── Action              # Controller actions
 │   ├── Console             # Console commands for cli.php
 │   ├── Data                # Data transfer objects (DTO)
-│   ├── Service             # Domain, Business logic
+│   ├── Domain              # Business logic
 │   ├── Repository          # Data access logic. Communication with the database.
 │   ├── Type                # Types, Enum Constants
 │   └── Utility             # Helper classes and functions
