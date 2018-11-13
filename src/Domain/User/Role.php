@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\User;
+namespace App\Domain\User;
 
 /**
  * UserRole.

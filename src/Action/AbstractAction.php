@@ -2,7 +2,7 @@
 
 namespace App\Action;
 
-use App\Service\User\Auth;
+use App\Domain\User\Auth;
 use Cake\Database\Connection;
 use Odan\Slim\Session\Session;
 use Psr\Http\Message\ResponseInterface;

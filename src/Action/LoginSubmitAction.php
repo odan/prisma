@@ -2,7 +2,7 @@
 
 namespace App\Action;
 
-use App\Service\User\Locale;
+use App\Domain\User\Locale;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;

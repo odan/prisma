@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Service\User\Auth;
+use App\Domain\User\Auth;
 use Cake\Database\Connection;
 use Cake\Database\Query;
 use RuntimeException;

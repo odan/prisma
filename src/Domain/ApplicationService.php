@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Domain;
 
 /**
  * Application service.
@@ -12,6 +12,6 @@ namespace App\Service;
  * The business logic should be placed in the service layer,
  * and we should be aiming for fat models and skinny controllers.
  */
-interface ServiceInterface
+abstract class ApplicationService implements ServiceInterface
 {
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Service\User;
+namespace App\Domain\User;
 
 use App\Data\UserData;
 use App\Repository\UserRepository;
-use App\Service\ApplicationService;
+use App\Domain\ApplicationService;
 
 /**
  * Class.

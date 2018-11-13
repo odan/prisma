@@ -2,9 +2,9 @@
 
 // Service container configuration
 
-use App\Service\User\Auth;
-use App\Service\User\AuthRepository;
-use App\Service\User\Locale;
+use App\Domain\User\Auth;
+use App\Domain\User\AuthRepository;
+use App\Domain\User\Locale;
 use App\Repository\UserRepository;
 use App\Utility\ErrorHandler;
 use Cake\Database\Connection;
@@ -185,8 +185,8 @@ $container[AuthRepository::class] = function (Container $container) {
 // -----------------------------------------------------------------------------
 // Repositories
 // -----------------------------------------------------------------------------
-$container[\App\Service\User\UserService::class] = function (Container $container) {
-    return new \App\Service\User\UserService($container->get(UserRepository::class));
+$container[\App\Domain\User\UserService::class] = function (Container $container) {
+    return new \App\Domain\User\UserService($container->get(UserRepository::class));
 };
 
 return $container;

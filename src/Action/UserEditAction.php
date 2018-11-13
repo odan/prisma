@@ -3,7 +3,7 @@
 namespace App\Action;
 
 use App\Data\UserData;
-use App\Service\User\UserService;
+use App\Domain\User\UserService;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;

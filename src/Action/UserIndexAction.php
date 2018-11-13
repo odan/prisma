@@ -2,7 +2,7 @@
 
 namespace App\Action;
 
-use App\Service\User\UserService;
+use App\Domain\User\UserService;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;
