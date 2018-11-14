@@ -147,7 +147,7 @@ a2enmod actions
 sed -i '170,174 s/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
 
 # Start the webserver
-service apache2 start
+service apache2 restart
 
 # Change mysql root password
 service mysql start
