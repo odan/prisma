@@ -13,7 +13,6 @@ $container = $app->getContainer();
 $app->add(function (Request $request, Response $response, $next) {
     /* @var \Slim\Route $route */
     $route = $request->getAttribute('route');
-    $request->getHeader('');
 
     if (!$route) {
         return $next($request, $response);
@@ -35,7 +34,7 @@ $app->add(function (Request $request, Response $response, $next) {
     return $next($request, $response);
 });
 
-// Http middleware
+// Https middleware
 $app->add(function (Request $request, Response $response, $next) {
     // Checks whether the request is secure or not.
     $server = $request->getServerParams();
