@@ -56,6 +56,7 @@ final class UserData extends DataTransferObject
 
     /**
      * @param int|null $id
+     * @return void
      */
     public function setId(?int $id): void
     {
@@ -63,7 +64,7 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getUsername(): ?string
     {
@@ -71,7 +72,8 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @param null|string $username
+     * @param string|null $username
+     * @return void
      */
     public function setUsername(?string $username): void
     {
@@ -79,7 +81,7 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getPassword(): ?string
     {
@@ -87,7 +89,8 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @param null|string $password
+     * @param string|null $password
+     * @return void
      */
     public function setPassword(?string $password): void
     {
@@ -95,7 +98,7 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getEmail(): ?string
     {
@@ -103,7 +106,8 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @param null|string $email
+     * @param string|null $email
+     * @return void
      */
     public function setEmail(?string $email): void
     {
@@ -111,7 +115,7 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getFirstName(): ?string
     {
@@ -119,7 +123,8 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @param null|string $firstName
+     * @param string|null $firstName
+     * @return void
      */
     public function setFirstName(?string $firstName): void
     {
@@ -127,7 +132,7 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getLastName(): ?string
     {
@@ -135,7 +140,8 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @param null|string $lastName
+     * @param string|null $lastName
+     * @return void
      */
     public function setLastName(?string $lastName): void
     {
@@ -143,7 +149,7 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getRole(): ?string
     {
@@ -151,7 +157,8 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @param null|string $role
+     * @param string|null $role
+     * @return void
      */
     public function setRole(?string $role): void
     {
@@ -159,7 +166,7 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getLocale(): ?string
     {
@@ -167,7 +174,8 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @param null|string $locale
+     * @param string|null $locale
+     * @return void
      */
     public function setLocale(?string $locale): void
     {
@@ -184,6 +192,7 @@ final class UserData extends DataTransferObject
 
     /**
      * @param int|null $disabled
+     * @return void
      */
     public function setDisabled(?int $disabled): void
     {
@@ -191,7 +200,7 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getCreatedAt(): ?string
     {
@@ -199,7 +208,8 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @param null|string $createdAt
+     * @param string|null $createdAt
+     * @return void
      */
     public function setCreatedAt(?string $createdAt): void
     {
@@ -216,6 +226,7 @@ final class UserData extends DataTransferObject
 
     /**
      * @param int|null $createdBy
+     * @return void
      */
     public function setCreatedBy(?int $createdBy): void
     {
@@ -223,7 +234,7 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getUpdatedAt(): ?string
     {
@@ -231,7 +242,8 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @param null|string $updatedAt
+     * @param string|null $updatedAt
+     * @return void
      */
     public function setUpdatedAt(?string $updatedAt): void
     {
@@ -248,6 +260,7 @@ final class UserData extends DataTransferObject
 
     /**
      * @param int|null $updatedBy
+     * @return void
      */
     public function setUpdatedBy(?int $updatedBy): void
     {

@@ -28,7 +28,7 @@ abstract class ApplicationRepository implements RepositoryInterface
      * Constructor.
      *
      * @param Connection $db
-     * @param Auth $auth
+     * @param Auth|null $auth
      */
     public function __construct(Connection $db, Auth $auth = null)
     {
