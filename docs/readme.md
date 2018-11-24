@@ -124,8 +124,11 @@ end
 apt-get update
 apt-get install vim -y
 
-# zip and unzip is for composer
-apt-get install zip unzip -y
+# unzip is for composer
+apt-get install unzip -y
+
+# apache ant (optional)
+#apt-get install ant -y
 
 apt-get install apache2 -y
 
