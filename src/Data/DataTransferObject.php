@@ -99,15 +99,14 @@ abstract class DataTransferObject
 
             // Convert to date time string
             if ($value instanceof DateTimeImmutable) {
-                $value = $value->format('Y-m-d H:i:s');
-                $array[$key] = $value;
-
+                $array[$key] = $value->format('Y-m-d H:i:s');
                 continue;
             }
 
             // Convert booleans into other values (such as 0 and 1)
             if (is_bool($value)) {
-                $value = $value ? 1 : 0;
+                $array[$key] = $value ? 1 : 0;
+                continue;
             }
 
             $array[$key] = $value;
@@ -116,3 +115,4 @@ abstract class DataTransferObject
         return $array;
     }
 }
+
