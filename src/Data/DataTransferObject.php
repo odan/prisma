@@ -88,7 +88,7 @@ abstract class DataTransferObject
         $methods = get_class_methods(get_class($this));
 
         foreach ($methods as $method) {
-            preg_match('/^(get)(.*?)$/i', $method, $matches);
+            preg_match('/^(get|is)(.*?)$/i', $method, $matches);
             if (!isset($matches[2])) {
                 continue;
             }
