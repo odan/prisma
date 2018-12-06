@@ -9,7 +9,7 @@ use ReflectionParameter;
 
 /**
  * Data Transfer Object (DTO).
- * 
+ *
  * Only data without complex behavior.
  */
 abstract class DataTransferObject
@@ -89,15 +89,25 @@ abstract class DataTransferObject
 
         foreach ($methods as $method) {
             preg_match('/^(get|is)(.*?)$/i', $method, $matches);
+
             if (!isset($matches[2])) {
                 continue;
             }
-            $key = Inflector::underscore($matches[2]);
 
+            $key = Inflector::underscore($matches[2]);
             $value = $this->$method();
 
+            // Convert to date time string
             if ($value instanceof DateTimeImmutable) {
                 $value = $value->format('Y-m-d H:i:s');
+                $array[$key] = $value;
+
+                continue;
+            }
+
+            // Convert booleans into other values (such as 0 and 1)
+            if (is_bool($value)) {
+                $value = $value ? 1 : 0;
             }
 
             $array[$key] = $value;
