@@ -3,17 +3,16 @@
 namespace App\Data;
 
 use Cake\Utility\Inflector;
-use DateTime;
 use DateTimeImmutable;
 use ReflectionException;
 use ReflectionParameter;
 
 /**
- * Data Transfer Object (DTO) / Data Model.
+ * Data Transfer Object (DTO).
  *
  * Only data without complex behavior.
  */
-abstract class DataTransferObject implements DataTransferObjectInterface
+abstract class DataTransferObject
 {
     /**
      * Constructor.
@@ -30,7 +29,7 @@ abstract class DataTransferObject implements DataTransferObjectInterface
     /**
      * Hydrate array to object.
      *
-     * @param mixed[] $data Data
+     * @param array $data Data
      *
      * @return self
      */
@@ -39,11 +38,13 @@ abstract class DataTransferObject implements DataTransferObjectInterface
         $methods = array_flip(get_class_methods(get_class($this)));
         $class = get_class($this);
 
-        foreach ($data as $key => $value) {
-            $method = Inflector::variable('set_' . $key);
+        foreach ($data as $name => $value) {
+            $method = Inflector::variable('set_' . $name);
+
             if (!isset($methods[$method])) {
                 continue;
             }
+
             $this->$method($this->castValue($class, $method, $value));
         }
 
@@ -51,13 +52,11 @@ abstract class DataTransferObject implements DataTransferObjectInterface
     }
 
     /**
-     * Get value.
+     * Map value data type.
      *
      * @param string $class The class name
      * @param string $method The method name
      * @param mixed $value The default value
-     *
-     * @throws ReflectionException
      *
      * @return mixed The value
      */
@@ -66,14 +65,13 @@ abstract class DataTransferObject implements DataTransferObjectInterface
         $parameter = new ReflectionParameter([$class, $method], 0);
         $type = $parameter->getType();
 
-        if ($type) {
-            $dataType = $type->getName();
-            if ($dataType === 'DateTimeImmutable') {
-                $value = new DateTimeImmutable($value);
-            }
-            if ($dataType === 'DateTime') {
-                $value = new DateTime($value);
-            }
+        if (!$type) {
+            return $value;
+        }
+
+        $dataType = $type->getName();
+        if ($dataType === 'DateTimeImmutable') {
+            $value = new DateTimeImmutable($value);
         }
 
         return $value;
@@ -82,7 +80,7 @@ abstract class DataTransferObject implements DataTransferObjectInterface
     /**
      * Convert to array.
      *
-     * @return mixed[] Data
+     * @return array Data
      */
     public function toArray(): array
     {
@@ -90,14 +88,31 @@ abstract class DataTransferObject implements DataTransferObjectInterface
         $methods = get_class_methods(get_class($this));
 
         foreach ($methods as $method) {
-            preg_match('/^(get)(.*?)$/i', $method, $matches);
+            preg_match('/^(get|is)(.*?)$/i', $method, $matches);
+
             if (!isset($matches[2])) {
                 continue;
             }
+
             $key = Inflector::underscore($matches[2]);
-            $array[$key] = $this->$method();
+            $value = $this->$method();
+
+            // Convert to date time string
+            if ($value instanceof DateTimeImmutable) {
+                $array[$key] = $value->format('Y-m-d H:i:s');
+                continue;
+            }
+
+            // Convert booleans into other values (such as 0 and 1)
+            if (is_bool($value)) {
+                $array[$key] = $value ? 1 : 0;
+                continue;
+            }
+
+            $array[$key] = $value;
         }
 
         return $array;
     }
 }
+
