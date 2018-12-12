@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Data;
+namespace App\Domain\User;
+
+use App\Data\DataTransferObject;
 
 /**
  * User.

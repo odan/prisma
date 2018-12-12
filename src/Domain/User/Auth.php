@@ -2,7 +2,6 @@
 
 namespace App\Domain\User;
 
-use App\Data\UserData;
 use App\Domain\ServiceInterface;
 use Odan\Slim\Session\Session;
 use RuntimeException;
