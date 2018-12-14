@@ -18,6 +18,8 @@ abstract class DataTransferObject
      * Constructor.
      *
      * @param mixed $data Data
+     *
+     * @throws ReflectionException
      */
     public function __construct($data = null)
     {
@@ -30,6 +32,8 @@ abstract class DataTransferObject
      * Hydrate array to object.
      *
      * @param array $data Data
+     *
+     * @throws ReflectionException
      *
      * @return self
      */
@@ -57,6 +61,8 @@ abstract class DataTransferObject
      * @param string $class The class name
      * @param string $method The method name
      * @param mixed $value The default value
+     *
+     * @throws ReflectionException
      *
      * @return mixed The value
      */
@@ -115,4 +121,3 @@ abstract class DataTransferObject
         return $array;
     }
 }
-
