@@ -11,7 +11,7 @@ use Slim\Http\Response;
 /**
  * Action.
  */
-class LoginSubmitAction extends AbstractAction
+class UserLoginSubmitAction extends AbstractAction
 {
     /**
      * @var Locale

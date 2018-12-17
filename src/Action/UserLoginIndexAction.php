@@ -9,20 +9,20 @@ use Slim\Http\Response;
 /**
  * Action.
  */
-class LoginLogoutAction extends AbstractAction
+class UserLoginIndexAction extends AbstractAction
 {
     /**
-     * User logout.
+     * User login.
      *
      * @param Request $request
      * @param Response $response
      *
-     * @return ResponseInterface Redirect response
+     * @return ResponseInterface
      */
     public function __invoke(Request $request, Response $response): ResponseInterface
     {
-        $this->auth->clearIdentity();
+        $viewData = $this->getViewData();
 
-        return $response->withRedirect($this->router->pathFor('login'));
+        return $this->render($response, 'User/user-login.twig', $viewData);
     }
 }

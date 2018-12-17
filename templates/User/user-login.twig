@@ -12,11 +12,11 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/ie10-viewport-bug-workaround.js"></script>
-    {{ assets({files: ['Login/login.css']}) }}
+    {{ assets({files: ['User/user-login.css']}) }}
 </head>
 <body class="text-center">
 <div class="container">
-    <form class="form-signin" method="POST" action="login">
+    <form class="form-signin" method="POST" action="users/login">
         <h1 class="h3 mb-3 font-weight-normal">{{ __('Please sign in') }}</h1>
         <input type="text" name="username" class="form-control" placeholder="{{ __('Username') }}" required autofocus>
         <input type="password" name="password" class="form-control" placeholder="{{ __('Password') }}" required>
