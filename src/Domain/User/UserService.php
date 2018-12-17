@@ -2,8 +2,6 @@
 
 namespace App\Domain\User;
 
-use App\Data\UserData;
-use App\Repository\UserRepository;
 use App\Domain\ApplicationService;
 
 /**

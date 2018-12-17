@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Repository;
+namespace App\Domain\User;
 
-use App\Data\UserData;
+use App\Repository\ApplicationRepository;
 use DomainException;
 use InvalidArgumentException;
 
 /**
- * Users repository.
+ * User repository.
  */
-final class UserRepository extends ApplicationRepository
+class UserRepository extends ApplicationRepository
 {
     /**
      * Find all users.

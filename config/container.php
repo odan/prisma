@@ -5,7 +5,7 @@
 use App\Domain\User\Auth;
 use App\Domain\User\AuthRepository;
 use App\Domain\User\Locale;
-use App\Repository\UserRepository;
+use App\Domain\User\UserRepository;
 use App\Utility\ErrorHandler;
 use Cake\Database\Connection;
 use Cake\Database\Driver\Mysql;

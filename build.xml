@@ -124,6 +124,17 @@
         </exec>
     </target>
 
+    <target name="check-security" description="">
+        <mkdir dir="${basedir}/build"/>
+        <get src="https://get.sensiolabs.org/security-checker.phar"
+             dest="${basedir}/build/security-checker.phar" skipexisting="true"/>
+        <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
+            <arg value="${basedir}/build/security-checker.phar"/>
+            <arg value="security:check"/>
+            <arg value="composer.lock"/>
+        </exec>
+    </target>
+
     <target name="check-all" depends="lint,check-style,phpstan,phpunit-coverage"/>
 
     <target name="build">

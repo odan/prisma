@@ -2,7 +2,7 @@
 
 namespace App\Action;
 
-use App\Data\UserData;
+use App\Domain\User\UserData;
 use App\Domain\User\UserService;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
