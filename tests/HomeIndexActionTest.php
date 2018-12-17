@@ -22,7 +22,7 @@ class HomeIndexActionTest extends ApiTestCase
         $response = $this->request($request);
 
         $this->assertSame(302, $response->getStatusCode());
-        $this->assertSame('/login', $response->getHeaderLine('Location'));
+        $this->assertSame('/users/login', $response->getHeaderLine('Location'));
     }
 
     /**
