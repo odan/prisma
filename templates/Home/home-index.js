@@ -1,10 +1,10 @@
 /**
  * Class
  */
-var HomeIndex = function () {
+const HomeIndex = function () {
 
     // The current object scope
-    var $this = this;
+    const $this = this;
 
     /**
      * Init
@@ -45,9 +45,9 @@ var HomeIndex = function () {
                 'its': __('Its'),
             };
 
-            var template = $('#user-template').html();
+            const template = $('#user-template').html();
             //Mustache.parse(template);
-            var output = Mustache.render(template, response);
+            const output = Mustache.render(template, response);
 
             $('#content').append(output);
 
@@ -55,7 +55,7 @@ var HomeIndex = function () {
             if (error.status == 422) {
                 $d.hideLoad();
                 // Show validation errors
-                var response = error.responseJSON;
+                const response = error.responseJSON;
                 $d.alert(response.error.message);
                 $(response.error.errors).each(function (i, error) {
                     console.log("Error in field [" + error.field + "]: " + error.message);
@@ -69,6 +69,6 @@ var HomeIndex = function () {
     this.init();
 };
 
-$(function () {
+document.addEventListener("DOMContentLoaded", function () {
     (new HomeIndex()).load();
 });
