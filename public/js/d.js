@@ -1446,25 +1446,10 @@ $d.hideLoad = function () {
  * inspired by jquery.formparams.js
  *
  * @param {Object} id
- * @returns {unresolved}
+ * @returns {Object}
  */
 $d.getForm = function (id) {
-    // get form elements as array
-    var arr = $(id).serializeArray();
-
-    // Because serializeArray() ignores unset checkboxes and radio buttons
-    arr = arr.concat(
-        $(id).find('input[type=checkbox]:not(:checked)').map(
-            function () {
-                var ret = {
-                    name: this.name,
-                    value: 0
-                };
-                return ret;
-            }).get());
-
-    var obj = $d.serializeObject(arr);
-    return obj;
+    return $d.serializeObject($(id).serializeArray());
 };
 
 /**
