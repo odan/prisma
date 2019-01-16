@@ -13,14 +13,14 @@
   "license": "MIT",
   "require": {
     "php": "^7.2",
-    "cakephp/database": "^3.6",
+    "cakephp/database": "^3.7",
     "monolog/monolog": "^1.18.0",
     "odan/phinx-migrations-generator": "^3.1.0",
     "odan/slim-csrf": "^1.0.0",
     "odan/slim-session": "1.0.0",
     "odan/twig-assets": "^2.0.0",
     "odan/twig-translation": "^1.1.0",
-    "slim/slim": "^3.10",
+    "slim/slim": "^3.12",
     "slim/twig-view": "^2.4",
     "symfony/console": "^4",
     "symfony/translation": "^4"
