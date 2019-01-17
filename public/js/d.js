@@ -1194,7 +1194,7 @@ $d.window = function (config) {
  * config.text - content as text
  * config.html - content as html
  *
- * @param {function} callback
+ * @param {function=} callback (optional)
  * @returns {Object} window
  *
  * @example
