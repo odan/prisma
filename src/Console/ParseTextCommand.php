@@ -186,8 +186,10 @@ class ParseTextCommand extends AbstractCommand
                 $fn = $this->getFunctionName('from', $target, 'File', 1);
                 $newTranslations = Translations::$fn($target);
                 $translations = $this->addFuzzyFlags($newTranslations, $translations);
-                $translations = $translations->mergeWith($newTranslations,
-                    Merge::TRANSLATION_OVERRIDE | Merge::HEADERS_OVERRIDE | Merge::COMMENTS_THEIRS | Merge::FLAGS_THEIRS);
+                $translations = $translations->mergeWith(
+                    $newTranslations,
+                    Merge::TRANSLATION_OVERRIDE | Merge::HEADERS_OVERRIDE | Merge::COMMENTS_THEIRS | Merge::FLAGS_THEIRS
+                );
             }
 
             foreach ($targets as $target) {
