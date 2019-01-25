@@ -32,6 +32,7 @@ return PhpCsFixer\Config::create()
         'phpdoc_order' => true, // psr-5
         'protected_to_private' => false,
         'yoda_style' => false,
+        'method_argument_space' => ['on_multiline' => 'ensure_fully_multiline'],
     ])
     ->setFinder(PhpCsFixer\Finder::create()
         ->in(__DIR__ . '/src')
