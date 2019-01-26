@@ -22,6 +22,11 @@ build:
         memcached: false
         neo4j: false
         rabbitmq: false
+    nodes:
+        analysis:
+            tests:
+                override:
+                    - php-scrutinizer-run
     dependencies:
             before:
                  - composer self-update
