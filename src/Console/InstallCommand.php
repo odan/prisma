@@ -141,7 +141,7 @@ class InstallCommand extends AbstractCommand
             $pdo = $this->createPdo($mySqlHost, $mySqlUsername, $mySqlPassword);
             $this->createDatabase($pdo, $mySqlDatabase);
             $this->updateDevelopmentSettings($output, $mySqlHost, $mySqlDatabase, $mySqlUsername, $mySqlPassword, $configPath);
-            $this->installDatabaseTables($output, $pdo, $mySqlDatabase, $root);
+            $this->installDatabaseTables($output, $root);
             $this->seedDatabaseTables($output, $root);
 
             $output->writeln('<info>Setup successfully<info>');
