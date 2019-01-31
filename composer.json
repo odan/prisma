@@ -32,7 +32,9 @@
     "phpstan/phpstan-shim": "^0.11.1"
   },
   "scripts": {
-    "post-install-cmd": "ant install-assets"
+    "post-install-cmd": "ant install-assets",
+    "post-update-cmd": "ant install-assets",
+    "post-create-project-cmd": "ant install-assets"
   },
   "autoload": {
     "psr-4": {
