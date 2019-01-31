@@ -253,7 +253,7 @@ $ ant update-assets
 
 You can add more assets in `package.json` or diretly via `npm`.
 
-Open the `build.xml` and navigate to the target `update-assets` 
+Open the file `build.xml` and navigate to the target `update-assets` 
 and add more items to copy the required files into the `public` directory.
 
 ## Environment configuration

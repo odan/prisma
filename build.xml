@@ -219,36 +219,9 @@
         </delete>
 
         <!-- Zip master brunch -->
-        <zip destfile="${basedir}/build/${build.filename}">
+        <zip destfile="${basedir}/build/my_app_${now_file}.zip">
             <zipfileset dir="${basedir}/build/master"/>
         </zip>
-    </target>
-
-    <target name="deploy" depends="build" description="Build and deploy project">
-
-        <!-- Chose between test, staging and prod environment -->
-        <input message="Which config should be used?" validArgs="test, staging, prod" addproperty="config"/>
-
-        <!-- Load properties -->
-        <property file="${basedir}/config/ant.${config}.properties"/>
-
-        <!-- Upload zip file-->
-        <echo message="Uploading ${build.filename}"/>
-        <scp file="${basedir}/build/${build.filename}"
-             todir="${build.ftp.username}:${build.ftp.password}@${build.ftp.host}:${build.ftp.path}"
-             trust="true"/>
-
-        <!-- Upload deploy.php -->
-        <echo message="Uploading deploy.php"/>
-        <scp file="${basedir}/build/master/config/deploy.php"
-             todir="${build.ftp.username}:${build.ftp.password}@${build.ftp.host}:${build.ftp.path}"
-             trust="true"/>
-
-        <!-- Delete build/master -->
-        <!--<delete dir="${basedir}/build/master"/>-->
-
-        <!-- Delete zip file -->
-        <!-- <delete file="${basedir}/build/${build.filename}"/> -->
     </target>
 
     <target name="update-assets">
