@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "1.0.0",
   "license": "MIT",
+  "private": true,
   "dependencies": {
     "bootstrap": "^4.2.1",
     "jquery": "^3.3.1",
