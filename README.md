@@ -16,15 +16,15 @@ Logging and Unit testing.
 
 * PHP 7.2+
 * MySQL
+* [Apache Ant](http://ant.apache.org/)
 
 ## Recommended
 
 * Apache
-* [Apache Ant](http://ant.apache.org/)
 
 ## Installation
 
-[Install Prisma](https://odan.github.io/prisma/#installation) with Composer (see requirements details).
+[Install Prisma](https://odan.github.io/prisma/#installation) with Composer.
 
 ## Documentation
 
