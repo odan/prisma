@@ -14,7 +14,7 @@ build:
     environment:
         php: 7.2
         mysql: true
-        node: false
+        node: true
         postgresql: false
         mongodb: false
         elasticsearch: false
@@ -35,7 +35,7 @@ build:
     tests:
         before:
             -
-                command: 'vendor/bin/phpunit --coverage-clover build/logs/clover.xml'
+                command: vendor/bin/phpunit --coverage-clover build/logs/clover.xml
                 coverage:
                     file: 'build/logs/clover.xml'
                     format: 'clover'

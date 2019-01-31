@@ -15,6 +15,7 @@ config/env.php
 
 vendor/
 build/
+node_modules/
 
 !public/cache/
 public/cache/*
