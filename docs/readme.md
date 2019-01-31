@@ -18,10 +18,9 @@
   * Errors and logging
 * Frontend
   * Twig Templates
-  * Mustache Templates
   * [Internationalization](#internationalization)
   * Localization
-  * Compiling Assets
+  * [Updating Assets](#updating-assets)
 * Database
   * Configuration
   * [Query Builder](#query-builder)
@@ -243,6 +242,19 @@ $ php bin/cli.php parse-text
 ```
 
 This command will scan your twig templates, javascripts and PHP classes for the `__()` function call and stores all text entries into the po file. You can find all po file here: `resources/locale`. Use [PoEdit](https://poedit.net/) to open and translate the po files.
+
+## Updating Assets
+
+To update all main assets like jquery and bootrap run:
+
+```bash
+$ ant update-assets
+```
+
+You can add more assets in `package.json` or diretly via `npm`.
+
+Open the `build.xml` and navigate to the target `update-assets` 
+and add more items to copy the required files into the `public` directory.
 
 ## Environment configuration
 

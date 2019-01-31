@@ -1,8 +1,8 @@
 # Prisma
 
 This is a Slim 3 skeleton project that includes Routing, Middleware,
-Twig templates, mustache.js, Translations, Assets, Sessions, Database Queries, 
-Migrations, Console Commands, Authentication, Authorization, CSRF protection, 
+Twig templates, Translations, Assets, Sessions, Database Query Builder, 
+Database Migrations, Console Commands, Authentication, Authorization, CSRF protection, 
 Logging and Unit testing.
 
 [![Latest Version on Packagist](https://img.shields.io/github/release/odan/prisma.svg)](https://github.com/odan/prisma/releases)
@@ -11,17 +11,13 @@ Logging and Unit testing.
 [![Quality Score](https://scrutinizer-ci.com/g/odan/prisma/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/odan/prisma/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/odan/prisma.svg)](https://packagist.org/packages/odan/prisma/stats)
 
-
 ## Requirements
 
 * PHP 7.2+
 * MySQL 5.7+
+* Apache
 * [Apache Ant](https://ant.apache.org/)
 * NPM (Node.js)
-
-## Recommended
-
-* Apache
 
 ## Installation
 

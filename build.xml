@@ -251,7 +251,7 @@
         <!-- <delete file="${basedir}/build/${build.filename}"/> -->
     </target>
 
-    <target name="install-assets">
+    <target name="update-assets">
         <property name="node_modules_dir" value="${basedir}/node_modules"/>
         <property name="public_dir" value="${basedir}/public"/>
 

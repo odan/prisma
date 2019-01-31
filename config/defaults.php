@@ -127,5 +127,4 @@ $settings['commands'] = [
     \App\Console\SeedDatabaseCommand::class,
     \App\Console\CreateMigrationCommand::class,
     \App\Console\ParseTextCommand::class,
-    \App\Console\UpdateAssetsCommand::class,
 ];
