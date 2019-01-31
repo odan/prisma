@@ -268,4 +268,50 @@
         <delete dir="${node_modules_dir}"/>
     </target>
 
+    <target name="seed-database" description="Data seeding">
+        <exec executable="${basedir}/vendor/bin/phinx${ext}" searchpath="true" resolveexecutable="true" failonerror="true">
+            <arg line="seed:run -c ${basedir}/config/phinx.php"/>
+        </exec>
+    </target>
+
+    <target name="migrate-database" description="Migrate database">
+        <exec executable="${basedir}/vendor/bin/phinx${ext}" searchpath="true" resolveexecutable="true" failonerror="true">
+            <arg line="migrate -c ${basedir}/config/phinx.php"/>
+        </exec>
+    </target>
+
+    <target name="reset-database" description="Data seeding">
+        <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
+            <arg line="${basedir}/bin/cli.php reset-database"/>
+        </exec>
+    </target>
+
+    <target name="refresh-database" description="Reset, migrate and seed database">
+        <antcall target="reset-database" />
+        <antcall target="migrate-database" />
+        <antcall target="seed-database" />
+    </target>
+
+    <target name="create-migration" description="Create a empty migration">
+        <input message="Enter the name of the migration" addproperty="migration_name"/>
+
+        <exec executable="${basedir}/vendor/bin/phinx${ext}" searchpath="true" resolveexecutable="true" failonerror="true">
+            <arg line="create ${migration_name} -c ${basedir}/config/phinx.php"/>
+        </exec>
+    </target>
+
+    <target name="generate-migration" description="Generate database migration">
+        <input message="Enter the name of the migration" addproperty="migration_name"/>
+
+        <exec executable="${basedir}/vendor/bin/phinx-migrations${ext}" searchpath="true" resolveexecutable="true" failonerror="true">
+            <arg line="generate --name ${migration_name} --overwrite -c ${basedir}/config/phinx.php"/>
+        </exec>
+    </target>
+
+    <target name="parse-text" description="Parse text">
+        <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
+            <arg line="${basedir}/bin/cli.php parse-text"/>
+        </exec>
+    </target>
+
 </project>

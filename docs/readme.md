@@ -24,8 +24,8 @@
 * Database
   * Configuration
   * [Query Builder](#query-builder)
-  * Data Mapper
-  * Entities
+  * Services
+  * Repositories
   * Types and Enums
   * [Migrations](#migrations)
   * [Data Seeding](#data-seeding)
@@ -38,7 +38,6 @@
   * HTTP Tests
   * [Database Testing](#database-testing)
   * Mocking
-* [Deployment](#deployment)
 
 ## Introduction
 
@@ -238,7 +237,7 @@ You can define custom routes in [config/routes.php](https://github.com/odan/pris
 To parse all the text run:
 
 ```bash
-$ php bin/cli.php parse-text
+$ ant parse-text
 ```
 
 This command will scan your twig templates, javascripts and PHP classes for the `__()` function call and stores all text entries into the po file. You can find all po file here: `resources/locale`. Use [PoEdit](https://poedit.net/) to open and translate the po files.
@@ -279,13 +278,13 @@ This skeleton project provides console access for **[Phinx](https://phinx.org/)*
 To create a new migration manually:
 
 ```bash
-$ php bin/cli.php create-migration
+$ ant create-migration
 ```
 
 To generate a new migration automatically:
 
 ```bash
-$ php bin/cli.php generate-migration
+$ ant generate-migration
 ```
 
 For more details how to create and manage migrations read the [Phinx](http://docs.phinx.org/en/latest/) documentation.
@@ -294,8 +293,14 @@ For more details how to create and manage migrations read the [Phinx](http://doc
 
 To populate the database with data for testing and experimenting with the code. Run:
 
+```bash
+vendor/bin/phinx seed:run -c config/phinx.php
 ```
-php bin/cli.php seed-database
+
+or just
+
+```bash
+ant seed-database
 ```
 
 To edit how the data is seeded check the file: `resources\seeds\DataSeed`.
@@ -305,13 +310,7 @@ The command `refresh-database` will rollback all migrations, migrate the databas
 Note: all data will be lost from the database.
 
 ```
-php bin/cli.php refresh-database
-```
-
-Upload to production:
-
-``` bash
-$ ant deploy
+ant refresh-database
 ```
 
 ## Testing
@@ -327,8 +326,6 @@ $ ant phpunit
 ##  Database
 
 ### Database configuration
-
-## Deployment
 
 ### Continuous Delivery
 

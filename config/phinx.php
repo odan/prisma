@@ -1,6 +1,6 @@
 <?php
 
-$app = require __DIR__ . '/config/bootstrap.php';
+$app = require __DIR__ . '/bootstrap.php';
 
 /* @var \Slim\App $app */
 $container = $app->getContainer();

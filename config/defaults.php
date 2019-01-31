@@ -121,10 +121,5 @@ $settings['commands'] = [
     \App\Console\ExampleCommand::class,
     \App\Console\InstallCommand::class,
     \App\Console\ResetDatabaseCommand::class,
-    \App\Console\MigrateDatabaseCommand::class,
-    \App\Console\RefreshDatabaseCommand::class,
-    \App\Console\GenerateMigrationCommand::class,
-    \App\Console\SeedDatabaseCommand::class,
-    \App\Console\CreateMigrationCommand::class,
     \App\Console\ParseTextCommand::class,
 ];

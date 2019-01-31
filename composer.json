@@ -15,7 +15,7 @@
     "php": "^7.2",
     "cakephp/database": "^3.7",
     "monolog/monolog": "^1.18.0",
-    "odan/phinx-migrations-generator": "^3.1.0",
+    "odan/phinx-migrations-generator": "^4",
     "odan/slim-csrf": "^1.0.0",
     "odan/slim-session": "1.0.0",
     "odan/twig-assets": "^2.0.0",
