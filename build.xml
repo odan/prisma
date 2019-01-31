@@ -291,6 +291,8 @@
         <copy file="${node_modules_dir}/jquery/dist/jquery.js" todir="${public_dir}/js"/>
         <copy file="${node_modules_dir}/jquery/dist/jquery.min.js" todir="${public_dir}/js"/>
         <copy file="${node_modules_dir}/jquery/dist/jquery.min.map" todir="${public_dir}/js"/>
+
+        <delete dir="${node_modules_dir}"/>
     </target>
 
 </project>
