@@ -15,8 +15,9 @@ Logging and Unit testing.
 ## Requirements
 
 * PHP 7.2+
-* MySQL
-* [Apache Ant](http://ant.apache.org/)
+* MySQL 5.7+
+* [Apache Ant](https://ant.apache.org/)
+* NPM (Node.js)
 
 ## Recommended
 
