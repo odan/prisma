@@ -272,6 +272,12 @@
         <copy file="${node_modules_dir}/bootstrap/dist/css/bootstrap.min.css" todir="${public_dir}/css"/>
         <copy file="${node_modules_dir}/bootstrap/dist/css/bootstrap.min.css.map" todir="${public_dir}/css"/>
 
+        <copy file="${node_modules_dir}/@fortawesome/fontawesome-free/css/all.css"
+              tofile="${public_dir}/css/fontawesome-all.css"/>
+        <copy todir="${public_dir}/webfonts">
+            <fileset dir="${node_modules_dir}/@fortawesome/fontawesome-free/webfonts"/>
+        </copy>
+
         <copy file="${node_modules_dir}/bootstrap/dist/js/bootstrap.js" todir="${public_dir}/js"/>
         <copy file="${node_modules_dir}/bootstrap/dist/js/bootstrap.js.map" todir="${public_dir}/js"/>
         <copy file="${node_modules_dir}/bootstrap/dist/js/bootstrap.min.js" todir="${public_dir}/js"/>
