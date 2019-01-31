@@ -141,8 +141,8 @@ class InstallCommand extends AbstractCommand
             $pdo = $this->createPdo($mySqlHost, $mySqlUsername, $mySqlPassword);
             $this->createDatabase($pdo, $mySqlDatabase);
             $this->updateDevelopmentSettings($output, $mySqlHost, $mySqlDatabase, $mySqlUsername, $mySqlPassword, $configPath);
-            $this->installDatabaseTables($output, $pdo, $mySqlDatabase, $configPath);
-            $this->seedDatabaseTables($output, $pdo, $mySqlDatabase, $configPath);
+            $this->installDatabaseTables($output, $pdo, $mySqlDatabase, $root);
+            $this->seedDatabaseTables($output, $root);
 
             $output->writeln('<info>Setup successfully<info>');
 
@@ -230,41 +230,31 @@ class InstallCommand extends AbstractCommand
      * Install database.
      *
      * @param OutputInterface $output
-     * @param PDO $pdo
-     * @param string $dbName
      * @param string $root
      *
      * @return void
      */
-    protected function installDatabaseTables(OutputInterface $output, PDO $pdo, string $dbName, string $root): void
+    protected function installDatabaseTables(OutputInterface $output, string $root): void
     {
         $output->writeln('Install database tables');
 
-        $dbNameQuoted = $this->quoteName($dbName);
-        $pdo->exec("USE $dbNameQuoted;");
-
         chdir($root);
-        system('php vendor/robmorgan/phinx/bin/phinx migrate');
+        system('ant migrate-database');
     }
 
     /**
      * Seed database tables.
      *
      * @param OutputInterface $output
-     * @param PDO $pdo
-     * @param string $dbName
      * @param string $root
      *
      * @return void
      */
-    protected function seedDatabaseTables(OutputInterface $output, PDO $pdo, string $dbName, string $root): void
+    protected function seedDatabaseTables(OutputInterface $output, string $root): void
     {
         $output->writeln('Seed database tables');
 
-        $dbNameQuoted = $this->quoteName($dbName);
-        $pdo->exec("USE $dbNameQuoted;");
-
         chdir($root);
-        system('php vendor/robmorgan/phinx/bin/phinx seed:run');
+        system('ant seed-database');
     }
 }
