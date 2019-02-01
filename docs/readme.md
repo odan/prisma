@@ -22,9 +22,8 @@
   * Localization
   * [Updating Assets](#updating-assets)
 * Database
-  * Configuration
+  * Database configuration
   * [Query Builder](#query-builder)
-  * Services
   * Repositories
   * [Migrations](#migrations)
   * [Update schema](#update-schema)
@@ -351,6 +350,8 @@ $ ant phpunit
 
 * todo
 
+## Deployment
+
 ### Building an artifact
 
 You can build a new artifact (ZIP file) which is tested and ready for deployment.
@@ -363,20 +364,18 @@ $ ant build
 
 You can find the artifact in the folder: `build/my_app_*.zip
 
-### Deployment
-
 To deploy the artifact to test/staging or production just upload
 the zip file with a sftp client onto your server (`/var/www/example.com`).
 Then extract the artifact into a `htdocs` sub-directory and run the migrations. 
 You can use `deploy.php` for this task.
 
-#### Setup
+#### Server setup
 
 * Create a directory: `/var/www/example.com`
 * Create a directory: `/var/www/example.com/htdocs`
 * Create a file: `/var/www/example.com/env.php`
 * Copy `config/deploy.php` to `/var/www/example.com/deploy.php`
-* Make sure the apache [DocumentRoot](https://httpd.apache.org/docs/2.4/en/mod/core.html#documentroot) points to the path: `/var/www/example.com/htdocs/public`
+* Make sure the apache [DocumentRoot](https://httpd.apache.org/docs/2.4/en/mod/core.html#documentroot) points to the `public` path: `/var/www/example.com/htdocs/public`
 
 #### Deploying a new artifact
 
@@ -385,8 +384,8 @@ You can use `deploy.php` for this task.
 
 Example:
 
-```
-cd /var/www/example.com
-sudo php sudo php deploy.php my_app_2019-01-29_235044.zip
+```bash
+$ cd /var/www/example.com
+$ sudo php deploy.php my_app_2019-01-29_235044.zip
 ```
 
