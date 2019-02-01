@@ -57,7 +57,10 @@ system('sudo chmod -R 775 htdocs/public/cache/');
 
 echo "Run migrations...\n";
 chdir('htdocs/');
-system('sudo php bin/cli.php migrate-database -c config/phinx.php');
+system('sudo vendor/bin/phinx migrate -c config/phinx.php');
 chdir('../../');
+
+//echo "Enable cronjobs...\n";
+//rename($liveDirApp . '/src/Cronjob/cronjob_.php', $liveDirApp . '/src/Cronjob/cronjob.php');
 
 echo "Deployment finished\n";
