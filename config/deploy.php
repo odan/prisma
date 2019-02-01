@@ -57,7 +57,7 @@ system('sudo chmod -R 775 htdocs/public/cache/');
 
 echo "Run migrations...\n";
 chdir('htdocs/');
-system('sudo php bin/cli.php migrate-database');
+system('sudo php bin/cli.php migrate-database -c config/phinx.php');
 chdir('../../');
 
 echo "Deployment finished\n";

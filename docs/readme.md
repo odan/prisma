@@ -373,8 +373,8 @@ You can use `deploy.php` for this task.
 
 * Create a directory: `/var/www/example.com`
 * Create a directory: `/var/www/example.com/htdocs`
-* Create a file: `/var/www/example.com/env.php`
-* Copy `config/deploy.php` to `/var/www/example.com/deploy.php`
+* Upload, rename and customize: `config/env.example.php` to `/var/www/example.com/env.php`
+* Upload `config/deploy.php` to `/var/www/example.com/deploy.php`
 * Make sure the apache [DocumentRoot](https://httpd.apache.org/docs/2.4/en/mod/core.html#documentroot) points to the `public` path: `/var/www/example.com/htdocs/public`
 
 #### Deploying a new artifact
