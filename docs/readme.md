@@ -26,9 +26,10 @@
   * [Query Builder](#query-builder)
   * Services
   * Repositories
-  * Types and Enums
   * [Migrations](#migrations)
+  * [Update schema](#update-schema)
   * [Data Seeding](#data-seeding)
+  * [Resetting the database](#resetting-the-database)
 * Security
   * Authentication
   * Authorization
@@ -273,44 +274,62 @@ For more details how to build queries read the **[documentation](https://book.ca
 
 ### Migrations
 
-This skeleton project provides console access for **[Phinx](https://phinx.org/)** to create database migrations. 
+This skeleton project provides console access for **[Phinx](https://phinx.org/)** to 
+create database migrations. 
 
-To create a new migration manually:
-
-```bash
-$ ant create-migration
-```
-
-To generate a new migration automatically:
+#### Generating a migration from a diff automatically
 
 ```bash
 $ ant generate-migration
 ```
 
+#### Creating a blank database migration
+
+```bash
+$ ant create-migration
+```
+
 For more details how to create and manage migrations read the [Phinx](http://docs.phinx.org/en/latest/) documentation.
+
+### Update schema
+
+Update the database schema with this command:
+
+```bash
+$ ant migrate-database
+```
+
+or directly (for example on your prod server), withount `ant`:
+
+```bash
+vendor/bin/phinx migrate -c config/phinx.php
+```
 
 ### Data Seeding
 
 To populate the database with data for testing and experimenting with the code. Run:
 
 ```bash
-vendor/bin/phinx seed:run -c config/phinx.php
+$ ant seed-database
 ```
 
-or just
+or directly, withount `ant`:
 
 ```bash
-ant seed-database
+$ vendor/bin/phinx seed:run -c config/phinx.php
 ```
 
 To edit how the data is seeded check the file: `resources\seeds\DataSeed`.
 
-The command `refresh-database` will rollback all migrations, migrate the database and seed the data. 
+### Resetting the database
+
+The command `refresh-database` will rollback all migrations, 
+migrate the database and seed the data. 
 
 Note: all data will be lost from the database.
 
 ```
-ant refresh-database
+$ ant refresh-database
 ```
 
 ## Testing
