@@ -39,7 +39,8 @@
   * HTTP Tests
   * [Database Testing](#database-testing)
   * Mocking
-
+* [Deployment](#deployment)
+  
 ## Introduction
 
 A skeleton project for Slim 3.
@@ -231,7 +232,7 @@ todo
 
 ## Routing
 
-You can define custom routes in [config/routes.php](https://github.com/odan/prisma/blob/master/config/routes.phpp). 
+You can define custom routes in [config/routes.php](https://github.com/odan/prisma/blob/master/config/routes.php). 
 
 ## Internationalization
 
@@ -266,7 +267,7 @@ Just rename the file `env.example.php` to `env.php`.
 
 ### Query Builder
 
-This framework comes with [cakephp/database](https://github.com/cakephp/database) as SQL query builder.
+This application comes with [cakephp/database](https://github.com/cakephp/database) as SQL query builder.
 
 The database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your application, and works great with MySQL and MariaDB.
 
@@ -299,15 +300,15 @@ Update the database schema with this command:
 $ ant migrate-database
 ```
 
-or directly (for example on your prod server), withount `ant`:
+withount `ant` run:
 
 ```bash
-vendor/bin/phinx migrate -c config/phinx.php
+$ vendor/bin/phinx migrate -c config/phinx.php
 ```
 
 ### Data Seeding
 
-To populate the database with data for testing and experimenting with the code. Run:
+To populate the database with data for testing and experimenting with the code run:
 
 ```bash
 $ ant seed-database
@@ -326,7 +327,7 @@ To edit how the data is seeded check the file: `resources\seeds\DataSeed`.
 The command `refresh-database` will rollback all migrations, 
 migrate the database and seed the data. 
 
-Note: all data will be lost from the database.
+**Attention: All data will be lost from the database.**
 
 ```
 $ ant refresh-database
@@ -342,14 +343,50 @@ $ ant phpunit
 
 ### Database testing
 
+* todo
+
 ##  Database
 
 ### Database configuration
 
-### Continuous Delivery
+* todo
 
-You can build artifact's (ZIP files) which are tested and ready for deployment.
+### Building an artifact
+
+You can build a new artifact (ZIP file) which is tested and ready for deployment.
+
+Run:
 
 ``` bash
 $ ant build
 ```
+
+You can find the artifact in the folder: `build/my_app_*.zip
+
+### Deployment
+
+To deploy the artifact to test/staging or production just upload
+the zip file with a sftp client onto your server (`/var/www/example.com`).
+Then extract the artifact into a `htdocs` sub-directory and run the migrations. 
+You can use `deploy.php` for this task.
+
+#### Setup
+
+* Create a directory: `/var/www/example.com`
+* Create a directory: `/var/www/example.com/htdocs`
+* Create a file: `/var/www/example.com/env.php`
+* Copy `config/deploy.php` to `/var/www/example.com/deploy.php`
+* Make sure the apache [DocumentRoot](https://httpd.apache.org/docs/2.4/en/mod/core.html#documentroot) points to the path: `/var/www/example.com/htdocs/public`
+
+#### Deploying a new artifact
+
+* Upload the new artifact file `my_app_*.zip` to `/var/www/example.com/`
+* Then run `sudo php deploy.php my_app_*.zip`
+
+Example:
+
+```
+cd /var/www/example.com
+sudo php sudo php deploy.php my_app_2019-01-29_235044.zip
+```
+
