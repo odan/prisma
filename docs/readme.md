@@ -262,7 +262,7 @@ In a Slim app, you can add middleware to all incoming routes, to a specific rout
 
 In this app we add some middleware to specific routes.
 
-Also, We add some global middleware to apply to all requests in [middleware.php](https://github.com/odan/prisma/blob/master/config/middleware.php).
+Also, we add some global middleware to apply to all requests in [middleware.php](https://github.com/odan/prisma/blob/master/config/middleware.php).
 
 ## Controllers
 
@@ -354,7 +354,7 @@ Language strings are stored in files within the `resources/locale` directory.
 
 Within this directory there should be a `mo` and `po` file for each language supported by the application.
 
-The source language is allways english. You don't need a translation file for english.
+The source language is always english. You don't need a translation file for english.
 
 Example:
 
@@ -378,16 +378,16 @@ $locale = $this->session->get('locale'); // en_US
 
 #### Defining Translation Strings
 
-To parse all translation string run:
+To parse all translation strings run:
 
 ```bash
 $ ant parse-text
 ```
 
 This command will scan your twig templates, javascripts and PHP classes for the `__()` 
-function call and stores all text entries into po files. 
+function call and stores all text entries into po-files. 
 
-You can find all po files in the: `resources/locale` directory. 
+You can find all-po files in the: `resources/locale` directory. 
 
 [PoEdit](https://poedit.net/) is the recommended PO-file editor for the generated po-files.
  
@@ -402,19 +402,25 @@ The `__` method accepts the text of the translation string as its first argument
 echo __('I love programming.');
 ```
 
-Of course if you are using the Twig templating engine, you may use 
+Translate a text with a placeholder in PHP:
+
+```php
+echo __('There are %s users logged in.', 7);
+```
+
+Of course if you are using the **Twig** templating engine, you may use 
 the `__` helper function to echo the translation string.
 
 Translate a text:
 
 ```twig
-{{ __('Yes') }}
+⦃⦃ __('Yes') ⦄⦄
 ```
 
 Translate a text with a placeholder:
 
 ```twig
-{{ __('Hello: %s', username) }}
+⦃⦃ __('Hello: %s', username) ⦄⦄
 ```
 
 [Read more](https://github.com/odan/twig-translation#usage)
@@ -480,13 +486,13 @@ For more details how to create and manage migrations read the [Phinx](http://doc
 
 ### Update schema
 
-Update the database schema with this command:
+Updating the database schema with this shorthand command:
 
 ```bash
 $ ant migrate-database
 ```
 
-without `ant` run:
+If `ant` is not installed on the target server, this command can also be used:
 
 ```bash
 $ vendor/bin/phinx migrate -c config/phinx.php
@@ -500,7 +506,7 @@ To populate the database with data for testing and experimenting with the code r
 $ ant seed-database
 ```
 
-or directly, without `ant`:
+If `ant` is not installed, you can run this command:
 
 ```bash
 $ vendor/bin/phinx seed:run -c config/phinx.php
@@ -523,21 +529,20 @@ $ ant refresh-database
 
 ## Session
 
-* This application uses `sessions` to store the logged-in user information.
-* If you have to add api routes you may use `JWT` or better a `OAuth2 Bearer-Token`.
+This application uses `sessions` to store the logged-in user information. If you 
+have to add api routes you may use `JWT` or a `OAuth2 Bearer-Token`.
 
 ### Authentication
 
 The authentication depends on the defined routes and the attached middleware.
-You can add routing groups with Sessions and/or OAuth2 auth. It's up to you how you 
-configure the routes and their individual authentication.
+You can add routing groups with Sessions and/or OAuth2 authentication. 
+It's up to you how you configure the routes and their individual authentication.
 
 ### Authorization
 
-To check the user permissions the controller actions comes with
-a `Auth` object. 
+To check user permissions, the Actions controller contains an `Auth` object.
 
-Getting the loggin-in user id:
+Determine the logged-in user ID::
 
 ```php
 $userId = $this->auth->getId();
@@ -551,7 +556,7 @@ $isAdmin = $this->auth->hasRole(Role::ROLE_ADMIN);
 
 ### CSRF Protection
 
-All session bases requests are protected against Cross-site request forgery (CSRF).
+All session based requests are protected against Cross-site request forgery (CSRF).
 
 ## Testing
 
@@ -593,23 +598,20 @@ Please take a look at the example tests in:
 
 There is no special mocking example available. 
 
-Just use the `PHPUnit` mocking functionality or other mocking libraries you want. Feel free.
+Just use the [PHPUnit mocking functionality](https://phpunit.de/manual/current/en/test-doubles.html)
+or install other mocking libraries you want. Feel free.
 
-Read more: [Mock - PHPUnit](https://phpunit.de/manual/current/en/test-doubles.html)
-  
 ## Deployment
 
 ### Building an artifact
 
-You can build a new artifact (ZIP file) which is tested and ready for deployment.
-
-Run:
+To build a new artifact (ZIP file) which is tested and ready for deployment run:
 
 ``` bash
 $ ant build
 ```
 
-You can find the artifact in the folder: `build/my_app_*.zip
+The new artifact is created in the `build` directory: `build/my_app_*.zip
 
 To deploy the artifact to test/staging or production just upload
 the zip file with a sftp client onto your server (`/var/www/example.com`).
