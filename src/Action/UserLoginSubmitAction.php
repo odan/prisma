@@ -3,6 +3,7 @@
 namespace App\Action;
 
 use App\Domain\User\Locale;
+use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;
@@ -22,6 +23,8 @@ class UserLoginSubmitAction extends AbstractAction
      * Constructor.
      *
      * @param Container $container
+     *
+     * @throws ContainerException
      */
     public function __construct(Container $container)
     {

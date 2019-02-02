@@ -6,6 +6,10 @@ use App\Domain\User\Auth;
 use App\Domain\User\AuthRepository;
 use App\Domain\User\Locale;
 use App\Domain\User\UserRepository;
+use App\Middleware\AuthenticationMiddleware;
+use App\Middleware\CorsMiddleware;
+use App\Middleware\LanguageMiddleware;
+use App\Middleware\SessionMiddleware;
 use App\Utility\ErrorHandler;
 use Cake\Database\Connection;
 use Cake\Database\Driver\Mysql;
@@ -142,13 +146,7 @@ $container[Locale::class] = function (Container $container) {
 };
 
 $container[CsrfMiddleware::class] = function (Container $container) {
-    if (php_sapi_name() === 'cli') {
-        $sessionId = 'cli';
-    } else {
-        $session = $container->get(Session::class);
-        $sessionId = $session->getId();
-    }
-    $csrf = new CsrfMiddleware($sessionId);
+    $csrf = new CsrfMiddleware('_');
 
     // optional settings
     $csrf->setSalt('secret');
@@ -157,6 +155,22 @@ $container[CsrfMiddleware::class] = function (Container $container) {
     $csrf->protectForms(true);
 
     return $csrf;
+};
+
+$container[AuthenticationMiddleware::class] = function (Container $container) {
+    return new AuthenticationMiddleware($container);
+};
+
+$container[SessionMiddleware::class] = function (Container $container) {
+    return new SessionMiddleware($container);
+};
+
+$container[LanguageMiddleware::class] = function (Container $container) {
+    return new LanguageMiddleware($container);
+};
+
+$container[CorsMiddleware::class] = function (Container $container) {
+    return new CorsMiddleware($container);
 };
 
 $container[Translator::class] = function (Container $container) {

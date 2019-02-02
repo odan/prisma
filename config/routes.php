@@ -1,36 +1,44 @@
 <?php
 
-/**
- * Define the Slim application routes.
- */
+// Define the Slim application routes.
+
+use App\Middleware\AuthenticationMiddleware;
+use App\Middleware\CorsMiddleware;
+use App\Middleware\LanguageMiddleware;
+use App\Middleware\SessionMiddleware;
 use Slim\App;
 
 /* @var App $app */
+$container = $app->getContainer();
 
-// Default page
-$app->get('/', \App\Action\HomeIndexAction::class)->setName('root');
+$app->any('/ping', \App\Action\HomePingAction::class);
 
-// Json request
-$app->post('/home/load', \App\Action\HomeLoadAction::class);
-
-$app->any('/ping', \App\Action\HomePingAction::class)->setArgument('_auth', false)->setArgument('_csrf', false);
-
+// Login, no auth check for this actions required
 $app->group('/users', function () {
+    $this->post('/login', \App\Action\UserLoginSubmitAction::class);
+    $this->get('/login', \App\Action\UserLoginIndexAction::class)->setName('login');
+    $this->get('/logout', \App\Action\UserLoginLogoutAction::class);
+})->add($container->get(SessionMiddleware::class));
+
+// Routes with authentication
+$app->group('', function () {
     /* @var App $this */
 
-    // Login
-    // No auth check for this actions
-    // Option: _auth = false (no authentication and authorization)
-    $this->post('/login', \App\Action\UserLoginSubmitAction::class)->setArgument('_auth', false);
-    $this->get('/login', \App\Action\UserLoginIndexAction::class)->setArgument('_auth', false)->setName('login');
-    $this->get('/logout', \App\Action\UserLoginLogoutAction::class)->setArgument('_auth', false);
+    // Default page
+    $this->get('/', \App\Action\HomeIndexAction::class)->setName('root');
 
-    // Users
-    $this->get('', \App\Action\UserIndexAction::class);
+    $this->get('/users', \App\Action\UserIndexAction::class);
 
     // This route will only match if {id} is numeric
-    $this->get('/{id:[0-9]+}', \App\Action\UserEditAction::class)->setName('users.edit');
+    $this->get('/users/{id:[0-9]+}', \App\Action\UserEditAction::class)->setName('users.edit');
 
     // Sub-Resource
-    $this->get('/{id:[0-9]+}/reviews', \App\Action\UserReviewAction::class);
-});
+    $this->get('/users/{id:[0-9]+}/reviews', \App\Action\UserReviewAction::class);
+
+    // Json request
+    $this->post('/home/load', \App\Action\HomeLoadAction::class);
+})
+    ->add($container->get(LanguageMiddleware::class))
+    ->add($container->get(CorsMiddleware::class))
+    ->add($container->get(AuthenticationMiddleware::class))
+    ->add($container->get(SessionMiddleware::class));
