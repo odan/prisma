@@ -10,7 +10,7 @@ use RuntimeException;
 /**
  * BaseType.
  */
-class BaseType
+abstract class BaseType
 {
     /**
      * Check if code is valid.

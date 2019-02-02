@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Utility;
+namespace App\Middleware;
 
 use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface as Response;

@@ -10,7 +10,7 @@ use RuntimeException;
 /**
  * Repository (persistence oriented).
  */
-abstract class ApplicationRepository implements RepositoryInterface
+abstract class BaseRepository implements RepositoryInterface
 {
     /**
      * Connection.

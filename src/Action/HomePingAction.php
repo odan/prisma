@@ -9,7 +9,7 @@ use Slim\Http\Response;
 /**
  * Action.
  */
-class HomePingAction extends AbstractAction
+class HomePingAction extends BaseAction
 {
     /**
      * Action (Json).

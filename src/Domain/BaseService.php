@@ -12,6 +12,6 @@ namespace App\Domain;
  * The business logic should be placed in the service layer,
  * and we should be aiming for fat models and skinny controllers.
  */
-abstract class ApplicationService implements ServiceInterface
+abstract class BaseService implements ServiceInterface
 {
 }

@@ -2,12 +2,12 @@
 
 namespace App\Domain\User;
 
-use App\Domain\ApplicationService;
+use App\Domain\BaseService;
 
 /**
  * Class.
  */
-class UserService extends ApplicationService
+class UserService extends BaseService
 {
     /**
      * @var UserRepository
@@ -71,7 +71,7 @@ class UserService extends ApplicationService
             'locale' => $user->getLocale(),
             'password' => $user->getPassword(),
             'role' => $user->getRole(),
-            'disabled' => $user->getDisabled(),
+            'disabled' => $user->getDisabled() ? 1 : 0,
         ];
 
         return $this->userRepository->insertUser($row);

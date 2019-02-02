@@ -9,7 +9,7 @@ use Slim\Http\Response;
 /**
  * Action.
  */
-class UserLoginIndexAction extends AbstractAction
+class UserLoginIndexAction extends BaseAction
 {
     /**
      * User login.

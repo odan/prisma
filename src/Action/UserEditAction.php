@@ -13,7 +13,7 @@ use Slim\Http\Response;
 /**
  * Action.
  */
-class UserEditAction extends AbstractAction
+class UserEditAction extends BaseAction
 {
     /**
      * @var UserService

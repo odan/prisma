@@ -11,7 +11,7 @@ use Slim\Http\Response;
 /**
  * Action.
  */
-class UserIndexAction extends AbstractAction
+class UserIndexAction extends BaseAction
 {
     /**
      * @var UserService

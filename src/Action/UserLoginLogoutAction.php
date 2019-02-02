@@ -9,7 +9,7 @@ use Slim\Http\Response;
 /**
  * Action.
  */
-class UserLoginLogoutAction extends AbstractAction
+class UserLoginLogoutAction extends BaseAction
 {
     /**
      * User logout.

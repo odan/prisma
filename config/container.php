@@ -10,7 +10,7 @@ use App\Middleware\AuthenticationMiddleware;
 use App\Middleware\CorsMiddleware;
 use App\Middleware\LanguageMiddleware;
 use App\Middleware\SessionMiddleware;
-use App\Utility\ErrorHandler;
+use App\Middleware\ErrorHandler;
 use Cake\Database\Connection;
 use Cake\Database\Driver\Mysql;
 use Monolog\Handler\RotatingFileHandler;

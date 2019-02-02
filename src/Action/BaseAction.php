@@ -14,7 +14,7 @@ use Slim\Views\Twig;
 /**
  * AbstractAction (Base class).
  */
-abstract class AbstractAction
+abstract class BaseAction
 {
     /**
      * @var Router

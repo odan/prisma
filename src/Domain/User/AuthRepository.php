@@ -2,12 +2,12 @@
 
 namespace App\Domain\User;
 
-use App\Repository\ApplicationRepository;
+use App\Repository\BaseRepository;
 
 /**
  * Class.
  */
-class AuthRepository extends ApplicationRepository
+class AuthRepository extends BaseRepository
 {
     /**
      * Find active user by username.

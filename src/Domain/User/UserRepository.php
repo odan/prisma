@@ -2,14 +2,14 @@
 
 namespace App\Domain\User;
 
-use App\Repository\ApplicationRepository;
+use App\Repository\BaseRepository;
 use DomainException;
 use InvalidArgumentException;
 
 /**
  * Repository.
  */
-class UserRepository extends ApplicationRepository
+class UserRepository extends BaseRepository
 {
     /**
      * Find all users.
