@@ -240,30 +240,32 @@
         </exec>
 
         <!-- Copy assets to the public directory -->
-        <copy file="${node_modules_dir}/bootstrap/dist/css/bootstrap.css" todir="${public_dir}/css"/>
-        <copy file="${node_modules_dir}/bootstrap/dist/css/bootstrap.css.map" todir="${public_dir}/css"/>
-        <copy file="${node_modules_dir}/bootstrap/dist/css/bootstrap.min.css" todir="${public_dir}/css"/>
-        <copy file="${node_modules_dir}/bootstrap/dist/css/bootstrap.min.css.map" todir="${public_dir}/css"/>
+        <copy file="${node_modules_dir}/bootstrap/dist/css/bootstrap.css" todir="${public_dir}/css" overwrite="true"/>
+        <copy file="${node_modules_dir}/bootstrap/dist/css/bootstrap.css.map" todir="${public_dir}/css" overwrite="true"/>
+        <copy file="${node_modules_dir}/bootstrap/dist/css/bootstrap.min.css" todir="${public_dir}/css" overwrite="true"/>
+        <copy file="${node_modules_dir}/bootstrap/dist/css/bootstrap.min.css.map" todir="${public_dir}/css" overwrite="true"/>
 
         <copy file="${node_modules_dir}/@fortawesome/fontawesome-free/css/all.css"
-              tofile="${public_dir}/css/fontawesome-all.css"/>
-        <copy todir="${public_dir}/webfonts">
+              tofile="${public_dir}/css/fontawesome-all.css" overwrite="true"/>
+        <copy file="${node_modules_dir}/@fortawesome/fontawesome-free/css/all.min.css"
+              tofile="${public_dir}/css/fontawesome-all.min.css" overwrite="true"/>
+        <copy todir="${public_dir}/webfonts" overwrite="true">
             <fileset dir="${node_modules_dir}/@fortawesome/fontawesome-free/webfonts"/>
         </copy>
 
-        <copy file="${node_modules_dir}/bootstrap/dist/js/bootstrap.js" todir="${public_dir}/js"/>
-        <copy file="${node_modules_dir}/bootstrap/dist/js/bootstrap.js.map" todir="${public_dir}/js"/>
-        <copy file="${node_modules_dir}/bootstrap/dist/js/bootstrap.min.js" todir="${public_dir}/js"/>
-        <copy file="${node_modules_dir}/bootstrap/dist/js/bootstrap.min.js.map" todir="${public_dir}/js"/>
+        <copy file="${node_modules_dir}/bootstrap/dist/js/bootstrap.js" todir="${public_dir}/js" overwrite="true"/>
+        <copy file="${node_modules_dir}/bootstrap/dist/js/bootstrap.js.map" todir="${public_dir}/js" overwrite="true"/>
+        <copy file="${node_modules_dir}/bootstrap/dist/js/bootstrap.min.js" todir="${public_dir}/js" overwrite="true"/>
+        <copy file="${node_modules_dir}/bootstrap/dist/js/bootstrap.min.js.map" todir="${public_dir}/js" overwrite="true"/>
 
-        <copy file="${node_modules_dir}/popper.js/dist/popper.js" todir="${public_dir}/js"/>
-        <copy file="${node_modules_dir}/popper.js/dist/popper.js.map" todir="${public_dir}/js"/>
-        <copy file="${node_modules_dir}/popper.js/dist/popper.min.js" todir="${public_dir}/js"/>
-        <copy file="${node_modules_dir}/popper.js/dist/popper.min.js.map" todir="${public_dir}/js"/>
+        <copy file="${node_modules_dir}/popper.js/dist/umd/popper.js" todir="${public_dir}/js" overwrite="true"/>
+        <copy file="${node_modules_dir}/popper.js/dist/umd/popper.js.map" todir="${public_dir}/js" overwrite="true"/>
+        <copy file="${node_modules_dir}/popper.js/dist/umd/popper.min.js" todir="${public_dir}/js" overwrite="true"/>
+        <copy file="${node_modules_dir}/popper.js/dist/umd/popper.min.js.map" todir="${public_dir}/js" overwrite="true"/>
 
-        <copy file="${node_modules_dir}/jquery/dist/jquery.js" todir="${public_dir}/js"/>
-        <copy file="${node_modules_dir}/jquery/dist/jquery.min.js" todir="${public_dir}/js"/>
-        <copy file="${node_modules_dir}/jquery/dist/jquery.min.map" todir="${public_dir}/js"/>
+        <copy file="${node_modules_dir}/jquery/dist/jquery.js" todir="${public_dir}/js" overwrite="true"/>
+        <copy file="${node_modules_dir}/jquery/dist/jquery.min.js" todir="${public_dir}/js" overwrite="true"/>
+        <copy file="${node_modules_dir}/jquery/dist/jquery.min.map" todir="${public_dir}/js" overwrite="true"/>
 
         <delete dir="${node_modules_dir}"/>
     </target>
