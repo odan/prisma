@@ -20,6 +20,11 @@ class AuthenticationMiddleware
      */
     protected $container;
 
+    /**
+     * Constructor.
+     *
+     * @param Container $container The container
+     */
     public function __construct(Container $container)
     {
         $this->container = $container;
@@ -41,7 +46,7 @@ class AuthenticationMiddleware
         /** @var Route $route */
         $route = $request->getAttribute('route');
 
-        if (!$route) {
+        if (empty($route)) {
             return $next($request, $response);
         }
 
@@ -55,7 +60,7 @@ class AuthenticationMiddleware
             $router = $this->container->get('router');
             $uri = $router->pathFor('login');
 
-            return $response->withRedirect($uri);
+            return $response->withHeader('Location', $uri);
         }
 
         return $next($request, $response);

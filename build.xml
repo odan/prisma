@@ -84,6 +84,8 @@
             <arg value="analyse"/>
             <arg value="-l"/>
             <arg value="max"/>
+            <arg value="-c"/>
+            <arg path="${basedir}/phpstan.neon"/>
             <arg value="src"/>
             <arg value="tests"/>
             <arg value="--no-interaction"/>

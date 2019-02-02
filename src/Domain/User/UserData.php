@@ -179,9 +179,9 @@ class UserData
     }
 
     /**
-     * @return int
+     * @return bool
      */
-    public function getDisabled(): int
+    public function getDisabled(): bool
     {
         return $this->disabled;
     }
