@@ -31,7 +31,13 @@ class UserService extends ApplicationService
      */
     public function findAllUsers(): array
     {
-        return $this->userRepository->findAll();
+        $result = [];
+
+        foreach ($this->userRepository->findAll() as $row) {
+            $result[] = UserData::fromArray($row);
+        }
+
+        return $result;
     }
 
     /**
@@ -43,7 +49,9 @@ class UserService extends ApplicationService
      */
     public function getUserById(int $userId): UserData
     {
-        return $this->userRepository->getById($userId);
+        $row = $this->userRepository->getById($userId);
+
+        return UserData::fromArray($row);
     }
 
     /**
@@ -55,7 +63,18 @@ class UserService extends ApplicationService
      */
     public function registerUser(UserData $user): int
     {
-        return $this->userRepository->insertUser($user);
+        $row = [
+            'username' => $user->getUsername(),
+            'first_name' => $user->getFirstName(),
+            'last_name' => $user->getLastName(),
+            'email' => $user->getEmail(),
+            'locale' => $user->getLocale(),
+            'password' => $user->getPassword(),
+            'role' => $user->getRole(),
+            'disabled' => $user->getDisabled(),
+        ];
+
+        return $this->userRepository->insertUser($row);
     }
 
     /**

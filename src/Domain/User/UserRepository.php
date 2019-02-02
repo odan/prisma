@@ -7,25 +7,18 @@ use DomainException;
 use InvalidArgumentException;
 
 /**
- * User repository.
+ * Repository.
  */
 class UserRepository extends ApplicationRepository
 {
     /**
      * Find all users.
      *
-     * @return UserData[]
+     * @return array Rows
      */
     public function findAll(): array
     {
-        $rows = $this->fetchAll('users');
-
-        $result = [];
-        foreach ($rows as $row) {
-            $result[] = new UserData($row);
-        }
-
-        return $result;
+        return $this->fetchAll('users');
     }
 
     /**
@@ -35,17 +28,17 @@ class UserRepository extends ApplicationRepository
      *
      * @throws DomainException On error
      *
-     * @return UserData An model
+     * @return array The row
      */
-    public function getById(int $id): UserData
+    public function getById(int $id): array
     {
-        $user = $this->findById($id);
+        $row = $this->findUserById($id);
 
-        if (!$user) {
+        if (!$row) {
             throw new DomainException(__('User not found: %s', $id));
         }
 
-        return $user;
+        return $row;
     }
 
     /**
@@ -53,28 +46,26 @@ class UserRepository extends ApplicationRepository
      *
      * @param int $id The ID
      *
-     * @return UserData|null The model
+     * @return array The row
      */
-    public function findById(int $id): ?UserData
+    public function findUserById(int $id): array
     {
-        $row = $this->fetchById('users', $id);
-
-        return $row ? new UserData($row) : null;
+        return $this->fetchById('users', $id);
     }
 
     /**
      * Insert or update user.
      *
-     * @param UserData $user
+     * @param array $user
      *
      * @return int User ID
      */
-    public function saveUser(UserData $user): int
+    public function saveUser(array $user): int
     {
-        if ($user->getId() !== null) {
+        if (!empty($user['id'])) {
             $this->updateUser($user);
 
-            return $user->getId();
+            return (int)$user['id'];
         }
 
         return $this->insertUser($user);
@@ -83,17 +74,17 @@ class UserRepository extends ApplicationRepository
     /**
      * Update user.
      *
-     * @param UserData $user The user
+     * @param array $user The user data
      *
      * @return bool Success
      */
-    public function updateUser(UserData $user): bool
+    public function updateUser(array $user): bool
     {
-        if (empty($user->getId())) {
+        if (empty($user['id'])) {
             throw new InvalidArgumentException('User ID required');
         }
 
-        $this->newUpdate('users', $user->toArray())->andWhere(['id' => $user->getId()])->execute();
+        $this->newUpdate('users', $user)->andWhere(['id' => $user['id']])->execute();
 
         return true;
     }
@@ -101,13 +92,13 @@ class UserRepository extends ApplicationRepository
     /**
      * Insert new user.
      *
-     * @param UserData $user The user
+     * @param array $user The user
      *
      * @return int The new ID
      */
-    public function insertUser(UserData $user): int
+    public function insertUser(array $user): int
     {
-        return (int)$this->newInsert('users', $user->toArray())->execute()->lastInsertId();
+        return (int)$this->newInsert('users', $user)->execute()->lastInsertId();
     }
 
     /**

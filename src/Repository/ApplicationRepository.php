@@ -135,7 +135,7 @@ abstract class ApplicationRepository implements RepositoryInterface
      * @param string $table Table name
      * @param int|string $id ID
      *
-     * @return mixed[] Result set
+     * @return array Result set
      */
     protected function fetchById(string $table, $id): array
     {
@@ -170,7 +170,7 @@ abstract class ApplicationRepository implements RepositoryInterface
      *
      * @param string $table Table name
      *
-     * @return mixed[] Result set
+     * @return array Result set
      */
     protected function fetchAll(string $table): array
     {

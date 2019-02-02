@@ -58,7 +58,7 @@ class UserEditAction extends AbstractAction
         // Insert a new user
         $newUser = new UserData();
         $newUser->setUsername('admin-' . uuid());
-        $newUser->setDisabled(0);
+        $newUser->setDisabled(false);
         $newUserId = $this->userService->registerUser($newUser);
 
         // Get new user

@@ -108,7 +108,7 @@ class Auth implements ServiceInterface
             return null;
         }
 
-        $user = new UserData($userRow);
+        $user = UserData::fromArray($userRow);
 
         if (!$this->verifyPassword($password, $user->getPassword() ?: '')) {
             return null;

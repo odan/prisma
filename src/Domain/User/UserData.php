@@ -2,12 +2,10 @@
 
 namespace App\Domain\User;
 
-use App\Data\DataTransferObject;
-
 /**
  * User.
  */
-final class UserData extends DataTransferObject
+class UserData
 {
     /** @var int|null */
     private $id;
@@ -33,20 +31,8 @@ final class UserData extends DataTransferObject
     /** @var string|null */
     private $locale;
 
-    /** @var int|null */
-    private $disabled;
-
-    /** @var string|null */
-    private $createdAt;
-
-    /** @var int|null */
-    private $createdBy;
-
-    /** @var string|null */
-    private $updatedAt;
-
-    /** @var int|null */
-    private $updatedBy;
+    /** @var bool */
+    private $disabled = false;
 
     /**
      * @return int|null
@@ -193,92 +179,44 @@ final class UserData extends DataTransferObject
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getDisabled(): ?int
+    public function getDisabled(): int
     {
         return $this->disabled;
     }
 
     /**
-     * @param int|null $disabled
+     * @param bool $disabled
      *
      * @return void
      */
-    public function setDisabled(?int $disabled): void
+    public function setDisabled(bool $disabled): void
     {
         $this->disabled = $disabled;
     }
 
     /**
-     * @return string|null
-     */
-    public function getCreatedAt(): ?string
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param string|null $createdAt
+     * Crete data object from array.
      *
-     * @return void
-     */
-    public function setCreatedAt(?string $createdAt): void
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getCreatedBy(): ?int
-    {
-        return $this->createdBy;
-    }
-
-    /**
-     * @param int|null $createdBy
+     * @param array $row The row data
      *
-     * @return void
+     * @return self The data object
      */
-    public function setCreatedBy(?int $createdBy): void
+    public static function fromArray(array $row): self
     {
-        $this->createdBy = $createdBy;
-    }
+        $user = new self();
 
-    /**
-     * @return string|null
-     */
-    public function getUpdatedAt(): ?string
-    {
-        return $this->updatedAt;
-    }
+        $user->setId($row['id'] ?? null);
+        $user->setUsername($row['username'] ?? null);
+        $user->setFirstName($row['first_name'] ?? null);
+        $user->setLastName($row['last_name'] ?? null);
+        $user->setEmail($row['email'] ?? null);
+        $user->setLocale($row['locale'] ?? null);
+        $user->setPassword($row['password'] ?? null);
+        $user->setRole($row['role'] ?? null);
+        $user->setDisabled((bool)$row['disabled']);
 
-    /**
-     * @param string|null $updatedAt
-     *
-     * @return void
-     */
-    public function setUpdatedAt(?string $updatedAt): void
-    {
-        $this->updatedAt = $updatedAt;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getUpdatedBy(): ?int
-    {
-        return $this->updatedBy;
-    }
-
-    /**
-     * @param int|null $updatedBy
-     *
-     * @return void
-     */
-    public function setUpdatedBy(?int $updatedBy): void
-    {
-        $this->updatedBy = $updatedBy;
+        return $user;
     }
 }
