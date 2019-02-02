@@ -39,6 +39,5 @@ $app->group('', function () {
     $this->post('/home/load', \App\Action\HomeLoadAction::class);
 })
     ->add($container->get(LanguageMiddleware::class))
-    ->add($container->get(CorsMiddleware::class))
     ->add($container->get(AuthenticationMiddleware::class))
     ->add($container->get(SessionMiddleware::class));
