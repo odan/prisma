@@ -12,11 +12,11 @@
 * [Routing](#routing)
 * [Middleware](#middleware)
 * [Controllers](#controllers)
-* [Session](#session)
 * [Errors and logging](#errors-and-logging)
 * [Frontend](#frontend)
   * [Twig Templates](#twig-templates)
   * [Internationalization](#internationalization)
+  * [Translations](#translations)
   * [Localization](#localization)
   * [Updating Assets](#updating-assets)
 * [Database](#database)
@@ -29,6 +29,7 @@
   * [Data Seeding](#data-seeding)
   * [Resetting the database](#resetting-the-database)
 * [Security](#security)
+  * [Session](#session)
   * [Authentication](#authentication)
   * [Authorization](#authorization)
   * [CSRF Protection](#csrf-protection)
@@ -44,7 +45,7 @@
 A skeleton project for Slim 3.
 
 This is a Slim 3 skeleton project that includes Routing, Middleware, Twig templates, 
-mustache.js, Translations, Assets, Sessions, Database Queries, Migrations, 
+Translations, Assets, Sessions, Database Queries, Migrations, 
 Console Commands, Authentication, Authorization, CSRF protection, 
 Logging and Unit testing.
 
@@ -193,9 +194,10 @@ vendor/bin/phpunit
 
 ### Environment configuration
 
-You can keep sensitive information's out of version control with a separate `env.php` for each environment.
+All the app environments variables are stored in the `env.php` file.
 
-You should store all sensitive information in `env.php` and add the file to your `.gitignore`, so that you do not accidentally commit it to the source control.
+The command `php bin/cli.php install` will copy `env.example.php` to `env.php` which should have 
+your own variables and never shared or committed into git.
 
 Just rename the file `env.example.php` to `env.php`.
 
@@ -217,7 +219,6 @@ Just rename the file `env.example.php` to `env.php`.
 ├── src                     # PHP source code (The App namespace)
 │   ├── Action              # Controller actions
 │   ├── Console             # Console commands for cli.php
-│   ├── Data                # Data transfer objects (DTO)
 │   ├── Domain              # Business logic
 │   ├── Repository          # Data access logic. Communication with the database.
 │   ├── Type                # Types, Enum Constants
@@ -239,43 +240,184 @@ Just rename the file `env.example.php` to `env.php`.
 
 ## Routing
 
-You can define custom routes in [config/routes.php](https://github.com/odan/prisma/blob/master/config/routes.php). 
+All requests go through the same cycle:  `routing > middleware > conroller/action > response`
+
+### Routes
+
+All the app routes are defined in the [routes.php](https://github.com/odan/prisma/blob/master/config/routes.php) file.
+
+The Slim `$app` variable is responsible for registering the routes. 
+You will notice that most routes are enclosed in the `group` method which gives the prefix to the most routes.
+
+Every route is defined by a method corresponds to the HTTP verb. For example, a post request to register a user is defined by:
+
+```php
+$this->get('/users', \App\Action\UserIndexAction::class);
+```
+> Notice: we use `$this` because where are inside a closure that is bound to `$app`; 
 
 ## Middleware
 
-* todo
+In a Slim app, you can add middleware to all incoming routes, to a specific route, or to a group of routes. [Check the documentations](https://www.slimframework.com/docs/concepts/middleware.html) 
+
+In this app we add some middleware to specific routes.
+
+Also, We add some global middleware to apply to all requests in [middleware.php](https://github.com/odan/prisma/blob/master/config/middleware.php).
 
 ## Controllers
 
-* todo
+After passing through all assigned middleware, the request will be processed by a controller / action.
 
-## Session
+The Controller's job is to translate incoming requests into outgoing responses. 
 
-* todo
+In order to do this, the controller must take request data, checks for authorization,
+and pass it into the domain service layer.
+
+The domain service layer then returns data that the Controller injects into a View for rendering. 
+
+This view might be HTML for a standard web request; or, 
+it might be something like JSON for a RESTful API request.
+
+The application uses `Single Action Controllers` which means: one action per class.
+
+A typical action method signature should look like this:
+
+```php
+public function __invoke(Request $request, Response $response): ResponseInterface
+```
+
+Slim framework will inject all dependencies for you automatically (via constructor injection)
+by passing the container instance into the constructor.
+
+Action example class:
+
+```php
+<?php
+
+namespace App\Action;
+
+use Psr\Http\Message\ResponseInterface;
+use Slim\Http\Request;
+use Slim\Http\Response;
+
+class ExampleAction
+{
+     /**
+      * @var LoggerInterface
+      */
+    protected $logger;
+    
+    public function __construct(Container $container)
+    {
+        // Fetch only dependencies you need for this action
+        $this->logger = $container->get(LoggerInterface::class);
+        // ...
+    }
+    
+    public function __invoke(Request $request, Response $response): ResponseInterface
+    {
+        return $response->withJson(['success' => true]);
+    }
+}
+```
+
+This concept will produce more class files, but these classes have only one responsibility (SRP).
+Refactoring action classes is very easy now, because the routes in `routes.php` make use of the `::class` constant. 
 
 ## Errors and logging
  
-* todo
+Depending on the settings all warnings and errors will be logged in the `tmp/logs` direcory.
+
+The default logging settings for your application is stored in the `config/defaults.php` > `logger` configuration file. 
+
+Of course, you may modify this values to suit the needs of your application. 
 
 ## Frontend
 
 ### Twig Templates
 
-* todo
+Twig is the simple, yet powerful templating engine provided by Symfony. 
 
-### Internationalization
+In fact, all Twig views are compiled into plain PHP code and 
+cached until they are modified, meaning Twig adds essentially 
+zero overhead to your application. 
 
-To parse all the text run:
+Twig view files use the `.twig` file extension and are typically stored in the `templates/` directory.
+
+### Localization
+
+The integrated localization features provide a convenient way to retrieve strings 
+in various languages, allowing you to easily support multiple languages within 
+your application. 
+
+Language strings are stored in files within the `resources/locale` directory. 
+
+Within this directory there should be a `mo` and `po` file for each language supported by the application.
+
+The source language is allways english. You don't need a translation file for english.
+
+Example:
+
+* de_DE_messages.mo
+* de_DE_messages.po
+* fr_FR_messages.mo
+* fr_FR_messages.po
+
+#### Configure Localization
+
+* todo: Add description how to add more languages
+
+#### Determining The Current Locale
+
+You may use the getLocale and isLocale methods on the App facade to determine 
+the current locale or check if the locale is a given value:
+
+```php
+$locale = $this->session->get('locale'); // en_US
+```
+
+#### Defining Translation Strings
+
+To parse all translation string run:
 
 ```bash
 $ ant parse-text
 ```
 
-This command will scan your twig templates, javascripts and PHP classes for the `__()` function call and stores all text entries into the po file. You can find all po file here: `resources/locale`. Use [PoEdit](https://poedit.net/) to open and translate the po files.
+This command will scan your twig templates, javascripts and PHP classes for the `__()` 
+function call and stores all text entries into po files. 
 
-### Localization
+You can find all po files in the: `resources/locale` directory. 
 
-* todo
+[PoEdit](https://poedit.net/) is the recommended PO-file editor for the generated po-files.
+ 
+
+#### Retrieving Translation Strings
+
+You may retrieve lines from language files using the `__` php helper function. 
+
+The `__` method accepts the text of the translation string as its first argument. 
+
+```php
+echo __('I love programming.');
+```
+
+Of course if you are using the Twig templating engine, you may use 
+the `__` helper function to echo the translation string.
+
+Translate a text:
+
+```twig
+{{ __('Yes') }}
+```
+
+Translate a text with a placeholder:
+
+```twig
+{{ __('Hello: %s', username) }}
+```
+
+[Read more](https://github.com/odan/twig-translation#usage)
 
 ### Updating Assets
 
@@ -314,7 +456,7 @@ For more details how to build queries read the **[documentation](https://book.ca
 
 ### Domain Services
 
-* Complex business logic like calulation, validation, file creation etc.
+* Complex business logic e.g. calulation, validation, file creation etc.
 * Todo: Add more details
 
 ### Migrations
@@ -378,38 +520,82 @@ $ ant refresh-database
 ```
 
 ## Security
-  
+
+## Session
+
+* This application uses `sessions` to store the logged-in user information.
+* If you have to add api routes you may use `JWT` or better a `OAuth2 Bearer-Token`.
+
 ### Authentication
 
-* todo
+The authentication depends on the defined routes and the attached middleware.
+You can add routing groups with Sessions and/or OAuth2 auth. It's up to you how you 
+configure the routes and their individual authentication.
 
 ### Authorization
 
-* todo
+To check the user permissions the controller actions comes with
+a `Auth` object. 
+
+Getting the loggin-in user id:
+
+```php
+$userId = $this->auth->getId();
+```
+
+Checking the user role (permission group):
+
+```php
+$isAdmin = $this->auth->hasRole(Role::ROLE_ADMIN);
+```
 
 ### CSRF Protection
 
-* todo
+All session bases requests are protected against Cross-site request forgery (CSRF).
 
 ## Testing
 
 ### Unit testing
 
+All tests are located in the `test/` folder. To start the unit test run:
+
 ``` bash
 $ ant phpunit
 ```
 
+### Debugging unit tests with PhpStorm
+
+To debug tests with PhpStorm you must have to mark the directory `test/` 
+as the test root source.
+
+* Open the project in PhpStorm
+* Right click the directory `tests` 
+* Select: `Mark directory as`
+* Click `Test Sources Root`
+* Set a breakpoint within a test method
+* Right click `test`
+* Click `Debug (tests) PHPUnit`
+
 ### HTTP tests
 
-* todo
+Everything is prepared to run mocked http tests.
+
+Please take a look at the example tests in:
+
+* `tests/HomeIndexActionTest.php`
+* `test/HomePingActionTest`
 
 ## Database Testing
 
-* todo
+* todo: Add integration tests
 
 ## Mocking
 
-* todo
+There is no special mocking example available. 
+
+Just use the `PHPUnit` mocking functionality or other mocking libraries you want. Feel free.
+
+Read more: [Mock - PHPUnit](https://phpunit.de/manual/current/en/test-doubles.html)
   
 ## Deployment
 
