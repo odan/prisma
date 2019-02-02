@@ -21,7 +21,7 @@ class HomePingAction extends AbstractAction
      */
     public function __invoke(Request $request, Response $response): ResponseInterface
     {
-        $data = ['result' => $request->getParsedBody()];
+        $data = $request->getParsedBody();
 
         return $response->withJson($data);
     }
