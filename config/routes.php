@@ -3,7 +3,6 @@
 // Define the Slim application routes.
 
 use App\Middleware\AuthenticationMiddleware;
-use App\Middleware\CorsMiddleware;
 use App\Middleware\LanguageMiddleware;
 use App\Middleware\SessionMiddleware;
 use Slim\App;
