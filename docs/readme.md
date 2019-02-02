@@ -7,37 +7,36 @@
   * [Manual Setup](#manual-setup)
   * [Vagrant Setup](#vagrant-setup)
   * [Docker Setup](#docker-setup)
-* Configuration
-* The Basics
-  * [Directory structure](#directory-structure)
-  * [Routing](#routing)
-  * Middleware
-  * Controllers
-  * Session
-  * Validation
-  * Errors and logging
-* Frontend
-  * Twig Templates
+* [Configuration](#configuration)
+* [Directory structure](#directory-structure)
+* [Routing](#routing)
+* [Middleware](#middleware)
+* [Controllers](#controllers)
+* [Session](#session)
+* [Errors and logging](#errors-and-logging)
+* [Frontend](#frontend)
+  * [Twig Templates](#twig-templates)
   * [Internationalization](#internationalization)
-  * Localization
+  * [Localization](#localization)
   * [Updating Assets](#updating-assets)
-* Database
-  * Database configuration
+* [Database](#database)
+  * [Database configuration](#database-configuration)
   * [Query Builder](#query-builder)
-  * Repositories
+  * [Repositories](#repositories)
+  * [Domain Services](#domain-services)
   * [Migrations](#migrations)
   * [Update schema](#update-schema)
   * [Data Seeding](#data-seeding)
   * [Resetting the database](#resetting-the-database)
-* Security
-  * Authentication
-  * Authorization
-  * CSRF Protection
+* [Security](#security)
+  * [Authentication](#authentication)
+  * [Authorization](#authorization)
+  * [CSRF Protection](#csrf-protection)
 * [Testing](#testing)
   * [Unit tests](#unit-testing)
-  * HTTP Tests
+  * [HTTP Tests](#http-tests)
   * [Database Testing](#database-testing)
-  * Mocking
+  * [Mocking](#mocking)
 * [Deployment](#deployment)
   
 ## Introduction
@@ -182,14 +181,23 @@ vendor/bin/phpunit
 ```
 
 * Run `vagrant up` 
-* Run `vagrant ssh`
 * Open http://localhost:8765
 * Login: username= `user`, password = `user`
 * Login as admin: username = `admin`, password = `admin`
 
 ### Docker Setup
 
-todo
+* todo
+
+## Configuration
+
+### Environment configuration
+
+You can keep sensitive information's out of version control with a separate `env.php` for each environment.
+
+You should store all sensitive information in `env.php` and add the file to your `.gitignore`, so that you do not accidentally commit it to the source control.
+
+Just rename the file `env.example.php` to `env.php`.
 
 ## Directory structure
 
@@ -233,7 +241,29 @@ todo
 
 You can define custom routes in [config/routes.php](https://github.com/odan/prisma/blob/master/config/routes.php). 
 
-## Internationalization
+## Middleware
+
+* todo
+
+## Controllers
+
+* todo
+
+## Session
+
+* todo
+
+## Errors and logging
+ 
+* todo
+
+## Frontend
+
+### Twig Templates
+
+* todo
+
+### Internationalization
 
 To parse all the text run:
 
@@ -243,7 +273,11 @@ $ ant parse-text
 
 This command will scan your twig templates, javascripts and PHP classes for the `__()` function call and stores all text entries into the po file. You can find all po file here: `resources/locale`. Use [PoEdit](https://poedit.net/) to open and translate the po files.
 
-## Updating Assets
+### Localization
+
+* todo
+
+### Updating Assets
 
 To update all main assets like jquery and bootrap run:
 
@@ -256,13 +290,12 @@ You can add more assets in `package.json` or diretly via `npm`.
 Open the file `build.xml` and navigate to the target `update-assets` 
 and add more items to copy the required files into the `public` directory.
 
-## Environment configuration
+## Database
 
-You can keep sensitive information's out of version control with a separate `env.php` for each environment.
+### Database configuration
 
-You should store all sensitive information in `env.php` and add the file to your `.gitignore`, so that you do not accidentally commit it to the source control.
-
-Just rename the file `env.example.php` to `env.php`.
+* You may configure the database settings per server environment.
+* The global default settings are stored in `config/defaults.php` > `$settings['db']` 
 
 ### Query Builder
 
@@ -271,6 +304,18 @@ This application comes with [cakephp/database](https://github.com/cakephp/databa
 The database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your application, and works great with MySQL and MariaDB.
 
 For more details how to build queries read the **[documentation](https://book.cakephp.org/3.0/en/orm/query-builder.html)**.
+
+### Repositories
+
+* Communication with the database.
+* Data access logic / query logic
+* No business logic!
+* Todo: Add more details
+
+### Domain Services
+
+* Complex business logic like calulation, validation, file creation etc.
+* Todo: Add more details
 
 ### Migrations
 
@@ -299,7 +344,7 @@ Update the database schema with this command:
 $ ant migrate-database
 ```
 
-withount `ant` run:
+without `ant` run:
 
 ```bash
 $ vendor/bin/phinx migrate -c config/phinx.php
@@ -313,13 +358,13 @@ To populate the database with data for testing and experimenting with the code r
 $ ant seed-database
 ```
 
-or directly, withount `ant`:
+or directly, without `ant`:
 
 ```bash
 $ vendor/bin/phinx seed:run -c config/phinx.php
 ```
 
-To edit how the data is seeded check the file: `resources\seeds\DataSeed`.
+You may add more seeds under the directory: `resources\seeds\DataSeed`.
 
 ### Resetting the database
 
@@ -332,6 +377,20 @@ migrate the database and seed the data.
 $ ant refresh-database
 ```
 
+## Security
+  
+### Authentication
+
+* todo
+
+### Authorization
+
+* todo
+
+### CSRF Protection
+
+* todo
+
 ## Testing
 
 ### Unit testing
@@ -340,16 +399,18 @@ $ ant refresh-database
 $ ant phpunit
 ```
 
-### Database testing
+### HTTP tests
 
 * todo
 
-##  Database
-
-### Database configuration
+## Database Testing
 
 * todo
 
+## Mocking
+
+* todo
+  
 ## Deployment
 
 ### Building an artifact
@@ -388,4 +449,3 @@ Example:
 $ cd /var/www/example.com
 $ sudo php deploy.php my_app_2019-01-29_235044.zip
 ```
-
