@@ -32,11 +32,6 @@
     "phpunit/phpunit": "^7.0",
     "phpstan/phpstan-shim": "^0.11.1"
   },
-  "scripts": {
-    "post-install-cmd": "ant update-assets",
-    "post-update-cmd": "ant update-assets",
-    "post-create-project-cmd": "ant update-assets"
-  },
   "autoload": {
     "psr-4": {
       "App\\": "src/"
