@@ -46,8 +46,7 @@ const HomeIndex = function () {
             };
 
             const template = $('#user-template').html();
-            //Mustache.parse(template);
-            const output = Mustache.render(template, response);
+            const output = $d.template(template, response);
 
             $('#content').append(output);
 
@@ -69,6 +68,6 @@ const HomeIndex = function () {
     this.init();
 };
 
-document.addEventListener("DOMContentLoaded", function () {
+$(function () {
     (new HomeIndex()).load();
 });

@@ -223,7 +223,7 @@ Just rename the file `env.example.php` to `env.php`.
 │   ├── Repository          # Data access logic. Communication with the database.
 │   ├── Type                # Types, Enum Constants
 │   └── Utility             # Helper classes and functions
-├── templates               # Twig and Mustache templates + JS and CSS
+├── templates               # Twig and Vue templates + JS and CSS
 ├── tests                   # Automated tests
 ├── tmp                     # Temporary files
 │   ├── assets-cache        # Internal assets cache
@@ -611,7 +611,7 @@ To build a new artifact (ZIP file) which is tested and ready for deployment run:
 $ ant build
 ```
 
-The new artifact is created in the `build` directory: `build/my_app_*.zip
+The new artifact is created in the `build` directory: `build/my_app_*.zip`
 
 To deploy the artifact to test/staging or production just upload
 the zip file with a sftp client onto your server (`/var/www/example.com`).
