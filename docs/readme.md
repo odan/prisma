@@ -176,7 +176,7 @@ chmod -R 760 tmp/
 chmod -R 760 public/cache/
 
 #chmod +x bin/cli.php
-php bin/cli.php install --environment travis
+php bin/cli.php install --environment ci
 
 vendor/bin/phpunit
 ```
@@ -551,7 +551,7 @@ To check user permissions, the Actions controller contains an `Auth` object.
 Determine the logged-in user ID::
 
 ```php
-$userId = $this->auth->getId();
+$userId = $this->auth->getUserId();
 ```
 
 Checking the user role (permission group):
@@ -593,8 +593,8 @@ Everything is prepared to run mocked http tests.
 
 Please take a look at the example tests in:
 
-* `tests/HomeIndexActionTest.php`
-* `test/HomePingActionTest`
+* `tests/TestCase/HomeIndexActionTest.php`
+* `test/TestCase/HomePingActionTest.php`
 
 ## Database Testing
 

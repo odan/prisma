@@ -111,7 +111,7 @@ class InstallCommand extends AbstractCommand
      */
     protected function createNewDatabase(SymfonyStyle $io, OutputInterface $output, string $configPath, string $root, string $env = null): int
     {
-        if ($env === 'travis') {
+        if ($env === 'ci') {
             $mySqlHost = '127.0.0.1';
             $mySqlDatabase = 'test';
             $mySqlUsername = 'root';
