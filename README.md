@@ -1,7 +1,7 @@
 # Prisma
 
 This is a Slim 3 skeleton project that includes Routing, Middleware,
-Twig templates, Translations, Assets, Sessions, Database Query Builder, 
+Twig templates, Vue.js, Translations, Assets, Sessions, Database Query Builder, 
 Database Migrations, Console Commands, Authentication, Authorization, CSRF protection, 
 Logging and Unit testing.
 
