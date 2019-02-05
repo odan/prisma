@@ -50,10 +50,15 @@ class HomeIndexAction extends BaseAction
     {
         $text = parent::getText();
 
+        $text['Loading...'] = __('Loading...');
+        $text['Hello World'] = __('Hello World');
         $text['Current user'] = __('Current user');
         $text['User-ID'] = __('User-ID');
         $text['Username'] = __('Username');
-        $text['Its'] = __("It's");
+        $text['User ID'] = __('User ID');
+        $text['Current time'] = __('Current time');
+        $text['Message'] = __('Message');
+        $text['Selected'] = __('Selected');
 
         return $text;
     }

@@ -17,11 +17,8 @@
         '@public/js/popper.min.js',
         '@public/js/tooltip.min.js',
         '@public/js/bootstrap.min.js',
+        '@public/js/vue.min.js'
     ], name: 'jquery-bootstrap.js'}) }}
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     {{ assets({files: [
         '@public/css/d.css',
@@ -35,8 +32,9 @@
         '@public/js/notifIt.js',
         'Layout/app.js'
     ], name: 'layout.js'}) }}
-    {% block assets %}{% endblock %}
     <script>$d.setText({{ text|json_encode(constant('JSON_HEX_QUOT') b-or constant('JSON_HEX_APOS'))|raw }})</script>
+    <script>$.ajaxSetup({beforeSend: function (xhr) { xhr.setRequestHeader("X-CSRF-Token","{{csrf_token}}"); }});</script>
+
 </head>
 <body>
 <!-- Fixed navbar -->
@@ -82,5 +80,7 @@
 </nav>
 
 {% block content %}{% endblock %}
+
+{% block assets %}{% endblock %}
 </body>
 </html>

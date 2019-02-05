@@ -7,21 +7,11 @@
 
 {% block content %}
 
-    <div id="content" class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>{{ __('Hello World') }}</h1>
-                Users: <a href="users">users</a><br>
-                URL: {{ url }}<br>
-                Base URL: {{ baseUrl }}<br>
-                HTTPS: {{ secure }} <br>
-            </div>
-        </div>
-    </div>
+    <div id="app"></div>
 
     <template id="user-template">
         <!-- The source function returns the content of a template without rendering it -->
-        {{ source('Home/home-index.html') }}
+        {{ source('Home/home-index.vue') }}
     </template>
 
 {% endblock %}

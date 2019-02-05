@@ -1,73 +1,54 @@
-/**
- * Class
- */
-const HomeIndex = function () {
+new Vue({
+    el: "#app",
+    template: '#user-template',
 
-    // The current object scope
-    const $this = this;
+    data: {
+        message: __('Loading...'),
+        user: {},
+        now: null,
+        text: null,
+    },
+    mounted: function () {
+        // Now the template is mounted into the dom
+        this.fetchData();
+    },
+    methods: {
+        fetchData: function () {
+            var $data = this;
 
-    /**
-     * Init
-     *
-     * @returns {boolean}
-     */
-    this.init = function () {
-        return true;
-    };
+            $d.showLoad();
 
-    /**
-     * Load content
-     *
-     * @returns {undefined}
-     */
-    this.load = function () {
-        $d.showLoad();
-
-        var params = {
-            username: "max",
-            email: "max@example.com"
-        };
-
-        ajax.post($d.getBaseUrl("home/load"), params).done(function (response) {
-            $d.hideLoad();
-            $d.log(response);
-            $d.notify({
-                msg: "<b>Ok</b> " + response.message,
-                type: "success",
-                position: "center"
-            });
-
-            // Translations
-            response.text = {
-                'current_user': __('Current user'),
-                'user_id': __('User-ID'),
-                'username': __('Username'),
-                'its': __('Its'),
+            const params = {
+                username: "max",
+                email: "max@example.com"
             };
 
-            const template = $('#user-template').html();
-            const output = $d.template(template, response);
-
-            $('#content').append(output);
-
-        }).fail(function (error) {
-            if (error.status == 422) {
+            ajax.post($d.getBaseUrl("home/load"), params).done(function (data) {
                 $d.hideLoad();
-                // Show validation errors
-                const response = error.responseJSON;
-                $d.alert(response.error.message);
-                $(response.error.errors).each(function (i, error) {
-                    console.log("Error in field [" + error.field + "]: " + error.message);
+                $d.log(data);
+
+                $d.notify({
+                    msg: "<b>Ok</b> " + data.message,
+                    type: "success",
+                    position: "center"
                 });
-            } else {
-                ajax.handleError(error);
-            }
-        });
-    };
 
-    this.init();
-};
+                //$data.message = data.message;
+                //$d.addText(data.text);
 
-$(function () {
-    (new HomeIndex()).load();
+                // set data
+                $data = $.extend($data, data);
+            }).fail(function (xhr) {
+                $d.hideLoad();
+                const message = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : "Server error";
+                //$d.alert(message);
+                $data.message = message;
+                ajax.handleError(xhr);
+            });
+        },
+        test: function (msg) {
+            alert(msg);
+        }
+    }
 });
+

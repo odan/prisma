@@ -8,7 +8,7 @@ var ajax = {};
  *
  * @param {string} url
  * @param {object} data
- * @param {object} options
+ * @param {object=} options
  * @returns {*}
  */
 ajax.post = function (url, data, options) {

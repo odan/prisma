@@ -238,7 +238,7 @@
 
         <!-- Install npm packages -->
         <exec executable="npm${npm_ext}" searchpath="true" resolveexecutable="true" failonerror="true">
-            <arg line="install"/>
+            <arg line="update"/>
         </exec>
 
         <!-- Copy assets to the public directory -->
@@ -269,7 +269,9 @@
         <copy file="${node_modules_dir}/jquery/dist/jquery.min.js" todir="${public_dir}/js" overwrite="true"/>
         <copy file="${node_modules_dir}/jquery/dist/jquery.min.map" todir="${public_dir}/js" overwrite="true"/>
 
-        <delete dir="${node_modules_dir}"/>
+        <copy file="${node_modules_dir}/vue/dist/vue.js" todir="${public_dir}/js" overwrite="true"/>
+        <copy file="${node_modules_dir}/vue/dist/vue.min.js" todir="${public_dir}/js" overwrite="true"/>
+
     </target>
 
     <target name="seed-database" description="Data seeding">

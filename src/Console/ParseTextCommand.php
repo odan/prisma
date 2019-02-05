@@ -12,6 +12,7 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RegexIterator;
 use Slim\Views\Twig;
+use SplFileInfo;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -158,9 +159,9 @@ class ParseTextCommand extends AbstractCommand
             ->extract('tmp/twig-cache')
             ->extract('templates/', '/.*\.js/')
             ->extract('public/js/', '/.*\.js/')
-            ->extract('templates/', '/.*\.js/')
             ->generate('resources/locale/de_DE_messages.po')
             ->generate('resources/locale/de_DE_messages.mo')
+            // Add more mo and po files here
             ->process();
 
         $this->output->write('Done', true);
@@ -178,6 +179,7 @@ class ParseTextCommand extends AbstractCommand
     protected function process(): int
     {
         foreach ($this->targets as $targets) {
+            /** @var SplFileInfo $target */
             $target = $targets[0];
             $translations = new Translations();
             $this->scan($translations);
@@ -186,6 +188,11 @@ class ParseTextCommand extends AbstractCommand
                 $fn = $this->getFunctionName('from', $target, 'File', 1);
                 $newTranslations = Translations::$fn($target);
                 $translations = $this->addFuzzyFlags($newTranslations, $translations);
+                // de_DE
+                $filename = basename($target);
+                $language = substr($filename, 0, 5);
+                $this->output->writeln(sprintf('Set language: %s', $language));
+                $translations->setLanguage($language);
                 $translations = $translations->mergeWith(
                     $newTranslations,
                     Merge::TRANSLATION_OVERRIDE | Merge::HEADERS_OVERRIDE | Merge::COMMENTS_THEIRS | Merge::FLAGS_THEIRS
@@ -220,6 +227,7 @@ class ParseTextCommand extends AbstractCommand
     protected function scan(Translations $translations): void
     {
         foreach ($this->iterator as $each) {
+            /** @var SplFileInfo|null $file */
             foreach ($each as $file) {
                 if ($file === null || !$file->isFile()) {
                     continue;
