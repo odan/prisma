@@ -272,6 +272,7 @@
         <copy file="${node_modules_dir}/vue/dist/vue.js" todir="${public_dir}/js" overwrite="true"/>
         <copy file="${node_modules_dir}/vue/dist/vue.min.js" todir="${public_dir}/js" overwrite="true"/>
 
+        <delete dir="${node_modules_dir}"/>
     </target>
 
     <target name="seed-database" description="Data seeding">
