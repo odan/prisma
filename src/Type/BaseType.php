@@ -25,7 +25,7 @@ abstract class BaseType
     {
         $class = new ReflectionClass(static::class);
 
-        return in_array($typeValue, $class->getConstants());
+        return in_array($typeValue, $class->getConstants(), true);
     }
 
     /**

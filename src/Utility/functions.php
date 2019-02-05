@@ -1,8 +1,8 @@
 <?php
 
-/**
- * Services and helper functions.
- */
+// Helper functions.
+
+use Cake\Chronos\Chronos;
 use Symfony\Component\Translation\Translator;
 
 /**
@@ -47,7 +47,7 @@ function __($message): string
  */
 function now(): string
 {
-    return date('Y-m-d H:i:s');
+    return Chronos::now()->toDateTimeString();
 }
 
 /**

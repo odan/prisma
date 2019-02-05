@@ -2,14 +2,13 @@
 
 namespace App\Domain\User;
 
-use App\Domain\ServiceInterface;
 use Odan\Slim\Session\Session;
 use RuntimeException;
 
 /**
  * Authentication and authorisation.
  */
-class Auth implements ServiceInterface
+class Auth
 {
     /**
      * Session.
@@ -66,9 +65,9 @@ class Auth implements ServiceInterface
      *
      * @return int User Id
      */
-    public function getId(): int
+    public function getUserId(): int
     {
-        $result = $this->getIdentity()->getId();
+        $result = $this->getUser()->getId();
 
         if (empty($result)) {
             throw new RuntimeException(__('Invalid or empty User-ID'));
@@ -80,9 +79,9 @@ class Auth implements ServiceInterface
     /**
      * Returns the identity from storage or null if no identity is available.
      *
-     * @return UserData
+     * @return UserData The logged-in user
      */
-    public function getIdentity(): UserData
+    public function getUser(): UserData
     {
         $user = $this->session->get('user');
         if (!$user) {
@@ -187,16 +186,16 @@ class Auth implements ServiceInterface
     public function hasRole($role): bool
     {
         // Current user role
-        $userRole = $this->getIdentity()->getRole();
+        $userRole = $this->getUser()->getRole();
 
         // Full access for admin
-        if ($userRole === Role::ROLE_ADMIN) {
+        if ($userRole === UserRole::ROLE_ADMIN) {
             return true;
         }
         if ($role === $userRole) {
             return true;
         }
-        if (is_array($role) && in_array($userRole, $role)) {
+        if (is_array($role) && in_array($userRole, $role, true)) {
             return true;
         }
 

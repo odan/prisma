@@ -24,18 +24,18 @@ class UserRepository extends BaseRepository
     /**
      * Get user by id.
      *
-     * @param int $id User id
+     * @param int $userId User id
      *
      * @throws DomainException On error
      *
      * @return array The row
      */
-    public function getById(int $id): array
+    public function getById(int $userId): array
     {
-        $row = $this->findUserById($id);
+        $row = $this->findUserById($userId);
 
         if (!$row) {
-            throw new DomainException(__('User not found: %s', $id));
+            throw new DomainException(__('User not found: %s', $userId));
         }
 
         return $row;
@@ -44,47 +44,30 @@ class UserRepository extends BaseRepository
     /**
      * Find by id.
      *
-     * @param int $id The ID
+     * @param int $userId The ID
      *
      * @return array The row
      */
-    public function findUserById(int $id): array
+    public function findUserById(int $userId): array
     {
-        return $this->fetchById('users', $id);
-    }
-
-    /**
-     * Insert or update user.
-     *
-     * @param array $user
-     *
-     * @return int User ID
-     */
-    public function saveUser(array $user): int
-    {
-        if (!empty($user['id'])) {
-            $this->updateUser($user);
-
-            return (int)$user['id'];
-        }
-
-        return $this->insertUser($user);
+        return $this->fetchById('users', $userId);
     }
 
     /**
      * Update user.
      *
-     * @param array $user The user data
+     * @param int $userId The user ID
+     * @param array $data The user data
      *
      * @return bool Success
      */
-    public function updateUser(array $user): bool
+    public function updateUser(int $userId, array $data): bool
     {
-        if (empty($user['id'])) {
+        if (empty($userId)) {
             throw new InvalidArgumentException('User ID required');
         }
 
-        $this->newUpdate('users', $user)->andWhere(['id' => $user['id']])->execute();
+        $this->newUpdate('users', $data)->andWhere(['id' => $data['id']])->execute();
 
         return true;
     }
@@ -92,13 +75,13 @@ class UserRepository extends BaseRepository
     /**
      * Insert new user.
      *
-     * @param array $user The user
+     * @param array $data The user
      *
      * @return int The new ID
      */
-    public function insertUser(array $user): int
+    public function insertUser(array $data): int
     {
-        return (int)$this->newInsert('users', $user)->execute()->lastInsertId();
+        return (int)$this->newInsert('users', $data)->execute()->lastInsertId();
     }
 
     /**

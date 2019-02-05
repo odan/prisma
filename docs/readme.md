@@ -373,7 +373,7 @@ You may use the getLocale and isLocale methods on the App facade to determine
 the current locale or check if the locale is a given value:
 
 ```php
-$locale = $this->session->get('locale'); // en_US
+$locale = $this->locale->getLocale(); // en_US
 ```
 
 #### Defining Translation Strings
@@ -457,13 +457,18 @@ For more details how to build queries read the **[documentation](https://book.ca
 
 * Communication with the database.
 * Data access logic / query logic
-* No business logic!
-* Todo: Add more details
+* No business logic here! (Use Services for business logic)
 
 ### Domain Services
 
-* Complex business logic e.g. calulation, validation, file creation etc.
-* Todo: Add more details
+Here is the right place for complex business logic e.g. calulation, validation, file creation etc.
+
+This layer provides cohesive, high-level logic for related
+parts of an application. This layer is invoked directly by
+the Controllers.
+
+The business logic should be placed in the service classes,
+and we should be aiming for fat models and skinny controllers.
 
 ### Migrations
 
@@ -482,7 +487,8 @@ $ ant generate-migration
 $ ant create-migration
 ```
 
-For more details how to create and manage migrations read the [Phinx](http://docs.phinx.org/en/latest/) documentation.
+For more details how to create and manage migrations read the 
+[Phinx](http://docs.phinx.org/en/latest/) documentation.
 
 ### Update schema
 
@@ -551,7 +557,7 @@ $userId = $this->auth->getId();
 Checking the user role (permission group):
 
 ```php
-$isAdmin = $this->auth->hasRole(Role::ROLE_ADMIN);
+$isAdmin = $this->auth->hasRole(UserRole::ROLE_ADMIN);
 ```
 
 ### CSRF Protection

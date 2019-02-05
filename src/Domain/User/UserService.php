@@ -2,12 +2,10 @@
 
 namespace App\Domain\User;
 
-use App\Domain\BaseService;
-
 /**
  * Class.
  */
-class UserService extends BaseService
+class UserService
 {
     /**
      * @var UserRepository

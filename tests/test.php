@@ -9,7 +9,7 @@ require_once __DIR__ . '/bootstrap.php';
 $phpunit = new \PHPUnit\TextUI\TestRunner();
 
 try {
-    $suite = $phpunit->getTest(__DIR__, '', 'Test.php');
+    $suite = $phpunit->getTest(__DIR__ . '/TestCase/', '', 'Test.php');
 
     if ($suite === null) {
         throw new RuntimeException('No tests found');

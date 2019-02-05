@@ -86,7 +86,7 @@ abstract class BaseRepository implements RepositoryInterface
         }
 
         if ($this->auth !== null && !isset($data['updated_by'])) {
-            $data['updated_by'] = $this->auth->getId();
+            $data['updated_by'] = $this->auth->getUserId();
         }
 
         return $this->newQuery()->update($table)->set($data);
@@ -107,7 +107,7 @@ abstract class BaseRepository implements RepositoryInterface
         }
 
         if ($this->auth !== null && !isset($data['created_by'])) {
-            $data['created_by'] = $this->auth->getId();
+            $data['created_by'] = $this->auth->getUserId();
         }
 
         $columns = array_keys($data);

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Test;
+namespace App\Test\TestCase\Action;
 
+use App\Test\Base\BaseTestCase;
 use Exception;
 use Odan\Slim\Session\Adapter\MemorySessionAdapter;
 use Odan\Slim\Session\Session;
@@ -34,7 +35,7 @@ class ApiTestCase extends BaseTestCase
     /** {@inheritdoc} */
     protected function setUp()
     {
-        $this->app = require __DIR__ . '/../config/bootstrap.php';
+        $this->app = require __DIR__ . '/../../../config/bootstrap.php';
     }
 
     /** {@inheritdoc} */

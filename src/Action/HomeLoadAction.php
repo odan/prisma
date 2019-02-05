@@ -39,7 +39,7 @@ class HomeLoadAction extends BaseAction
      */
     public function __invoke(Request $request, Response $response): ResponseInterface
     {
-        $userId = $this->auth->getId();
+        $userId = $this->auth->getUserId();
         $user = $this->userService->getUserById($userId);
 
         $result = [

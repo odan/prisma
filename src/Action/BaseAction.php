@@ -3,7 +3,9 @@
 namespace App\Action;
 
 use App\Domain\User\Auth;
+use App\Domain\User\Locale;
 use Cake\Database\Connection;
+use Interop\Container\Exception\ContainerException;
 use Odan\Slim\Session\Session;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -47,18 +49,26 @@ abstract class BaseAction
     protected $logger;
 
     /**
+     * @var Locale
+     */
+    protected $locale;
+
+    /**
      * Constructor.
      *
      * @param Container $container
+     *
+     * @throws ContainerException
      */
     public function __construct(Container $container)
     {
         $this->db = $container->get(Connection::class);
         $this->logger = $container->get(LoggerInterface::class);
         $this->router = $container->get('router');
-        $this->auth = $container->get(Auth::class);
         $this->view = $container->get(Twig::class);
+        $this->auth = $container->get(Auth::class);
         $this->session = $container->get(Session::class);
+        $this->locale = $container->get(Locale::class);
     }
 
     /**

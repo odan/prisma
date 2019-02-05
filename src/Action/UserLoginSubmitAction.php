@@ -2,10 +2,7 @@
 
 namespace App\Action;
 
-use App\Domain\User\Locale;
-use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
-use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -14,24 +11,6 @@ use Slim\Http\Response;
  */
 class UserLoginSubmitAction extends BaseAction
 {
-    /**
-     * @var Locale
-     */
-    protected $locale;
-
-    /**
-     * Constructor.
-     *
-     * @param Container $container
-     *
-     * @throws ContainerException
-     */
-    public function __construct(Container $container)
-    {
-        parent::__construct($container);
-        $this->locale = $container->get(Locale::class);
-    }
-
     /**
      * User login submit.
      *
