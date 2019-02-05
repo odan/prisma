@@ -151,7 +151,7 @@ $container[CsrfMiddleware::class] = function (Container $container) {
     // optional settings
     $csrf->setSalt('secret');
     $csrf->setTokenName('__token');
-    $csrf->protectJqueryAjax(true);
+    $csrf->protectJqueryAjax(false);
     $csrf->protectForms(true);
 
     return $csrf;
