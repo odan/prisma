@@ -567,7 +567,7 @@ All session based requests are protected against Cross-site request forgery (CSR
 
 ### Unit testing
 
-All tests are located in the `test/` folder. To start the unit test run:
+All tests are located in the `tests/` folder. To start the unit test run:
 
 ``` bash
 $ ant phpunit
@@ -575,7 +575,7 @@ $ ant phpunit
 
 ### Debugging unit tests with PhpStorm
 
-To debug tests with PhpStorm you must have to mark the directory `test/` 
+To debug tests with PhpStorm you must have to mark the directory `tests/` 
 as the test root source.
 
 * Open the project in PhpStorm
@@ -597,7 +597,11 @@ Please take a look at the example tests in:
 
 ## Database Testing
 
-* todo: Add integration tests
+Everything is ready to run integration tests.
+
+Please take a look at the example tests in:
+
+* `tests/TestCase/Domain/User/UserRepositoryTest.php`
 
 ## Mocking
 
