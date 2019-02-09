@@ -11,10 +11,6 @@ ini_set('display_errors', '0');
 // Timezone
 date_default_timezone_set('Europe/Berlin');
 
-// Assert options
-assert_options(ASSERT_ACTIVE, 1);
-assert_options(ASSERT_EXCEPTION, 1);
-
 // Slim settings
 $settings = [
     'httpVersion' => '1.1',

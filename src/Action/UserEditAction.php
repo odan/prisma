@@ -64,9 +64,6 @@ class UserEditAction extends BaseAction
         // Get new user
         $newUser = $this->userService->getUserById($newUserId);
 
-        assert($newUser->getId() !== null);
-        $this->userService->unregisterUser($newUser->getId());
-
         // Session example
         // Increment counter
         $counter = $this->session->get('counter', 0);
