@@ -31,7 +31,7 @@ build:
             before:
                  - composer self-update
                  - composer update --no-interaction --prefer-dist --no-progress
-                 - php bin/cli.php install --environment ci
+                 - php slim install --environment ci
     tests:
         before:
             -

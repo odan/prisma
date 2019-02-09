@@ -289,7 +289,7 @@
 
     <target name="reset-database" description="Data seeding">
         <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
-            <arg line="${basedir}/bin/cli.php reset-database"/>
+            <arg line="${basedir}/slim reset-database"/>
         </exec>
     </target>
 
@@ -317,7 +317,7 @@
 
     <target name="parse-text" description="Parse text">
         <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
-            <arg line="${basedir}/bin/cli.php parse-text"/>
+            <arg line="${basedir}/slim parse-text"/>
         </exec>
     </target>
 

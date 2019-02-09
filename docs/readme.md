@@ -89,7 +89,7 @@ NOTE: Debian/Ubuntu uses `www-data`, while CentOS uses `apache` and OSX `_www`.
 Run the installer script and follow the instructions:
 
 ```shell
-sudo php bin/cli.php install
+sudo php slim install
 ```
 
 **Step 4:** Run it
@@ -175,8 +175,8 @@ chown -R www-data public/cache/
 chmod -R 760 tmp/
 chmod -R 760 public/cache/
 
-#chmod +x bin/cli.php
-php bin/cli.php install --environment ci
+#chmod +x slim
+php slim install --environment ci
 
 vendor/bin/phpunit
 ```
@@ -196,7 +196,7 @@ vendor/bin/phpunit
 
 All the app environments variables are stored in the `env.php` file.
 
-The command `php bin/cli.php install` will copy `env.example.php` to `env.php` which should have 
+The command `php slim install` will copy `env.example.php` to `env.php` which should have 
 your own variables and never shared or committed into git.
 
 Just rename the file `env.example.php` to `env.php`.
@@ -205,8 +205,6 @@ Just rename the file `env.example.php` to `env.php`.
 
 ```
 .
-├── bin                     # Console applications
-│   └── cli.php             # The main command line tool (php bin/cli.php)
 ├── build                   # Compiled files (artifacts)
 ├── config                  # Configuration files
 ├── docs                    # Documentation files
@@ -235,6 +233,7 @@ Just rename the file `env.example.php` to `env.php`.
 ├── build.xml               # Ant build tasks
 ├── composer.json           # Project dependencies
 ├── LICENSE                 # The license
+├── slim                    # The command line tool
 └── README.md               # This file
 ```
 
