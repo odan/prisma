@@ -76,7 +76,9 @@ class DbTestCase extends TestCase
     }
 
     /**
-     * 1. Create tables.
+     * Create tables.
+     *
+     * @return bool Success
      */
     public function createTables(): bool
     {
@@ -122,7 +124,11 @@ class DbTestCase extends TestCase
     }
 
     /**
-     * 2. Clean-Up Database. Truncate tables.
+     * Clean-Up Database. Truncate tables.
+     *
+     * @throws RuntimeException
+     *
+     * @return void
      */
     protected function dropTables(): void
     {
@@ -152,7 +158,11 @@ class DbTestCase extends TestCase
     }
 
     /**
-     * 2. Clean-Up Database. Truncate tables.
+     * Clean-Up Database. Truncate tables.
+     *
+     * @throws RuntimeException
+     *
+     * @return void
      */
     protected function truncateTables(): void
     {
