@@ -2,6 +2,8 @@
 
 namespace App\Test\TestCase\Action;
 
+use App\Test\TestCase\ApiTestCase;
+
 /**
  * @coversDefaultClass \App\Action\HomeIndexAction
  */
