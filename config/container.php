@@ -70,14 +70,11 @@ $container['notFoundHandler'] = function (Container $container) {
 // Custom definitions
 // -----------------------------------------------------------------------------
 $container[LoggerInterface::class] = function (Container $container) {
-    $settings = $container->get('settings');
-    $logger = new Logger($settings['logger']['name']);
+    $settings = $container->get('settings')['logger'];
+    $level = isset($settings['level']) ?: Logger::ERROR;
+    $logFile = $settings['file'];
 
-    $level = $settings['logger']['level'];
-    if (!isset($level)) {
-        $level = Logger::ERROR;
-    }
-    $logFile = $settings['logger']['file'];
+    $logger = new Logger($settings['name']);
     $handler = new RotatingFileHandler($logFile, 0, $level, true, 0775);
     $logger->pushHandler($handler);
 
@@ -146,13 +143,15 @@ $container[Locale::class] = function (Container $container) {
 };
 
 $container[CsrfMiddleware::class] = function (Container $container) {
+    // The session middleware sets the session id.
     $csrf = new CsrfMiddleware('_');
 
     // optional settings
-    $csrf->setSalt('secret');
-    $csrf->setTokenName('__token');
-    $csrf->protectJqueryAjax(false);
-    $csrf->protectForms(true);
+    $settings = $container->get('settings')['csrf'];
+    $csrf->setSalt($settings['secret']);
+    $csrf->setTokenName($settings['token_name']);
+    $csrf->protectJqueryAjax($settings['protect_ajax']);
+    $csrf->protectForms($settings['protect_forms']);
 
     return $csrf;
 };
