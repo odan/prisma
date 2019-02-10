@@ -24,8 +24,8 @@ use Psr\Log\LoggerInterface;
 use Slim\Handlers\NotFound;
 use Slim\Views\Twig;
 use Symfony\Component\Translation\Formatter\MessageFormatter;
+use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Loader\MoFileLoader;
-use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator;
 
 /** @var \Slim\App $app */
@@ -175,7 +175,11 @@ $container[CorsMiddleware::class] = function (Container $container) {
 
 $container[Translator::class] = function (Container $container) {
     $settings = $container->get('settings')['locale'];
-    $translator = new Translator($settings['locale'], new MessageFormatter(new MessageSelector()), $settings['cache']);
+    $translator = new Translator(
+        $settings['locale'],
+        new MessageFormatter(new IdentityTranslator()),
+        $settings['cache']
+    );
     $translator->addLoader('mo', new MoFileLoader());
 
     return $translator;
