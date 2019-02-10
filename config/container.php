@@ -129,7 +129,7 @@ $container[Twig::class] = function (Container $container) {
 
 $container[Session::class] = function (Container $container) {
     $settings = $container->get('settings');
-    $adapter = php_sapi_name() === 'cli' ? new MemorySessionAdapter() : new PhpSessionAdapter();
+    $adapter = PHP_SAPI === 'cli' ? new MemorySessionAdapter() : new PhpSessionAdapter();
     $session = new Session($adapter);
     $session->setOptions((array)$settings['session']);
 
