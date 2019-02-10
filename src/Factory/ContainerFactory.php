@@ -57,16 +57,13 @@ class ContainerFactory
      */
     public function create(string $className)
     {
-        if (!class_exists($className)) {
-            throw new RuntimeException(sprintf('Class %s does not exist', $className));
-        }
-
         if ($this->container->has($className)) {
             return $this->container->get($className);
         }
 
         $reflectionClass = new ReflectionClass($className);
         $constructor = $reflectionClass->getConstructor();
+
         if ($constructor) {
             $args = $this->resolveParameters($constructor->getParameters());
             $instance = $reflectionClass->newInstanceArgs($args);
