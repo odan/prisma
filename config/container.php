@@ -52,7 +52,7 @@ $container['errorHandler'] = function (Container $container) {
     $displayErrorDetails = $container->get('settings')['displayErrorDetails'];
     $logger = $container->get(LoggerInterface::class);
 
-    return new ErrorHandler((bool)$displayErrorDetails, $logger);
+    return new ErrorHandler($logger, (bool)$displayErrorDetails);
 };
 
 $container['phpErrorHandler'] = function (Container $container) {
