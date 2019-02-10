@@ -9,15 +9,15 @@ class Init extends AbstractMigration
     {
         $this->execute("ALTER DATABASE CHARACTER SET 'utf8';");
         $this->execute("ALTER DATABASE COLLATE='utf8_unicode_ci';");
-        $this->table("users", [
-                'id' => false,
-                'primary_key' => ['id'],
-                'engine' => 'InnoDB',
-                'encoding' => 'utf8',
-                'collation' => 'utf8_unicode_ci',
-                'comment' => '',
-                'row_format' => 'Dynamic',
-            ])
+        $this->table('users', [
+            'id' => false,
+            'primary_key' => ['id'],
+            'engine' => 'InnoDB',
+            'encoding' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'comment' => '',
+            'row_format' => 'DYNAMIC',
+        ])
             ->addColumn('id', 'integer', [
                 'null' => false,
                 'limit' => MysqlAdapter::INT_REGULAR,
@@ -75,7 +75,7 @@ class Init extends AbstractMigration
             ])
             ->addColumn('enabled', 'boolean', [
                 'null' => false,
-                'default' => '"0"',
+                'default' => '0',
                 'limit' => MysqlAdapter::INT_TINY,
                 'precision' => '3',
                 'after' => 'locale',
@@ -100,15 +100,15 @@ class Init extends AbstractMigration
                 'precision' => '10',
                 'after' => 'updated_at',
             ])
-        ->addIndex(['username'], [
+            ->addIndex(['username'], [
                 'name' => 'username',
                 'unique' => true,
             ])
-        ->addIndex(['created_user_id'], [
+            ->addIndex(['created_user_id'], [
                 'name' => 'created_user_id',
                 'unique' => false,
             ])
-        ->addIndex(['updated_user_id'], [
+            ->addIndex(['updated_user_id'], [
                 'name' => 'updated_user_id',
                 'unique' => false,
             ])
