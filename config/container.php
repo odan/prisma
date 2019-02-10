@@ -5,7 +5,7 @@
 use App\Domain\User\Auth;
 use App\Domain\User\AuthRepository;
 use App\Domain\User\Locale;
-use App\Domain\User\UserRepository;
+use App\Factory\ContainerFactory;
 use App\Middleware\AuthenticationMiddleware;
 use App\Middleware\CorsMiddleware;
 use App\Middleware\LanguageMiddleware;
@@ -185,22 +185,12 @@ $container[Auth::class] = function (Container $container) {
     return new Auth($container->get(Session::class), $container->get(AuthRepository::class));
 };
 
-// -----------------------------------------------------------------------------
-// Repositories
-// -----------------------------------------------------------------------------
-$container[UserRepository::class] = function (Container $container) {
-    return new UserRepository($container->get(Connection::class), $container->get(Auth::class));
-};
-
 $container[AuthRepository::class] = function (Container $container) {
     return new AuthRepository($container->get(Connection::class));
 };
 
-// -----------------------------------------------------------------------------
-// Repositories
-// -----------------------------------------------------------------------------
-$container[\App\Domain\User\UserService::class] = function (Container $container) {
-    return new \App\Domain\User\UserService($container->get(UserRepository::class));
+$container[ContainerFactory::class] = function (Container $container) {
+    return new ContainerFactory($container);
 };
 
 return $container;

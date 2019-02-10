@@ -137,7 +137,7 @@
         </exec>
     </target>
 
-    <target name="check-all" depends="lint,check-style,phpstan,phpunit-coverage"/>
+    <target name="check-all" depends="lint,check-style,check-docblock,phpstan,phpunit-coverage"/>
 
     <target name="build">
         <mkdir dir="${basedir}/build"/>

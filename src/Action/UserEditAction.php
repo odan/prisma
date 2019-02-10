@@ -28,7 +28,7 @@ class UserEditAction extends BaseAction
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->userService = $container->get(UserService::class);
+        $this->userService = $this->factory->create(UserService::class);
     }
 
     /**

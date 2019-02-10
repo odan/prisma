@@ -4,6 +4,7 @@ namespace App\Action;
 
 use App\Domain\User\Auth;
 use App\Domain\User\Locale;
+use App\Factory\ContainerFactory;
 use Cake\Database\Connection;
 use Interop\Container\Exception\ContainerException;
 use Odan\Slim\Session\Session;
@@ -54,6 +55,11 @@ abstract class BaseAction
     protected $locale;
 
     /**
+     * @var ContainerFactory
+     */
+    protected $factory;
+
+    /**
      * Constructor.
      *
      * @param Container $container
@@ -69,6 +75,7 @@ abstract class BaseAction
         $this->auth = $container->get(Auth::class);
         $this->session = $container->get(Session::class);
         $this->locale = $container->get(Locale::class);
+        $this->factory = $container->get(ContainerFactory::class);
     }
 
     /**
