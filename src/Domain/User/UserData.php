@@ -32,7 +32,7 @@ class UserData
     private $locale;
 
     /** @var bool */
-    private $disabled = false;
+    private $enabled = false;
 
     /**
      * @return int|null
@@ -181,19 +181,19 @@ class UserData
     /**
      * @return bool
      */
-    public function getDisabled(): bool
+    public function getEnabled(): bool
     {
-        return $this->disabled;
+        return $this->enabled;
     }
 
     /**
-     * @param bool $disabled
+     * @param bool $enabled
      *
      * @return void
      */
-    public function setDisabled(bool $disabled): void
+    public function setEnabled(bool $enabled): void
     {
-        $this->disabled = $disabled;
+        $this->enabled = $enabled;
     }
 
     /**
@@ -215,7 +215,7 @@ class UserData
         $user->setLocale($row['locale'] ?? null);
         $user->setPassword($row['password'] ?? null);
         $user->setRole($row['role'] ?? null);
-        $user->setDisabled((bool)$row['disabled']);
+        $user->setEnabled((bool)$row['enabled']);
 
         return $user;
     }

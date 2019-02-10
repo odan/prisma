@@ -69,7 +69,7 @@ class UserService
             'locale' => $user->getLocale(),
             'password' => $user->getPassword(),
             'role' => $user->getRole(),
-            'disabled' => $user->getDisabled() ? 1 : 0,
+            'enabled' => $user->getEnabled() ? 1 : 0,
         ];
 
         return $this->userRepository->insertUser($row);

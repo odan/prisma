@@ -58,7 +58,7 @@ class UserEditAction extends BaseAction
         // Insert a new user
         $newUser = new UserData();
         $newUser->setUsername('admin-' . uuid());
-        $newUser->setDisabled(false);
+        $newUser->setEnabled(true);
         $newUserId = $this->userService->registerUser($newUser);
 
         // Get new user
