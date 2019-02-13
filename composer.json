@@ -30,7 +30,7 @@
     "gettext/gettext": "^4.6",
     "odan/docblock-checker": "^1.1",
     "phpunit/phpunit": "^7.0",
-    "phpstan/phpstan-shim": "^0.11.1"
+    "phpstan/phpstan-shim": "^0.11"
   },
   "autoload": {
     "psr-4": {
