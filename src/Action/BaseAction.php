@@ -15,7 +15,7 @@ use Slim\Router;
 use Slim\Views\Twig;
 
 /**
- * AbstractAction (Base class).
+ * Action base class
  */
 abstract class BaseAction
 {
@@ -85,13 +85,13 @@ abstract class BaseAction
      */
     protected function getDefaultText(): array
     {
-        $text = [];
-        $text['Ok'] = __('Ok');
-        $text['Cancel'] = __('Cancel');
-        $text['Yes'] = __('Yes');
-        $text['No'] = __('No');
+        return [
+            'Ok' => __('Ok'),
+            'Cancel' => __('Cancel'),
+            'Yes' => __('Yes'),
+            'No' => __('No'),
 
-        return $text;
+        ];
     }
 
     /**
