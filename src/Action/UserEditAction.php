@@ -74,11 +74,11 @@ class UserEditAction extends BaseAction
         $this->logger->info('My log message');
 
         // Add data to template
-        $viewData = $this->getViewData([
+        $viewData = [
             'id' => $user->getId(),
             'username' => $user->getUsername(),
             'counter' => $counter,
-        ]);
+        ];
 
         // Render template
         return $this->render($response, 'User/user-edit.twig', $viewData);

@@ -21,8 +21,6 @@ class UserLoginIndexAction extends BaseAction
      */
     public function __invoke(Request $request, Response $response): ResponseInterface
     {
-        $viewData = $this->getViewData();
-
-        return $this->render($response, 'User/user-login.twig', $viewData);
+        return $this->render($response, 'User/user-login.twig');
     }
 }

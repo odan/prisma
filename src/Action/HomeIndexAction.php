@@ -6,9 +6,6 @@ use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-/**
- * Action.
- */
 class HomeIndexAction extends BaseAction
 {
     /**
@@ -26,40 +23,35 @@ class HomeIndexAction extends BaseAction
         $counter++;
         $this->session->set('counter', $counter);
 
-        $text = [
-            'Loaded successfully!' => __('Loaded successfully!'),
-        ];
-
-        $viewData = $this->getViewData([
-            'text' => $text,
+        $viewData = [
+            'text' => $this->getText(),
             'counter' => $counter,
             'url' => $request->getUri(),
             'secure' => $request->getAttribute('secure') ? __('Yes') : __('No'),
-        ]);
+        ];
 
         // Render template
         return $this->render($response, 'Home/home-index.twig', $viewData);
     }
 
     /**
-     * Returns default text.
+     * Translate text.
      *
      * @return mixed[] Array with translated text
      */
     protected function getText(): array
     {
-        $text = parent::getText();
-
-        $text['Loading...'] = __('Loading...');
-        $text['Hello World'] = __('Hello World');
-        $text['Current user'] = __('Current user');
-        $text['User-ID'] = __('User-ID');
-        $text['Username'] = __('Username');
-        $text['User ID'] = __('User ID');
-        $text['Current time'] = __('Current time');
-        $text['Message'] = __('Message');
-        $text['Selected'] = __('Selected');
-
-        return $text;
+        return [
+            'Loaded successfully!' => __('Loaded successfully!'),
+            'Loading...' => __('Loading...'),
+            'Hello World' => __('Hello World'),
+            'Current user' => __('Current user'),
+            'User-ID' => __('User-ID'),
+            'Username' => __('Username'),
+            'User ID' => __('User ID'),
+            'Current time' => __('Current time'),
+            'Message' => __('Message'),
+            'Selected' => __('Selected'),
+        ];
     }
 }

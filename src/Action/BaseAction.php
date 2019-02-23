@@ -79,31 +79,11 @@ abstract class BaseAction
     }
 
     /**
-     * Get view data.
-     *
-     * @param mixed[] $viewData [Optional] Add this view data
-     *
-     * @return mixed[] View data
-     */
-    protected function getViewData(array $viewData = []): array
-    {
-        $result = [
-            'baseUrl' => $this->router->pathFor('root'),
-            'text' => $this->getText(),
-        ];
-        if (!empty($viewData)) {
-            $result = array_replace_recursive($result, $viewData);
-        }
-
-        return $result;
-    }
-
-    /**
      * Returns default text.
      *
      * @return mixed[] Array with translated text
      */
-    protected function getText(): array
+    protected function getDefaultText(): array
     {
         $text = [];
         $text['Ok'] = __('Ok');
@@ -125,6 +105,11 @@ abstract class BaseAction
      */
     protected function render(ResponseInterface $response, string $name, array $viewData = []): ResponseInterface
     {
+        $viewData = array_replace_recursive([
+            'baseUrl' => $this->router->pathFor('root'),
+            'text' => $this->getDefaultText(),
+        ], $viewData);
+
         return $this->view->render($response, $name, $viewData);
     }
 }

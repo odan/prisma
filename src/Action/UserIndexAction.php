@@ -42,9 +42,9 @@ class UserIndexAction extends BaseAction
     {
         $users = $this->userService->findAllUsers();
 
-        $viewData = $this->getViewData([
+        $viewData = [
             'users' => $users,
-        ]);
+        ];
 
         return $this->render($response, 'User/user-index.twig', $viewData);
     }
