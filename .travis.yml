@@ -2,10 +2,18 @@ language: php
 
 php:
   - 7.2
+  - 7.3
+
+dist: xenial
+
+addons:
+  apt:
+    packages:
+      - ant
   
 # This triggers builds to run on the new TravisCI infrastructure.
 # See: https://docs.travis-ci.com/user/getting-started/#Selecting-infrastructure-(optional)
-sudo: false
+#sudo: false
 
 # Cache composer
 cache:
