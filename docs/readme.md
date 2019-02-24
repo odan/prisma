@@ -555,7 +555,7 @@ Use it only for "small things" like Date, Money, CustomerId and as replacement f
 
 ### Data Transfer Object (DTO) 
   
-A DTO contains only pure **data**. There is no business or domain specific logic, only simple validation logic. There is also no database access within a DTO. A service fetched the data from a repository and fills the DTO with data. A DTO can be used to transfer data inside or outside the domain.
+A DTO contains only pure **data**. There is no business or domain specific logic, only simple validation logic. There is also no database access within a DTO. A service fetches data from a repository and fills the DTO with data. A DTO can be used to transfer data inside or outside the domain.
 
 ### Parameter object
 
@@ -563,7 +563,7 @@ If you have a lot of parameters that fit together, you can replace them with a p
 
 ### Types and enums
 
-Don't use strings or hardly coded codes as values. Instead use public class constants as values.
+Don't use strings or fix integer codes as values. Instead use public class constants.
 
 ## Security
 
