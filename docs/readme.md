@@ -22,12 +22,17 @@
 * [Database](#database)
   * [Database configuration](#database-configuration)
   * [Query Builder](#query-builder)
-  * [Repositories](#repositories)
-  * [Domain Services](#domain-services)
   * [Migrations](#migrations)
   * [Update schema](#update-schema)
   * [Data Seeding](#data-seeding)
   * [Resetting the database](#resetting-the-database)
+* [Domain](#domain)
+  * [Repositories](#repositories)
+  * [Domain Services](#domain-services)
+  * [Value Objects](#value-objects)
+  * [DTO](#data-transfer-object-dto)
+  * [Parameter object](#parameter-object)
+  * [Types and enums](#types-and-enums)
 * [Security](#security)
   * [Session](#session)
   * [Authentication](#authentication)
@@ -452,33 +457,6 @@ The database query builder provides a convenient, fluent interface to creating a
 
 For more details how to build queries read the **[documentation](https://book.cakephp.org/3.0/en/orm/query-builder.html)**.
 
-### Repositories
-
-A distinction is actually made between collection-oriented and persistence-oriented repositories. In this case, we are talking about **persistence-oriented repositories**, since these are better suited for processing large amounts of data.
-
-A repository is the source of all the data your application needs. It serves as an interface between the domain layer (Domain services) and the data access layer (DAO). According to Martin Fowler, "A repository is another layer above the data mapping layer. It mediates between domain and data mapping layers (data mappers)". A repository improves code maintainability, testing and readability by separating `business logic` from `data access logic` and provides centrally managed and consistent access rules for a data source. Each public repository method represents a query. The return values represent the result set of a query.
-
-Quick summary:
-
-* Communication with the database.
-* Place for the data access logic (query logic).
-* This is no place for the business logic! Use [domain services](#domain-services) for the complex business / domain logic.
-
-### Domain Services
-
-Here is the right place for complex business logic e.g. calulation, validation, file creation etc.
-
-This layer provides cohesive, high-level logic for related
-parts of an application. This layer is invoked directly by
-the Controllers.
-
-The business logic should be placed in the service classes,
-and we should aim for a fat model layer and thin controller layer.
-
-Please don't prefix all service classes with `*Service`. A service class
-is not a "utility" class. Think of the [SRP](http://pragmaticcraftsman.com/2006/07/single-responsibility-principle/) 
-and give a service a single responsibility. To keep it simple: A service class should have only one public method.
-
 ### Migrations
 
 This skeleton project provides console access for **[Phinx](https://phinx.org/)** to 
@@ -539,6 +517,63 @@ migrate the database and seed the data.
 ```
 $ ant refresh-database
 ```
+
+## Domain
+
+The model layer.
+
+### Repositories
+
+A distinction is actually made between collection-oriented and persistence-oriented repositories. In this case, we are talking about **persistence-oriented repositories**, since these are better suited for processing large amounts of data.
+
+A repository is the source of all the data your application needs. It serves as an interface between the domain layer (Domain services) and the data access layer (DAO). According to Martin Fowler, "A repository is another layer above the data mapping layer. It mediates between domain and data mapping layers (data mappers)". A repository improves code maintainability, testing and readability by separating `business logic` from `data access logic` and provides centrally managed and consistent access rules for a data source. Each public repository method represents a query. The return values represent the result set of a query and can be primitive/object or list (array) of them. Database transactions must be handled in higher level (Service) and not in a repository.
+
+Quick summary:
+
+* Communication with the database.
+* Place for the data access logic (query logic).
+* This is no place for the business logic! Use [domain services](#domain-services) for the complex business / domain logic.
+
+### Domain Services
+
+Here is the right place for complex business logic e.g. calulation, validation, file creation etc.
+
+This layer provides cohesive, high-level logic for related
+parts of an application. This layer is invoked directly by
+the Controllers.
+
+The business logic should be placed in the service classes,
+and we should aim for a fat model layer and thin controller layer.
+
+Please don't prefix all service classes with `*Service`. A service class
+is not a "utility" class. Think of the [SRP](http://pragmaticcraftsman.com/2006/07/single-responsibility-principle/) 
+and give a service a single responsibility. To keep it simple: A service class should have only one public method.
+
+### Value Objects
+
+* Use it only for "small things" like Date, Money, CustomerId and as replacement for primitive data type like string, int, float, bool, array. 
+* Must be immutable.
+* A VO is responsible for keeping their state consistent [1](https://kacper.gunia.me/validating-value-objects/).
+* Can only be filled using the constructor.
+* Setter methods are not allowed. 
+* A getter method name does not contain a a `get` prefix. Example: `public function email(): string { return $this->email; }`
+* All properties must be `protected` or `private` accessed by the getter methods.
+* Wither methods are allowed. Example: `public function withEmail(string $email): self { ... }`
+
+### Data Transfer Object (DTO) 
+  
+* **Only for data**
+* Simple validation logic only, no business or domain specific logic.
+* Can be used to transfer data within or outside the domain
+* No database access
+
+### Parameter object
+
+You may have a lot of parameters that naturally go together. Replace them with an object. [Read more](https://refactoring.com/catalog/introduceParameterObject.html)
+
+### Types and enums
+
+Don't use strings or hardly coded codes as values. Instead use public class constants as values.
 
 ## Security
 
