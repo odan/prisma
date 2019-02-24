@@ -15,7 +15,7 @@ use Slim\Router;
 use Slim\Views\Twig;
 
 /**
- * Action base class
+ * Action base class.
  */
 abstract class BaseAction
 {
@@ -81,7 +81,7 @@ abstract class BaseAction
     /**
      * Returns default text.
      *
-     * @return mixed[] Array with translated text
+     * @return string[] Array with translated text
      */
     protected function getDefaultText(): array
     {
@@ -90,7 +90,6 @@ abstract class BaseAction
             'Cancel' => __('Cancel'),
             'Yes' => __('Yes'),
             'No' => __('No'),
-
         ];
     }
 

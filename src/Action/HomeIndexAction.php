@@ -6,13 +6,16 @@ use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
+/**
+ * Action.
+ */
 class HomeIndexAction extends BaseAction
 {
     /**
      * Index action.
      *
-     * @param Request $request
-     * @param Response $response
+     * @param Request $request the request
+     * @param Response $response the response
      *
      * @return ResponseInterface
      */
@@ -37,7 +40,7 @@ class HomeIndexAction extends BaseAction
     /**
      * Translate text.
      *
-     * @return mixed[] Array with translated text
+     * @return string[] Array with translated text
      */
     protected function getText(): array
     {

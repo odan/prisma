@@ -2,9 +2,12 @@
 
 namespace App\Test\TestCase;
 
+use Monolog\Handler\NullHandler;
+use Monolog\Logger;
 use Odan\Slim\Session\Adapter\MemorySessionAdapter;
 use Odan\Slim\Session\Session;
 use Psr\Container\ContainerInterface as Container;
+use Psr\Log\LoggerInterface;
 use ReflectionClass;
 use ReflectionMethod;
 use RuntimeException;
@@ -55,6 +58,12 @@ trait SlimAppTestTrait
             ]);
 
             return $session;
+        }));
+
+        $this->setContainer($container, LoggerInterface::class, call_user_func(function () {
+            $logger = new Logger('test');
+
+            return $logger->pushHandler(new NullHandler());
         }));
 
         return $container;
