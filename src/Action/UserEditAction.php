@@ -59,21 +59,19 @@ class UserEditAction extends BaseAction
         $newUser = new UserData();
         $newUser->setUsername('admin-' . uuid());
         $newUser->setEnabled(true);
-        $newUserId = $this->userService->registerUser($newUser);
+        $this->userService->registerUser($newUser);
 
         // Get new user
-        $newUser = $this->userService->getUserById($newUserId);
+        //$newUser = $this->userService->getUserById($userId);
 
         // Session example
         // Increment counter
         $counter = $this->session->get('counter', 0);
-        $counter++;
-        $this->session->set('counter', $counter);
+        $this->session->set('counter', $counter++);
 
         // Logger example
         $this->logger->info('My log message');
 
-        // Add data to template
         $viewData = [
             'id' => $user->getId(),
             'username' => $user->getUsername(),

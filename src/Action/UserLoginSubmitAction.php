@@ -26,6 +26,7 @@ class UserLoginSubmitAction extends BaseAction
         $password = $data['password'];
 
         $user = $this->auth->authenticate($username, $password);
+
         if (!empty($user) && $user->getLocale() !== null) {
             $this->locale->setLanguage($user->getLocale());
             $url = $this->router->pathFor('root');

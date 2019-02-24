@@ -23,8 +23,7 @@ class HomeIndexAction extends BaseAction
     {
         // Increment counter
         $counter = $this->session->get('counter', 0);
-        $counter++;
-        $this->session->set('counter', $counter);
+        $this->session->set('counter', $counter++);
 
         $viewData = [
             'text' => $this->getText(),

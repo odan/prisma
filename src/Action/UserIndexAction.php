@@ -40,10 +40,8 @@ class UserIndexAction extends BaseAction
      */
     public function __invoke(Request $request, Response $response): ResponseInterface
     {
-        $users = $this->userService->findAllUsers();
-
         $viewData = [
-            'users' => $users,
+            'users' => $this->userService->findAllUsers(),
         ];
 
         return $this->render($response, 'User/user-index.twig', $viewData);
