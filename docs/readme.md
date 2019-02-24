@@ -454,8 +454,12 @@ For more details how to build queries read the **[documentation](https://book.ca
 
 ### Repositories
 
+The source of all the data your application needs. Serves as an interface between the domain layer (Domain services) and the data access layer (DAO). According to Martin Fowler, "A repository is another layer above the data mapping layer. It mediates between domain and data mapping layers (data mappers). A repository improves code maintainability and readability by separating business logic from service access logic and provides centrally managed and consistent access rules for a data source. Each public repository method represents a query. The return values represent the result set of a query. Repositories simplify the writing of integration tests.
+
+Quick summary:
+
 * Communication with the database.
-* Data access logic / query logic
+* Data access logic and query logic
 * No business logic here! Use [domain services](#domain-services) for business logic.
 
 ### Domain Services
