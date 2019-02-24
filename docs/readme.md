@@ -456,7 +456,7 @@ For more details how to build queries read the **[documentation](https://book.ca
 
 * Communication with the database.
 * Data access logic / query logic
-* No business logic here! (Use Services for business logic)
+* No business logic here! Use [domain services](#domain-services) for business logic.
 
 ### Domain Services
 
@@ -467,7 +467,11 @@ parts of an application. This layer is invoked directly by
 the Controllers.
 
 The business logic should be placed in the service classes,
-and we should be aiming for fat models and skinny controllers.
+and we should aim for a fat model layer and thin controller layer.
+
+Please don't prefix all service classes with `*Service`. A service class
+is not a "utility" class. Think of the [SRP](http://pragmaticcraftsman.com/2006/07/single-responsibility-principle/) 
+and give a service a single responsibility. To keep it simple: A service class should have only one public method.
 
 ### Migrations
 
