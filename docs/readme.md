@@ -551,25 +551,15 @@ and give a service a single responsibility. To keep it simple: A service class s
 
 ### Value Objects
 
-* Use it only for "small things" like Date, Money, CustomerId and as replacement for primitive data type like string, int, float, bool, array. 
-* Must be immutable.
-* A VO is responsible for keeping their state consistent [1](https://kacper.gunia.me/validating-value-objects/).
-* Can only be filled using the constructor.
-* Setter methods are not allowed. 
-* A getter method name does not contain a a `get` prefix. Example: `public function email(): string { return $this->email; }`
-* All properties must be `protected` or `private` accessed by the getter methods.
-* Wither methods are allowed. Example: `public function withEmail(string $email): self { ... }`
+Use it only for "small things" like Date, Money, CustomerId and as replacement for primitive data type like string, int, float, bool, array. A value object must be immutable and is responsible for keeping their state consistent [Read more](https://kacper.gunia.me/validating-value-objects/). A value object should only be filled using the constructor, classic `setter` methods are not allowed. Wither methods are allowed. Example: `public function withEmail(string $email): self { ... }`. A getter method name does not contain a a `get` prefix. Example: `public function email(): string { return $this->email; }`. All properties must be `protected` or `private` accessed by the getter methods.
 
 ### Data Transfer Object (DTO) 
   
-* **Only for data**
-* Simple validation logic only, no business or domain specific logic.
-* Can be used to transfer data within or outside the domain
-* No database access
+A DTO contains only pure **data**. There is no business or domain specific logic, only simple validation logic. There is also no database access within a DTO. A service fetched the data from a repository and fills the DTO with data. A DTO can be used to transfer data inside or outside the domain.
 
 ### Parameter object
 
-You may have a lot of parameters that naturally go together. Replace them with an object. [Read more](https://refactoring.com/catalog/introduceParameterObject.html)
+If you have a lot of parameters that fit together, you can replace them with a parameter object. [Read more](https://refactoring.com/catalog/introduceParameterObject.html)
 
 ### Types and enums
 
