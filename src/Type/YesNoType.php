@@ -3,9 +3,9 @@
 namespace App\Type;
 
 /**
- * YesNoType.
+ * Type / Enum.
  */
-class YesNoType extends BaseType
+class YesNoType
 {
     public const YES = 1;
     public const NO = 2;

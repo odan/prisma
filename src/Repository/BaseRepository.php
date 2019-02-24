@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Domain\User\Auth;
+use Cake\Chronos\Chronos;
 use Cake\Database\Connection;
 use Cake\Database\Query;
 use RuntimeException;
@@ -75,14 +76,14 @@ abstract class BaseRepository implements RepositoryInterface
      * Executes an UPDATE statement on the specified table.
      *
      * @param string $table the table to update rows from
-     * @param mixed[] $data values to be updated [optional]
+     * @param array $data values to be updated [optional]
      *
      * @return Query Query
      */
     protected function newUpdate(string $table, array $data = []): Query
     {
         if (!isset($data['updated_at'])) {
-            $data['updated_at'] = now();
+            $data['updated_at'] = Chronos::now()->toDateTimeString();
         }
 
         if ($this->auth !== null && !isset($data['updated_user_id'])) {
@@ -96,14 +97,14 @@ abstract class BaseRepository implements RepositoryInterface
      * Executes an UPDATE statement on the specified table.
      *
      * @param string $table the table to update rows from
-     * @param mixed[] $data values to be updated
+     * @param array $data values to be updated
      *
      * @return Query Query
      */
     protected function newInsert(string $table, array $data): Query
     {
         if (!isset($data['created_at'])) {
-            $data['created_at'] = now();
+            $data['created_at'] = Chronos::now()->toDateTimeString();
         }
 
         if ($this->auth !== null && !isset($data['created_user_id'])) {
@@ -133,11 +134,11 @@ abstract class BaseRepository implements RepositoryInterface
      * Fetch row by id.
      *
      * @param string $table Table name
-     * @param int|string $id ID
+     * @param int $id ID
      *
      * @return array Result set
      */
-    protected function fetchById(string $table, $id): array
+    protected function fetchById(string $table, int $id): array
     {
         $result = $this->newSelect($table)->select('*')
             ->where(['id' => $id])

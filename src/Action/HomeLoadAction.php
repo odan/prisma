@@ -3,6 +3,7 @@
 namespace App\Action;
 
 use App\Domain\User\UserService;
+use Cake\Chronos\Chronos;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;
@@ -44,7 +45,7 @@ class HomeLoadAction extends BaseAction
 
         $result = [
             'message' => __('Loaded successfully!'),
-            'now' => now(),
+            'now' => Chronos::now()->toDateTimeString(),
             'user' => [
                 'id' => $user->getId(),
                 'username' => $user->getUsername(),

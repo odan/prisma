@@ -3,9 +3,9 @@
 namespace App\Domain\User;
 
 /**
- * User.
+ * DTO.
  */
-class UserData
+class User
 {
     /** @var int|null */
     private $id;

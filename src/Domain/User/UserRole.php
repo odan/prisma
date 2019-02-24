@@ -3,7 +3,7 @@
 namespace App\Domain\User;
 
 /**
- * User Role.
+ * Type.
  */
 class UserRole
 {

@@ -2,7 +2,6 @@
 
 // Helper functions.
 
-use Cake\Chronos\Chronos;
 use Symfony\Component\Translation\Translator;
 
 /**
@@ -38,16 +37,6 @@ function __($message): string
     }
 
     return $translated;
-}
-
-/**
- * Shorthand for now function.
- *
- * @return string ISO date time (Y-m-d H:i:s)
- */
-function now(): string
-{
-    return Chronos::now()->toDateTimeString();
 }
 
 /**

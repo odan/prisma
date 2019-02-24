@@ -2,7 +2,7 @@
 
 namespace App\Action;
 
-use App\Domain\User\UserData;
+use App\Domain\User\User;
 use App\Domain\User\UserService;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
@@ -56,7 +56,7 @@ class UserEditAction extends BaseAction
         $user = $this->userService->getUserById($id);
 
         // Insert a new user
-        $newUser = new UserData();
+        $newUser = new User();
         $newUser->setUsername('admin-' . uuid());
         $newUser->setEnabled(true);
         $this->userService->registerUser($newUser);

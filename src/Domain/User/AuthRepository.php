@@ -5,7 +5,7 @@ namespace App\Domain\User;
 use App\Repository\BaseRepository;
 
 /**
- * Class.
+ * Repository.
  */
 class AuthRepository extends BaseRepository
 {

@@ -6,7 +6,7 @@ use Odan\Slim\Session\Session;
 use Symfony\Component\Translation\Translator;
 
 /**
- * Localization.
+ * DTO.
  */
 class Locale
 {

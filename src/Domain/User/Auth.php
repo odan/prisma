@@ -37,7 +37,7 @@ class Auth
     /**
      * Returns true if and only if an identity is available from storage.
      *
-     * @return bool
+     * @return bool status
      */
     public function hasIdentity(): bool
     {
@@ -79,9 +79,9 @@ class Auth
     /**
      * Returns the identity from storage or null if no identity is available.
      *
-     * @return UserData The logged-in user
+     * @return User The logged-in user
      */
-    public function getUser(): UserData
+    public function getUser(): User
     {
         $user = $this->session->get('user');
         if (!$user) {
@@ -94,12 +94,12 @@ class Auth
     /**
      * Performs an authentication attempt.
      *
-     * @param string $username
-     * @param string $password
+     * @param string $username username
+     * @param string $password password
      *
-     * @return UserData|null
+     * @return User|null the user or null
      */
-    public function authenticate(string $username, string $password): ?UserData
+    public function authenticate(string $username, string $password): ?User
     {
         $userRow = $this->authRepository->findUserByUsername($username);
 
@@ -107,7 +107,7 @@ class Auth
             return null;
         }
 
-        $user = UserData::fromArray($userRow);
+        $user = User::fromArray($userRow);
 
         if (!$this->verifyPassword($password, $user->getPassword() ?: '')) {
             return null;
@@ -121,8 +121,8 @@ class Auth
     /**
      * Returns true if password and hash is valid.
      *
-     * @param string $password
-     * @param string $hash
+     * @param string $password password
+     * @param string $hash stored hash
      *
      * @return bool Success
      */
@@ -134,11 +134,11 @@ class Auth
     /**
      * Init user session.
      *
-     * @param UserData $user
+     * @param User $user the user
      *
      * @return void
      */
-    protected function startUserSession(UserData $user): void
+    protected function startUserSession(User $user): void
     {
         // Clear session data
         $this->session->destroy();
@@ -154,11 +154,11 @@ class Auth
     /**
      * Set the identity into storage or null if no identity is available.
      *
-     * @param UserData $user
+     * @param User $user the user
      *
      * @return void
      */
-    public function setIdentity(UserData $user): void
+    public function setIdentity(User $user): void
     {
         $this->session->set('user', $user);
     }
@@ -166,7 +166,7 @@ class Auth
     /**
      * Returns secure password hash.
      *
-     * @param string $password
+     * @param string $password password
      *
      * @return string
      */

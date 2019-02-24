@@ -3,7 +3,7 @@
 namespace App\Domain\User;
 
 /**
- * Class.
+ * Service.
  */
 class UserService
 {
@@ -25,14 +25,14 @@ class UserService
     /**
      * Find all users.
      *
-     * @return UserData[]
+     * @return User[]
      */
     public function findAllUsers(): array
     {
         $result = [];
 
         foreach ($this->userRepository->findAll() as $row) {
-            $result[] = UserData::fromArray($row);
+            $result[] = User::fromArray($row);
         }
 
         return $result;
@@ -43,23 +43,23 @@ class UserService
      *
      * @param int $userId The user ID
      *
-     * @return UserData The data
+     * @return User The data
      */
-    public function getUserById(int $userId): UserData
+    public function getUserById(int $userId): User
     {
         $row = $this->userRepository->getById($userId);
 
-        return UserData::fromArray($row);
+        return User::fromArray($row);
     }
 
     /**
      * Register new user.
      *
-     * @param UserData $user The user
+     * @param User $user The user
      *
      * @return int New ID
      */
-    public function registerUser(UserData $user): int
+    public function registerUser(User $user): int
     {
         $row = [
             'username' => $user->getUsername(),
