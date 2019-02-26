@@ -17,6 +17,9 @@ Logging and Unit testing.
 * MySQL 5.7+
 * Apache
 * [Apache Ant](https://ant.apache.org/)
+
+## Recommended
+
 * NPM (Node.js)
 
 ## Installation
