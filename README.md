@@ -32,7 +32,7 @@ Logging and Unit testing.
 
 ## Documentation
 
-This package is documented [here](https://odan.github.io/prisma/).
+Full documentation of this application can be found here: <https://odan.github.io/prisma/>.
 
 ## License
 
