@@ -426,7 +426,7 @@ Translate a text with a placeholder:
 
 {% raw %}
 ```twig
-__('Hello: %s', username)
+{{ __('Hello: %s', username) }}
 ```
 {% endraw %}
 
