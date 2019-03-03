@@ -222,7 +222,7 @@ Just rename the file `env.example.php` to `env.php`.
 ├── src                     # PHP source code (The App namespace)
 │   ├── Action              # Controller actions
 │   ├── Console             # Console commands for cli.php
-│   ├── Domain              # Business logic
+│   ├── Domain              # The business logic
 │   ├── Type                # Types, Enum Constants
 │   └── Utility             # Helper classes and functions
 ├── templates               # Twig and Vue templates + JS and CSS
