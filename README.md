@@ -4,16 +4,53 @@
 
 <h4 align="center">Prisma is a skeleton project based on Slim 3, and Twig.</h4>
 
-This is a Slim 3 skeleton project that includes Routing, Middleware,
-Twig templates, Vue.js, Translations, Assets, Sessions, Database Query Builder, 
-Database Migrations, Console Commands, Authentication, Authorization, CSRF protection, 
-Logging and Unit testing.
-
 [![Latest Version on Packagist](https://img.shields.io/github/release/odan/prisma.svg)](https://github.com/odan/prisma/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
 [![Build Status](https://travis-ci.org/odan/prisma.svg?branch=master)](https://travis-ci.org/odan/prisma)
 [![Quality Score](https://scrutinizer-ci.com/g/odan/prisma/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/odan/prisma/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/odan/prisma.svg)](https://packagist.org/packages/odan/prisma/stats)
+
+This project comes configured with:
+
+* Slim 3
+* Routes
+* Single Action Controllers
+* Logging (Monolog)
+* Translations (Symfony)
+* Sessions
+* Authentication and Authorization
+* Database Query Builder (cakephp/database)
+* Database Migrations (Phinx)
+* Database Migration Generator
+* Date and time (Chronos)
+* Console Commands (Symfony)
+* Unit testing (phpunit)
+
+Middleware:
+
+* CSRF protection
+* CORS
+* Session
+* Language
+* Authentication
+
+Rendering:
+
+* Twig (slim/twig-view)
+* Assets (js, css) minification and caching
+* Twig translations
+* Vue.js
+* Vue.js translations
+
+Continous integration:
+
+* Tested on Travis CI and Scrutinizer CI
+* Unit testing (phpunit)
+* PHPStan
+* Code style checker and fixer (PSR-1, PSR-2, PSR-5, PSR-12)
+* DocBlock checker
+* Ant scripts
+* Deployment scripts
 
 ## Requirements
 
