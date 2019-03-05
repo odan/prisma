@@ -45,7 +45,8 @@ Rendering:
 Continous integration:
 
 * Tested on Travis CI and Scrutinizer CI
-* Unit testing (phpunit)
+* Unit tests
+* Integration tests (http and database)
 * PHPStan
 * Code style checker and fixer (PSR-1, PSR-2, PSR-5, PSR-12)
 * DocBlock checker
