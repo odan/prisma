@@ -172,33 +172,41 @@ class Auth
      */
     public function createPassword(string $password): string
     {
-        return password_hash($password, 1) ?: '';
+        return password_hash($password, PASSWORD_DEFAULT) ?: '';
     }
 
     /**
-     * Check user permission.
+     * Accepts a string and returns true if the role is assigned to the user.
      *
-     * @param string|array $role (e.g. 'ROLE_ADMIN' or 'ROLE_USER')
-     * or array('ROLE_ADMIN', 'ROLE_USER')
+     * @param string $role e.g. UserRole::ROLE_ADMIN
      *
      * @return bool Status
      */
-    public function hasRole($role): bool
+    public function hasRole(string $role): bool
     {
-        // Current user role
-        $userRole = $this->getUser()->getRole();
+        return $role === $this->getUser()->getRole();
+    }
 
-        // Full access for admin
-        if ($userRole === UserRole::ROLE_ADMIN) {
-            return true;
-        }
-        if ($role === $userRole) {
-            return true;
-        }
-        if (is_array($role) && in_array($userRole, $role, true)) {
-            return true;
-        }
+    /**
+     * Accepts an array with roles and returns true if at least one of the roles
+     * in the array is assigned to the user
+     *
+     * @param array $roles e.g. [UserRole::ROLE_ADMIN, UserRole::ROLE_USER]
+     *
+     * @return bool Status
+     */
+    public function hasAnyRole(array $roles): bool
+    {
+        return in_array($this->getUser()->getRole(), $roles, true);
+    }
 
-        return false;
+    /**
+     * Checks whether the user is an admin.
+     *
+     * @return bool Status
+     */
+    public function isAdmin(): bool
+    {
+        return $this->hasRole(UserRole::ROLE_ADMIN);
     }
 }
