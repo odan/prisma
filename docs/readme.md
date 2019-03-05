@@ -535,18 +535,15 @@ Quick summary:
 
 * Communication with the database.
 * Place for the data access logic (query logic).
-* This is no place for the business logic! Use [domain services](#domain-services) for the complex business / domain logic.
+* This is no place for the business logic! Use [domain services](#domain-services) for the complex business and domain logic.
 
 ### Domain Services
 
 Here is the right place for complex business logic e.g. calulation, validation, file creation etc.
 
-This layer provides cohesive, high-level logic for related
-parts of an application. This layer is invoked directly by
-the Controllers.
+This layer provides cohesive, high-level logic for related parts of an application. This layer is invoked directly by the Controllers.
 
-The business logic should be placed in the service classes,
-and we should aim for a fat model layer and thin controller layer.
+The business logic should be placed in the service classes, and we should aim for a fat model layer and thin controller layer.
 
 Please don't prefix all service classes with `*Service`. A service class
 is not a "utility" class. Think of the [SRP](http://pragmaticcraftsman.com/2006/07/single-responsibility-principle/) 
@@ -558,7 +555,7 @@ Use it only for "small things" like Date, Money, CustomerId and as replacement f
 
 ### Data Transfer Object (DTO) 
   
-A DTO contains only pure **data**. There is no business or domain specific logic, only simple validation logic. There is also no database access within a DTO. A service fetches data from a repository and fills the DTO with data. A DTO can be used to transfer data inside or outside the domain.
+A DTO contains only pure **data**. There is no business or domain specific logic, only simple validation logic. There is also no database access within a DTO. A service fetches data from a repository and  the repository (or the service) fills the DTO with data. A DTO can be used to transfer data inside or outside the domain.
 
 ### Parameter object
 
