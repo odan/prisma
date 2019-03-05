@@ -189,7 +189,7 @@ class Auth
 
     /**
      * Accepts an array with roles and returns true if at least one of the roles
-     * in the array is assigned to the user
+     * in the array is assigned to the user.
      *
      * @param array $roles e.g. [UserRole::ROLE_ADMIN, UserRole::ROLE_USER]
      *
