@@ -2,7 +2,7 @@
   <img src="https://user-images.githubusercontent.com/781074/53694874-e1032c80-3db4-11e9-83c6-c80c52c368d1.png" alt="prisma logo" width="200">
 </h1>
 
-<h4 align="center">Slim Framework example application.</h4>
+<h4 align="center">Prisma is a skeleton project based on Slim 3, and Twig.</h4>
 
 This is a Slim 3 skeleton project that includes Routing, Middleware,
 Twig templates, Vue.js, Translations, Assets, Sessions, Database Query Builder, 
