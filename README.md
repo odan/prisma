@@ -26,7 +26,7 @@ This project comes configured with:
 * Console Commands (Symfony)
 * Unit testing (phpunit)
 
-Middleware:
+**Middleware:**
 
 * CSRF protection
 * CORS
@@ -34,7 +34,7 @@ Middleware:
 * Language
 * Authentication
 
-Rendering:
+**Rendering:**
 
 * Twig (slim/twig-view)
 * Assets (js, css) minification and caching
@@ -42,7 +42,7 @@ Rendering:
 * Vue.js
 * Vue.js translations
 
-Continous integration:
+**Continous integration:**
 
 * Tested on Travis CI and Scrutinizer CI
 * Unit tests
