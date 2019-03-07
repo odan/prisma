@@ -4,8 +4,8 @@ namespace App\Test\TestCase;
 
 use Monolog\Handler\NullHandler;
 use Monolog\Logger;
-use Odan\Slim\Session\Adapter\MemorySessionAdapter;
-use Odan\Slim\Session\Session;
+use Odan\Session\Adapter\MemorySessionAdapter;
+use Odan\Session\Session;
 use Psr\Container\ContainerInterface as Container;
 use Psr\Log\LoggerInterface;
 use ReflectionClass;

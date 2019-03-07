@@ -2,7 +2,7 @@
 
 namespace App\Domain\User;
 
-use Odan\Slim\Session\Session;
+use Odan\Session\Session;
 use RuntimeException;
 
 /**

@@ -4,7 +4,7 @@ namespace App\Middleware;
 
 use Interop\Container\Exception\ContainerException;
 use Odan\Slim\Csrf\CsrfMiddleware;
-use Odan\Slim\Session\Session;
+use Odan\Session\Session;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Container;

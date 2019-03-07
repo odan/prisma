@@ -7,7 +7,7 @@ use App\Domain\User\Locale;
 use App\Factory\ContainerFactory;
 use Cake\Database\Connection;
 use Interop\Container\Exception\ContainerException;
-use Odan\Slim\Session\Session;
+use Odan\Session\Session;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Slim\Container;
