@@ -3,9 +3,11 @@
 // Define the Slim application routes.
 
 use App\Middleware\AuthenticationMiddleware;
+use App\Middleware\CsrfAjaxMiddleware;
 use App\Middleware\LanguageMiddleware;
 use App\Middleware\SessionMiddleware;
 use Slim\App;
+use Slim\Csrf\Guard;
 
 /* @var App $app */
 $container = $app->getContainer();
@@ -17,7 +19,9 @@ $app->group('/users', function () {
     $this->post('/login', \App\Action\UserLoginSubmitAction::class);
     $this->get('/login', \App\Action\UserLoginIndexAction::class)->setName('login');
     $this->get('/logout', \App\Action\UserLoginLogoutAction::class);
-})->add($container->get(SessionMiddleware::class));
+})
+    ->add($container->get(Guard::class))
+    ->add($container->get(SessionMiddleware::class));
 
 // Routes with authentication
 $app->group('', function () {
@@ -39,4 +43,6 @@ $app->group('', function () {
 })
     ->add($container->get(LanguageMiddleware::class))
     ->add($container->get(AuthenticationMiddleware::class))
+    ->add($container->get(Guard::class))
+    ->add($container->get(CsrfAjaxMiddleware::class))
     ->add($container->get(SessionMiddleware::class));

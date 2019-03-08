@@ -3,7 +3,6 @@
 namespace App\Middleware;
 
 use Interop\Container\Exception\ContainerException;
-use Odan\Slim\Csrf\CsrfMiddleware;
 use Odan\Session\Session;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -44,15 +43,7 @@ class SessionMiddleware
     {
         $session = $this->container->get(Session::class);
         $session->start();
-
-        if (PHP_SAPI === 'cli') {
-            $response = $next($request, $response);
-        } else {
-            $csrfMiddleware = $this->container->get(CsrfMiddleware::class);
-            $csrfMiddleware->setSessionId($session->getId());
-            $response = $csrfMiddleware->__invoke($request, $response, $next);
-        }
-
+        $response = $next($request, $response);
         $session->save();
 
         return $response;

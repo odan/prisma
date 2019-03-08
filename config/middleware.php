@@ -1,6 +1,6 @@
 <?php
 
-// Global middleware
+// Register middleware for all routes
 
 $app->add(\App\Middleware\CorsMiddleware::class);
 $app->add(\App\Middleware\PhpErrorMiddleware::class);

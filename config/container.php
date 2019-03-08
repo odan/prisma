@@ -8,6 +8,7 @@ use App\Domain\User\Locale;
 use App\Factory\ContainerFactory;
 use App\Middleware\AuthenticationMiddleware;
 use App\Middleware\CorsMiddleware;
+use App\Middleware\CsrfAjaxMiddleware;
 use App\Middleware\LanguageMiddleware;
 use App\Middleware\SessionMiddleware;
 use App\Middleware\ErrorHandler;
@@ -15,12 +16,12 @@ use Cake\Database\Connection;
 use Cake\Database\Driver\Mysql;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
-use Odan\Slim\Csrf\CsrfMiddleware;
 use Odan\Session\Adapter\MemorySessionAdapter;
 use Odan\Session\Adapter\PhpSessionAdapter;
 use Odan\Session\Session;
 use Psr\Container\ContainerInterface as Container;
 use Psr\Log\LoggerInterface;
+use Slim\Csrf\Guard;
 use Slim\Handlers\NotFound;
 use Slim\Views\Twig;
 use Symfony\Component\Translation\Formatter\MessageFormatter;
@@ -111,8 +112,16 @@ $container[Twig::class] = function (Container $container) {
     }
 
     // Add CSRF token as global template variable
-    $csrfToken = $container->get(CsrfMiddleware::class)->getToken();
-    $twig->getEnvironment()->addGlobal('csrf_token', $csrfToken);
+    $csrf = $container->get(Guard::class);
+
+    $twig->getEnvironment()->addGlobal('csrf', [
+        'keys' => [
+            'name' => $csrf->getTokenNameKey(),
+            'value' => $csrf->getTokenValueKey(),
+        ],
+        'name' => $csrf->getTokenName(),
+        'value' => $csrf->getTokenValue(),
+    ]);
 
     // Add Slim specific extensions
     $router = $container->get('router');
@@ -142,18 +151,18 @@ $container[Locale::class] = function (Container $container) {
     return $localization;
 };
 
-$container[CsrfMiddleware::class] = function (Container $container) {
-    // The session middleware sets the session id.
-    $csrf = new CsrfMiddleware('_');
+$container[Guard::class] = function () {
+    $guard = new Guard();
 
-    // optional settings
-    $settings = $container->get('settings')['csrf'];
-    $csrf->setSalt($settings['secret']);
-    $csrf->setTokenName($settings['token_name']);
-    $csrf->protectJqueryAjax($settings['protect_ajax']);
-    $csrf->protectForms($settings['protect_forms']);
+    $guard->setFailureCallable(function ($request, $response, $next) {
+        throw new RuntimeException('CSRF middleware failed. Invalid CSRF token. This looks like a cross-site request forgery.');
+    });
 
-    return $csrf;
+    return $guard;
+};
+
+$container[CsrfAjaxMiddleware::class] = function (Container $container) {
+    return new CsrfAjaxMiddleware($container->get(Guard::class));
 };
 
 $container[AuthenticationMiddleware::class] = function (Container $container) {

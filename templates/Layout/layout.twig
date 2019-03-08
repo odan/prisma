@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta name="csrf_token" content="{{ csrf_token }}">
+    <meta name="csrf_token" content="{{ csrf.value }}">
     <base href="{{ base_url() }}/"/>
     <link rel="shortcut icon" href="icons/favicon.ico">
     <title>{{ __('Demo') }}</title>
@@ -33,8 +33,11 @@
         'Layout/app.js'
     ], name: 'layout.js'}) }}
     <script>$d.setText({{ text|json_encode(constant('JSON_HEX_QUOT') b-or constant('JSON_HEX_APOS'))|raw }})</script>
-    <script>$.ajaxSetup({beforeSend: function (xhr) { xhr.setRequestHeader("X-CSRF-Token","{{csrf_token}}"); }});</script>
-
+    <script>$.ajaxSetup({
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-CSRF-Token", "{{ csrf.name }}_{{ csrf.value }}");
+            }
+        });</script>
 </head>
 <body>
 <!-- Fixed navbar -->
@@ -70,10 +73,14 @@
                 </li>
             </ul>
             <ul class="navbar-nav navbar-right">
-                <li class="nav-item"><a class="nav-link" href="#settings"><i
-                                class="fas fa-cog"></i> {{ __('Settings') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="users/logout"><i
-                                class="fas fa-sign-out-alt"></i> {{ __('Logout') }}</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#settings">
+                        <i class="fas fa-cog"></i> {{ __('Settings') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="users/logout">
+                        <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}</a>
+                </li>
             </ul>
         </div>
     </div>

@@ -19,6 +19,8 @@
         <h1 class="h3 mb-3 font-weight-normal">{{ __('Please sign in') }}</h1>
         <input type="text" name="username" class="form-control" placeholder="{{ __('Username') }}" required autofocus>
         <input type="password" name="password" class="form-control" placeholder="{{ __('Password') }}" required>
+        <input type="hidden" name="{{ csrf.keys.name }}" value="{{ csrf.name }}">
+        <input type="hidden" name="{{ csrf.keys.value }}" value="{{ csrf.value }}">
         <!-- <div class="checkbox mb-3">
             <label>
                 <input type="checkbox" value="remember-me"> Remember me
