@@ -5,6 +5,8 @@ namespace App\Test\TestCase\Action;
 use App\Test\TestCase\ApiTestCase;
 
 /**
+ * Test.
+ *
  * @coversDefaultClass \App\Action\HomeIndexAction
  */
 class HomeIndexActionTest extends ApiTestCase

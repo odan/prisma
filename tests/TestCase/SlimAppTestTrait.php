@@ -4,7 +4,7 @@ namespace App\Test\TestCase;
 
 use Monolog\Handler\NullHandler;
 use Monolog\Logger;
-use Odan\Session\Adapter\MemorySessionAdapter;
+use Odan\Session\Adapter\PhpSessionAdapter;
 use Odan\Session\Session;
 use Psr\Container\ContainerInterface as Container;
 use Psr\Log\LoggerInterface;
@@ -23,12 +23,22 @@ trait SlimAppTestTrait
      */
     protected $app;
 
-    protected function bootSlim()
+    /**
+     * Boost Slim
+     *
+     * @return void
+     */
+    protected function bootSlim(): void
     {
         $this->app = require __DIR__ . '/../../config/bootstrap.php';
     }
 
-    protected function shutdownSlim()
+    /**
+     * Shutdown Slim
+     *
+     * @return void
+     */
+    protected function shutdownSlim(): void
     {
         $this->app = null;
     }
@@ -49,7 +59,7 @@ trait SlimAppTestTrait
         $container = $this->app->getContainer();
 
         $this->setContainer($container, Session::class, call_user_func(function () {
-            $session = new Session(new MemorySessionAdapter());
+            $session = new Session(new PhpSessionAdapter());
             $session->setOptions([
                 'cache_expire' => 60,
                 'name' => 'app',
