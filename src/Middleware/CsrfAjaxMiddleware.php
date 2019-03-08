@@ -37,25 +37,29 @@ final class CsrfAjaxMiddleware
      */
     public function __invoke(Request $request, Response $response, $next): Response
     {
+        if (!$headers = $request->getHeader('X-CSRF-Token')) {
+            return $next($request, $response);
+        }
+
         if (!in_array($request->getMethod(), ['POST', 'PUT', 'DELETE', 'PATCH'], true)) {
             return $next($request, $response);
         }
 
-        if ($headers = $request->getHeader('X-CSRF-Token')) {
-            list($tokenName, $tokenValue) = explode('_', (string)$headers[0]);
-            $body = $request->getParsedBody() ?: [];
-
-            $keyPair = [
-                $this->guard->getTokenNameKey() => $tokenName,
-                $this->guard->getTokenValueKey() => $tokenValue,
-            ];
-
-            // Append token to parsed body
-            $body += $keyPair;
-            $request = $request->withParsedBody($body);
+        $body = $request->getParsedBody();
+        if (!is_array($body)) {
+            return $next($request, $response);
         }
 
-        /* @var Response $response */
+        // Append token to parsed body
+        list($tokenName, $tokenValue) = explode('_', (string)$headers[0]);
+
+        $body += [
+            $this->guard->getTokenNameKey() => $tokenName,
+            $this->guard->getTokenValueKey() => $tokenValue,
+        ];
+
+        $request = $request->withParsedBody($body);
+
         return $next($request, $response);
     }
 }
