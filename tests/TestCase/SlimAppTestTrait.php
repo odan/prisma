@@ -24,7 +24,7 @@ trait SlimAppTestTrait
     protected $app;
 
     /**
-     * Boost Slim
+     * Boost Slim.
      *
      * @return void
      */
@@ -34,7 +34,7 @@ trait SlimAppTestTrait
     }
 
     /**
-     * Shutdown Slim
+     * Shutdown Slim.
      *
      * @return void
      */
