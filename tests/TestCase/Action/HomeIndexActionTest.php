@@ -12,7 +12,7 @@ use App\Test\TestCase\ApiTestCase;
 class HomeIndexActionTest extends ApiTestCase
 {
     /**
-     * Test create object.
+     * Verify a non-authenticated user gets redirected to your login page.
      *
      * @throws \Exception
      * @throws \Slim\Exception\MethodNotAllowedException
@@ -25,6 +25,7 @@ class HomeIndexActionTest extends ApiTestCase
         $request = $this->createRequest('GET', '/');
         $response = $this->request($request);
 
+        // Assert redirect
         $this->assertSame(302, $response->getStatusCode());
         $this->assertSame('/users/login', $response->getHeaderLine('Location'));
     }
