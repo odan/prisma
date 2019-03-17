@@ -21,7 +21,7 @@ class UserLoginLogoutAction extends BaseAction
      */
     public function __invoke(Request $request, Response $response): ResponseInterface
     {
-        $this->auth->clearIdentity();
+        $this->auth->logout();
 
         return $response->withRedirect($this->router->pathFor('login'));
     }

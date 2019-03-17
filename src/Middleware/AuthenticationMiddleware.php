@@ -53,7 +53,7 @@ class AuthenticationMiddleware
         /** @var Auth $user */
         $user = $this->container->get(Auth::class);
 
-        if (!$user->hasIdentity()) {
+        if (!$user->check()) {
             // Redirect to login page
 
             /** @var Router $router */

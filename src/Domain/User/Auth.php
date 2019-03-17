@@ -35,21 +35,21 @@ class Auth
     }
 
     /**
-     * Returns true if and only if an identity is available from storage.
+     * Check if a user is logged in.
      *
      * @return bool status
      */
-    public function hasIdentity(): bool
+    public function check(): bool
     {
         return !empty($this->session->get('user'));
     }
 
     /**
-     * Clears the identity from persistent storage.
+     * Destroy the current logged in user session.
      *
      * @return void
      */
-    public function clearIdentity(): void
+    public function logout(): void
     {
         $this->session->remove('user');
 
@@ -61,9 +61,11 @@ class Auth
     }
 
     /**
-     * Get user Id.
+     * Get user ID.
      *
-     * @return int User Id
+     * @throws RuntimeException
+     *
+     * @return int the user ID
      */
     public function getUserId(): int
     {
@@ -77,7 +79,9 @@ class Auth
     }
 
     /**
-     * Returns the identity from storage or null if no identity is available.
+     * Retrieves the currently logged in user.
+     *
+     * @throws RuntimeException
      *
      * @return User The logged-in user
      */
@@ -158,13 +162,13 @@ class Auth
      *
      * @return void
      */
-    public function setIdentity(User $user): void
+    protected function setIdentity(User $user): void
     {
         $this->session->set('user', $user);
     }
 
     /**
-     * Returns secure password hash.
+     * Generate a secure password hash.
      *
      * @param string $password password
      *
@@ -176,18 +180,20 @@ class Auth
     }
 
     /**
-     * Accepts a string and returns true if the role is assigned to the user.
+     * Check whether the user has the given role.
      *
      * @param string $role e.g. UserRole::ROLE_ADMIN
      *
-     * @return bool Status
+     * @return bool True if the given role is assigned to the user
      */
     public function hasRole(string $role): bool
     {
-        return $role === $this->getUser()->getRole();
+        return $this->getUser()->getRole() === $role;
     }
 
     /**
+     * Check whether the user has at least one of the given roles.
+     *
      * Accepts an array with roles and returns true if at least one of the roles
      * in the array is assigned to the user.
      *
