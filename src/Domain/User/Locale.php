@@ -2,7 +2,7 @@
 
 namespace App\Domain\User;
 
-use Odan\Session\Session;
+use Odan\Session\SessionInterface;
 use Symfony\Component\Translation\Translator;
 
 /**
@@ -15,7 +15,7 @@ class Locale
      */
     public $localePath;
     /**
-     * @var Session
+     * @var SessionInterface
      */
     private $session;
     /**
@@ -29,10 +29,10 @@ class Locale
      * Constructor.
      *
      * @param Translator $translator
-     * @param Session $session
+     * @param SessionInterface $session
      * @param string $localePath
      */
-    public function __construct(Translator $translator, Session $session, string $localePath)
+    public function __construct(Translator $translator, SessionInterface $session, string $localePath)
     {
         $this->translator = $translator;
         $this->session = $session;

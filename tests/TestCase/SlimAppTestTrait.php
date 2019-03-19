@@ -4,8 +4,8 @@ namespace App\Test\TestCase;
 
 use Monolog\Handler\NullHandler;
 use Monolog\Logger;
-use Odan\Session\Adapter\PhpSessionAdapter;
-use Odan\Session\Session;
+use Odan\Session\PhpSession;
+use Odan\Session\SessionInterface;
 use Psr\Container\ContainerInterface as Container;
 use Psr\Log\LoggerInterface;
 use ReflectionClass;
@@ -58,8 +58,8 @@ trait SlimAppTestTrait
 
         $container = $this->app->getContainer();
 
-        $this->setContainer($container, Session::class, call_user_func(function () {
-            $session = new Session(new PhpSessionAdapter());
+        $this->setContainer($container, SessionInterface::class, call_user_func(function () {
+            $session = new PhpSession();
             $session->setOptions([
                 'cache_expire' => 60,
                 'name' => 'app',

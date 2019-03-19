@@ -16,9 +16,9 @@ use Cake\Database\Connection;
 use Cake\Database\Driver\Mysql;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
-use Odan\Session\Adapter\MemorySessionAdapter;
-use Odan\Session\Adapter\PhpSessionAdapter;
-use Odan\Session\Session;
+use Odan\Session\MemorySession;
+use Odan\Session\PhpSession;
+use Odan\Session\SessionInterface;
 use Psr\Container\ContainerInterface as Container;
 use Psr\Log\LoggerInterface;
 use Slim\Csrf\Guard;
@@ -151,10 +151,9 @@ $container['globalText'] = function () {
     ];
 };
 
-$container[Session::class] = function (Container $container) {
+$container[SessionInterface::class] = function (Container $container) {
     $settings = $container->get('settings');
-    $adapter = PHP_SAPI === 'cli' ? new MemorySessionAdapter() : new PhpSessionAdapter();
-    $session = new Session($adapter);
+    $session = PHP_SAPI === 'cli' ? new MemorySession() : new PhpSession();
     $session->setOptions((array)$settings['session']);
 
     return $session;
@@ -162,7 +161,7 @@ $container[Session::class] = function (Container $container) {
 
 $container[Locale::class] = function (Container $container) {
     $translator = $container->get(Translator::class);
-    $session = $container->get(Session::class);
+    $session = $container->get(SessionInterface::class);
     $localPath = $container->get('settings')['locale']['path'];
 
     return new Locale($translator, $session, $localPath);
@@ -211,7 +210,7 @@ $container[Translator::class] = function (Container $container) {
 };
 
 $container[Auth::class] = function (Container $container) {
-    return new Auth($container->get(Session::class), $container->get(AuthRepository::class));
+    return new Auth($container->get(SessionInterface::class), $container->get(AuthRepository::class));
 };
 
 $container[AuthRepository::class] = function (Container $container) {

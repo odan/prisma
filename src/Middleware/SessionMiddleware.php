@@ -3,7 +3,7 @@
 namespace App\Middleware;
 
 use Interop\Container\Exception\ContainerException;
-use Odan\Session\Session;
+use Odan\Session\SessionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Container;
@@ -41,7 +41,7 @@ class SessionMiddleware
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next): ResponseInterface
     {
-        $session = $this->container->get(Session::class);
+        $session = $this->container->get(SessionInterface::class);
         $session->start();
         $response = $next($request, $response);
         $session->save();

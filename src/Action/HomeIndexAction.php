@@ -2,7 +2,7 @@
 
 namespace App\Action;
 
-use Odan\Session\Session;
+use Odan\Session\SessionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -19,7 +19,7 @@ class HomeIndexAction implements ActionInterface
     protected $twig;
 
     /**
-     * @var Session
+     * @var SessionInterface
      */
     protected $session;
 
@@ -27,9 +27,9 @@ class HomeIndexAction implements ActionInterface
      * Constructor.
      *
      * @param Twig $twig
-     * @param Session $session
+     * @param SessionInterface $session
      */
-    public function __construct(Twig $twig, Session $session)
+    public function __construct(Twig $twig, SessionInterface $session)
     {
         $this->twig = $twig;
         $this->session = $session;
@@ -46,7 +46,7 @@ class HomeIndexAction implements ActionInterface
     public function __invoke(Request $request, Response $response): ResponseInterface
     {
         // Increment counter
-        $counter = $this->session->get('counter', 0);
+        $counter = $this->session->get('counter') ?? 0;
         $this->session->set('counter', $counter++);
 
         $viewData = [

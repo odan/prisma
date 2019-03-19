@@ -2,7 +2,7 @@
 
 namespace App\Domain\User;
 
-use Odan\Session\Session;
+use Odan\Session\SessionInterface;
 use RuntimeException;
 
 /**
@@ -11,9 +11,9 @@ use RuntimeException;
 class Auth
 {
     /**
-     * Session.
+     * SessionInterface.
      *
-     * @var Session
+     * @var SessionInterface
      */
     private $session;
 
@@ -25,10 +25,10 @@ class Auth
     /**
      * Constructor.
      *
-     * @param Session $session Storage
+     * @param SessionInterface $session The session storage
      * @param AuthRepository $authRepository The repository
      */
-    public function __construct(Session $session, AuthRepository $authRepository)
+    public function __construct(SessionInterface $session, AuthRepository $authRepository)
     {
         $this->session = $session;
         $this->authRepository = $authRepository;
