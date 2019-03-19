@@ -18,7 +18,7 @@ abstract class BaseRepository implements RepositoryInterface
      *
      * @var Connection
      */
-    protected $db;
+    protected $connection;
 
     /**
      * @var Auth|null
@@ -28,12 +28,12 @@ abstract class BaseRepository implements RepositoryInterface
     /**
      * Constructor.
      *
-     * @param Connection $db
+     * @param Connection $connection
      * @param Auth|null $auth
      */
-    public function __construct(Connection $db, Auth $auth = null)
+    public function __construct(Connection $connection, Auth $auth = null)
     {
-        $this->db = $db;
+        $this->connection = $connection;
         $this->auth = $auth;
     }
 
@@ -44,32 +44,25 @@ abstract class BaseRepository implements RepositoryInterface
      */
     protected function newQuery(): Query
     {
-        return $this->db->newQuery();
+        return $this->connection->newQuery();
     }
 
     /**
      * Create a new select query.
      *
      * @param string $table The table name
-     * @param string|null $alias The table alias
      *
      * @return Query A select query
      */
-    protected function newSelect(string $table, string $alias = null): Query
+    protected function newSelect(string $table): Query
     {
-        $tables = $table;
+        $query = $this->newQuery()->from($table);
 
-        if ($alias !== null) {
-            $tables = [$alias => $table];
+        if (!$query instanceof Query) {
+            throw new RuntimeException('Failed to create query');
         }
 
-        $query = $this->newQuery()->from($tables);
-
-        if ($query instanceof Query) {
-            return $query;
-        }
-
-        throw new RuntimeException('New select query failed');
+        return $query;
     }
 
     /**
@@ -140,12 +133,11 @@ abstract class BaseRepository implements RepositoryInterface
      */
     protected function fetchById(string $table, int $id): array
     {
-        $result = $this->newSelect($table)->select('*')
+        return $this->newSelect($table)
+            ->select('*')
             ->where(['id' => $id])
             ->execute()
-            ->fetch('assoc');
-
-        return $result ?: [];
+            ->fetch('assoc') ?: [];
     }
 
     /**
@@ -158,12 +150,11 @@ abstract class BaseRepository implements RepositoryInterface
      */
     protected function existsById(string $table, $id): bool
     {
-        $result = $this->newSelect($table)->select('id')
+        return $this->newSelect($table)
+            ->select('id')
             ->andWhere(['id' => $id])
             ->execute()
-            ->fetch('assoc');
-
-        return $result ? true : false;
+            ->fetch('assoc') ? true : false;
     }
 
     /**
@@ -175,8 +166,6 @@ abstract class BaseRepository implements RepositoryInterface
      */
     protected function fetchAll(string $table): array
     {
-        $result = $this->newSelect($table)->select('*')->execute()->fetchAll('assoc');
-
-        return $result ?: [];
+        return $this->newSelect($table)->select('*')->execute()->fetchAll('assoc') ?: [];
     }
 }
