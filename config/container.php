@@ -28,6 +28,7 @@ use Symfony\Component\Translation\Formatter\MessageFormatter;
 use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Loader\MoFileLoader;
 use Symfony\Component\Translation\Translator;
+use Twig\Loader\FilesystemLoader;
 
 /** @var \Slim\App $app */
 $container = $app->getContainer();
@@ -107,14 +108,16 @@ $container[Twig::class] = function (Container $container) {
 
     /** @var Twig_Loader_Filesystem $loader */
     $loader = $twig->getLoader();
-    if ($loader instanceof Twig_Loader_Filesystem) {
+    if ($loader instanceof FilesystemLoader) {
         $loader->addPath($settings['public'], 'public');
     }
 
     // Add CSRF token as global template variable
     $csrf = $container->get(Guard::class);
 
-    $twig->getEnvironment()->addGlobal('csrf', [
+    $twigEnvironment = $twig->getEnvironment();
+
+    $twigEnvironment->addGlobal('csrf', [
         'keys' => [
             'name' => $csrf->getTokenNameKey(),
             'value' => $csrf->getTokenValueKey(),
@@ -122,6 +125,12 @@ $container[Twig::class] = function (Container $container) {
         'name' => $csrf->getTokenName(),
         'value' => $csrf->getTokenValue(),
     ]);
+
+    $twigEnvironment->addGlobal('baseUrl', function () use ($container) {
+        return $container->get('router')->pathFor('root');
+    });
+
+    $twigEnvironment->addGlobal('globalText', $container->get('globalText'));
 
     // Add Slim specific extensions
     $router = $container->get('router');
@@ -131,6 +140,15 @@ $container[Twig::class] = function (Container $container) {
     $twig->addExtension(new \Odan\Twig\TwigTranslationExtension());
 
     return $twig;
+};
+
+$container['globalText'] = function () {
+    return [
+        'Ok' => __('Ok'),
+        'Cancel' => __('Cancel'),
+        'Yes' => __('Yes'),
+        'No' => __('No'),
+    ];
 };
 
 $container[Session::class] = function (Container $container) {
@@ -146,9 +164,8 @@ $container[Locale::class] = function (Container $container) {
     $translator = $container->get(Translator::class);
     $session = $container->get(Session::class);
     $localPath = $container->get('settings')['locale']['path'];
-    $localization = new Locale($translator, $session, $localPath);
 
-    return $localization;
+    return new Locale($translator, $session, $localPath);
 };
 
 $container[Guard::class] = function () {
@@ -204,5 +221,21 @@ $container[AuthRepository::class] = function (Container $container) {
 $container[ContainerFactory::class] = function (Container $container) {
     return new ContainerFactory($container);
 };
+
+$actionFactory = function ($actionClass) {
+    return function (Container $container) use ($actionClass) {
+        return $container->get(ContainerFactory::class)->create($actionClass);
+    };
+};
+
+$container[\App\Action\HomeIndexAction::class] = $actionFactory(\App\Action\HomeIndexAction::class);
+$container[\App\Action\HomeLoadAction::class] = $actionFactory(\App\Action\HomeLoadAction::class);
+$container[\App\Action\HomePingAction::class] = $actionFactory(\App\Action\HomePingAction::class);
+$container[\App\Action\UserEditAction::class] = $actionFactory(\App\Action\UserEditAction::class);
+$container[\App\Action\UserIndexAction::class] = $actionFactory(\App\Action\UserIndexAction::class);
+$container[\App\Action\UserLoginIndexAction::class] = $actionFactory(\App\Action\UserLoginIndexAction::class);
+$container[\App\Action\UserLoginSubmitAction::class] = $actionFactory(\App\Action\UserLoginSubmitAction::class);
+$container[\App\Action\UserLogoutAction::class] = $actionFactory(\App\Action\UserLogoutAction::class);
+$container[\App\Action\UserReviewAction::class] = $actionFactory(\App\Action\UserReviewAction::class);
 
 return $container;

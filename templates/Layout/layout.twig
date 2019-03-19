@@ -32,12 +32,16 @@
         '@public/js/notifIt.js',
         'Layout/app.js'
     ], name: 'layout.js'}) }}
-    <script>$d.setText({{ text|json_encode(constant('JSON_HEX_QUOT') b-or constant('JSON_HEX_APOS'))|raw }})</script>
-    <script>$.ajaxSetup({
+    <script>
+        $d.setText({{ globalText|merge(text)|json_encode(constant('JSON_HEX_QUOT') b-or constant('JSON_HEX_APOS'))|raw }})
+    </script>
+    <script>
+        $.ajaxSetup({
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("X-CSRF-Token", "{{ csrf.name }}_{{ csrf.value }}");
             }
-        });</script>
+        });
+    </script>
 </head>
 <body>
 <!-- Fixed navbar -->

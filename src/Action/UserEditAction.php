@@ -5,16 +5,33 @@ namespace App\Action;
 use App\Domain\User\User;
 use App\Domain\User\UserService;
 use Exception;
+use Odan\Session\Session;
 use Psr\Http\Message\ResponseInterface;
-use Slim\Container;
+use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Slim\Views\Twig;
 
 /**
  * Action.
  */
-class UserEditAction extends BaseAction
+class UserEditAction implements ActionInterface
 {
+    /**
+     * @var Twig
+     */
+    protected $twig;
+
+    /**
+     * @var Session
+     */
+    protected $session;
+
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
     /**
      * @var UserService
      */
@@ -23,12 +40,17 @@ class UserEditAction extends BaseAction
     /**
      * Constructor.
      *
-     * @param Container $container
+     * @param Twig $twig
+     * @param Session $session
+     * @param LoggerInterface $logger
+     * @param UserService $userService
      */
-    public function __construct(Container $container)
+    public function __construct(Twig $twig, Session $session, LoggerInterface $logger, UserService $userService)
     {
-        parent::__construct($container);
-        $this->userService = $this->factory->create(UserService::class);
+        $this->twig = $twig;
+        $this->session = $session;
+        $this->logger = $logger;
+        $this->userService = $userService;
     }
 
     /**
@@ -79,6 +101,6 @@ class UserEditAction extends BaseAction
         ];
 
         // Render template
-        return $this->render($response, 'User/user-edit.twig', $viewData);
+        return $this->twig->render($response, 'User/user-edit.twig', $viewData);
     }
 }

@@ -2,18 +2,23 @@
 
 namespace App\Action;
 
+use App\Domain\User\Auth;
 use App\Domain\User\UserService;
 use Cake\Chronos\Chronos;
 use Psr\Http\Message\ResponseInterface;
-use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
  * Action.
  */
-class HomeLoadAction extends BaseAction
+class HomeLoadAction implements ActionInterface
 {
+    /**
+     * @var Auth
+     */
+    protected $auth;
+
     /**
      * @var UserService
      */
@@ -22,12 +27,13 @@ class HomeLoadAction extends BaseAction
     /**
      * Constructor.
      *
-     * @param Container $container The container
+     * @param Auth $auth
+     * @param UserService $userService
      */
-    public function __construct(Container $container)
+    public function __construct(Auth $auth, UserService $userService)
     {
-        parent::__construct($container);
-        $this->userService = $this->factory->create(UserService::class);
+        $this->auth = $auth;
+        $this->userService = $userService;
     }
 
     /**

@@ -9,7 +9,7 @@ use Slim\Http\Response;
 /**
  * Action.
  */
-class UserReviewAction extends BaseAction
+class UserReviewAction implements ActionInterface
 {
     /**
      * User review page.

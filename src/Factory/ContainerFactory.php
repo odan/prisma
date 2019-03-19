@@ -2,7 +2,6 @@
 
 namespace App\Factory;
 
-use App\Repository\RepositoryInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -10,6 +9,8 @@ use ReflectionClass;
 use ReflectionException;
 use ReflectionParameter;
 use RuntimeException;
+use Slim\Container;
+use Slim\Router;
 
 /**
  * Factory.
@@ -32,20 +33,6 @@ class ContainerFactory
     }
 
     /**
-     * Create instance.
-     *
-     * @param string $repositoryClass
-     *
-     * @throws ReflectionException
-     *
-     * @return RepositoryInterface The new instance
-     */
-    public function createRepository(string $repositoryClass): RepositoryInterface
-    {
-        return $this->create($repositoryClass);
-    }
-
-    /**
      * Create callback.
      *
      * @param string $className Class name
@@ -57,8 +44,12 @@ class ContainerFactory
      */
     public function create(string $className)
     {
-        if ($this->container->has($className)) {
-            return $this->container->get($className);
+        if ($className === Router::class) {
+            return $this->container->get('router');
+        }
+
+        if ($className === Container::class) {
+            return $this->container;
         }
 
         $reflectionClass = new ReflectionClass($className);

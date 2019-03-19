@@ -2,15 +2,39 @@
 
 namespace App\Action;
 
+use Odan\Session\Session;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Slim\Views\Twig;
 
 /**
  * Action.
  */
-class HomeIndexAction extends BaseAction
+class HomeIndexAction implements ActionInterface
 {
+    /**
+     * @var Twig
+     */
+    protected $twig;
+
+    /**
+     * @var Session
+     */
+    protected $session;
+
+    /**
+     * Constructor.
+     *
+     * @param Twig $twig
+     * @param Session $session
+     */
+    public function __construct(Twig $twig, Session $session)
+    {
+        $this->twig = $twig;
+        $this->session = $session;
+    }
+
     /**
      * Index action.
      *
@@ -33,7 +57,7 @@ class HomeIndexAction extends BaseAction
         ];
 
         // Render template
-        return $this->render($response, 'Home/home-index.twig', $viewData);
+        return $this->twig->render($response, 'Home/home-index.twig', $viewData);
     }
 
     /**

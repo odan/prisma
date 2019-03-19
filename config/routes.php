@@ -18,7 +18,7 @@ $app->any('/ping', \App\Action\HomePingAction::class);
 $app->group('/users', function () {
     $this->post('/login', \App\Action\UserLoginSubmitAction::class);
     $this->get('/login', \App\Action\UserLoginIndexAction::class)->setName('login');
-    $this->get('/logout', \App\Action\UserLoginLogoutAction::class);
+    $this->get('/logout', \App\Action\UserLogoutAction::class);
 })
     ->add($container->get(Guard::class))
     ->add($container->get(SessionMiddleware::class));

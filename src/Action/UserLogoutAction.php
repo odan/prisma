@@ -2,15 +2,39 @@
 
 namespace App\Action;
 
+use App\Domain\User\Auth;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Slim\Router;
 
 /**
  * Action.
  */
-class UserLoginLogoutAction extends BaseAction
+class UserLogoutAction implements ActionInterface
 {
+    /**
+     * @var Auth
+     */
+    protected $auth;
+
+    /**
+     * @var Router
+     */
+    protected $router;
+
+    /**
+     * Constructor.
+     *
+     * @param Router $router
+     * @param Auth $auth
+     */
+    public function __construct(Router $router, Auth $auth)
+    {
+        $this->router = $router;
+        $this->auth = $auth;
+    }
+
     /**
      * User logout.
      *
