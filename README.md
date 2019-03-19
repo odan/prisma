@@ -4,11 +4,15 @@
 
 <h4 align="center">Prisma is a skeleton project based on Slim 3, and Twig.</h4>
 
+<h2></h2>
+
 [![Latest Version on Packagist](https://img.shields.io/github/release/odan/prisma.svg)](https://github.com/odan/prisma/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
 [![Build Status](https://travis-ci.org/odan/prisma.svg?branch=master)](https://travis-ci.org/odan/prisma)
 [![Quality Score](https://scrutinizer-ci.com/g/odan/prisma/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/odan/prisma/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/odan/prisma.svg)](https://packagist.org/packages/odan/prisma/stats)
+
+
 
 This project comes configured with:
 
@@ -57,7 +61,7 @@ This project comes configured with:
 
 * PHP 7.2+
 * MySQL 5.7+
-* Apache
+* Apache + mod_rewrite
 * [Apache Ant](https://ant.apache.org/)
 
 ## Recommended
