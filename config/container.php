@@ -169,6 +169,7 @@ $container[Locale::class] = function (Container $container) {
 
 $container[Guard::class] = function () {
     $guard = new Guard();
+    $guard->setPersistentTokenMode(true);
 
     $guard->setFailureCallable(function ($request, $response, $next) {
         throw new RuntimeException('CSRF middleware failed. Invalid CSRF token. This looks like a cross-site request forgery.');
@@ -221,20 +222,40 @@ $container[ContainerFactory::class] = function (Container $container) {
     return new ContainerFactory($container);
 };
 
-$actionFactory = function ($actionClass) {
-    return function (Container $container) use ($actionClass) {
-        return $container->get(ContainerFactory::class)->create($actionClass);
-    };
+$container[\App\Action\HomeIndexAction::class] = function (Container $container) {
+    return $container->get(ContainerFactory::class)->create(\App\Action\HomeIndexAction::class);
 };
 
-$container[\App\Action\HomeIndexAction::class] = $actionFactory(\App\Action\HomeIndexAction::class);
-$container[\App\Action\HomeLoadAction::class] = $actionFactory(\App\Action\HomeLoadAction::class);
-$container[\App\Action\HomePingAction::class] = $actionFactory(\App\Action\HomePingAction::class);
-$container[\App\Action\UserEditAction::class] = $actionFactory(\App\Action\UserEditAction::class);
-$container[\App\Action\UserIndexAction::class] = $actionFactory(\App\Action\UserIndexAction::class);
-$container[\App\Action\UserLoginIndexAction::class] = $actionFactory(\App\Action\UserLoginIndexAction::class);
-$container[\App\Action\UserLoginSubmitAction::class] = $actionFactory(\App\Action\UserLoginSubmitAction::class);
-$container[\App\Action\UserLogoutAction::class] = $actionFactory(\App\Action\UserLogoutAction::class);
-$container[\App\Action\UserReviewAction::class] = $actionFactory(\App\Action\UserReviewAction::class);
+$container[\App\Action\HomeLoadAction::class] = function (Container $container) {
+    return $container->get(ContainerFactory::class)->create(\App\Action\HomeLoadAction::class);
+};
+
+$container[\App\Action\HomePingAction::class] = function (Container $container) {
+    return $container->get(ContainerFactory::class)->create(\App\Action\HomePingAction::class);
+};
+
+$container[\App\Action\UserEditAction::class] = function (Container $container) {
+    return $container->get(ContainerFactory::class)->create(\App\Action\UserEditAction::class);
+};
+
+$container[\App\Action\UserIndexAction::class] = function (Container $container) {
+    return $container->get(ContainerFactory::class)->create(\App\Action\UserIndexAction::class);
+};
+
+$container[\App\Action\UserLoginIndexAction::class] = function (Container $container) {
+    return $container->get(ContainerFactory::class)->create(\App\Action\UserLoginIndexAction::class);
+};
+
+$container[\App\Action\UserLoginSubmitAction::class] = function (Container $container) {
+    return $container->get(ContainerFactory::class)->create(\App\Action\UserLoginSubmitAction::class);
+};
+
+$container[\App\Action\UserLogoutAction::class] = function (Container $container) {
+    return $container->get(ContainerFactory::class)->create(\App\Action\UserLogoutAction::class);
+};
+
+$container[\App\Action\UserReviewAction::class] = function (Container $container) {
+    return $container->get(ContainerFactory::class)->create(\App\Action\UserReviewAction::class);
+};
 
 return $container;
