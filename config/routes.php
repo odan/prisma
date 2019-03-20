@@ -17,8 +17,8 @@ $app->group('/users', function () {
     $this->get('/login', \App\Action\UserLoginIndexAction::class)->setName('login');
     $this->get('/logout', \App\Action\UserLogoutAction::class);
 })
-    ->add(SessionMiddleware::class)
-    ->add(CsrfMiddleware::class);
+    ->add(CsrfMiddleware::class)
+    ->add(SessionMiddleware::class);
 
 // Routes with authentication
 $app->group('', function () {
