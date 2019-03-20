@@ -3,10 +3,8 @@
 namespace App\Middleware;
 
 use App\Domain\User\Auth;
-use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Slim\Container;
 use Slim\Route;
 use Slim\Router;
 
@@ -16,18 +14,25 @@ use Slim\Router;
 class AuthenticationMiddleware
 {
     /**
-     * @var Container
+     * @var Router
      */
-    protected $container;
+    protected $router;
+
+    /**
+     * @var Auth
+     */
+    protected $auth;
 
     /**
      * Constructor.
      *
-     * @param Container $container The container
+     * @param Router $router
+     * @param Auth $auth
      */
-    public function __construct(Container $container)
+    public function __construct(Router $router, Auth $auth)
     {
-        $this->container = $container;
+        $this->router = $router;
+        $this->auth = $auth;
     }
 
     /**
@@ -36,8 +41,6 @@ class AuthenticationMiddleware
      * @param  ServerRequestInterface $request PSR7 request
      * @param  ResponseInterface $response PSR7 response
      * @param  callable $next Next middleware
-     *
-     * @throws ContainerException
      *
      * @return ResponseInterface PSR7 response
      */
@@ -50,15 +53,9 @@ class AuthenticationMiddleware
             return $next($request, $response);
         }
 
-        /** @var Auth $user */
-        $user = $this->container->get(Auth::class);
-
-        if (!$user->check()) {
+        if (!$this->auth->check()) {
             // Redirect to login page
-
-            /** @var Router $router */
-            $router = $this->container->get('router');
-            $uri = $router->pathFor('login');
+            $uri = $this->router->pathFor('login');
 
             return $response->withHeader('Location', $uri);
         }

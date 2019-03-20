@@ -2,11 +2,9 @@
 
 namespace App\Middleware;
 
-use Interop\Container\Exception\ContainerException;
 use Odan\Session\SessionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Slim\Container;
 
 /**
  * Middleware.
@@ -14,18 +12,18 @@ use Slim\Container;
 class SessionMiddleware
 {
     /**
-     * @var Container
+     * @var SessionInterface
      */
-    protected $container;
+    protected $session;
 
     /**
      * Constructor.
      *
-     * @param Container $container
+     * @param SessionInterface $session
      */
-    public function __construct(Container $container)
+    public function __construct(SessionInterface $session)
     {
-        $this->container = $container;
+        $this->session = $session;
     }
 
     /**
@@ -35,16 +33,13 @@ class SessionMiddleware
      * @param  ResponseInterface $response PSR7 response
      * @param  callable $next Next middleware
      *
-     * @throws ContainerException
-     *
      * @return ResponseInterface PSR7 response
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next): ResponseInterface
     {
-        $session = $this->container->get(SessionInterface::class);
-        $session->start();
+        $this->session->start();
         $response = $next($request, $response);
-        $session->save();
+        $this->session->save();
 
         return $response;
     }

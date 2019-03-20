@@ -19,10 +19,14 @@ use Odan\Csrf\CsrfMiddleware;
 use Odan\Session\MemorySession;
 use Odan\Session\PhpSession;
 use Odan\Session\SessionInterface;
+use Odan\Twig\TwigAssetsExtension;
+use Odan\Twig\TwigTranslationExtension;
 use Psr\Container\ContainerInterface as Container;
 use Psr\Log\LoggerInterface;
 use Slim\Handlers\NotFound;
+use Slim\Http\Uri;
 use Slim\Views\Twig;
+use Slim\Views\TwigExtension;
 use Symfony\Component\Translation\Formatter\MessageFormatter;
 use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Loader\MoFileLoader;
@@ -125,10 +129,10 @@ $container[Twig::class] = function (Container $container) {
 
     // Add Slim specific extensions
     $router = $container->get('router');
-    $uri = \Slim\Http\Uri::createFromEnvironment($container->get('environment'));
-    $twig->addExtension(new \Slim\Views\TwigExtension($router, $uri));
-    $twig->addExtension(new \Odan\Twig\TwigAssetsExtension($twig->getEnvironment(), (array)$settings['assets']));
-    $twig->addExtension(new \Odan\Twig\TwigTranslationExtension());
+    $uri = Uri::createFromEnvironment($container->get('environment'));
+    $twig->addExtension(new TwigExtension($router, $uri));
+    $twig->addExtension(new TwigAssetsExtension($twig->getEnvironment(), (array)$settings['assets']));
+    $twig->addExtension(new TwigTranslationExtension());
 
     return $twig;
 };
@@ -173,19 +177,22 @@ $container[\Odan\Csrf\CsrfMiddleware::class] = function (Container $container) {
 };
 
 $container[AuthenticationMiddleware::class] = function (Container $container) {
-    return new AuthenticationMiddleware($container);
+    return new AuthenticationMiddleware(
+        $container->get('router'),
+        $container->get(Auth::class)
+    );
 };
 
 $container[SessionMiddleware::class] = function (Container $container) {
-    return new SessionMiddleware($container);
+    return new SessionMiddleware($container->get(SessionInterface::class));
 };
 
 $container[LanguageMiddleware::class] = function (Container $container) {
-    return new LanguageMiddleware($container);
+    return new LanguageMiddleware($container->get(Locale::class));
 };
 
-$container[CorsMiddleware::class] = function (Container $container) {
-    return new CorsMiddleware($container);
+$container[CorsMiddleware::class] = function () {
+    return new CorsMiddleware();
 };
 
 $container[Translator::class] = function (Container $container) {

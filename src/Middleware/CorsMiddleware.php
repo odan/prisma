@@ -4,28 +4,12 @@ namespace App\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Slim\Container;
 
 /**
  * CORS preflight middleware.
  */
 class CorsMiddleware
 {
-    /**
-     * @var Container
-     */
-    protected $container;
-
-    /**
-     * Constructor.
-     *
-     * @param Container $container
-     */
-    public function __construct(Container $container)
-    {
-        $this->container = $container;
-    }
-
     /**
      * Invoke middleware.
      *

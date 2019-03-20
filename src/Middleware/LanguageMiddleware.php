@@ -6,7 +6,6 @@ use App\Domain\User\Locale;
 use Interop\Container\Exception\ContainerException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Slim\Container;
 
 /**
  * Middleware.
@@ -14,18 +13,18 @@ use Slim\Container;
 class LanguageMiddleware
 {
     /**
-     * @var Container
+     * @var Locale
      */
-    protected $container;
+    protected $locale;
 
     /**
      * Constructor.
      *
-     * @param Container $container
+     * @param Locale $locale
      */
-    public function __construct(Container $container)
+    public function __construct(Locale $locale)
     {
-        $this->container = $container;
+        $this->locale = $locale;
     }
 
     /**
@@ -41,11 +40,9 @@ class LanguageMiddleware
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next): ResponseInterface
     {
-        $localisation = $this->container->get(Locale::class);
-
         // Get user language
-        $locale = $localisation->getLocale();
-        $domain = $localisation->getDomain();
+        $locale = $this->locale->getLocale();
+        $domain = $this->locale->getDomain();
 
         // Default language
         if (empty($locale)) {
@@ -54,7 +51,7 @@ class LanguageMiddleware
         }
 
         // Set language
-        $localisation->setLanguage($locale, $domain);
+        $this->locale->setLanguage($locale, $domain);
 
         return $next($request, $response);
     }
