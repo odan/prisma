@@ -3,15 +3,12 @@
 // Define the Slim application routes.
 
 use App\Middleware\AuthenticationMiddleware;
-use App\Middleware\CsrfAjaxMiddleware;
 use App\Middleware\LanguageMiddleware;
 use App\Middleware\SessionMiddleware;
+use Odan\Csrf\CsrfMiddleware;
 use Slim\App;
-use Slim\Csrf\Guard;
 
 /* @var App $app */
-$container = $app->getContainer();
-
 $app->any('/ping', \App\Action\HomePingAction::class);
 
 // Login, no auth check for this actions required
@@ -20,8 +17,8 @@ $app->group('/users', function () {
     $this->get('/login', \App\Action\UserLoginIndexAction::class)->setName('login');
     $this->get('/logout', \App\Action\UserLogoutAction::class);
 })
-    ->add($container->get(Guard::class))
-    ->add($container->get(SessionMiddleware::class));
+    ->add(SessionMiddleware::class)
+    ->add(CsrfMiddleware::class);
 
 // Routes with authentication
 $app->group('', function () {
@@ -41,8 +38,7 @@ $app->group('', function () {
     // Json request
     $this->post('/home/load', \App\Action\HomeLoadAction::class);
 })
-    ->add($container->get(LanguageMiddleware::class))
-    ->add($container->get(AuthenticationMiddleware::class))
-    ->add($container->get(Guard::class))
-    ->add($container->get(CsrfAjaxMiddleware::class))
-    ->add($container->get(SessionMiddleware::class));
+    ->add(LanguageMiddleware::class)
+    ->add(AuthenticationMiddleware::class)
+    ->add(CsrfMiddleware::class)
+    ->add(SessionMiddleware::class);
