@@ -546,9 +546,16 @@ This layer provides cohesive, high-level logic for related parts of an applicati
 
 The business logic should be placed in the service classes, and we should aim for a fat model layer and thin controller layer.
 
-Please don't prefix all service classes with `*Service`. A service class
-is not a "utility" class. Think of the [SRP](http://pragmaticcraftsman.com/2006/07/single-responsibility-principle/) 
-and give a service a single responsibility. To keep it simple: A service class should have only one public method.
+Please don't prefix all service classes with `*Service`. 
+A service class is not a "utility" class. 
+Think of the [SRP](http://pragmaticcraftsman.com/2006/07/single-responsibility-principle/) and give a service a "single responsibility". 
+A service classes can, and should, have several methods as long as they serve a narrow purpose. 
+This also encourages you to name your classes more specifically. Instead of a "User" god-class, 
+you might have a `UserRegistration` class with a few methods focusing on registration.
+
+> Q: Why would i change my UserRegistration class?<br>
+> A: Because I'm changing how I register a user<br>
+> A: And not because I'm changing how I assign a User to a Task. Because that's being handled by the UserTaskAssignment class.<br>
 
 ### Value Objects
 
