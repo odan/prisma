@@ -1,10 +1,10 @@
 theme: jekyll-theme-cayman
 
 # Name of your site (displayed in the header)
-name: Prisma PHP
+name: Prisma
 
 # Name of website (site.title)
-title: Prisma PHP
+title: Prisma
 
 # Short description of your site
 description: A Slim Framework 3 example application
