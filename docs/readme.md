@@ -311,11 +311,9 @@ class ExampleAction
       */
     protected $logger;
     
-    public function __construct(Container $container)
+    public function __construct(LoggerInterface $logger)
     {
-        // Fetch only dependencies you need for this action
-        $this->logger = $container->get(LoggerInterface::class);
-        // ...
+        $this->logger = $logger;
     }
     
     public function __invoke(Request $request, Response $response): ResponseInterface
@@ -325,7 +323,7 @@ class ExampleAction
 }
 ```
 
-This concept will produce more class files, but these classes have only one responsibility (SRP).
+This concept will produce more class files, but these action classes have only one responsibility (SRP).
 Refactoring action classes is very easy now, because the routes in `routes.php` make use of the `::class` constant. 
 
 ## Errors and logging
