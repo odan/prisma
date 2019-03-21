@@ -4,7 +4,7 @@
 
 use App\Middleware\AuthenticationMiddleware;
 use App\Middleware\LanguageMiddleware;
-use App\Middleware\SessionMiddleware;
+use Odan\Session\SessionMiddleware;
 use Odan\Csrf\CsrfMiddleware;
 use Slim\App;
 
