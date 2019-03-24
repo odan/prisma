@@ -41,8 +41,8 @@ class LanguageMiddleware
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next): ResponseInterface
     {
         // Get user language
-        $locale = $this->locale->getLocale();
-        $domain = $this->locale->getDomain();
+        $locale = $this->locale->getLocale() ?? '';
+        $domain = $this->locale->getDomain() ?? '';
 
         // Default language
         if (empty($locale)) {
