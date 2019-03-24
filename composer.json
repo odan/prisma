@@ -4,10 +4,7 @@
   "description": "A skeleton project for Slim 3",
   "keywords": [
     "slim",
-    "skeleton",
-    "framework",
-    "psr-7",
-    "middleware"
+    "skeleton"
   ],
   "homepage": "https://github.com/odan/prisma",
   "license": "MIT",
