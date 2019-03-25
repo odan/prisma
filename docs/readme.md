@@ -464,6 +464,12 @@ For more details how to build queries read the **[documentation](https://book.ca
 This skeleton project provides console access for **[Phinx](https://phinx.org/)** to 
 create database migrations. 
 
+**Some basics:**
+
+`Migrations` are for moving from schema to schema (and back, if possible).
+`Seeding` is the initial data setup. If you aren't at an initial (seed) state, you need a migration to change data.
+`Fixtures` are data for testing purposes.
+
 #### Generating a migration from a diff automatically
 
 ```bash
