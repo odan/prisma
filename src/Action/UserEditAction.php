@@ -2,9 +2,7 @@
 
 namespace App\Action;
 
-use App\Domain\User\User;
 use App\Domain\User\UserService;
-use Exception;
 use Odan\Session\SessionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -60,47 +58,19 @@ class UserEditAction implements ActionInterface
      * @param Response $response The response
      * @param mixed[] $args Arguments
      *
-     * @throws Exception
-     *
      * @return ResponseInterface The new response
      */
-    public function __invoke(Request $request, Response $response, array $args): ResponseInterface
+    public function __invoke(Request $request, Response $response, array $args = []): ResponseInterface
     {
-        $id = (int)$args['id'];
+        $userId = (int)$args['id'];
 
-        // Get all GET parameters
-        //$query = $request->getQueryParams();
-
-        // Get all POST/JSON parameters
-        //$post = $request->getParsedBody();
-
-        // Repository example
-        $user = $this->userService->getUserById($id);
-
-        // Insert a new user
-        $newUser = new User();
-        $newUser->setUsername('admin-' . uuid());
-        $newUser->setEnabled(true);
-        $this->userService->registerUser($newUser);
-
-        // Get new user
-        //$newUser = $this->userService->getUserById($userId);
-
-        // Session example
-        // Increment counter
-        $counter = $this->session->get('counter') ?? 0;
-        $this->session->set('counter', $counter++);
-
-        // Logger example
-        $this->logger->info('My log message');
+        $user = $this->userService->getUserById($userId);
 
         $viewData = [
             'id' => $user->getId(),
             'username' => $user->getUsername(),
-            'counter' => $counter,
         ];
 
-        // Render template
         return $this->twig->render($response, 'User/user-edit.twig', $viewData);
     }
 }

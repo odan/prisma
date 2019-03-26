@@ -29,6 +29,8 @@ $app->group('', function () {
 
     $this->get('/users', \App\Action\UserIndexAction::class);
 
+    $this->post('/users/list', \App\Action\UserListAction::class);
+
     // This route will only match if {id} is numeric
     $this->get('/users/{id:[0-9]+}', \App\Action\UserEditAction::class)->setName('users.edit');
 

@@ -255,4 +255,8 @@ $container[\App\Action\UserReviewAction::class] = function (Container $container
     return $container->get(ContainerFactory::class)->create(\App\Action\UserReviewAction::class);
 };
 
+$container[\App\Action\UserListAction::class] = function (Container $container) {
+    return $container->get(ContainerFactory::class)->create(\App\Action\UserListAction::class);
+};
+
 return $container;

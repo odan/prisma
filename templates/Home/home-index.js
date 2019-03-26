@@ -22,6 +22,25 @@ new Vue({
                 username: "max",
                 email: "max@example.com"
             };
+/*
+            const data = {
+                username: "max2003",
+                email: "max@example.com"
+            };
+
+            $.ajax({
+                url: 'users',
+                type: "POST",
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(data)
+            }).done(function (data) {
+                alert('Success');
+            }).fail(function (xhr) {
+                alert('Server error');
+            });
+*/
+
 
             ajax.post($d.getBaseUrl("home/load"), params).done(function (data) {
                 $d.hideLoad();
@@ -45,6 +64,9 @@ new Vue({
                 $data.message = message;
                 ajax.handleError(xhr);
             });
+
+
+
         },
         test: function (msg) {
             alert(msg);

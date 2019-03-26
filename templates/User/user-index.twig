@@ -1,23 +1,44 @@
 {% extends "Layout/layout.twig" %}
 
+{% block assets %}
+    {{ assets({files: [
+        '@public/js/jquery.dataTables.min.js',
+        '@public/js/dataTables.buttons.js',
+        '@public/js/dataTables.bootstrap4.min.js',
+        '@public/js/buttons.bootstrap4.min.js',
+    ], name: 'datatable.js'}) }}
+
+    {{ assets({files: [
+        'User/user-index.js',
+    ], name: 'user-index.js'}) }}
+
+    {{ assets({files: [
+        '@public/css/dataTables.bootstrap4.min.css',
+        '@public/css/buttons.bootstrap4.min.css',
+    ], name: 'datatable.css'}) }}
+{% endblock %}
+
 {% block content %}
     <div id="content" class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>{{ __('Users index') }}</h1>
-                <ul>
-                    {% for user in users %}
-                        <li>
-                            <i class="fas fa-user"></i>
-                            <a href="{{ path_for('users.edit', {id: user.id}) }}">{{ user.username }} {{ user.firstName }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-                {% if users|length > 1 %}
-                    {{ users|length }} {{ __('Users') }}
-                {% else %}
-                    {{ users|length }} {{ __('User') }}
-                {% endif %}
+                <h1>{{ __('User list') }}</h1>
+                <button id="add-user" type="button" class="btn btn-primary">{{ __('Add user') }}</button>
+                <hr>
+                <table id="data-table" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed">
+                    <thead>
+                    <tr>
+                        <th>username</th>
+                        <th>email</th>
+                        <th>first_name</th>
+                        <th>last_name</th>
+                        <th>role date</th>
+                        <th>enabled</th>
+                        <th>created_at</th>
+                    </tr>
+                    <tfoot></tfoot>
+                </table>
+                <p></p>
             </div>
         </div>
     </div>
