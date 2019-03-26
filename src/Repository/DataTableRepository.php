@@ -150,17 +150,19 @@ class DataTableRepository extends BaseRepository
     {
         $query = $this->newSelect('information_schema.columns');
         $query->select(['column_name', 'data_type', 'character_maximum_length']);
-        $query->andWhere(['table_schema' => $query->newExpr('DATABASE()')]);
-        $query->andWhere(['table_name' => $table]);
+        $query->andWhere([
+            'table_schema' => $query->newExpr('DATABASE()'),
+            'table_name' => $table,
+        ]);
 
-        if (!$rows = $query->execute()->fetchAll('assoc')) {
-            throw new RuntimeException(__('No table fields found'));
+        $rows = $query->execute()->fetchAll('assoc');
+        if (empty($rows)) {
+            throw new RuntimeException(__('Columns not found in table: %s', $table));
         }
 
         $result = [];
         foreach ($rows as $row) {
-            $field = $row['column_name'];
-            $result[$field] = $row;
+            $result[$row['column_name']] = $row;
         }
 
         return $result;
