@@ -49,7 +49,7 @@ class ParseTextCommand extends AbstractCommand
         '.csv' => 'Csv',
         '.jed.json' => 'Jed',
         '.js' => 'JsCode',
-        '.json' => 'Json',
+        //'.json' => 'Json',
         '.mo' => 'Mo',
         '.php' => ['PhpCode', 'PhpArray'],
         '.po' => 'Po',
