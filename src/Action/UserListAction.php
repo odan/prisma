@@ -37,7 +37,7 @@ class UserListAction implements ActionInterface
      */
     public function __invoke(Request $request, Response $response): ResponseInterface
     {
-        $params = $request->getParsedBody();
+        $params = (array)$request->getParsedBody();
         $result = $this->service->listAllUsers($params);
 
         return $response->withJson($result);

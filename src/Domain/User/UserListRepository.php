@@ -40,8 +40,6 @@ class UserListRepository extends BaseRepository
         $query = $this->newSelect('users');
         $query->select(['users.*']);
 
-        $result = $this->dataTable->load($query, $params);
-
-        return $result;
+        return $this->dataTable->load($query, $params);
     }
 }

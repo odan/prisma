@@ -2,6 +2,9 @@
 
 namespace App\Domain\User;
 
+/**
+ * Service.
+ */
 class UserList
 {
     /**
@@ -28,8 +31,6 @@ class UserList
      */
     public function listAllUsers(array $params): array
     {
-        $result = $this->repository->getTableData($params);
-
-        return $result;
+        return $this->repository->getTableData($params);
     }
 }

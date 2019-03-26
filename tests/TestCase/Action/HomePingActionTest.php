@@ -17,7 +17,6 @@ class HomePingActionTest extends ApiTestCase
      * @throws \Slim\Exception\NotFoundException
      *
      * @return void
-     * @covers ::__construct
      * @covers ::__invoke
      */
     public function testPing(): void

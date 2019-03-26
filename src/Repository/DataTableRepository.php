@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use Cake\Database\Expression\QueryExpression;
 use Cake\Database\Query;
+use RuntimeException;
 
 /**
  * Repository.
@@ -56,52 +58,111 @@ class DataTableRepository extends BaseRepository
      *
      * @return Query Query
      */
-    public function buildQuery(Query $query, array $params): Query
+    protected function buildQuery(Query $query, array $params): Query
     {
-        return $query;
+        $order = (array)($params['order'] ?? []);
+        $searchValue = trim($params['search']['value'] ?? '');
+        $columns = (array)($params['columns'] ?? []);
+        $table = (string)$query->clause('from')[0];
+        $fields = $this->getTableFields($table);
 
-        $sortDirection = $params['options']['sortDirection'] ?? 'asc';
-        $sortProperty = gv($params['options'], 'sortProperty', '');
-        $sortFlag = gv($params['options'], 'sortFlag', 'natural');
-        $search = gv($params['options'], 'search', '');
-        $joins = gv($params['options'], 'joins', []);
+        if ($searchValue !== '') {
+            $orConditions = [];
 
-        $fields = [];
-        if (!empty($params['columns'])) {
-            foreach ($params['columns'] as $column) {
-                if (empty($column['sortfield'])) {
-                    $fieldName = $column['property'];
-                } else {
-                    $fieldName = $column['sortfield'];
-                }
-                if (!isset($fieldName)) {
-                    continue;
-                }
-
-                $fields[] = $this->getFieldName($fieldName);
+            foreach ($columns as $columnItem) {
+                $searchField = (string)$columnItem['data'];
+                $searchField = $this->getFieldName($table, $searchField, $fields);
+                $orConditions[$searchField . ' LIKE'] = '%' . $this->escapeLike($searchValue) . '%';
             }
 
-            $query->select($fields);
-        }
-        if (trim($search) != '') {
-            $query = $this->getConditions($query, $params);
+            $query->andWhere(function (QueryExpression $exp) use ($orConditions) {
+                return $exp->or_($orConditions);
+            });
         }
 
-        if (!empty($sortProperty)) {
-            // natural, numeric, regular, string
-            if ($sortFlag == 'numeric') {
-                $sortProperty = $this->getFieldName($sortProperty) . ' + 0';
-            } else {
-                $sortProperty = $this->getFieldName($sortProperty);
-            }
-            if ($sortDirection == 'asc') {
-                $query->order($sortProperty);
-            }
-            if ($sortDirection == 'desc') {
-                $query->orderDesc($sortProperty);
+        if (!empty($order)) {
+            foreach ($order as $orderItem) {
+                $columnIndex = $orderItem['column'];
+                $columnName = $columns[$columnIndex]['data'];
+                $columnName = $this->getFieldName($table, $columnName, $fields);
+                $dir = $orderItem['dir'];
+
+                if ($dir === 'asc') {
+                    $query->order($columnName);
+                }
+                if ($dir === 'desc') {
+                    $query->orderDesc($columnName);
+                }
             }
         }
 
         return $query;
+    }
+
+    /**
+     * Escape like string.
+     *
+     * @param string $value the string to escape for a like query
+     *
+     * @throws RuntimeException
+     *
+     * @return string the escaped string
+     */
+    protected function escapeLike(string $value): string
+    {
+        $result = str_replace(['%', '_'], ['\%', '\_'], $value);
+
+        if (!is_string($result)) {
+            throw new RuntimeException('Escaping query failed');
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get query field name.
+     *
+     * @param string $table table name
+     * @param string $field field name
+     * @param array $fields table fields
+     *
+     * @return string full field name
+     */
+    protected function getFieldName(string $table, string $field, array $fields): string
+    {
+        if (isset($fields[$field]) && strpos($field, '.') === false) {
+            $field = "$table.$field";
+        }
+
+        return $field;
+    }
+
+    /**
+     * Get table fields.
+     *
+     * @param string $table Table name
+     *
+     * @throws RuntimeException
+     *
+     * @return array Fields
+     */
+    protected function getTableFields(string $table): array
+    {
+        $query = $this->newSelect('information_schema.columns');
+        $query->select(['column_name', 'data_type', 'character_maximum_length']);
+        $query->andWhere(['table_schema' => $query->newExpr('DATABASE()')]);
+        $query->andWhere(['table_name' => $table]);
+
+        if (!$rows = $query->execute()->fetchAll('assoc')) {
+            throw new RuntimeException(__('No table fields found'));
+        }
+
+        $result = [];
+        foreach ($rows as $row) {
+            $field = $row['column_name'];
+            $result[$field] = $row;
+        }
+
+        return $result;
     }
 }
