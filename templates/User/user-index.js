@@ -1,26 +1,26 @@
-$(function() {
-    $('#add-user').on('click', function() {
+$(function () {
+    $('#add-user').on('click', function () {
         alert('click');
     });
 
-    $('#data-table').DataTable( {
-        "processing": true,
-        "serverSide": true,
-        "language": {
-            "url": __("js/datatable-german.json")
+    $('#data-table').DataTable({
+        'processing': true,
+        'serverSide': true,
+        'language': {
+            'url': __('js/datatable-english.json')
         },
-        "ajax": {
+        'ajax': {
             'url': 'users/list',
             'type': 'POST'
         },
-        "columns": [
-            { "data": "username" },
-            { "data": "email" },
-            { "data": "first_name" },
-            { "data": "last_name" },
-            { "data": "role" },
-            { "data": "enabled" },
-            { "data": "created_at" }
+        'columns': [
+            {'data': 'username'},
+            {'data': 'email'},
+            {'data': 'first_name'},
+            {'data': 'last_name'},
+            {'data': 'role'},
+            {'data': 'enabled'},
+            {'data': 'created_at'}
         ]
-    } );
-} );
+    });
+});

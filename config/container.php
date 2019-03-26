@@ -143,6 +143,7 @@ $container['globalText'] = function () {
         'Cancel' => __('Cancel'),
         'Yes' => __('Yes'),
         'No' => __('No'),
+        'js/datatable-english.json' => __('js/datatable-english.json'),
     ];
 };
 
@@ -164,7 +165,8 @@ $container[Locale::class] = function (Container $container) {
 
 $container[\Odan\Csrf\CsrfMiddleware::class] = function (Container $container) {
     $session = $container->get(SessionInterface::class);
-    $csrf = new \Odan\Csrf\CsrfMiddleware($session->getId());
+    $sessionId = PHP_SAPI === 'cli' ? 'cli' : $session->getId();
+    $csrf = new \Odan\Csrf\CsrfMiddleware($sessionId);
 
     // optional settings
     $settings = $container->get('settings')['csrf'];
@@ -177,10 +179,7 @@ $container[\Odan\Csrf\CsrfMiddleware::class] = function (Container $container) {
 };
 
 $container[AuthenticationMiddleware::class] = function (Container $container) {
-    return new AuthenticationMiddleware(
-        $container->get('router'),
-        $container->get(Auth::class)
-    );
+    return new AuthenticationMiddleware($container->get('router'), $container->get(Auth::class));
 };
 
 $container[SessionMiddleware::class] = function (Container $container) {
@@ -197,11 +196,8 @@ $container[CorsMiddleware::class] = function () {
 
 $container[Translator::class] = function (Container $container) {
     $settings = $container->get('settings')['locale'];
-    $translator = new Translator(
-        $settings['locale'],
-        new MessageFormatter(new IdentityTranslator()),
-        $settings['cache']
-    );
+    $translator = new Translator($settings['locale'], new MessageFormatter(new IdentityTranslator()),
+        $settings['cache']);
     $translator->addLoader('mo', new MoFileLoader());
 
     return $translator;
