@@ -124,6 +124,4 @@ $settings['smtp'] = [
 $settings['commands'] = [
     \App\Console\ExampleCommand::class,
     \App\Console\InstallCommand::class,
-    \App\Console\ResetDatabaseCommand::class,
-    \App\Console\ParseTextCommand::class,
 ];
