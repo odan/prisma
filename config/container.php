@@ -143,6 +143,7 @@ $container['globalText'] = function () {
         'Cancel' => __('Cancel'),
         'Yes' => __('Yes'),
         'No' => __('No'),
+        'Edit' => __('Edit'),
         'js/datatable-english.json' => __('js/datatable-english.json'),
     ];
 };
@@ -196,8 +197,11 @@ $container[CorsMiddleware::class] = function () {
 
 $container[Translator::class] = function (Container $container) {
     $settings = $container->get('settings')['locale'];
-    $translator = new Translator($settings['locale'], new MessageFormatter(new IdentityTranslator()),
-        $settings['cache']);
+    $translator = new Translator(
+        $settings['locale'],
+        new MessageFormatter(new IdentityTranslator()),
+        $settings['cache']
+    );
     $translator->addLoader('mo', new MoFileLoader());
 
     return $translator;

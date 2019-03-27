@@ -25,10 +25,10 @@ class DataTableRepository extends BaseRepository
 
         $countQuery = clone $query;
         $countQuery->select(['count' => $countQuery->func()->count('*')], true);
-        $countRows = $countQuery->execute()->fetchAll('assoc');
+        $countRows = $countQuery->execute()->fetchAll('assoc') ?: [];
 
         $count = 0;
-        foreach ($countRows ?: [] as $countRow) {
+        foreach ($countRows as $countRow) {
             $count += $countRow['count'] ?: 0;
         }
 
@@ -68,11 +68,17 @@ class DataTableRepository extends BaseRepository
 
         if ($searchValue !== '') {
             $orConditions = [];
+            $searchValue = $this->escapeLike($searchValue);
 
             foreach ($columns as $columnItem) {
                 $searchField = (string)$columnItem['data'];
+
+                if ($searchField === '' || empty($columnItem['searchable'])) {
+                    continue;
+                }
+
                 $searchField = $this->getFieldName($table, $searchField, $fields);
-                $orConditions[$searchField . ' LIKE'] = '%' . $this->escapeLike($searchValue) . '%';
+                $orConditions[$searchField . ' LIKE'] = '%' . $searchValue . '%';
             }
 
             $query->andWhere(function (QueryExpression $exp) use ($orConditions) {

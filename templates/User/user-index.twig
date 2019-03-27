@@ -3,9 +3,7 @@
 {% block assets %}
     {{ assets({files: [
         '@public/js/jquery.dataTables.min.js',
-        '@public/js/dataTables.buttons.js',
         '@public/js/dataTables.bootstrap4.min.js',
-        '@public/js/buttons.bootstrap4.min.js',
     ], name: 'datatable.js'}) }}
 
     {{ assets({files: [
@@ -14,7 +12,6 @@
 
     {{ assets({files: [
         '@public/css/dataTables.bootstrap4.min.css',
-        '@public/css/buttons.bootstrap4.min.css',
     ], name: 'datatable.css'}) }}
 {% endblock %}
 
@@ -35,6 +32,7 @@
                         <th>{{ __('Role') }}</th>
                         <th>{{ __('Enabled') }}</th>
                         <th>{{ __('Created at') }}</th>
+                        <th>{{ __('Action') }}</th>
                     </tr>
                     <tfoot></tfoot>
                 </table>

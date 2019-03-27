@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2018-03-04T21:03:24+01:00\n"
-"PO-Revision-Date: 2019-03-26 14:40+0100\n"
+"PO-Revision-Date: 2019-03-27 11:00+0100\n"
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Poedit 1.8.11\n"
@@ -128,6 +128,15 @@ msgstr "Aktiviert"
 msgid "Created at"
 msgstr "Erstellt am"
 
+#: tmp/twig-cache\67\67f1da55a6f007de3845dc3352441a295c814084495d5ac6a75d5e5f62cf59bf.php:116
+#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:139
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:124
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:77
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:126
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:209
+msgid "Action"
+msgstr "Aktion"
+
 #: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:40
 #: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:28
 #: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:28
@@ -187,14 +196,6 @@ msgstr "Deaktiviert"
 msgid "Dropdown"
 msgstr "Dropdown"
 
-#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:139
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:124
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:77
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:126
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:209
-msgid "Action"
-msgstr "Aktion"
-
 #: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:143
 #: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:128
 #: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:81
@@ -230,6 +231,10 @@ msgstr "Logout"
 #: templates\User\user-index.js:10
 msgid "js/datatable-english.json"
 msgstr "js/datatable-german.json"
+
+#: templates\User\user-index.js:29
+msgid "Edit"
+msgstr "Bearbeiten"
 
 #: tmp/twig-cache\dd\dd48ccb7a4aa99212243bf9afaf802d148545811c972ca9d245a1002265178c0.php:49
 #: tmp/twig-cache\dd\dd48ccb7a4aa99212243bf9afaf802d148545811c972ca9d245a1002265178c0.php:81
@@ -313,6 +318,7 @@ msgstr "Ungültige oder leere User-ID"
 msgid "User not found: %s"
 msgstr "Benutzer nicht gefunden: %s"
 
+#: src\Repository\DataTableRepository.php:166
 #: src\Repository\DataTableRepository.php:160
 msgid "Columns not found in table: %s"
 msgstr "Keine Felder gefunden in der Tabelle: %s"

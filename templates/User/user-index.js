@@ -3,7 +3,7 @@ $(function () {
         alert('click');
     });
 
-    $('#data-table').DataTable({
+    var table = $('#data-table').DataTable({
         'processing': true,
         'serverSide': true,
         'language': {
@@ -20,7 +20,20 @@ $(function () {
             {'data': 'last_name'},
             {'data': 'role'},
             {'data': 'enabled'},
-            {'data': 'created_at'}
-        ]
+            {'data': 'created_at'},
+            {
+                'orderable': false,
+                'searchable': false,
+                'data': null,
+                'render': function (data, type, row, meta) {
+                    return '<button type="button" class="btn btn-info">' + gh(__('Edit')) + '</button>';
+                }
+            }
+        ],
+    });
+
+    $('#data-table tbody').on('click', 'button', table, function () {
+        const data = table.row($(this).parents('tr')).data();
+        alert('Edit user: ' + data.id);
     });
 });
