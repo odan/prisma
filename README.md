@@ -52,8 +52,8 @@ This project comes configured with:
 * Unit tests
 * Integration tests (http and database)
 * PHPStan
-* Code style checker and fixer (PSR-1, PSR-2, PSR-5, PSR-12)
-* DocBlock checker
+* Code style checker and fixer (PSR-1, PSR-2, PSR-12)
+* DocBlock checker (PSR-5)
 * Ant scripts
 * Deployment scripts
 
