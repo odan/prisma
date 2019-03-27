@@ -22,6 +22,7 @@ class DataSeed extends AbstractSeed
                 'email' => 'admin@example.com',
                 'role' => 'ROLE_ADMIN',
                 'locale' => 'en_US',
+                'enabled' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
             ],[
                 'id'    => '2',
@@ -30,6 +31,7 @@ class DataSeed extends AbstractSeed
                 'email' => 'user@example.com',
                 'role' => 'ROLE_USER',
                 'locale' => 'de_DE',
+                'enabled' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
             ]
         ];

@@ -19,7 +19,7 @@ class AuthRepository extends BaseRepository
     public function findUserByUsername(string $username): array
     {
         $query = $this->newSelect('users')->select('*');
-        $query->andWhere(['username' => $username, 'enabled' => 0]);
+        $query->andWhere(['username' => $username, 'enabled' => 1]);
 
         $row = $query->execute()->fetch('assoc');
 
