@@ -2,6 +2,7 @@
 
 namespace App\Test\TestCase;
 
+use App\Factory\ContainerFactory;
 use Cake\Database\Connection;
 use PDO;
 use ReflectionException;
@@ -73,6 +74,20 @@ class DbTestCase extends TestCase
     public function getPdo(): PDO
     {
         return $this->getConnection()->getDriver()->getConnection();
+    }
+
+    /**
+     * Create a new instance.
+     *
+     * @param string $class class name
+     *
+     * @throws ReflectionException
+     *
+     * @return mixed object
+     */
+    protected function createInstance(string $class)
+    {
+        return $this->getContainer()->get(ContainerFactory::class)->create($class);
     }
 
     /**

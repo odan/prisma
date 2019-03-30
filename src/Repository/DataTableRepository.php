@@ -9,8 +9,23 @@ use RuntimeException;
 /**
  * Repository.
  */
-class DataTableRepository extends BaseRepository
+class DataTableRepository implements RepositoryInterface
 {
+    /**
+     * @var QueryFactory
+     */
+    protected $queryFactory;
+
+    /**
+     * Constructor.
+     *
+     * @param QueryFactory $queryFactory the query factory
+     */
+    public function __construct(QueryFactory $queryFactory)
+    {
+        $this->queryFactory = $queryFactory;
+    }
+
     /**
      * Load data table items.
      *
@@ -54,9 +69,9 @@ class DataTableRepository extends BaseRepository
      * https://datatables.net/manual/server-side
      *
      * @param array $params params
-     * @param Query $query
+     * @param Query $query query
      *
-     * @return Query Query
+     * @return Query query
      */
     protected function buildQuery(Query $query, array $params): Query
     {
@@ -154,7 +169,7 @@ class DataTableRepository extends BaseRepository
      */
     protected function getTableFields(string $table): array
     {
-        $query = $this->newSelect('information_schema.columns');
+        $query = $this->queryFactory->newSelect('information_schema.columns');
         $query->select(['column_name', 'data_type', 'character_maximum_length']);
         $query->andWhere([
             'table_schema' => $query->newExpr('DATABASE()'),

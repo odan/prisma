@@ -10,6 +10,8 @@ use App\Middleware\AuthenticationMiddleware;
 use App\Middleware\CorsMiddleware;
 use App\Middleware\LanguageMiddleware;
 use App\Middleware\ErrorHandler;
+use App\Repository\QueryFactory;
+use Cake\Chronos\Chronos;
 use Cake\Database\Connection;
 use Cake\Database\Driver\Mysql;
 use Monolog\Handler\RotatingFileHandler;
@@ -212,12 +214,46 @@ $container[Auth::class] = function (Container $container) {
 };
 
 $container[AuthRepository::class] = function (Container $container) {
-    return new AuthRepository($container->get(Connection::class));
+    return new AuthRepository($container->get(QueryFactory::class));
+};
+
+$container[QueryFactory::class] = function (Container $container) {
+    $queryFactory = new QueryFactory($container->get(Connection::class));
+
+    $queryFactory->beforeUpdate(static function (array $row) use ($container) {
+        if (!isset($row['updated_at'])) {
+            $row['updated_at'] = Chronos::now()->toDateTimeString();
+        }
+
+        if ($this->auth !== null && !isset($row['updated_user_id'])) {
+            $row['updated_user_id'] = $container->get(Auth::class)->getUserId();
+        }
+
+        return $row;
+    });
+
+    $queryFactory->beforeInsert(static function (array $row) use ($container) {
+        if (!isset($row['created_at'])) {
+            $row['created_at'] = Chronos::now()->toDateTimeString();
+        }
+
+        if (!isset($row['created_user_id'])) {
+            $row['created_user_id'] = $container->get(Auth::class)->getUserId();
+        }
+
+        return $row;
+    });
+
+    return $queryFactory;
 };
 
 $container[ContainerFactory::class] = function (Container $container) {
     return new ContainerFactory($container);
 };
+
+//
+// Actions
+//
 
 $container[\App\Action\HomeIndexAction::class] = function (Container $container) {
     return $container->get(ContainerFactory::class)->create(\App\Action\HomeIndexAction::class);

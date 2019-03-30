@@ -2,13 +2,29 @@
 
 namespace App\Domain\User;
 
-use App\Repository\BaseRepository;
+use App\Repository\QueryFactory;
+use App\Repository\RepositoryInterface;
 
 /**
  * Repository.
  */
-class AuthRepository extends BaseRepository
+class AuthRepository implements RepositoryInterface
 {
+    /**
+     * @var QueryFactory
+     */
+    protected $queryFactory;
+
+    /**
+     * Constructor.
+     *
+     * @param QueryFactory $queryFactory the query factory
+     */
+    public function __construct(QueryFactory $queryFactory)
+    {
+        $this->queryFactory = $queryFactory;
+    }
+
     /**
      * Find active user by username.
      *
@@ -18,11 +34,9 @@ class AuthRepository extends BaseRepository
      */
     public function findUserByUsername(string $username): array
     {
-        $query = $this->newSelect('users')->select('*');
+        $query = $this->queryFactory->newSelect('users')->select('*');
         $query->andWhere(['username' => $username, 'enabled' => 1]);
 
-        $row = $query->execute()->fetch('assoc');
-
-        return $row ?: [];
+        return $query->execute()->fetch('assoc') ?: [];
     }
 }

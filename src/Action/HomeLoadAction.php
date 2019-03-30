@@ -3,6 +3,7 @@
 namespace App\Action;
 
 use App\Domain\User\Auth;
+use App\Domain\User\User;
 use App\Domain\User\UserService;
 use Cake\Chronos\Chronos;
 use Psr\Http\Message\ResponseInterface;
@@ -48,6 +49,11 @@ class HomeLoadAction implements ActionInterface
     {
         $userId = $this->auth->getUserId();
         $user = $this->userService->getUserById($userId);
+
+        $userX = new User();
+        $userX->setUsername('xxx' . mt_rand(100, 999999999));
+        $userX->setEmail('x@x.com');
+        $userId = $this->userService->registerUser($userX);
 
         $result = [
             'message' => __('Loaded successfully!'),

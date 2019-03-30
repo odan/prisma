@@ -2,15 +2,39 @@
 
 namespace App\Domain\User;
 
-use App\Repository\BaseRepository;
+use App\Repository\TableRepository;
+use App\Repository\QueryFactory;
+use App\Repository\RepositoryInterface;
 use DomainException;
 use InvalidArgumentException;
 
 /**
  * Repository.
  */
-class UserRepository extends BaseRepository
+class UserRepository implements RepositoryInterface
 {
+    /**
+     * @var QueryFactory
+     */
+    protected $queryFactory;
+
+    /**
+     * @var TableRepository
+     */
+    protected $tableRepository;
+
+    /**
+     * Constructor.
+     *
+     * @param QueryFactory $queryFactory the query factory
+     * @param TableRepository $tableRepository table repository
+     */
+    public function __construct(QueryFactory $queryFactory, TableRepository $tableRepository)
+    {
+        $this->queryFactory = $queryFactory;
+        $this->tableRepository = $tableRepository;
+    }
+
     /**
      * Find all users.
      *
@@ -18,7 +42,7 @@ class UserRepository extends BaseRepository
      */
     public function findAll(): array
     {
-        return $this->fetchAll('users');
+        return $this->tableRepository->fetchAll('users');
     }
 
     /**
@@ -30,7 +54,7 @@ class UserRepository extends BaseRepository
      *
      * @return array The row
      */
-    public function getById(int $userId): array
+    public function getUserById(int $userId): array
     {
         $row = $this->findUserById($userId);
 
@@ -50,7 +74,7 @@ class UserRepository extends BaseRepository
      */
     public function findUserById(int $userId): array
     {
-        return $this->fetchById('users', $userId);
+        return $this->tableRepository->fetchById('users', $userId);
     }
 
     /**
@@ -67,7 +91,7 @@ class UserRepository extends BaseRepository
             throw new InvalidArgumentException('User ID required');
         }
 
-        $this->newUpdate('users', $data)->andWhere(['id' => $data['id']])->execute();
+        $this->queryFactory->newUpdate('users', $data)->andWhere(['id' => $data['id']])->execute();
 
         return true;
     }
@@ -81,7 +105,7 @@ class UserRepository extends BaseRepository
      */
     public function insertUser(array $data): int
     {
-        return (int)$this->newInsert('users', $data)->execute()->lastInsertId();
+        return (int)$this->queryFactory->newInsert('users', $data)->execute()->lastInsertId();
     }
 
     /**
@@ -93,7 +117,7 @@ class UserRepository extends BaseRepository
      */
     public function deleteUser(int $userId): bool
     {
-        $this->newDelete('users')->andWhere(['id' => $userId])->execute();
+        $this->queryFactory->newDelete('users')->andWhere(['id' => $userId])->execute();
 
         return true;
     }

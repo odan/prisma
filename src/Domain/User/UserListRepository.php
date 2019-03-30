@@ -2,15 +2,20 @@
 
 namespace App\Domain\User;
 
-use App\Repository\BaseRepository;
 use App\Repository\DataTableRepository;
-use Cake\Database\Connection;
+use App\Repository\QueryFactory;
+use App\Repository\RepositoryInterface;
 
 /**
  * Repository.
  */
-class UserListRepository extends BaseRepository
+class UserListRepository implements RepositoryInterface
 {
+    /**
+     * @var QueryFactory
+     */
+    protected $queryFactory;
+
     /**
      * @var DataTableRepository
      */
@@ -19,12 +24,12 @@ class UserListRepository extends BaseRepository
     /**
      * Constructor.
      *
-     * @param Connection $connection
+     * @param QueryFactory $queryFactory query factory
      * @param DataTableRepository $dataTableRepository The repository
      */
-    public function __construct(Connection $connection, DataTableRepository $dataTableRepository)
+    public function __construct(QueryFactory $queryFactory, DataTableRepository $dataTableRepository)
     {
-        parent::__construct($connection);
+        $this->queryFactory = $queryFactory;
         $this->dataTable = $dataTableRepository;
     }
 
@@ -37,7 +42,7 @@ class UserListRepository extends BaseRepository
      */
     public function getTableData(array $params): array
     {
-        $query = $this->newSelect('users');
+        $query = $this->queryFactory->newSelect('users');
         $query->select(['users.*']);
 
         return $this->dataTable->load($query, $params);

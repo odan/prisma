@@ -2,10 +2,12 @@
 
 namespace App\Domain\User;
 
+use App\Service\ServiceInterface;
+
 /**
  * Service.
  */
-class UserList
+class UserList implements ServiceInterface
 {
     /**
      * @var UserListRepository

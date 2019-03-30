@@ -20,7 +20,7 @@ class UserRepositoryTest extends DbTestCase
      */
     protected function createRepository(): UserRepository
     {
-        return new UserRepository($this->getConnection());
+        return $this->createInstance(UserRepository::class);
     }
 
     /**

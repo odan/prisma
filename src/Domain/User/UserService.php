@@ -2,10 +2,12 @@
 
 namespace App\Domain\User;
 
+use App\Service\ServiceInterface;
+
 /**
  * Service.
  */
-class UserService
+class UserService implements ServiceInterface
 {
     /**
      * @var UserRepository
@@ -25,7 +27,7 @@ class UserService
     /**
      * Find all users.
      *
-     * @return User[]
+     * @return User[] Array of users
      */
     public function findAllUsers(): array
     {
@@ -47,7 +49,7 @@ class UserService
      */
     public function getUserById(int $userId): User
     {
-        $row = $this->userRepository->getById($userId);
+        $row = $this->userRepository->getUserById($userId);
 
         return User::fromArray($row);
     }
@@ -76,7 +78,7 @@ class UserService
     }
 
     /**
-     * Register new user.
+     * Delete user.
      *
      * @param int $userId The user ID
      *
