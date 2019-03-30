@@ -50,11 +50,6 @@ class HomeLoadAction implements ActionInterface
         $userId = $this->auth->getUserId();
         $user = $this->userService->getUserById($userId);
 
-        $userX = new User();
-        $userX->setUsername('xxx' . mt_rand(100, 999999999));
-        $userX->setEmail('x@x.com');
-        $userId = $this->userService->registerUser($userX);
-
         $result = [
             'message' => __('Loaded successfully!'),
             'now' => Chronos::now()->toDateTimeString(),
