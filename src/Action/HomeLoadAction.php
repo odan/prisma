@@ -3,7 +3,6 @@
 namespace App\Action;
 
 use App\Domain\User\Auth;
-use App\Domain\User\User;
 use App\Domain\User\UserService;
 use Cake\Chronos\Chronos;
 use Psr\Http\Message\ResponseInterface;
