@@ -66,7 +66,7 @@ This project comes configured with:
 
 ## Recommended
 
-* NPM (Node.js)
+* NPM
 
 ## Installation
 
