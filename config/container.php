@@ -225,7 +225,7 @@ $container[QueryFactory::class] = function (Container $container) {
             $row['updated_at'] = Chronos::now()->toDateTimeString();
         }
 
-        if ($this->auth !== null && !isset($row['updated_user_id'])) {
+        if (!isset($row['updated_user_id'])) {
             $row['updated_user_id'] = $container->get(Auth::class)->getUserId();
         }
 
