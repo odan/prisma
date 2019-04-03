@@ -47,6 +47,6 @@
   },
   "scripts": {
     "test": "phpunit --configuration ./phpunit.xml",
-    "test-coverage": "phpunit --configuration ./phpunit.xml --coverage-text --coverage-clover ./build/logs/clover.xml --coverage-html ./build/coverage",
+    "test-coverage": "phpunit --configuration ./phpunit.xml --coverage-text --coverage-clover ./build/logs/clover.xml --coverage-html ./build/coverage"
   }
 }
