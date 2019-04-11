@@ -23,8 +23,8 @@ $.fn.homeIndex = function () {
             });
 
             // set data
-            const template = $('#user-template').html();
-            $this.html($d.template(template, data));
+            const userTemplate = $('#user-template').html();
+            $this.html($d.template(userTemplate, data));
 
         }).fail(function (xhr) {
             $d.hideLoad();
