@@ -22,7 +22,7 @@ $.fn.homeIndex = function () {
                 position: 'center'
             });
 
-            // set data
+            // render template
             const userTemplate = $('#user-template').html();
             $this.html($d.template(userTemplate, data));
 
