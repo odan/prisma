@@ -42,8 +42,6 @@ This project comes configured with:
 * Twig (slim/twig-view)
 * Assets (js, css) minification and caching
 * Twig translations
-* Vue.js
-* Vue.js translations
 
 **Continous integration:**
 

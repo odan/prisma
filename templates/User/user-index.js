@@ -3,7 +3,7 @@ $(function () {
         alert('click');
     });
 
-    var table = $('#data-table').DataTable({
+    const table = $('#data-table').DataTable({
         'processing': true,
         'serverSide': true,
         'language': {

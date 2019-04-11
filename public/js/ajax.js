@@ -1,7 +1,7 @@
 //
 // Ajax and REST
 //
-var ajax = {};
+let ajax = {};
 
 /**
  * Ajax POST request
@@ -54,7 +54,7 @@ ajax.handleError = function (xhr) {
         return false;
     }
 
-    var message = null;
+    let message = null;
 
     if (xhr.responseJSON) {
         if ('message' in xhr.responseJSON) {

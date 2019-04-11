@@ -11,123 +11,64 @@ msgstr ""
 "PO-Revision-Date: 2019-03-27 11:00+0100\n"
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.8.11\n"
 
-#: tmp/twig-cache\43\43660d601001bd5910fe32e9e64eef965cf055319b6109646a41fcc7b8183da1.php:52
-#: tmp/twig-cache\64\64d3d1525811e81ff6b090642fa38d6748cdee16d9e40fa8ae98283503b6e795.php:40
-#: tmp/twig-cache\61\61f8204b52f52958ed1258c1ed6c840edb0df62709879677b336757ae3d3305a.php:40
-msgid "Edit user: %s"
-msgstr "Benutzer bearbeiten: %s"
-
-#: templates\Home\home-index.js:6 src\Action\HomeIndexAction.php:72
-#: src\Action\HomeIndexAction.php:53
-msgid "Loading..."
-msgstr "Laden..."
-
-#: public/js\ajax.js:68
-msgid "Server error"
-msgstr "Server Error"
-
-#: src\Action\HomeIndexAction.php:56 src\Action\BaseAction.php:104
-#: src\Action\HomeIndexAction.php:37 src\Action\BaseAction.php:94
-#: src\Action\AbstractAction.php:95
-msgid "Yes"
-msgstr "Ja"
-
-#: src\Action\HomeIndexAction.php:56 src\Action\BaseAction.php:105
-#: src\Action\HomeIndexAction.php:37 src\Action\BaseAction.php:95
-#: src\Action\AbstractAction.php:96
-msgid "No"
-msgstr "Nein"
-
-#: src\Action\HomeIndexAction.php:71 src\Action\HomeLoadAction.php:53
-#: src\Action\HomeIndexAction.php:30 src\Action\HomeLoadAction.php:46
-#: src\Action\HomeLoadAction.php:47
-msgid "Loaded successfully!"
-msgstr "Erfolgreich gestartet!"
-
-#: src\Action\HomeIndexAction.php:73 src\Action\HomeIndexAction.php:54
-#: src\Action\HomeIndexAction.php:53
-msgid "Hello World"
-msgstr "Hallo Welt"
-
-#: src\Action\HomeIndexAction.php:74 src\Action\HomeIndexAction.php:55
-#: src\Action\HomeIndexAction.php:54 src\Action\HomeIndexAction.php:53
-#: templates\Home\home-index.js:49
-msgid "Current user"
-msgstr "Aktueller Benutzer"
-
-#: src\Action\HomeIndexAction.php:75 src\Action\HomeIndexAction.php:56
-#: src\Action\HomeIndexAction.php:55 src\Action\HomeIndexAction.php:54
-#: templates\Home\home-index.js:50
-msgid "User-ID"
-msgstr "Benutzer-ID"
-
-#: src\Action\HomeIndexAction.php:76
-#: tmp/twig-cache\67\67f1da55a6f007de3845dc3352441a295c814084495d5ac6a75d5e5f62cf59bf.php:88
-#: tmp/twig-cache\dd\dd48ccb7a4aa99212243bf9afaf802d148545811c972ca9d245a1002265178c0.php:68
-#: src\Action\HomeIndexAction.php:57
-#: tmp/twig-cache\33\33bd8e3a4d780e7e32ac1019e96be040f74873d07b35274e8468813dac382b72.php:56
-#: src\Action\HomeIndexAction.php:56 src\Action\HomeIndexAction.php:55
-#: src\Action\HomeLoadAction.php:53 templates\Home\home-index.js:51
-#: tmp/twig-cache\de\ded5aca2a2b326ed9cf6d83340e5b62aa1b7f8d3756db62f1bf9525bae2d5f5b.php:57
-msgid "Username"
-msgstr "Benutzername"
-
-#: src\Action\HomeIndexAction.php:77 src\Action\HomeIndexAction.php:58
-#: src\Action\HomeIndexAction.php:57 src\Action\HomeIndexAction.php:56
-#: src\Action\HomeLoadAction.php:54
-msgid "User ID"
-msgstr "Benutzer ID"
-
-#: src\Action\HomeIndexAction.php:78 src\Action\HomeIndexAction.php:59
-#: src\Action\HomeIndexAction.php:58 src\Action\HomeIndexAction.php:57
-#: src\Action\HomeLoadAction.php:55
-msgid "Current time"
-msgstr "Aktuelle Zeit"
-
-#: src\Action\HomeIndexAction.php:79 src\Action\HomeIndexAction.php:60
-#: src\Action\HomeIndexAction.php:59
-msgid "Message"
-msgstr "Meldung"
-
-#: src\Action\HomeIndexAction.php:80 src\Action\HomeIndexAction.php:61
-#: src\Action\HomeIndexAction.php:60
-msgid "Selected"
-msgstr "Markiert"
-
+#: tmp/twig-cache\31\3192226663b1c7e49f14c1f6a0934f3c2b64a96cc367fd150b16471fe3dd5256.php:76
 #: tmp/twig-cache\67\67f1da55a6f007de3845dc3352441a295c814084495d5ac6a75d5e5f62cf59bf.php:76
 msgid "User list"
 msgstr "Benutzerliste"
 
+#: tmp/twig-cache\31\3192226663b1c7e49f14c1f6a0934f3c2b64a96cc367fd150b16471fe3dd5256.php:80
 #: tmp/twig-cache\67\67f1da55a6f007de3845dc3352441a295c814084495d5ac6a75d5e5f62cf59bf.php:80
 msgid "Add user"
 msgstr "Benutzer hinzufügen"
 
+#: tmp/twig-cache\31\3192226663b1c7e49f14c1f6a0934f3c2b64a96cc367fd150b16471fe3dd5256.php:88
+#: src\Action\HomeIndexAction.php:76
+#: tmp/twig-cache\bf\bf7c2aa99309bb79fd3ebffcd7b93f47467ea0fa3752d853055b12519261cde5.php:68
+#: tmp/twig-cache\67\67f1da55a6f007de3845dc3352441a295c814084495d5ac6a75d5e5f62cf59bf.php:88
+#: tmp/twig-cache\dd\dd48ccb7a4aa99212243bf9afaf802d148545811c972ca9d245a1002265178c0.php:68
+#: src\Action\HomeIndexAction.php:57
+#: tmp/twig-cache\33\33bd8e3a4d780e7e32ac1019e96be040f74873d07b35274e8468813dac382b72.php:56
+#: src\Action\HomeIndexAction.php:56
+#: src\Action\HomeIndexAction.php:55
+#: src\Action\HomeLoadAction.php:53
+#: templates\Home\home-index.js:51
+#: tmp/twig-cache\de\ded5aca2a2b326ed9cf6d83340e5b62aa1b7f8d3756db62f1bf9525bae2d5f5b.php:57
+msgid "Username"
+msgstr "Benutzername"
+
+#: tmp/twig-cache\31\3192226663b1c7e49f14c1f6a0934f3c2b64a96cc367fd150b16471fe3dd5256.php:92
 #: tmp/twig-cache\67\67f1da55a6f007de3845dc3352441a295c814084495d5ac6a75d5e5f62cf59bf.php:92
 msgid "E-Mail"
 msgstr "E-Mail"
 
+#: tmp/twig-cache\31\3192226663b1c7e49f14c1f6a0934f3c2b64a96cc367fd150b16471fe3dd5256.php:96
 #: tmp/twig-cache\67\67f1da55a6f007de3845dc3352441a295c814084495d5ac6a75d5e5f62cf59bf.php:96
 msgid "First name"
 msgstr "Vorname"
 
+#: tmp/twig-cache\31\3192226663b1c7e49f14c1f6a0934f3c2b64a96cc367fd150b16471fe3dd5256.php:100
 #: tmp/twig-cache\67\67f1da55a6f007de3845dc3352441a295c814084495d5ac6a75d5e5f62cf59bf.php:100
 msgid "Last name"
 msgstr "Nachname"
 
+#: tmp/twig-cache\31\3192226663b1c7e49f14c1f6a0934f3c2b64a96cc367fd150b16471fe3dd5256.php:104
 #: tmp/twig-cache\67\67f1da55a6f007de3845dc3352441a295c814084495d5ac6a75d5e5f62cf59bf.php:104
 msgid "Role"
 msgstr "Rolle"
 
+#: tmp/twig-cache\31\3192226663b1c7e49f14c1f6a0934f3c2b64a96cc367fd150b16471fe3dd5256.php:108
 #: tmp/twig-cache\67\67f1da55a6f007de3845dc3352441a295c814084495d5ac6a75d5e5f62cf59bf.php:108
 msgid "Enabled"
 msgstr "Aktiviert"
 
+#: tmp/twig-cache\31\3192226663b1c7e49f14c1f6a0934f3c2b64a96cc367fd150b16471fe3dd5256.php:112
 #: tmp/twig-cache\67\67f1da55a6f007de3845dc3352441a295c814084495d5ac6a75d5e5f62cf59bf.php:112
 msgid "Created at"
 msgstr "Erstellt am"
 
+#: tmp/twig-cache\31\3192226663b1c7e49f14c1f6a0934f3c2b64a96cc367fd150b16471fe3dd5256.php:116
+#: tmp/twig-cache\d0\d0a703b1a9f715f6ca122b8328fcb210cc4dedbb7344b2d0cfe9d8c1baa20b34.php:138
 #: tmp/twig-cache\67\67f1da55a6f007de3845dc3352441a295c814084495d5ac6a75d5e5f62cf59bf.php:116
 #: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:139
 #: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:124
@@ -137,105 +78,108 @@ msgstr "Erstellt am"
 msgid "Action"
 msgstr "Aktion"
 
-#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:40
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:28
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:28
-msgid "en"
-msgstr "de"
+#: public/js\ajax.js:68
+msgid "Server error"
+msgstr "Server Error"
 
-#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:59
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:47
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:128
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:47
-msgid "Demo"
-msgstr "Demo"
+#: src\Action\HomeIndexAction.php:56
+#: src\Action\BaseAction.php:104
+#: src\Action\HomeIndexAction.php:37
+#: src\Action\BaseAction.php:94
+#: src\Action\AbstractAction.php:95
+msgid "Yes"
+msgstr "Ja"
 
-#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:99
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:84
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:37
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:86
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:183
-msgid "Project name"
-msgstr "Projektname"
+#: src\Action\HomeIndexAction.php:56
+#: src\Action\BaseAction.php:105
+#: src\Action\HomeIndexAction.php:37
+#: src\Action\BaseAction.php:95
+#: src\Action\AbstractAction.php:96
+msgid "No"
+msgstr "Nein"
 
-#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:104
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:89
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:42
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:91
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:175
-msgid "Toggle navigation"
-msgstr "Navigation umschalten"
+#: src\Action\HomeIndexAction.php:71
+#: src\Action\HomeLoadAction.php:53
+#: src\Action\HomeIndexAction.php:30
+#: src\Action\HomeLoadAction.php:46
+#: src\Action\HomeLoadAction.php:47
+msgid "Loaded successfully!"
+msgstr "Erfolgreich gestartet!"
 
-#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:114
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:99
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:52
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:101
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:190
-msgid "Home"
-msgstr "Home"
+#: src\Action\HomeIndexAction.php:72
+#: templates\Home\home-index.js:6
+#: src\Action\HomeIndexAction.php:53
+msgid "Loading..."
+msgstr "Laden..."
 
-#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:120
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:105
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:58
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:107
-msgid "Link"
-msgstr "Link"
+#: src\Action\HomeIndexAction.php:73
+#: tmp/twig-cache\ad\ade7f7cf4f0b50ca97e8fabc8a9dc31eef5893b4f56b29c395de1052566fbeae.php:71
+#: src\Action\HomeIndexAction.php:54
+#: src\Action\HomeIndexAction.php:53
+msgid "Hello World"
+msgstr "Hallo Welt"
 
-#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:126
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:111
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:64
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:113
-msgid "Disabled"
-msgstr "Deaktiviert"
+#: src\Action\HomeIndexAction.php:74
+#: src\Action\HomeIndexAction.php:55
+#: src\Action\HomeIndexAction.php:54
+#: src\Action\HomeIndexAction.php:53
+#: templates\Home\home-index.js:49
+msgid "Current user"
+msgstr "Aktueller Benutzer"
 
-#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:134
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:119
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:72
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:121
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:204
-msgid "Dropdown"
-msgstr "Dropdown"
+#: src\Action\HomeIndexAction.php:75
+#: src\Action\HomeIndexAction.php:56
+#: src\Action\HomeIndexAction.php:55
+#: src\Action\HomeIndexAction.php:54
+#: templates\Home\home-index.js:50
+msgid "User-ID"
+msgstr "Benutzer-ID"
 
-#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:143
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:128
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:81
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:130
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:213
-msgid "Another action"
-msgstr "Weitere Aktion"
+#: src\Action\HomeIndexAction.php:77
+#: tmp/twig-cache\ad\ade7f7cf4f0b50ca97e8fabc8a9dc31eef5893b4f56b29c395de1052566fbeae.php:80
+#: src\Action\HomeIndexAction.php:58
+#: src\Action\HomeIndexAction.php:57
+#: src\Action\HomeIndexAction.php:56
+#: src\Action\HomeLoadAction.php:54
+msgid "User ID"
+msgstr "Benutzer ID"
 
-#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:147
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:132
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:85
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:134
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:217
-msgid "Something else here"
-msgstr "Etwas anderes"
+#: src\Action\HomeIndexAction.php:78
+#: tmp/twig-cache\ad\ade7f7cf4f0b50ca97e8fabc8a9dc31eef5893b4f56b29c395de1052566fbeae.php:90
+#: src\Action\HomeIndexAction.php:59
+#: src\Action\HomeIndexAction.php:58
+#: src\Action\HomeIndexAction.php:57
+#: src\Action\HomeLoadAction.php:55
+msgid "Current time"
+msgstr "Aktuelle Zeit"
 
-#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:157
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:141
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:94
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:156
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:238
-msgid "Settings"
-msgstr "Einstellungen"
+#: src\Action\HomeIndexAction.php:79
+#: tmp/twig-cache\ad\ade7f7cf4f0b50ca97e8fabc8a9dc31eef5893b4f56b29c395de1052566fbeae.php:84
+#: src\Action\HomeIndexAction.php:60
+#: src\Action\HomeIndexAction.php:59
+msgid "Message"
+msgstr "Meldung"
 
-#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:164
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:146
-#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:99
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:160
-#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:242
-msgid "Logout"
-msgstr "Logout"
+#: src\Action\HomeIndexAction.php:80
+#: src\Action\HomeIndexAction.php:61
+#: src\Action\HomeIndexAction.php:60
+msgid "Selected"
+msgstr "Markiert"
 
-#: templates\User\user-index.js:10
-msgid "js/datatable-english.json"
-msgstr "js/datatable-german.json"
+#: tmp/twig-cache\6f\6f244b6eed38d20e1995ad7d30cbf4b96ec9d6875f953f6f09974d95771d8e92.php:52
+#: tmp/twig-cache\43\43660d601001bd5910fe32e9e64eef965cf055319b6109646a41fcc7b8183da1.php:52
+#: tmp/twig-cache\64\64d3d1525811e81ff6b090642fa38d6748cdee16d9e40fa8ae98283503b6e795.php:40
+#: tmp/twig-cache\61\61f8204b52f52958ed1258c1ed6c840edb0df62709879677b336757ae3d3305a.php:40
+msgid "Edit user: %s"
+msgstr "Benutzer bearbeiten: %s"
 
-#: templates\User\user-index.js:29
-msgid "Edit"
-msgstr "Bearbeiten"
+#: tmp/twig-cache\ad\ade7f7cf4f0b50ca97e8fabc8a9dc31eef5893b4f56b29c395de1052566fbeae.php:76
+#, fuzzy
+msgid "Users"
+msgstr ""
 
+#: tmp/twig-cache\bf\bf7c2aa99309bb79fd3ebffcd7b93f47467ea0fa3752d853055b12519261cde5.php:49
+#: tmp/twig-cache\bf\bf7c2aa99309bb79fd3ebffcd7b93f47467ea0fa3752d853055b12519261cde5.php:81
 #: tmp/twig-cache\dd\dd48ccb7a4aa99212243bf9afaf802d148545811c972ca9d245a1002265178c0.php:49
 #: tmp/twig-cache\dd\dd48ccb7a4aa99212243bf9afaf802d148545811c972ca9d245a1002265178c0.php:81
 #: tmp/twig-cache\33\33bd8e3a4d780e7e32ac1019e96be040f74873d07b35274e8468813dac382b72.php:37
@@ -245,23 +189,137 @@ msgstr "Bearbeiten"
 msgid "Sign in"
 msgstr "Einloggen"
 
+#: tmp/twig-cache\bf\bf7c2aa99309bb79fd3ebffcd7b93f47467ea0fa3752d853055b12519261cde5.php:64
 #: tmp/twig-cache\dd\dd48ccb7a4aa99212243bf9afaf802d148545811c972ca9d245a1002265178c0.php:64
 #: tmp/twig-cache\33\33bd8e3a4d780e7e32ac1019e96be040f74873d07b35274e8468813dac382b72.php:52
 #: tmp/twig-cache\de\ded5aca2a2b326ed9cf6d83340e5b62aa1b7f8d3756db62f1bf9525bae2d5f5b.php:53
 msgid "Please sign in"
 msgstr "Bitte einloggen"
 
+#: tmp/twig-cache\bf\bf7c2aa99309bb79fd3ebffcd7b93f47467ea0fa3752d853055b12519261cde5.php:72
 #: tmp/twig-cache\dd\dd48ccb7a4aa99212243bf9afaf802d148545811c972ca9d245a1002265178c0.php:72
 #: tmp/twig-cache\33\33bd8e3a4d780e7e32ac1019e96be040f74873d07b35274e8468813dac382b72.php:60
 #: tmp/twig-cache\de\ded5aca2a2b326ed9cf6d83340e5b62aa1b7f8d3756db62f1bf9525bae2d5f5b.php:61
 msgid "Password"
 msgstr "Kennwort"
 
+#: templates\User\user-index.js:10
+msgid "js/datatable-english.json"
+msgstr "js/datatable-german.json"
+
+#: templates\User\user-index.js:29
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: tmp/twig-cache\d0\d0a703b1a9f715f6ca122b8328fcb210cc4dedbb7344b2d0cfe9d8c1baa20b34.php:40
+#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:40
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:28
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:28
+msgid "en"
+msgstr "de"
+
+#: tmp/twig-cache\d0\d0a703b1a9f715f6ca122b8328fcb210cc4dedbb7344b2d0cfe9d8c1baa20b34.php:59
+#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:59
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:47
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:128
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:47
+msgid "Demo"
+msgstr "Demo"
+
+#: tmp/twig-cache\d0\d0a703b1a9f715f6ca122b8328fcb210cc4dedbb7344b2d0cfe9d8c1baa20b34.php:98
+#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:99
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:84
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:37
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:86
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:183
+msgid "Project name"
+msgstr "Projektname"
+
+#: tmp/twig-cache\d0\d0a703b1a9f715f6ca122b8328fcb210cc4dedbb7344b2d0cfe9d8c1baa20b34.php:103
+#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:104
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:89
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:42
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:91
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:175
+msgid "Toggle navigation"
+msgstr "Navigation umschalten"
+
+#: tmp/twig-cache\d0\d0a703b1a9f715f6ca122b8328fcb210cc4dedbb7344b2d0cfe9d8c1baa20b34.php:113
+#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:114
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:99
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:52
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:101
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:190
+msgid "Home"
+msgstr "Home"
+
+#: tmp/twig-cache\d0\d0a703b1a9f715f6ca122b8328fcb210cc4dedbb7344b2d0cfe9d8c1baa20b34.php:119
+#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:120
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:105
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:58
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:107
+msgid "Link"
+msgstr "Link"
+
+#: tmp/twig-cache\d0\d0a703b1a9f715f6ca122b8328fcb210cc4dedbb7344b2d0cfe9d8c1baa20b34.php:125
+#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:126
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:111
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:64
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:113
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+#: tmp/twig-cache\d0\d0a703b1a9f715f6ca122b8328fcb210cc4dedbb7344b2d0cfe9d8c1baa20b34.php:133
+#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:134
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:119
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:72
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:121
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:204
+msgid "Dropdown"
+msgstr "Dropdown"
+
+#: tmp/twig-cache\d0\d0a703b1a9f715f6ca122b8328fcb210cc4dedbb7344b2d0cfe9d8c1baa20b34.php:142
+#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:143
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:128
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:81
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:130
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:213
+msgid "Another action"
+msgstr "Weitere Aktion"
+
+#: tmp/twig-cache\d0\d0a703b1a9f715f6ca122b8328fcb210cc4dedbb7344b2d0cfe9d8c1baa20b34.php:146
+#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:147
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:132
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:85
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:134
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:217
+msgid "Something else here"
+msgstr "Etwas anderes"
+
+#: tmp/twig-cache\d0\d0a703b1a9f715f6ca122b8328fcb210cc4dedbb7344b2d0cfe9d8c1baa20b34.php:156
+#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:157
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:141
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:94
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:156
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:238
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: tmp/twig-cache\d0\d0a703b1a9f715f6ca122b8328fcb210cc4dedbb7344b2d0cfe9d8c1baa20b34.php:163
+#: tmp/twig-cache\97\973eb3a5b8bce85d2870f2950aa051186b7afc0db6ec1faf86ef7a5963ad27c1.php:164
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:146
+#: tmp/twig-cache\d8\d8ed95e55f6e025dfa5ac9fc42d9782545d605b49925a1f618b4eeae09d7c9bf.php:99
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:160
+#: tmp/twig-cache\e5\e5f4b339ac83b5b717026d19d89f9fdecad6f970038ead15d057f64fd47b29b2.php:242
+msgid "Logout"
+msgstr "Logout"
+
 #: public/js\d.datatable.js:220
 msgid "Page {page} / {pages}"
 msgstr "Seite {page} / {pages}"
 
-#: public/js\d.datatable.js:224 public/js\d.datatable.js:468
+#: public/js\d.datatable.js:224
+#: public/js\d.datatable.js:468
 msgid "{start} - {end} of {count} items"
 msgstr "{start} - {end} von {count} Einträgen"
 
@@ -269,11 +327,14 @@ msgstr "{start} - {end} von {count} Einträgen"
 msgid "Please enter the page number"
 msgstr "Geben Sie bitte die Seitennummer ein"
 
-#: public/js\d.datatable.js:248 public/js\d.js:1832
+#: public/js\d.datatable.js:248
+#: public/js\d.js:1832
 msgid "required"
 msgstr "erforderlich"
 
-#: public/js\d.datatable.js:251 public/js\d.js:1850 public/js\d.js:1859
+#: public/js\d.datatable.js:251
+#: public/js\d.js:1850
+#: public/js\d.js:1859
 msgid "invalid"
 msgstr "ungülig"
 
@@ -288,42 +349,57 @@ msgstr "Suchen"
 msgid "per Page"
 msgstr "pro Seite"
 
-#: public/js\d.js:1235 public/js\d.js:1293 public/js\d.js:1386
+#: public/js\d.js:1235
+#: public/js\d.js:1293
+#: public/js\d.js:1386
 msgid "OK"
 msgstr "OK"
 
-#: public/js\d.js:1300 public/js\d.js:1396 src\Action\BaseAction.php:103
-#: src\Action\BaseAction.php:93 src\Action\AbstractAction.php:94
+#: public/js\d.js:1300
+#: public/js\d.js:1396
+#: src\Action\BaseAction.php:103
+#: src\Action\BaseAction.php:93
+#: src\Action\AbstractAction.php:94
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: public/js\d.upload.js:188 public/js\d.upload.js:246
+#: public/js\d.upload.js:188
+#: public/js\d.upload.js:246
 msgid "The filetype is invalid"
 msgstr "Der Dateityp ist ungültig"
 
-#: public/js\d.upload.js:193 public/js\d.upload.js:251
+#: public/js\d.upload.js:193
+#: public/js\d.upload.js:251
 msgid "The file size exceeds the limit allowed"
 msgstr "Die Dateigrösse überschreitet das erlaubte Maximum."
 
-#: public/js\d.upload.js:198 public/js\d.upload.js:256
+#: public/js\d.upload.js:198
+#: public/js\d.upload.js:256
 msgid "The file could not be opened."
 msgstr "Die Datei konnte nicht gelesen werden."
 
-#: src\Domain\User\Auth.php:75 src\Domain\User\Auth.php:73
-#: src\Domain\User\Auth.php:74 src\Service\User\Auth.php:76
+#: src\Domain\User\Auth.php:76
+#: src\Domain\User\Auth.php:75
+#: src\Domain\User\Auth.php:73
+#: src\Domain\User\Auth.php:74
+#: src\Service\User\Auth.php:76
 msgid "Invalid or empty User-ID"
 msgstr "Ungültige oder leere User-ID"
 
-#: src\Domain\User\UserRepository.php:38 src\Table\UserTable.php:45
+#: src\Domain\User\UserRepository.php:62
+#: src\Domain\User\UserRepository.php:38
+#: src\Table\UserTable.php:45
 msgid "User not found: %s"
 msgstr "Benutzer nicht gefunden: %s"
 
+#: src\Repository\DataTableRepository.php:181
 #: src\Repository\DataTableRepository.php:166
 #: src\Repository\DataTableRepository.php:160
 msgid "Columns not found in table: %s"
 msgstr "Keine Felder gefunden in der Tabelle: %s"
 
-#: src\Type\TypeInspector.php:47 src\Type\BaseType.php:46
+#: src\Type\TypeInspector.php:47
+#: src\Type\BaseType.php:46
 #: src\Type\BaseType.php:43
 msgid "Invalid type ID: %s"
 msgstr "Ungültige Type-ID: %s"
