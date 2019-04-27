@@ -77,9 +77,12 @@ Full documentation of this application can be found here: <https://odan.github.i
 
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
 
+## Similar packages
 
-[PSR-1]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
-[PSR-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
-[PSR-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
-[Composer]: https://getcomposer.org/
-[PHPUnit]: https://phpunit.de/
+* https://github.com/odan/psr7-skeleton
+* https://github.com/gothinkster/slim-php-realworld-example-app
+* https://github.com/slimphp/Slim-Skeleton
+* https://github.com/dantodev/slim-skeleton
+* https://github.com/tuupola/slim-skeleton
+* https://github.com/akrabat/slim3-skeleton
+* https://github.com/l0gicgate/Slim-Skeleton/tree/4.x
