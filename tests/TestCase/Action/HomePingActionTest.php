@@ -30,7 +30,7 @@ class HomePingActionTest extends ApiTestCase
         //$status = $response->getStatusCode();
 
         $this->assertSame(200, $response->getStatusCode());
-        $this->assertSame('application/json;charset=utf-8', $response->getHeaderLine('Content-Type'));
+        $this->assertSame('application/json', $response->getHeaderLine('Content-Type'));
         $this->assertSame('{"username":"user","password":"user"}', $response->getBody()->__toString());
     }
 }
