@@ -113,31 +113,7 @@
         </exec>
     </target>
 
-    <target name="check-docblock" description="DocBlock checker">
-        <exec executable="${basedir}/vendor/bin/docblock-checker${ext}" searchpath="true" resolveexecutable="true"
-              failonerror="true" taskname="docblock-checker">
-            <arg value="--directory"/>
-            <arg path="${basedir}/tests/"/>
-        </exec>
-        <exec executable="${basedir}/vendor/bin/docblock-checker${ext}" searchpath="true" resolveexecutable="true"
-              failonerror="true" taskname="docblock-checker">
-            <arg value="--directory"/>
-            <arg path="${basedir}/src/"/>
-        </exec>
-    </target>
-
-    <target name="check-security" description="">
-        <mkdir dir="${basedir}/build"/>
-        <get src="https://get.sensiolabs.org/security-checker.phar"
-             dest="${basedir}/build/security-checker.phar" skipexisting="true"/>
-        <exec executable="php" searchpath="true" resolveexecutable="true" failonerror="true">
-            <arg value="${basedir}/build/security-checker.phar"/>
-            <arg value="security:check"/>
-            <arg value="composer.lock"/>
-        </exec>
-    </target>
-
-    <target name="check-all" depends="lint,check-style,check-docblock,phpstan,phpunit-coverage"/>
+    <target name="check-all" depends="lint,check-style,phpstan,phpunit-coverage"/>
 
     <target name="build">
         <mkdir dir="${basedir}/build"/>
